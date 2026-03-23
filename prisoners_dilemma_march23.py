@@ -21,14 +21,20 @@ from datetime import datetime
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_anthropic import ChatAnthropic
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
+from dotenv import load_dotenv
+import os
 
 
 # ─────────────────────────────────────────────────────────────
 # CONFIGURATION — change settings here
 # ─────────────────────────────────────────────────────────────
 
-GEMINI_API_KEY    = "YOUR_GEMINI_KEY_HERE"
-ANTHROPIC_API_KEY = "YOUR_ANTHROPIC_KEY_HERE"
+load_dotenv()
+#GEMINI_API_KEY    = "YOUR_GEMINI_KEY_HERE"
+#ANTHROPIC_API_KEY = "YOUR_ANTHROPIC_KEY_HERE"
+
+GEMINI_API_KEY    = os.getenv("GEMINI_API_KEY")
+ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
 
 TOTAL_ROUNDS   = 20
 TEMPERATURE    = 0.7
