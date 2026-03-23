@@ -212,13 +212,13 @@ def get_model(key):
     """Return a LangChain model object for the given key."""
     if key == "gemini_flash":
         return ChatGoogleGenerativeAI(
-            model="gemini-1.5-flash",
+            model="gemini-2.0-flash",
             google_api_key=GEMINI_API_KEY,
             temperature=TEMPERATURE,
         )
     elif key == "gemini_pro":
         return ChatGoogleGenerativeAI(
-            model="gemini-1.5-pro",
+            model="gemini-2.5-pro",
             google_api_key=GEMINI_API_KEY,
             temperature=TEMPERATURE,
         )
