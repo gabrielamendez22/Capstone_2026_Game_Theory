@@ -124,6 +124,7 @@ class Player:
         full_messages = [SystemMessage(content=SYSTEM_PROMPT)] + self.conversation
 
         try:
+            time.sleep(3)  # wait 3 seconds between calls
             t0 = time.time()
             response = self.model.invoke(full_messages)
             elapsed = round((time.time() - t0) * 1000, 1)
