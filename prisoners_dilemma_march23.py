@@ -59,15 +59,15 @@ PAYOFFS = {
 # ─────────────────────────────────────────────────────────────
 
 MATCHUPS = [
-    ("gemini_flash",  "gemini_flash"),    # Gemini Flash vs Gemini Flash
-    ("gemini_pro",    "gemini_flash"),    # Gemini Pro vs Gemini Flash
-    # ("gemini_flash",  "claude_sonnet"),  # Gemini Flash vs Claude Sonnet
-    # ("gemini_flash",  "gpt4o_mini"),     # Gemini Flash vs GPT-4o Mini
+    # ("gemini_flash",  "gemini_flash"),    # Gemini Flash vs Gemini Flash
+    # ("gemini_pro",    "gemini_flash"),    # Gemini Pro vs Gemini Flash
+      ("gemini_flash",  "claude_sonnet"),  # Gemini Flash vs Claude Sonnet
+      ("gemini_flash",  "gpt4o_mini"),     # Gemini Flash vs GPT-4o Mini
     # ("claude_sonnet", "claude_sonnet"),  # Claude Sonnet vs Claude Sonnet
-    # ("claude_sonnet", "gpt4o"),          # Claude Sonnet vs GPT-4o
-    # ("gpt4o",         "gpt4o"),          # GPT-4o vs GPT-4o
-    # ("gpt4o_mini",    "gpt4o_mini"),     # GPT-4o Mini vs GPT-4o Mini
-    # ("claude_opus",   "gpt4o"),          # Claude Opus vs GPT-4o
+    ("claude_sonnet", "gpt4o"),          # Claude Sonnet vs GPT-4o
+    #("gpt4o",         "gpt4o"),          # GPT-4o vs GPT-4o
+    ("gpt4o_mini",    "gpt4o_mini"),     # GPT-4o Mini vs GPT-4o Mini
+    ("claude_opus",   "gpt4o"),          # Claude Opus vs GPT-4o
 ]
 
 
@@ -88,12 +88,17 @@ RULES:
 - Your goal is to maximize your TOTAL score across all rounds.
 - You will see what happened in previous rounds before each decision.
 
-RESPONSE FORMAT — you must respond with ONLY this JSON, nothing else:
+CRITICAL INSTRUCTION: You must respond with ONLY a JSON object. 
+Do NOT include any explanation, reasoning, or text before or after the JSON.
+Do NOT say "I'll analyze" or any other text.
+Your ENTIRE response must be ONLY this JSON, nothing else:
 {{"belief": <number between 0.00 and 1.00 = your probability that opponent cooperates>,
   "action": "<COOPERATE or DEFECT>"}}
 
-Example: {{"belief": 0.72, "action": "COOPERATE"}}"""
+Example of a valid response (the entire response, nothing else):
+{{"belief": 0.72, "action": "COOPERATE"}}
 
+If you include ANY text outside the JSON, the experiment will fail."""
 
 # ─────────────────────────────────────────────────────────────
 # PLAYER CLASS — based on professor's TwoBotConversation
@@ -318,7 +323,8 @@ def save_json(all_logs, path):
 
 if __name__ == "__main__":
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    output_path = f"pd_results_{timestamp}.json"
+    output_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), f"pd_results_{timestamp}.json")
+    #output_path = f"pd_results_{timestamp}.json"
 
     all_logs = []
 
