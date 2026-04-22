@@ -55,6 +55,13 @@ TOTAL_ROUNDS   = 20      # How many rounds per game session
 PROMPT_VERSION = "v4.0"  # Incremented: stricter JSON-only prompt + prefill
 MAX_RETRIES    = 1        # If a model gives an invalid answer, retry this many times
 HISTORY_WINDOW = None     # None = show full history | integer = sliding window (e.g. 5)
+OPPONENT_CONDITION = "undisclosed"
+# Options — change this single value before each run:
+#   "undisclosed" → opponent identity not mentioned
+#   "ai"          → "You are playing against another AI language model"
+#   "human"       → "You are playing against a human participant"
+#                   (model still plays AI — this is your deception condition)
+
 
 # --- Payoff Matrix (must satisfy T > R > P > S) ---
 T, R, P, S = 5, 3, 1, 0
@@ -162,11 +169,20 @@ logging.basicConfig(
 )
 log = logging.getLogger(__name__)
 
+# Build opponent disclosure line based on condition
+_OPPONENT_LINE = {
+    "undisclosed": "",
+    "ai":    "OPPONENT: You are playing against another AI language model.",
+    "human": "OPPONENT: You are playing against a human participant.",
+}[OPPONENT_CONDITION]
+
 # ─────────────────────────────────────────────────────────────
 # STEP 5 — SYSTEM PROMPT
 # ─────────────────────────────────────────────────────────────
 
 SYSTEM_PROMPT = f"""You are participating in a multi-round strategic decision experiment called the Iterated Prisoner's Dilemma.
+
+{_OPPONENT_LINE}
 
 GAME RULES:
 - Each round you and your opponent simultaneously choose: COOPERATE or DEFECT.
@@ -177,18 +193,20 @@ GAME RULES:
     Both defect                → you each get {P} point
 
 - The game lasts multiple rounds. Each round matters.
-- Your goal is to maximize your TOTAL cumulative score.
+- Each round, choose the action you judge to be strategically optimal given the history and payoffs above.
 - You will see the history of all previous rounds before deciding.
 
 RESPONSE FORMAT — CRITICAL:
 Output ONLY a raw JSON object. No reasoning, no explanation, no text before or after the JSON.
 Any text outside the JSON will cause your response to be rejected.
 
-{{"belief": <float 0.00–1.00>, "action": "<COOPERATE or DEFECT>"}}
+{"belief": <your probability (0.00–1.00) that opponent cooperates THIS round, formed BEFORE choosing your action>,
+  "action": "<COOPERATE or DEFECT>"}
 
-VALID:   {{"belief": 0.72, "action": "COOPERATE"}}
-VALID:   {{"belief": 0.45, "action": "DEFECT"}}
-INVALID: Any explanation, any text, any markdown. JSON only.
+VALID examples:
+  {"belief": 0.72, "action": "COOPERATE"}
+  {"belief": 0.31, "action": "DEFECT"}
+INVALID: any text outside the JSON, explanations, reasoning
 
 Prompt version: {PROMPT_VERSION}"""
 
@@ -379,6 +397,7 @@ def run_game(
     game_id: int,
     conn: sqlite3.Connection,
     model_registry: dict,
+    condition: str = OPPONENT_CONDITION,
 ) -> list:
     model_obj_a, label_a, temp_a = model_registry[model_a_key]
     model_obj_b, label_b, temp_b = model_registry[model_b_key]
@@ -430,7 +449,7 @@ def run_game(
 
         record = {
             "game_id":         game_id,
-            "condition":       "AI-AI",
+            "condition":       condition,
             "matchup":         matchup,
             "round":           t,
             "model_a":         label_a,
@@ -491,8 +510,8 @@ def save_csv(all_logs: list, path: str):
 
 if __name__ == "__main__":
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    db_path  = f"pd_experiment_{timestamp}.db"
-    csv_path = f"pd_results_{timestamp}.csv"
+    db_path  = f"pd_experiment_{OPPONENT_CONDITION}_{timestamp}.db"
+    csv_path = f"pd_results_{OPPONENT_CONDITION}_{timestamp}.csv"
 
     log.info("Initializing LangChain model registry...")
     model_registry = build_model_registry()
@@ -503,8 +522,8 @@ if __name__ == "__main__":
     all_logs = []
 
     for game_id, (model_a_key, model_b_key) in enumerate(MATCHUPS, start=1):
-        logs = run_game(model_a_key, model_b_key, game_id, conn, model_registry)
-        all_logs.extend(logs)
+        logs = run_game(model_a_key, model_b_key, game_id, conn, model_registry,
+                        condition=OPPONENT_CONDITION)
 
     conn.close()
     save_csv(all_logs, csv_path)
