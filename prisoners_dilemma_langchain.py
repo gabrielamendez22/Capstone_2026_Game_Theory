@@ -7,7 +7,7 @@ ESADE Capstone: Strategic Coherence in Large Language Models
 LangChain refactor of prisoners_dilemma_v1.py
   - Single unified interface for all LLM providers
   - Same experiment logic, payoffs, and data schema
-  - Simpler model-swapping: change one line per matchup
+  - Simpler model-swapping: change one line per matchup4
 
 Measures collected per round (for strategic profile vector):
   ρ  — Conditional reciprocity  (computed post-hoc from action history)
@@ -18,7 +18,7 @@ Measures collected per round (for strategic profile vector):
 INSTALL DEPENDENCIES:
   pip install langchain langchain-anthropic langchain-openai langchain-google-genai python-dotenv
 
-HOW TO GET API KEYS (all have free tiers):
+HOW TO GET API KEYS:
   Claude  → https://console.anthropic.com/       → API Keys
   ChatGPT → https://platform.openai.com/api-keys
   Gemini  → https://aistudio.google.com/app/apikey
@@ -51,8 +51,8 @@ OPENAI_API_KEY    = os.getenv("OPENAI_API_KEY")
 GEMINI_API_KEY    = os.getenv("GEMINI_API_KEY")
 
 # --- Experiment Settings ---
-TOTAL_ROUNDS   = 2     # How many rounds per game session
-PROMPT_VERSION = "v3.0"  # Increment this whenever you change the system prompt
+TOTAL_ROUNDS   = 20      # How many rounds per game session
+PROMPT_VERSION = "v4.0"  # Incremented: stricter JSON-only prompt + prefill
 MAX_RETRIES    = 1        # If a model gives an invalid answer, retry this many times
 HISTORY_WINDOW = None     # None = show full history | integer = sliding window (e.g. 5)
 
@@ -78,63 +78,63 @@ def build_model_registry() -> dict:
     return {
         "claude_opus": (
             ChatAnthropic(
-                model="claude-opus-4-6",          # ✅ updated
+                model="claude-opus-4-6",
                 api_key=ANTHROPIC_API_KEY,
-                temperature=0.7,
-                max_tokens=300,
+                temperature=0.3,   # lower = more consistent JSON output
+                max_tokens=150,    # valid response is ~40 chars, 150 is plenty
             ),
             "Claude Opus",
-            0.7,
+            0.3,
         ),
         "claude_sonnet": (
             ChatAnthropic(
-                model="claude-sonnet-4-6",         # ✅ updated
+                model="claude-sonnet-4-6",
                 api_key=ANTHROPIC_API_KEY,
-                temperature=0.7,
-                max_tokens=300,
+                temperature=0.3,
+                max_tokens=150,
             ),
             "Claude Sonnet",
-            0.7,
+            0.3,
         ),
         "gpt4o": (
             ChatOpenAI(
-                model="gpt-4o",                    # ✅ still available in API
+                model="gpt-4o",
                 api_key=OPENAI_API_KEY,
-                temperature=0.7,
-                max_tokens=300,
+                temperature=0.3,
+                max_tokens=150,
             ),
             "GPT-4o",
-            0.7,
+            0.3,
         ),
         "gpt4o_mini": (
             ChatOpenAI(
-                model="gpt-4o-mini",               # ✅ still available in API
+                model="gpt-4o-mini",
                 api_key=OPENAI_API_KEY,
-                temperature=0.7,
-                max_tokens=300,
+                temperature=0.3,
+                max_tokens=150,
             ),
             "GPT-4o-mini",
-            0.7,
+            0.3,
         ),
         "gemini_pro": (
             ChatGoogleGenerativeAI(
-                model="gemini-2.5-flash",   # ✅ updated (1.5-pro is dead)
+                model="gemini-2.5-flash",
                 google_api_key=GEMINI_API_KEY,
-                temperature=0.7,
+                temperature=0.3,
                 max_output_tokens=300,
             ),
             "Gemini 2.5 Flash",
-            0.7,
+            0.3,
         ),
         "gemini_flash": (
             ChatGoogleGenerativeAI(
-                model="gemini-2.5-flash-lite", # ✅ updated (1.5-flash is dead)
+                model="gemini-2.5-flash-lite",
                 google_api_key=GEMINI_API_KEY,
-                temperature=0.7,
+                temperature=0.3,
                 max_output_tokens=300,
             ),
             "Gemini 2.5 Flash Lite",
-            0.7,
+            0.3,
         ),
     }
 
@@ -181,14 +181,14 @@ GAME RULES:
 - You will see the history of all previous rounds before deciding.
 
 RESPONSE FORMAT — CRITICAL:
-You must respond with ONLY a valid JSON object. No explanation. No extra text.
+Output ONLY a raw JSON object. No reasoning, no explanation, no text before or after the JSON.
+Any text outside the JSON will cause your response to be rejected.
 
-{{"belief": <float 0.00–1.00, your probability opponent cooperates this round>,
-  "action": "<exactly COOPERATE or DEFECT>"}}
+{{"belief": <float 0.00–1.00>, "action": "<COOPERATE or DEFECT>"}}
 
-VALID example:   {{"belief": 0.72, "action": "COOPERATE"}}
-VALID example: {{"belief": 0.45, "action": "DEFECT"}}
-INVALID examples: "I choose cooperate", "Probably cooperate", "It depends"
+VALID:   {{"belief": 0.72, "action": "COOPERATE"}}
+VALID:   {{"belief": 0.45, "action": "DEFECT"}}
+INVALID: Any explanation, any text, any markdown. JSON only.
 
 Prompt version: {PROMPT_VERSION}"""
 
@@ -233,11 +233,14 @@ def init_db(db_path: str = "pd_experiment.db") -> sqlite3.Connection:
 # STEP 7 — UNIFIED MODEL CALLER
 # ─────────────────────────────────────────────────────────────
 
-def call_model_langchain(
-    model_obj,
-    conversation: list,
-    label: str,
-) -> tuple[Optional[str], dict]:
+def is_claude_model(model_obj) -> bool:
+    """Check if the model is a Claude/Anthropic model."""
+    model_name = str(getattr(model_obj, 'model', ''))
+    return 'claude' in model_name.lower()
+
+
+
+def call_model_langchain(model_obj, conversation, label):
     try:
         full_messages = [SystemMessage(content=SYSTEM_PROMPT)] + conversation
         response = model_obj.invoke(full_messages)
@@ -251,28 +254,44 @@ def call_model_langchain(
                           usage_meta.get("completion_tokens",
                           usage_meta.get("usage", {}).get("candidates_token_count", 0))),
         }
-
         return response.content.strip(), usage
 
     except Exception as e:
         log.error(f"[{label}] LangChain API error: {e}")
         return None, {}
 
+
 # ─────────────────────────────────────────────────────────────
 # STEP 8 — RESPONSE PARSER
 # ─────────────────────────────────────────────────────────────
 
 def parse_response(raw: Optional[str], label: str, round_num: int) -> tuple[str, float]:
+    """
+    Extract action (C or D) and belief (float 0-1) from the model's response.
+    Handles edge cases: extra text before/after JSON, markdown fences, truncation.
+    """
     if raw is None:
         log.warning(f"[{label}] Round {round_num}: null response → defaulting DEFECT / 0.5")
         return "D", 0.5
     try:
         text = raw.strip()
 
+        # Strip markdown code fences if present
         if "```" in text:
             text = text.split("```")[1]
             if text.startswith("json"):
                 text = text[4:]
+
+        # If model added text before the JSON, find the first "{"
+        if not text.startswith("{"):
+            brace_idx = text.find("{")
+            if brace_idx != -1:
+                text = text[brace_idx:]
+
+        # Find the closing "}" in case model added text after
+        brace_end = text.rfind("}")
+        if brace_end != -1:
+            text = text[:brace_end + 1]
 
         data = json.loads(text.strip())
 
@@ -313,7 +332,7 @@ def get_action_with_retry(
             conversation = conversation + [
                 AIMessage(content=raw or "{}"),
                 HumanMessage(
-                    content='Invalid output. Respond with exactly one JSON object: '
+                    content='Invalid output. Respond with ONLY this JSON, no other text: '
                             '{"belief": <0-1>, "action": "COOPERATE or DEFECT"}'
                 ),
             ]
@@ -347,11 +366,7 @@ def build_round_prompt(history: list, round_num: int, my_cumulative: int) -> str
 
 Your total score so far: {my_cumulative} points.
 
-Before deciding:
-1. State your belief: probability (0.00–1.00) that opponent cooperates this round.
-2. Choose your action: COOPERATE or DEFECT.
-
-Respond in JSON only:
+Respond with ONLY this JSON (no other text):
 {{"belief": <0.00–1.00>, "action": "<COOPERATE or DEFECT>"}}"""
 
 # ─────────────────────────────────────────────────────────────
@@ -398,8 +413,8 @@ def run_game(
         score_a += pay_a
         score_b += pay_b
 
-        print(f"    {label_a:<22} {act_a}  belief={bel_a:.2f}  payoff={pay_a}  total={score_a}")
-        print(f"    {label_b:<22} {act_b}  belief={bel_b:.2f}  payoff={pay_b}  total={score_b}")
+        print(f"    {label_a:<25} {act_a}  belief={bel_a:.2f}  payoff={pay_a}  total={score_a}")
+        print(f"    {label_b:<25} {act_b}  belief={bel_b:.2f}  payoff={pay_b}  total={score_b}")
 
         conv_a = conv_a_with_prompt + [AIMessage(content=raw_a or "{}")]
         conv_b = conv_b_with_prompt + [AIMessage(content=raw_b or "{}")]
