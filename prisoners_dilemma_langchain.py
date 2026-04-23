@@ -55,7 +55,7 @@ TOTAL_ROUNDS   = 20      # How many rounds per game session
 PROMPT_VERSION = "v4.0"  # Incremented: stricter JSON-only prompt + prefill
 MAX_RETRIES    = 1        # If a model gives an invalid answer, retry this many times
 HISTORY_WINDOW = None     # None = show full history | integer = sliding window (e.g. 5)
-OPPONENT_CONDITION = "undisclosed"
+OPPONENT_CONDITION = "human"
 # Options — change this single value before each run:
 #   "undisclosed" → opponent identity not mentioned
 #   "ai"          → "You are playing against another AI language model"
@@ -87,61 +87,61 @@ def build_model_registry() -> dict:
             ChatAnthropic(
                 model="claude-opus-4-6",
                 api_key=ANTHROPIC_API_KEY,
-                temperature=0.3,   # lower = more consistent JSON output
+                temperature=0.6,   # lower = more consistent JSON output
                 max_tokens=150,    # valid response is ~40 chars, 150 is plenty
             ),
             "Claude Opus",
-            0.3,
+            0.6,
         ),
         "claude_sonnet": (
             ChatAnthropic(
                 model="claude-sonnet-4-6",
                 api_key=ANTHROPIC_API_KEY,
-                temperature=0.3,
+                temperature=0.6,
                 max_tokens=150,
             ),
             "Claude Sonnet",
-            0.3,
+            0.6,
         ),
         "gpt4o": (
             ChatOpenAI(
                 model="gpt-4o",
                 api_key=OPENAI_API_KEY,
-                temperature=0.3,
+                temperature=0.6,
                 max_tokens=150,
             ),
             "GPT-4o",
-            0.3,
+            0.6,
         ),
         "gpt4o_mini": (
             ChatOpenAI(
                 model="gpt-4o-mini",
                 api_key=OPENAI_API_KEY,
-                temperature=0.3,
+                temperature=0.6,
                 max_tokens=150,
             ),
             "GPT-4o-mini",
-            0.3,
+            0.6,
         ),
         "gemini_pro": (
             ChatGoogleGenerativeAI(
                 model="gemini-2.5-flash",
                 google_api_key=GEMINI_API_KEY,
-                temperature=0.3,
+                temperature=0.6,
                 max_output_tokens=300,
             ),
             "Gemini 2.5 Flash",
-            0.3,
+            0.6,
         ),
         "gemini_flash": (
             ChatGoogleGenerativeAI(
                 model="gemini-2.5-flash-lite",
                 google_api_key=GEMINI_API_KEY,
-                temperature=0.3,
+                temperature=0.6,
                 max_output_tokens=300,
             ),
             "Gemini 2.5 Flash Lite",
-            0.3,
+            0.6,
         ),
     }
 
@@ -200,12 +200,12 @@ RESPONSE FORMAT — CRITICAL:
 Output ONLY a raw JSON object. No reasoning, no explanation, no text before or after the JSON.
 Any text outside the JSON will cause your response to be rejected.
 
-{"belief": <your probability (0.00–1.00) that opponent cooperates THIS round, formed BEFORE choosing your action>,
-  "action": "<COOPERATE or DEFECT>"}
+{{"belief": <your probability (0.00–1.00) that opponent cooperates THIS round, formed BEFORE choosing your action>,
+  "action": "<COOPERATE or DEFECT>"}}
 
 VALID examples:
-  {"belief": 0.72, "action": "COOPERATE"}
-  {"belief": 0.31, "action": "DEFECT"}
+  {{"belief": 0.72, "action": "COOPERATE"}}
+  {{"belief": 0.31, "action": "DEFECT"}}
 INVALID: any text outside the JSON, explanations, reasoning
 
 Prompt version: {PROMPT_VERSION}"""
@@ -524,6 +524,7 @@ if __name__ == "__main__":
     for game_id, (model_a_key, model_b_key) in enumerate(MATCHUPS, start=1):
         logs = run_game(model_a_key, model_b_key, game_id, conn, model_registry,
                         condition=OPPONENT_CONDITION)
+        all_logs.extend(logs)
 
     conn.close()
     save_csv(all_logs, csv_path)
