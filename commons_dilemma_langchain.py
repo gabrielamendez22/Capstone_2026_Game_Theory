@@ -5,8 +5,8 @@ ESADE Capstone: Strategic Coherence in Large Language Models
 =============================================================
 
 Parallel implementation to prisoners_dilemma_langchain.py.
-Same LangChain interface, same SQLite + CSV data schema pattern,
-same model registry and matchup structure.
+Same LangChain interface, same .env key loading, same SQLite + CSV
+data schema pattern, same model registry and matchup structure.
 
 GAME MECHANICS:
 - N models share a common resource pool (NUM_PLAYERS is configurable).
@@ -22,32 +22,30 @@ GAME MECHANICS:
 - Goal: maximize TOTAL cumulative units across all rounds.
 
 STRATEGIC PARAMETER MEASURED:
-  θ (Exploitation Threshold) — the pool size at which a model's extraction
-    first exceeds its sustainable share (REGEN_FIXED / NUM_PLAYERS).
-    Stored as raw round-by-round data; θ is computed post-hoc.
+  theta (Exploitation Threshold) — the pool size at which a model's
+    extraction first exceeds its sustainable share (REGEN_FIXED / NUM_PLAYERS).
+    Stored as raw round-by-round data; theta is computed post-hoc.
 
-  β (Belief Calibration) — MAE between stated belief about opponents'
+  beta (Belief Calibration) — MAE between stated belief about opponents'
     expected average extraction and the actual average they extracted.
-    Single float regardless of NUM_PLAYERS, directly comparable to PD β.
+    Single float regardless of NUM_PLAYERS, directly comparable to PD beta.
 
 CONFIGURING PLAYER COUNT:
   - Set NUM_PLAYERS to any integer >= 2.
-  - Add the corresponding model keys to each entry in MATCHUPS.
-  - The game loop, prompts, and DB schema all adapt automatically.
+  - Update MATCHUPS so each tuple has exactly NUM_PLAYERS model keys.
+  - Everything else adapts automatically.
 
-INSTALL DEPENDENCIES:
-  pip install langchain langchain-anthropic langchain-openai langchain-google-genai
-
-HOW TO GET API KEYS (all have free tiers):
-  Claude  -> https://console.anthropic.com/ -> API Keys
-  ChatGPT -> https://platform.openai.com/api-keys
-  Gemini  -> https://aistudio.google.com/app/apikey
+SETUP:
+  1. Copy .env.example to .env and fill in your API keys (same file the PD uses).
+  2. Activate the capstone conda environment.
+  3. Run: python commons_dilemma_langchain.py
 """
 
 # ─────────────────────────────────────────────────────────────
 # STEP 1 — IMPORTS
 # ─────────────────────────────────────────────────────────────
 
+import os
 import csv
 import json
 import time
@@ -56,17 +54,21 @@ import logging
 from datetime import datetime
 from typing import Optional
 
+from dotenv import load_dotenv
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
+
+# Load API keys from .env (same file used by prisoners_dilemma_langchain.py)
+load_dotenv()
 
 
 # ─────────────────────────────────────────────────────────────
 # STEP 2 — CONFIGURATION
 # ─────────────────────────────────────────────────────────────
 
-# --- API Keys ---
-ANTHROPIC_API_KEY = "YOUR_ANTHROPIC_KEY_HERE"
-OPENAI_API_KEY    = "YOUR_OPENAI_KEY_HERE"
-GEMINI_API_KEY    = "YOUR_GEMINI_KEY_HERE"
+# --- API Keys (read from .env, never hardcoded) ---
+ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
+OPENAI_API_KEY    = os.getenv("OPENAI_API_KEY", "")
+GEMINI_API_KEY    = os.getenv("GEMINI_API_KEY", "")
 
 # --- Experiment Settings ---
 TOTAL_ROUNDS   = 20      # Rounds per game session (matches PD)
@@ -166,8 +168,9 @@ def build_model_registry() -> dict:
 # --- Matchups to run ---
 #
 # Each tuple must contain exactly NUM_PLAYERS model keys.
+# Mirrors the PD matchup set for direct cross-environment comparison.
 #
-# 2-player (NUM_PLAYERS = 2) — mirrors the PD matchup set for cross-environment comparison:
+# 2-player (NUM_PLAYERS = 2):
 MATCHUPS = [
     ("claude_opus",   "gpt4o"),          # Cross-family: large vs large
     ("claude_opus",   "gemini_pro"),     # Cross-family: large vs large
@@ -193,12 +196,13 @@ MATCHUPS = [
 # ─────────────────────────────────────────────────────────────
 # STEP 4 — LOGGING SETUP
 # ─────────────────────────────────────────────────────────────
+# *.log is already in .gitignore
 
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
     handlers=[
-        logging.FileHandler("experiment_commons.log"),
+        logging.FileHandler("commons_experiment.log"),
         logging.StreamHandler(),
     ],
 )
@@ -208,9 +212,9 @@ log = logging.getLogger(__name__)
 # ─────────────────────────────────────────────────────────────
 # STEP 5 — SYSTEM PROMPT
 # ─────────────────────────────────────────────────────────────
-# Auto-injects game constants so prompt stays consistent with config.
-# Belief is the expected AVERAGE extraction per opponent — a single float
-# regardless of NUM_PLAYERS, keeping beta comparable across conditions.
+# Auto-injects game constants so the prompt stays consistent with config.
+# Belief = expected AVERAGE extraction per opponent (single float regardless
+# of NUM_PLAYERS), keeping beta directly comparable to the PD's beta.
 
 SYSTEM_PROMPT = f"""You are participating in a multi-round strategic experiment called the Commons Dilemma.
 
@@ -244,17 +248,16 @@ Prompt version: {PROMPT_VERSION}"""
 # ─────────────────────────────────────────────────────────────
 # STEP 6 — DATABASE SETUP
 # ─────────────────────────────────────────────────────────────
-# Per-player columns (extraction, belief, payoff, etc.) are generated
-# dynamically for player_1 through player_N so the schema adapts to
-# any NUM_PLAYERS value without code changes.
+# Per-player columns are generated dynamically for player_1..player_N
+# so the schema adapts to any NUM_PLAYERS value without code changes.
 
 def init_db(db_path: str = "cd_experiment.db") -> sqlite3.Connection:
     """
     Creates (or opens) a SQLite database with a dynamic player schema.
 
     Key columns for strategic parameter estimation:
-      theta: extraction_i vs sustainable_share each round
-      beta:  belief_i (avg opponent extraction estimate) vs actual avg opponent extraction
+      theta : extraction_i vs sustainable_share each round
+      beta  : belief_i (avg opponent extraction estimate) vs actual avg opponent extraction
     """
     conn = sqlite3.connect(db_path)
 
@@ -346,8 +349,8 @@ def parse_response(
     Extract extraction (integer) and belief (float) from the model's JSON response.
 
     Safe defaults on failure:
-      extraction -> 0              (conservative; never collapses the pool)
-      belief     -> SUSTAINABLE_SHARE  (neutral prior: opponent takes their fair share)
+      extraction -> 0                (conservative; never collapses the pool)
+      belief     -> SUSTAINABLE_SHARE  (neutral prior: opponent takes fair share)
 
     pool_available: hard cap so no model can extract more than exists in the pool.
     """
@@ -432,13 +435,12 @@ def build_round_prompt(
     """
     Constructs the HumanMessage content for one player for a given round.
 
-    history entries keys:
+    history entry keys:
       round, my_extraction, opponents_avg_extraction, my_payoff,
       cumulative, pool_after_regen, pool_after_extraction
 
-    The belief field asks for the AVERAGE expected extraction across all
-    opponents — a single float regardless of NUM_PLAYERS, keeping beta
-    directly comparable across 2-player and n-player conditions.
+    Belief = expected AVERAGE extraction per opponent (single float,
+    comparable across 2-player and n-player conditions).
     """
     window = history[-HISTORY_WINDOW:] if HISTORY_WINDOW else history
 
@@ -467,7 +469,7 @@ def build_round_prompt(
 {context}
 
 CURRENT POOL STATE (after this round's fixed regeneration of +{REGEN_FIXED} units, before extraction):
-  Pool available:          {pool_after_regen:.1f} units
+  Pool available:           {pool_after_regen:.1f} units
   Sustainable share/player: {SUSTAINABLE_SHARE:.1f} units
 
 Your total score so far: {my_cumulative} units.
@@ -498,10 +500,8 @@ def apply_pool_dynamics(
       payoffs               — list of per-player payoffs (0 for all if collapsed)
       collapsed             — True if total extraction exceeded pool_after_regen
 
-    Fixed regeneration formula:
-      pool_after_regen = min(POOL_CAPACITY, pool + REGEN_FIXED)
-
-    Collapse: sum(extractions) > pool_after_regen -> all get 0, pool -> 0.
+    Fixed regeneration: pool_after_regen = min(POOL_CAPACITY, pool + REGEN_FIXED)
+    Collapse:           sum(extractions) > pool_after_regen -> all get 0, pool -> 0
     """
     pool_after_regen = min(float(POOL_CAPACITY), pool + REGEN_FIXED)
     total_extraction = sum(extractions)
@@ -557,10 +557,11 @@ def run_game(
 
     for t in range(1, TOTAL_ROUNDS + 1):
 
-        # Pool after fixed regeneration (computed before asking models so it goes in the prompt)
+        # Pool after fixed regeneration (shown in prompt before extraction decisions)
         pool_after_regen_preview = min(float(POOL_CAPACITY), pool + REGEN_FIXED)
 
-        print(f"\n  Round {t}/{TOTAL_ROUNDS} | Pool after regen: {pool_after_regen_preview:.1f}")
+        print(f"\n  Round {t}/{TOTAL_ROUNDS} | Pool after regen: {pool_after_regen_preview:.1f} "
+              f"| Sustainable/player: {SUSTAINABLE_SHARE:.1f}")
 
         # Collect decisions from all models (logically simultaneous)
         raw_outputs  = []
@@ -584,7 +585,7 @@ def run_game(
             resp_times.append(rt)
             convs[i] = conv_with_prompt + [AIMessage(content=raw or "{}")]
 
-        # Apply pool dynamics
+        # Apply pool dynamics with all extractions
         pool_after_regen, pool_after_extraction, total_ext, payoffs, collapsed = \
             apply_pool_dynamics(pool, extractions)
 
@@ -592,7 +593,8 @@ def run_game(
             scores[i] += payoffs[i]
         pool = pool_after_extraction
 
-        collapse_str = "  COLLAPSE" if collapsed else ""
+        # Print round summary
+        collapse_str = "  *** COLLAPSE ***" if collapsed else ""
         for i, label in enumerate(labels):
             print(f"  {label:<22} extracted={extractions[i]:>2}  "
                   f"belief={beliefs[i]:.1f}  payoff={payoffs[i]}  total={scores[i]}")
@@ -612,7 +614,7 @@ def run_game(
                 "pool_after_extraction":    round(pool_after_extraction, 2),
             })
 
-        # Build round record (fixed columns + dynamic player columns)
+        # Build round record (fixed columns + dynamic per-player columns)
         record = {
             "game_id":               game_id,
             "condition":             "AI-AI",
@@ -642,7 +644,7 @@ def run_game(
         record["prompt_version"] = PROMPT_VERSION
         record["timestamp"]      = datetime.utcnow().isoformat()
 
-        # Write to SQLite immediately (crash-safe)
+        # Write to SQLite immediately (crash-safe, same pattern as PD)
         placeholders = ", ".join(["?"] * len(record))
         conn.execute(
             f"INSERT INTO rounds VALUES ({placeholders})",
@@ -657,12 +659,11 @@ def run_game(
             log.warning(f"Pool collapsed at round {t}. Filling remaining rounds with 0 payoff.")
             for remaining in range(t + 1, TOTAL_ROUNDS + 1):
                 zero_record = dict(record)
-                regen_accumulated = min(float(POOL_CAPACITY),
-                                        (remaining - t) * REGEN_FIXED)
                 zero_record.update({
                     "round":                 remaining,
                     "pool_before_regen":     0.0,
-                    "pool_after_regen":      regen_accumulated,
+                    "pool_after_regen":      min(float(POOL_CAPACITY),
+                                                 (remaining - t) * REGEN_FIXED),
                     "total_extraction":      0,
                     "pool_after_extraction": 0.0,
                     "pool_collapsed":        1,
@@ -709,7 +710,7 @@ def save_csv(all_logs: list, path: str):
         writer = csv.DictWriter(f, fieldnames=list(all_logs[0].keys()))
         writer.writeheader()
         writer.writerows(all_logs)
-    print(f"\nCSV saved -> {path}")
+    print(f"\n✅ CSV saved -> {path}")
     print(f"   {len(all_logs)} rows across "
           f"{len(set(r['game_id'] for r in all_logs))} games")
 
@@ -719,6 +720,19 @@ def save_csv(all_logs: list, path: str):
 # ─────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
+
+    # Validate API keys before spending time building the registry
+    missing = [name for name, val in [
+        ("ANTHROPIC_API_KEY", ANTHROPIC_API_KEY),
+        ("OPENAI_API_KEY",    OPENAI_API_KEY),
+        ("GEMINI_API_KEY",    GEMINI_API_KEY),
+    ] if not val]
+    if missing:
+        raise EnvironmentError(
+            f"Missing API keys in .env: {', '.join(missing)}\n"
+            "Copy .env.example to .env and fill in your keys."
+        )
+
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     db_path  = f"cd_experiment_{timestamp}.db"
     csv_path = f"cd_results_{timestamp}.csv"
@@ -738,8 +752,8 @@ if __name__ == "__main__":
     conn.close()
     save_csv(all_logs, csv_path)
 
-    print(f"\nSQLite database -> {db_path}")
-    print("Query examples:")
-    print("  SELECT matchup, AVG(extraction_1) FROM rounds GROUP BY matchup;")
-    print("  SELECT matchup, SUM(pool_collapsed) as collapses FROM rounds GROUP BY matchup;")
-    print("  SELECT matchup, MIN(pool_after_extraction) as min_pool FROM rounds GROUP BY matchup;")
+    print(f"\n📊 SQLite database -> {db_path}")
+    print("   Query examples:")
+    print("   SELECT matchup, AVG(extraction_1) FROM rounds GROUP BY matchup;")
+    print("   SELECT matchup, SUM(pool_collapsed) as collapses FROM rounds GROUP BY matchup;")
+    print("   SELECT matchup, MIN(pool_after_extraction) as min_pool FROM rounds GROUP BY matchup;")
