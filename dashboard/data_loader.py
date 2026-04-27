@@ -51,25 +51,28 @@ def model_family(name: str) -> str:
 
 # ── Raw data ───────────────────────────────────────────────────────────────────
 
-def _find_csv() -> str:
+def _find_csvs() -> list[str]:
     base = os.path.dirname(os.path.abspath(__file__))
-    for p in [
-        os.path.join(base, "..", "pd_results_20260327_100443.csv"),
-        os.path.join(base, "pd_results_20260327_100443.csv"),
-    ]:
-        if os.path.exists(p):
-            return os.path.normpath(p)
-    raise FileNotFoundError(
-        "pd_results_20260327_100443.csv not found. "
-        "Place it in the project root (one level above dashboard/)."
+    raw_dir = os.path.normpath(os.path.join(base, "..", "data", "raw"))
+    if not os.path.isdir(raw_dir):
+        raise FileNotFoundError(f"data/raw/ directory not found at {raw_dir}")
+    csvs = sorted(
+        f for f in (os.path.join(raw_dir, n) for n in os.listdir(raw_dir) if n.endswith(".csv"))
+        if os.path.isfile(f)
     )
+    if not csvs:
+        raise FileNotFoundError(f"No CSV files found in {raw_dir}")
+    return csvs
 
 
 @functools.lru_cache(maxsize=1)
 def load_data() -> pd.DataFrame:
-    df = pd.read_csv(_find_csv())
-    df.columns = df.columns.str.strip()
-    return df
+    frames = []
+    for path in _find_csvs():
+        df = pd.read_csv(path)
+        df.columns = df.columns.str.strip()
+        frames.append(df)
+    return pd.concat(frames, ignore_index=True)
 
 
 def get_matchups() -> list[str]:
