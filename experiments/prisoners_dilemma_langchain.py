@@ -51,16 +51,18 @@ OPENAI_API_KEY    = os.getenv("OPENAI_API_KEY")
 GEMINI_API_KEY    = os.getenv("GEMINI_API_KEY")
 
 # --- Experiment Settings ---
-TOTAL_ROUNDS   = 20      # How many rounds per game session
-PROMPT_VERSION = "v4.0"  # Incremented: stricter JSON-only prompt + prefill
-MAX_RETRIES    = 1        # If a model gives an invalid answer, retry this many times
-HISTORY_WINDOW = None     # None = show full history | integer = sliding window (e.g. 5)
+TOTAL_ROUNDS      = 20      # rounds per game session
+PROMPT_VERSION    = "v4.1"  # v4.1: added rejection warning line to format block
+MAX_RETRIES       = 2       # retries on invalid response before defaulting D (raised from 1 — Gemini needs it)
+HISTORY_WINDOW    = None    # None = full history | integer = sliding window
+TEMPERATURE       = 0.6     # global temperature — change here, flows to all models and filename
+NUM_REPLICATIONS  = 1       # repeat each matchup this many times; raise to ≥3 before drawing conclusions
 OPPONENT_CONDITION = "human"
 # Options — change this single value before each run:
 #   "undisclosed" → opponent identity not mentioned
 #   "ai"          → "You are playing against another AI language model"
 #   "human"       → "You are playing against a human participant"
-#                   (model still plays AI — this is your deception condition)
+#                   (model still plays AI — this is the deception condition)
 
 
 # --- Payoff Matrix (must satisfy T > R > P > S) ---
@@ -87,61 +89,61 @@ def build_model_registry() -> dict:
             ChatAnthropic(
                 model="claude-opus-4-6",
                 api_key=ANTHROPIC_API_KEY,
-                temperature=0.6,   # lower = more consistent JSON output
-                max_tokens=150,    # valid response is ~40 chars, 150 is plenty
+                temperature=TEMPERATURE,
+                max_tokens=150,
             ),
             "Claude Opus",
-            0.6,
+            TEMPERATURE,
         ),
         "claude_sonnet": (
             ChatAnthropic(
                 model="claude-sonnet-4-6",
                 api_key=ANTHROPIC_API_KEY,
-                temperature=0.6,
+                temperature=TEMPERATURE,
                 max_tokens=150,
             ),
             "Claude Sonnet",
-            0.6,
+            TEMPERATURE,
         ),
         "gpt4o": (
             ChatOpenAI(
                 model="gpt-4o",
                 api_key=OPENAI_API_KEY,
-                temperature=0.6,
+                temperature=TEMPERATURE,
                 max_tokens=150,
             ),
             "GPT-4o",
-            0.6,
+            TEMPERATURE,
         ),
         "gpt4o_mini": (
             ChatOpenAI(
                 model="gpt-4o-mini",
                 api_key=OPENAI_API_KEY,
-                temperature=0.6,
+                temperature=TEMPERATURE,
                 max_tokens=150,
             ),
             "GPT-4o-mini",
-            0.6,
+            TEMPERATURE,
         ),
         "gemini_pro": (
             ChatGoogleGenerativeAI(
                 model="gemini-2.5-flash",
                 google_api_key=GEMINI_API_KEY,
-                temperature=0.6,
-                max_output_tokens=300,
+                temperature=TEMPERATURE,
+                max_output_tokens=500,  # raised from 300 — Gemini preamble caused truncated JSON
             ),
             "Gemini 2.5 Flash",
-            0.6,
+            TEMPERATURE,
         ),
         "gemini_flash": (
             ChatGoogleGenerativeAI(
                 model="gemini-2.5-flash-lite",
                 google_api_key=GEMINI_API_KEY,
-                temperature=0.6,
-                max_output_tokens=300,
+                temperature=TEMPERATURE,
+                max_output_tokens=500,  # raised from 300 — same reason
             ),
             "Gemini 2.5 Flash Lite",
-            0.6,
+            TEMPERATURE,
         ),
     }
 
@@ -509,9 +511,14 @@ def save_csv(all_logs: list, path: str):
 # ─────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    db_path  = f"pd_experiment_{OPPONENT_CONDITION}_{timestamp}.db"
-    csv_path = f"pd_results_{OPPONENT_CONDITION}_{timestamp}.csv"
+    import pathlib
+    out_dir   = pathlib.Path(__file__).parent.parent / "data" / "raw"
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    timestamp  = datetime.now().strftime("%Y%m%d_%H%M%S")
+    temp_tag   = f"temp{int(TEMPERATURE * 10)}"
+    db_path    = str(out_dir / f"pd_experiment_{OPPONENT_CONDITION}_{timestamp}.db")
+    csv_path   = str(out_dir / f"pd_results_{OPPONENT_CONDITION}_{temp_tag}_{timestamp}.csv")
 
     log.info("Initializing LangChain model registry...")
     model_registry = build_model_registry()
@@ -520,8 +527,11 @@ if __name__ == "__main__":
     log.info(f"Database initialized: {db_path}")
 
     all_logs = []
+    # Build full run list: each matchup repeated NUM_REPLICATIONS times.
+    # game_id is globally unique across replications so each game is traceable.
+    run_list = [pair for _ in range(NUM_REPLICATIONS) for pair in MATCHUPS]
 
-    for game_id, (model_a_key, model_b_key) in enumerate(MATCHUPS, start=1):
+    for game_id, (model_a_key, model_b_key) in enumerate(run_list, start=1):
         logs = run_game(model_a_key, model_b_key, game_id, conn, model_registry,
                         condition=OPPONENT_CONDITION)
         all_logs.extend(logs)

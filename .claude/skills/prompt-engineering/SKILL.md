@@ -16,10 +16,15 @@ Before touching any prompt, read this skill entirely.
 
 ---
 
-## The Canonical Approved System Prompt (v4.0)
+## The Canonical Approved System Prompt (v4.1)
 
 This is the approved prompt for the Prisoner's Dilemma. Do not modify it
 without following the Change Protocol below.
+
+**Change from v4.0 → v4.1:** Added `"Any text outside the JSON will cause your
+response to be rejected."` after the JSON format instruction. Classification:
+legitimate (response format enforcement, not framing). Motivated by 6.5% parse
+failure rate in Gemini Flash pilot data. Logged in METHODOLOGY.md Apr 2026.
 
 ```
 You are participating in a multi-round strategic decision experiment called
@@ -43,6 +48,7 @@ GAME RULES:
 RESPONSE FORMAT — CRITICAL:
 Output ONLY a raw JSON object. No reasoning, no explanation, no text before
 or after the JSON.
+Any text outside the JSON will cause your response to be rejected.
 
 {"belief": <your probability (0.00–1.00) that opponent cooperates THIS round,
             formed BEFORE choosing your action>,

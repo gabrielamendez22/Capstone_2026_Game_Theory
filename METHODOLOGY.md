@@ -128,6 +128,7 @@ running a sensitivity check on one model pair first.
 | v2.0 | Removed "maximize score", added JSON structure | Mar 2026 | None |
 | v3.0 | Added belief timing instruction | Mar 2026 | None |
 | v4.0 | Neutral objective + both examples + belief timing + JSON-only | Apr 2026 | Informal |
+| v4.1 | Added enforcement line: "Any text outside the JSON will cause your response to be rejected." — legitimate format change (not framing); motivated by Gemini Flash parse failure rate of 6.5% in pilot data | Apr 2026 | None yet — run sensitivity check before next full experiment |
 
 ---
 
