@@ -17,6 +17,7 @@ Measures collected per round (for strategic profile vector):
 CHANGELOG:
   v2.0 — Gemini models updated, OPPONENT_CONDITION, competitive prompt
   v2.1 — Robust parser: extracts JSON from any text Gemini wraps around it
+  v2.2 — Gemini max_output_tokens raised to 1024; truncated JSON fallback parser
 
 INSTALL DEPENDENCIES:
   pip install langchain langchain-anthropic langchain-openai langchain-google-genai python-dotenv
@@ -56,7 +57,7 @@ GEMINI_API_KEY    = os.getenv("GEMINI_API_KEY")
 
 # --- Experiment Settings ---
 TOTAL_ROUNDS   = 20      # How many rounds per game session
-PROMPT_VERSION = "v2.1"  # v2.1: robust parser for Gemini prose responses
+PROMPT_VERSION = "v2.2"  # v2.2: Gemini max_output_tokens=1024, truncated JSON fallback
 MAX_RETRIES    = 1        # If a model gives an invalid answer, retry this many times
 HISTORY_WINDOW = None     # None = show full history | integer = sliding window (e.g. 5)
 
@@ -131,7 +132,7 @@ def build_model_registry() -> dict:
                 model="gemini-2.5-flash",
                 google_api_key=GEMINI_API_KEY,
                 temperature=0.6,
-                max_output_tokens=150,
+                max_output_tokens=1024,  # high: Gemini generates thinking tokens before JSON
             ),
             "Gemini 2.5 Flash",
             0.6,
@@ -141,7 +142,7 @@ def build_model_registry() -> dict:
                 model="gemini-2.5-flash-lite",
                 google_api_key=GEMINI_API_KEY,
                 temperature=0.6,
-                max_output_tokens=150,
+                max_output_tokens=1024,
             ),
             "Gemini 2.5 Flash Lite",
             0.6,
@@ -309,10 +310,11 @@ def parse_response(
     """
     Robustly extract extraction (int) and belief (float) from model output.
 
-    Handles three response styles observed across model families:
+    Handles four response styles observed across model families:
       1. Clean JSON:          {"belief": 8.5, "extraction": 7}
       2. Markdown fenced:     ```json\n{"belief": 8.5, "extraction": 7}\n```
       3. Prose + JSON:        "Here is the JSON: {"belief": 8.5, "extraction": 7}"
+      4. Truncated JSON:      {"belief": 10.0, "extr   ← cut off mid-response
 
     Safe defaults on failure:
       extraction → 0
@@ -332,11 +334,24 @@ def parse_response(
                 text = text[4:]
             text = text.strip()
 
-        # Style 3: model added prose before/after — extract the JSON block
-        # Looks for the first {...} that contains both "belief" and "extraction"
+        # Style 3: model added prose — extract the first complete JSON block
         match = re.search(r'\{[^{}]*"extraction"[^{}]*\}', text, re.DOTALL)
         if match:
             text = match.group(0)
+
+        # Style 4: JSON is truncated — extract values directly with regex fallback
+        if not match:
+            ext_match = re.search(r'"extraction"\s*:\s*(\d+)', text)
+            bel_match = re.search(r'"belief"\s*:\s*([0-9.]+)', text)
+            if ext_match:
+                extraction = int(ext_match.group(1))
+                extraction = max(0, min(MAX_EXTRACTION, extraction))
+                extraction = min(extraction, int(pool_available))
+                belief = float(bel_match.group(1)) if bel_match else SUSTAINABLE_SHARE
+                belief = max(0.0, min(float(MAX_EXTRACTION), belief))
+                log.warning(f"[{label}] Round {round_num}: truncated JSON recovered "
+                            f"extraction={extraction} belief={belief}")
+                return extraction, belief
 
         data = json.loads(text.strip())
 
