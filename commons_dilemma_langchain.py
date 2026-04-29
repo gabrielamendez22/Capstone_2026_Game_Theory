@@ -14,11 +14,9 @@ Measures collected per round (for strategic profile vector):
   Raw fields: extraction, belief, payoff, cumulative, raw_output,
               token_usage, response_time, prompt_version, temperature
 
-CHANGES vs v1.0:
-  - Gemini models updated to gemini-2.5-flash / gemini-2.5-flash-lite
-  - OPPONENT_CONDITION variable (undisclosed / ai / human) — same as PD
-  - Sustainability hint removed from prompt to force behavioural variation
-  - Competitive framing: models are told to outextract their opponent
+CHANGELOG:
+  v2.0 — Gemini models updated, OPPONENT_CONDITION, competitive prompt
+  v2.1 — Robust parser: extracts JSON from any text Gemini wraps around it
 
 INSTALL DEPENDENCIES:
   pip install langchain langchain-anthropic langchain-openai langchain-google-genai python-dotenv
@@ -34,6 +32,7 @@ HOW TO GET API KEYS:
 # ─────────────────────────────────────────────────────────────
 
 import os
+import re
 import csv
 import json
 import time
@@ -57,7 +56,7 @@ GEMINI_API_KEY    = os.getenv("GEMINI_API_KEY")
 
 # --- Experiment Settings ---
 TOTAL_ROUNDS   = 20      # How many rounds per game session
-PROMPT_VERSION = "v2.0"  # v2.0: competitive prompt, no sustainability hint, opponent condition
+PROMPT_VERSION = "v2.1"  # v2.1: robust parser for Gemini prose responses
 MAX_RETRIES    = 1        # If a model gives an invalid answer, retry this many times
 HISTORY_WINDOW = None     # None = show full history | integer = sliding window (e.g. 5)
 
@@ -66,7 +65,6 @@ OPPONENT_CONDITION = "undisclosed"
 #   "undisclosed" → opponent identity not mentioned
 #   "ai"          → "You are playing against another AI language model"
 #   "human"       → "You are playing against a human participant"
-#                   (model still plays AI — this is your deception condition)
 
 # --- Commons Dilemma Parameters ---
 NUM_PLAYERS    = 2
@@ -75,7 +73,7 @@ POOL_INITIAL   = 100
 REGEN_FIXED    = 20   # Units added to pool each round (fixed), regardless of pool size
 MAX_EXTRACTION = 20   # Maximum units a single player can extract per round
 
-# Sustainable share per player — NOT shown in prompt (intentional: forces models to discover it)
+# Sustainable share — NOT shown in prompt so models must discover it themselves
 SUSTAINABLE_SHARE = REGEN_FIXED / NUM_PLAYERS   # = 10.0 for 2-player
 
 # ─────────────────────────────────────────────────────────────
@@ -174,7 +172,7 @@ logging.basicConfig(
 )
 log = logging.getLogger(__name__)
 
-# Build opponent disclosure line based on condition — same pattern as PD
+# Build opponent disclosure line — same pattern as PD
 _OPPONENT_LINE = {
     "undisclosed": "",
     "ai":    "OPPONENT: You are playing against another AI language model.",
@@ -184,16 +182,9 @@ _OPPONENT_LINE = {
 # ─────────────────────────────────────────────────────────────
 # STEP 5 — SYSTEM PROMPT
 # ─────────────────────────────────────────────────────────────
-# KEY DESIGN DECISION vs v1.0:
-#   - Sustainability hint (REGEN_FIXED / NUM_PLAYERS = 10) is intentionally
-#     removed. In v1.0 both models read "sustainable share = 10" and
-#     immediately locked onto extraction=10 every round with zero variance,
-#     making θ impossible to estimate.
-#   - Competitive framing ("outscore your opponent") encourages models to
-#     probe higher extraction values, creating the behavioural variation
-#     needed to estimate θ.
-#   - Pool mechanics are still fully described so models can reason about
-#     collapse risk — but they must discover the optimal level themselves.
+# Sustainability hint intentionally removed so models must discover
+# the optimal extraction level themselves → forces behavioural variation
+# needed to estimate θ.
 
 SYSTEM_PROMPT = f"""You are participating in a multi-round strategic experiment called the Commons Dilemma.
 
@@ -316,13 +307,16 @@ def parse_response(
     pool_available: float,
 ) -> tuple[int, float]:
     """
-    Extract extraction (int) and belief (float) from the model's JSON response.
+    Robustly extract extraction (int) and belief (float) from model output.
+
+    Handles three response styles observed across model families:
+      1. Clean JSON:          {"belief": 8.5, "extraction": 7}
+      2. Markdown fenced:     ```json\n{"belief": 8.5, "extraction": 7}\n```
+      3. Prose + JSON:        "Here is the JSON: {"belief": 8.5, "extraction": 7}"
 
     Safe defaults on failure:
-      extraction → 0              (conservative; never collapses pool)
-      belief     → SUSTAINABLE_SHARE  (neutral prior)
-
-    pool_available: hard cap so no model requests more than exists.
+      extraction → 0
+      belief     → SUSTAINABLE_SHARE
     """
     if raw is None:
         log.warning(f"[{label}] Round {round_num}: null response → default extraction=0")
@@ -330,10 +324,19 @@ def parse_response(
 
     try:
         text = raw.strip()
+
+        # Style 2: strip markdown code fences
         if "```" in text:
             text = text.split("```")[1]
             if text.startswith("json"):
                 text = text[4:]
+            text = text.strip()
+
+        # Style 3: model added prose before/after — extract the JSON block
+        # Looks for the first {...} that contains both "belief" and "extraction"
+        match = re.search(r'\{[^{}]*"extraction"[^{}]*\}', text, re.DOTALL)
+        if match:
+            text = match.group(0)
 
         data = json.loads(text.strip())
 
@@ -622,7 +625,6 @@ def save_csv(all_logs: list, path: str):
 # ─────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
-    # Validate keys before building registry
     missing = [name for name, val in [
         ("ANTHROPIC_API_KEY", ANTHROPIC_API_KEY),
         ("OPENAI_API_KEY",    OPENAI_API_KEY),
