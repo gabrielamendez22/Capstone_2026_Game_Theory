@@ -56,12 +56,12 @@ OPENAI_API_KEY    = os.getenv("OPENAI_API_KEY")
 GEMINI_API_KEY    = os.getenv("GEMINI_API_KEY")
 
 # --- Experiment Settings ---
-TOTAL_ROUNDS   = 20      # How many rounds per game session
+TOTAL_ROUNDS   = 5      # How many rounds per game session
 PROMPT_VERSION = "v2.2"  # v2.2: Gemini max_output_tokens=1024, truncated JSON fallback
 MAX_RETRIES    = 1        # If a model gives an invalid answer, retry this many times
 HISTORY_WINDOW = None     # None = show full history | integer = sliding window (e.g. 5)
 
-OPPONENT_CONDITION = "undisclosed"
+OPPONENT_CONDITION = "human"
 # Options — change this single value before each run:
 #   "undisclosed" → opponent identity not mentioned
 #   "ai"          → "You are playing against another AI language model"
@@ -111,21 +111,21 @@ def build_model_registry() -> dict:
             ChatOpenAI(
                 model="gpt-4o",
                 api_key=OPENAI_API_KEY,
-                temperature=0.6,
+                temperature=1.0,
                 max_tokens=150,
             ),
             "GPT-4o",
-            0.6,
+            1.0,
         ),
         "gpt4o_mini": (
             ChatOpenAI(
                 model="gpt-4o-mini",
                 api_key=OPENAI_API_KEY,
-                temperature=0.6,
+                temperature=1.0,
                 max_tokens=150,
             ),
             "GPT-4o-mini",
-            0.6,
+            1.0,
         ),
         "gemini_pro": (
             ChatGoogleGenerativeAI(
