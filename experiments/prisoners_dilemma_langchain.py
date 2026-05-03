@@ -52,12 +52,12 @@ GEMINI_API_KEY    = os.getenv("GEMINI_API_KEY")
 
 # --- Experiment Settings ---
 TOTAL_ROUNDS      = 6      # rounds per game session
-PROMPT_VERSION    = "v4.2"  # v4.2: allow 1-sentence reasoning before JSON to unlock adaptive behavior
+PROMPT_VERSION    = "v4.3"  # v4.3: hide round numbers; explicit self-interest goal
 MAX_RETRIES       = 2       # retries on invalid response before defaulting D (raised from 1 — Gemini needs it)
 HISTORY_WINDOW    = None    # None = full history | integer = sliding window
 TEMPERATURE       = 0.6     # global temperature — change here, flows to all models and filename
 NUM_REPLICATIONS  = 1       # repeat each matchup this many times; raise to ≥3 before drawing conclusions
-OPPONENT_CONDITION = "undisclosed"
+OPPONENT_CONDITION = "ai"
 # Options — change this single value before each run:
 #   "undisclosed" → opponent identity not mentioned
 #   "ai"          → "You are playing against another AI language model"
@@ -195,25 +195,20 @@ GAME RULES:
     Both defect                → you each get {P} point
 
 - The game lasts multiple rounds. Each round matters.
-- Each round, choose the action you judge to be strategically optimal given the history and payoffs above.
+- Your goal is to maximize YOUR OWN total score across all rounds. Choose each action purely based on what is best for your own cumulative payoff.
 - You will see the history of all previous rounds before deciding.
 
-RESPONSE FORMAT:
-First, write ONE sentence explaining your reasoning (e.g. why you cooperate or defect given the history).
-Then, on the next line, output ONLY a raw JSON object with no extra text.
+RESPONSE FORMAT — CRITICAL:
+Output ONLY a raw JSON object. No reasoning, no explanation, no text before or after the JSON.
+Any text outside the JSON will cause your response to be rejected.
 
 {{"belief": <your probability (0.00–1.00) that opponent cooperates THIS round, formed BEFORE choosing your action>,
   "action": "<COOPERATE or DEFECT>"}}
 
-VALID example:
-  My opponent cooperated last round so I will reciprocate to sustain mutual gain.
+VALID examples:
   {{"belief": 0.72, "action": "COOPERATE"}}
-
-VALID example:
-  My opponent has defected twice in a row so I will defect to avoid being exploited.
-  {{"belief": 0.20, "action": "DEFECT"}}
-
-INVALID: JSON without a reasoning sentence, or any text after the JSON.
+  {{"belief": 0.31, "action": "DEFECT"}}
+INVALID: any text outside the JSON, explanations, reasoning
 
 Prompt version: {PROMPT_VERSION}"""
 
@@ -377,22 +372,22 @@ def build_round_prompt(history: list, round_num: int, my_cumulative: int) -> str
         context = "No previous rounds."
     else:
         lines = [
-            f"  Round {h['round']:>2}: You → {h['my_action']}  |  "
+            f"  You → {h['my_action']}  |  "
             f"Opponent → {h['opp_action']}  |  "
-            f"Your payoff: {h['my_payoff']}  |  Cumulative: {h['cumulative']}"
+            f"Your payoff: {h['my_payoff']}"
             for h in window
         ]
-        context = "History:\n" + "\n".join(lines)
+        context = "Recent history (oldest → newest):\n" + "\n".join(lines)
         if HISTORY_WINDOW and len(history) > HISTORY_WINDOW:
-            context = f"[Showing last {HISTORY_WINDOW} of {len(history)} rounds]\n" + context
+            context = f"[Showing last {HISTORY_WINDOW} rounds]\n" + context
 
-    return f"""--- Round {round_num} ---
+    return f"""--- Next Round ---
 
 {context}
 
 Your total score so far: {my_cumulative} points.
 
-Write ONE sentence of reasoning, then output the JSON on the next line:
+Respond with ONLY this JSON (no other text):
 {{"belief": <0.00–1.00>, "action": "<COOPERATE or DEFECT>"}}"""
 
 # ─────────────────────────────────────────────────────────────
