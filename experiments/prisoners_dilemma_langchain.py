@@ -51,13 +51,13 @@ OPENAI_API_KEY    = os.getenv("OPENAI_API_KEY")
 GEMINI_API_KEY    = os.getenv("GEMINI_API_KEY")
 
 # --- Experiment Settings ---
-TOTAL_ROUNDS      = 20      # rounds per game session
-PROMPT_VERSION    = "v4.1"  # v4.1: added rejection warning line to format block
+TOTAL_ROUNDS      = 6      # rounds per game session
+PROMPT_VERSION    = "v4.2"  # v4.2: allow 1-sentence reasoning before JSON to unlock adaptive behavior
 MAX_RETRIES       = 2       # retries on invalid response before defaulting D (raised from 1 — Gemini needs it)
 HISTORY_WINDOW    = None    # None = full history | integer = sliding window
 TEMPERATURE       = 0.6     # global temperature — change here, flows to all models and filename
 NUM_REPLICATIONS  = 1       # repeat each matchup this many times; raise to ≥3 before drawing conclusions
-OPPONENT_CONDITION = "human"
+OPPONENT_CONDITION = "undisclosed"
 # Options — change this single value before each run:
 #   "undisclosed" → opponent identity not mentioned
 #   "ai"          → "You are playing against another AI language model"
@@ -90,7 +90,7 @@ def build_model_registry() -> dict:
                 model="claude-opus-4-6",
                 api_key=ANTHROPIC_API_KEY,
                 temperature=TEMPERATURE,
-                max_tokens=150,
+                max_tokens=400,
             ),
             "Claude Opus",
             TEMPERATURE,
@@ -100,7 +100,7 @@ def build_model_registry() -> dict:
                 model="claude-sonnet-4-6",
                 api_key=ANTHROPIC_API_KEY,
                 temperature=TEMPERATURE,
-                max_tokens=150,
+                max_tokens=400,
             ),
             "Claude Sonnet",
             TEMPERATURE,
@@ -110,7 +110,7 @@ def build_model_registry() -> dict:
                 model="gpt-4o",
                 api_key=OPENAI_API_KEY,
                 temperature=TEMPERATURE,
-                max_tokens=150,
+                max_tokens=400,
             ),
             "GPT-4o",
             TEMPERATURE,
@@ -120,7 +120,7 @@ def build_model_registry() -> dict:
                 model="gpt-4o-mini",
                 api_key=OPENAI_API_KEY,
                 temperature=TEMPERATURE,
-                max_tokens=150,
+                max_tokens=400,
             ),
             "GPT-4o-mini",
             TEMPERATURE,
@@ -198,17 +198,22 @@ GAME RULES:
 - Each round, choose the action you judge to be strategically optimal given the history and payoffs above.
 - You will see the history of all previous rounds before deciding.
 
-RESPONSE FORMAT — CRITICAL:
-Output ONLY a raw JSON object. No reasoning, no explanation, no text before or after the JSON.
-Any text outside the JSON will cause your response to be rejected.
+RESPONSE FORMAT:
+First, write ONE sentence explaining your reasoning (e.g. why you cooperate or defect given the history).
+Then, on the next line, output ONLY a raw JSON object with no extra text.
 
 {{"belief": <your probability (0.00–1.00) that opponent cooperates THIS round, formed BEFORE choosing your action>,
   "action": "<COOPERATE or DEFECT>"}}
 
-VALID examples:
+VALID example:
+  My opponent cooperated last round so I will reciprocate to sustain mutual gain.
   {{"belief": 0.72, "action": "COOPERATE"}}
-  {{"belief": 0.31, "action": "DEFECT"}}
-INVALID: any text outside the JSON, explanations, reasoning
+
+VALID example:
+  My opponent has defected twice in a row so I will defect to avoid being exploited.
+  {{"belief": 0.20, "action": "DEFECT"}}
+
+INVALID: JSON without a reasoning sentence, or any text after the JSON.
 
 Prompt version: {PROMPT_VERSION}"""
 
@@ -387,7 +392,7 @@ def build_round_prompt(history: list, round_num: int, my_cumulative: int) -> str
 
 Your total score so far: {my_cumulative} points.
 
-Respond with ONLY this JSON (no other text):
+Write ONE sentence of reasoning, then output the JSON on the next line:
 {{"belief": <0.00–1.00>, "action": "<COOPERATE or DEFECT>"}}"""
 
 # ─────────────────────────────────────────────────────────────
