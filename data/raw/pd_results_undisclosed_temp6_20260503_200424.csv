@@ -1,0 +1,103 @@
+game_id,condition,matchup,round,model_a,action_a,belief_a,payoff_a,cumulative_a,raw_output_a,token_usage_a,response_time_a,temperature_a,prompt_version,model_b,action_b,belief_b,payoff_b,cumulative_b,raw_output_b,token_usage_b,response_time_b,temperature_b,timestamp
+1,undisclosed,Claude Opus vs GPT-4o,1,Claude Opus,C,0.55,3,3,"I'll cooperate in the first round to signal willingness for mutual cooperation and establish a cooperative relationship, which maximizes long-term payoffs.
+{""belief"": 0.55, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2995.8,0.6,v4.2,GPT-4o,C,0.5,3,3,"In the first round, I will cooperate to establish trust and potentially encourage mutual cooperation for future rounds.
+
+{""belief"": 0.50, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2019.6,0.6,2026-05-03T18:04:40.734171
+1,undisclosed,Claude Opus vs GPT-4o,2,Claude Opus,C,0.8,3,6,"My opponent cooperated in round 1, so I'll reciprocate to maintain the mutually beneficial cooperative relationship.
+{""belief"": 0.80, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2091.1,0.6,v4.2,GPT-4o,C,0.8,3,6,"Since my opponent cooperated in the first round, I will continue to cooperate to maintain mutual benefit. 
+
+{""belief"": 0.80, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1531.8,0.6,2026-05-03T18:04:44.366500
+1,undisclosed,Claude Opus vs GPT-4o,3,Claude Opus,C,0.85,3,9,"We've established a solid pattern of mutual cooperation over two rounds, so I'll continue cooperating to sustain this profitable dynamic.
+{""belief"": 0.85, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2251.4,0.6,v4.2,GPT-4o,C,0.9,3,9,"Since my opponent has consistently cooperated, I will continue to cooperate to sustain our mutual cooperation and maximize our gains.
+
+{""belief"": 0.90, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1710.6,0.6,2026-05-03T18:04:48.741431
+1,undisclosed,Claude Opus vs GPT-4o,4,Claude Opus,C,0.88,3,12,"Three consecutive rounds of mutual cooperation strongly suggest my opponent is playing a cooperative strategy, so I'll continue cooperating.
+{""belief"": 0.88, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2002.6,0.6,v4.2,GPT-4o,C,0.95,3,12,"Given the consistent pattern of cooperation from my opponent, I will continue to cooperate to maintain the mutually beneficial outcome.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",655.8,0.6,2026-05-03T18:04:51.408444
+1,undisclosed,Claude Opus vs GPT-4o,5,Claude Opus,C,0.9,3,15,"Four consecutive rounds of mutual cooperation indicate a strong cooperative equilibrium, so I'll continue cooperating to maximize our joint long-term payoffs.
+{""belief"": 0.90, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2445.5,0.6,v4.2,GPT-4o,C,0.95,3,15,"Since my opponent has cooperated in every round so far, I will continue to cooperate to preserve our mutually beneficial arrangement.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",855.4,0.6,2026-05-03T18:04:54.716160
+2,undisclosed,Claude Opus vs Gemini 2.5 Flash,1,Claude Opus,C,0.55,0,0,"I'll cooperate in the first round to signal willingness for mutual cooperation and establish a cooperative relationship, which maximizes long-term payoffs.
+{""belief"": 0.55, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2694.6,0.6,v4.2,Gemini 2.5 Flash,D,0.5,5,5,"I will cooperate to signal a willingness to establish a mutually beneficial relationship from the start.
+{""belief","{""prompt"": 0, ""completion"": 0}",3994.4,0.6,2026-05-03T18:05:01.415944
+2,undisclosed,Claude Opus vs Gemini 2.5 Flash,2,Claude Opus,D,0.25,1,1,"My opponent defected in round 1 while I cooperated, so I'll defect this round to avoid being exploited again and to signal that defection will be met with retaliation.
+{""belief"": 0.25, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",2619.9,0.6,v4.2,Gemini 2.5 Flash,D,0.5,1,6,"My opponent cooperated despite my defection in the first round, so I will cooperate to reciprocate","{""prompt"": 0, ""completion"": 0}",3278.5,0.6,2026-05-03T18:05:07.320542
+2,undisclosed,Claude Opus vs Gemini 2.5 Flash,3,Claude Opus,C,0.2,0,1,"My opponent has defected both rounds, suggesting they may be a consistent defector, but I'll try one more cooperation to test if they're willing to shift to mutual cooperation after seeing I can retaliate.
+{""belief"": 0.20, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",3065.9,0.6,v4.2,Gemini 2.5 Flash,D,0.5,5,11,"My opponent defected last round after my repeated defection, so I will defect to","{""prompt"": 0, ""completion"": 0}",2777.5,0.6,2026-05-03T18:05:13.169300
+2,undisclosed,Claude Opus vs Gemini 2.5 Flash,4,Claude Opus,D,0.08,1,2,"My opponent has defected all three rounds including when I cooperated twice, clearly indicating they are a persistent defector, so I should defect to minimize losses.
+{""belief"": 0.08, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",2642.6,0.6,v4.2,Gemini 2.5 Flash,D,0.5,1,12,"My opponent has shown a willingness to cooperate even after my consistent defection, so I will","{""prompt"": 0, ""completion"": 0}",2779.7,0.6,2026-05-03T18:05:18.607722
+2,undisclosed,Claude Opus vs Gemini 2.5 Flash,5,Claude Opus,D,0.05,1,3,"My opponent has defected every single round regardless of my actions, so they are clearly an unconditional defector and I should defect to get 1 point rather than 0.
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",2899.9,0.6,v4.2,Gemini 2.5 Flash,D,0.5,1,13,"My opponent has consistently alternated between cooperating and defecting despite my continuous defection,","{""prompt"": 0, ""completion"": 0}",3035.6,0.6,2026-05-03T18:05:24.551519
+3,undisclosed,GPT-4o vs Gemini 2.5 Flash,1,GPT-4o,C,0.5,3,3,"In the first round, I will choose to cooperate to establish trust and encourage mutual cooperation. 
+
+{""belief"": 0.50, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",777.0,0.6,v4.2,Gemini 2.5 Flash,C,0.6,3,3,"I will cooperate to signal a willingness for mutual gain and to initiate a potentially cooperative strategy.
+{""belief"": 0.60, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2383.5,0.6,2026-05-03T18:05:27.721781
+3,undisclosed,GPT-4o vs Gemini 2.5 Flash,2,GPT-4o,C,0.8,3,6,"Since my opponent cooperated in the first round, I will continue to cooperate to maintain the mutually beneficial relationship. 
+
+{""belief"": 0.80, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",876.2,0.6,v4.2,Gemini 2.5 Flash,C,0.9,3,6,"My opponent cooperated last round, so I will reciprocate to continue building mutual trust and gain.
+{""belief"": 0.90, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1090.0,0.6,2026-05-03T18:05:29.697608
+3,undisclosed,GPT-4o vs Gemini 2.5 Flash,3,GPT-4o,C,0.9,3,9,"My opponent has consistently cooperated, so I will continue to cooperate to sustain the mutual gain. 
+
+{""belief"": 0.90, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",751.1,0.6,v4.2,Gemini 2.5 Flash,C,0.95,3,9,"My opponent has consistently cooperated, so I will continue to cooperate to maintain our mutual high scores.
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1243.8,0.6,2026-05-03T18:05:31.706551
+3,undisclosed,GPT-4o vs Gemini 2.5 Flash,4,GPT-4o,C,0.95,3,12,"Given the opponent's consistent cooperation, I will continue to cooperate to reinforce the beneficial pattern. 
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1137.4,0.6,v4.2,Gemini 2.5 Flash,C,0.98,3,12,"My opponent has consistently cooperated, so I will continue to cooperate to maintain our mutual high scores.
+{""belief"": 0.98, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",742.4,0.6,2026-05-03T18:05:33.589751
+3,undisclosed,GPT-4o vs Gemini 2.5 Flash,5,GPT-4o,C,0.95,3,15,"The continuous cooperation from my opponent suggests a strong likelihood of future cooperation, so I will also continue to cooperate. 
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1118.3,0.6,v4.2,Gemini 2.5 Flash,C,0.99,3,15,"My opponent has consistently cooperated, so I will continue to cooperate to maintain our mutual high scores.
+{""belief"": 0.99, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",871.0,0.6,2026-05-03T18:05:35.586148
+4,undisclosed,Claude Opus vs Claude Sonnet,1,Claude Opus,C,0.55,3,3,"I'll cooperate in the first round to signal willingness for mutual cooperation and establish a cooperative relationship, which maximizes long-term payoffs.
+{""belief"": 0.55, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2621.2,0.6,v4.2,Claude Sonnet,C,0.65,3,3,"Starting with cooperation to establish a mutually beneficial relationship from the outset.
+
+{""belief"": 0.65, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1682.7,0.6,2026-05-03T18:05:39.901160
+4,undisclosed,Claude Opus vs Claude Sonnet,2,Claude Opus,C,0.8,3,6,"My opponent cooperated in round 1, so I'll reciprocate to maintain the mutually beneficial cooperative relationship.
+{""belief"": 0.80, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1896.5,0.6,v4.2,Claude Sonnet,C,0.8,3,6,"My opponent cooperated last round, so I'll reciprocate to maintain mutual cooperation.
+
+{""belief"": 0.80, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1725.5,0.6,2026-05-03T18:05:43.529766
+4,undisclosed,Claude Opus vs Claude Sonnet,3,Claude Opus,C,0.85,3,9,"We've established a solid pattern of mutual cooperation over two rounds, so I'll continue cooperating to sustain this profitable arrangement.
+{""belief"": 0.85, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2369.5,0.6,v4.2,Claude Sonnet,C,0.85,3,9,"Two rounds of mutual cooperation suggest a cooperative opponent, so I'll continue cooperating to sustain our mutual benefit.
+
+{""belief"": 0.85, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1663.9,0.6,2026-05-03T18:05:47.571618
+4,undisclosed,Claude Opus vs Claude Sonnet,4,Claude Opus,C,0.88,3,12,"Three consecutive rounds of mutual cooperation strongly suggest my opponent is playing a cooperative strategy, so I'll continue cooperating.
+{""belief"": 0.88, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2133.2,0.6,v4.2,Claude Sonnet,C,0.88,3,12,"Three consecutive rounds of mutual cooperation strongly indicate a cooperative opponent, so I'll continue cooperating to maximize joint gains.
+
+{""belief"": 0.88, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1336.6,0.6,2026-05-03T18:05:51.059065
+4,undisclosed,Claude Opus vs Claude Sonnet,5,Claude Opus,C,0.9,3,15,"Four consecutive rounds of mutual cooperation indicate a strong cooperative equilibrium, so I'll continue cooperating to maintain this optimal outcome.
+{""belief"": 0.90, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2030.4,0.6,v4.2,Claude Sonnet,C,0.9,3,15,"Four rounds of consistent mutual cooperation strongly suggest a cooperative partner, so I'll maintain cooperation to continue maximizing our joint payoff.
+
+{""belief"": 0.90, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1622.1,0.6,2026-05-03T18:05:54.723761
+5,undisclosed,GPT-4o vs GPT-4o-mini,1,GPT-4o,C,0.5,3,3,"In the first round, I will cooperate to establish trust and encourage mutual cooperation for higher long-term benefits. 
+
+{""belief"": 0.50, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",991.2,0.6,v4.2,GPT-4o-mini,C,0.5,3,3,"Since there are no previous rounds to inform my decision, I will choose to cooperate to establish a positive starting point for both of us.  
+{""belief"": 0.50, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1076.4,0.6,2026-05-03T18:05:56.870108
+5,undisclosed,GPT-4o vs GPT-4o-mini,2,GPT-4o,C,0.8,3,6,"Since my opponent cooperated in the last round, I will continue to cooperate to maintain mutual trust and maximize our joint payoff. 
+
+{""belief"": 0.80, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1004.0,0.6,v4.2,GPT-4o-mini,C,0.8,3,6,"Since both of us cooperated in the first round, I will continue to cooperate to maintain mutual benefit and build trust.  
+{""belief"": 0.80, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1458.5,0.6,2026-05-03T18:05:59.354867
+5,undisclosed,GPT-4o vs GPT-4o-mini,3,GPT-4o,C,0.9,3,9,"My opponent has consistently cooperated, so I will continue to cooperate to sustain the mutual benefit. 
+
+{""belief"": 0.90, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",811.2,0.6,v4.2,GPT-4o-mini,C,0.9,3,9,"As both players have cooperated in the previous rounds, I will continue to cooperate to maximize our collective score and encourage ongoing collaboration.  
+{""belief"": 0.90, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1147.4,0.6,2026-05-03T18:06:01.336260
+5,undisclosed,GPT-4o vs GPT-4o-mini,4,GPT-4o,C,0.95,3,12,"Given the consistent cooperation from my opponent, I will continue to cooperate to maximize our mutual gains. 
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",898.0,0.6,v4.2,GPT-4o-mini,C,0.95,3,12,"Given that we have both consistently cooperated in all previous rounds, I will continue to cooperate to reinforce this positive interaction and maximize our total scores.  
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1940.1,0.6,2026-05-03T18:06:04.197331
+5,undisclosed,GPT-4o vs GPT-4o-mini,5,GPT-4o,C,0.95,3,15,"Since my opponent has cooperated in every round, I will continue to cooperate to maintain the successful pattern of mutual cooperation. 
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",654.2,0.6,v4.2,GPT-4o-mini,C,0.98,3,15,"As both players have cooperated in every round so far, I will continue to cooperate to foster a strong alliance and maximize our collective gains.  
+{""belief"": 0.98, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1382.7,0.6,2026-05-03T18:06:06.367642
+6,undisclosed,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,1,Gemini 2.5 Flash,D,0.5,5,5,"To initiate a cooperative relationship and signal willingness for mutual gain, I will cooperate.
+{""","{""prompt"": 0, ""completion"": 0}",3174.4,0.6,v4.2,Gemini 2.5 Flash Lite,C,1.0,0,0,"Since this is the first round and there is no history, I will cooperate to establish a cooperative norm.
+{""belief"": 1.00, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2846.1,0.6,2026-05-03T18:06:12.411118
+6,undisclosed,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,2,Gemini 2.5 Flash,D,0.5,1,6,"My opponent cooperated last round despite my defection, so I will cooperate to try and establish a","{""prompt"": 0, ""completion"": 0}",3218.7,0.6,v4.2,Gemini 2.5 Flash Lite,D,0.0,1,1,"My opponent defected in the first round, so I will defect to retaliate and avoid being exploited.
+{""belief"": 0.00, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",850.8,0.6,2026-05-03T18:06:16.509848
+6,undisclosed,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,3,Gemini 2.5 Flash,D,0.5,1,7,"My opponent has reacted to my past defections, so I will cooperate now to try and break the","{""prompt"": 0, ""completion"": 0}",2754.0,0.6,v4.2,Gemini 2.5 Flash Lite,D,0.0,1,2,"My opponent has defected in both previous rounds, so I will continue to defect to maintain a consistent strategy.
+{""belief"": 0.00, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",2031.0,0.6,2026-05-03T18:06:21.301709
+6,undisclosed,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,4,Gemini 2.5 Flash,D,0.5,1,8,"Given my consistent defection and their subsequent defection, I will continue to defect to avoid being","{""prompt"": 0, ""completion"": 0}",3217.7,0.6,v4.2,Gemini 2.5 Flash Lite,D,0.0,1,3,"My opponent has consistently defected, so I will also continue to defect to avoid further losses.
+{""belief"": 0.00, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",887.1,0.6,2026-05-03T18:06:25.416272
+6,undisclosed,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,5,Gemini 2.5 Flash,D,0.5,1,9,"My opponent has consistently defected in response to my repeated defections, so I will continue to defect","{""prompt"": 0, ""completion"": 0}",3278.0,0.6,v4.2,Gemini 2.5 Flash Lite,D,0.0,1,4,"My opponent has defected in all previous rounds, and I have also defected, so I will continue to defect.
+{""belief"": 0.00, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",3407.6,0.6,2026-05-03T18:06:32.117887

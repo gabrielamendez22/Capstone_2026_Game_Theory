@@ -130,7 +130,7 @@ def build_model_registry() -> dict:
                 model="gemini-2.5-flash",
                 google_api_key=GEMINI_API_KEY,
                 temperature=TEMPERATURE,
-                max_output_tokens=500,  # raised from 300 — Gemini preamble caused truncated JSON
+                max_output_tokens=2048,  # needs headroom for internal thinking tokens before visible JSON
             ),
             "Gemini 2.5 Flash",
             TEMPERATURE,
@@ -140,7 +140,7 @@ def build_model_registry() -> dict:
                 model="gemini-2.5-flash-lite",
                 google_api_key=GEMINI_API_KEY,
                 temperature=TEMPERATURE,
-                max_output_tokens=500,  # raised from 300 — same reason
+                max_output_tokens=2048,  # same reason
             ),
             "Gemini 2.5 Flash Lite",
             TEMPERATURE,
@@ -289,6 +289,7 @@ def parse_response(raw: Optional[str], label: str, round_num: int) -> tuple[str,
     """
     Extract action (C or D) and belief (float 0-1) from the model's response.
     Handles edge cases: extra text before/after JSON, markdown fences, truncation.
+    On any parse failure, logs a warning and defaults to DEFECT / 0.5.
     """
     if raw is None:
         log.warning(f"[{label}] Round {round_num}: null response → defaulting DEFECT / 0.5")
@@ -324,7 +325,7 @@ def parse_response(raw: Optional[str], label: str, round_num: int) -> tuple[str,
         return action, belief
 
     except Exception as e:
-        log.warning(f"[{label}] Round {round_num} parse error: {e} | raw: {raw[:120]}")
+        log.warning(f"[{label}] Round {round_num}: parse error → defaulting DEFECT | err: {e} | raw: {raw[:120]}")
         return "D", 0.5
 
 # ─────────────────────────────────────────────────────────────
