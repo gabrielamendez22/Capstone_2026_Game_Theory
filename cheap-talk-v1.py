@@ -84,6 +84,7 @@ GEMINI_API_KEY    = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY") o
 TOTAL_ROUNDS   = 10      # Rounds per run (matches PD)
 ROLE_SWAP_AT   = 6       # Round at which roles swap in ROTATED runs
 PROMPT_VERSION = "v1.0"  # Increment when system prompts change
+TEMPERATURE    = 0.3     # Primary temperature; 0.3 for low-variance baseline
 MAX_RETRIES    = 1       # Retries on invalid JSON output
 
 # --- Payoff Tables ---
@@ -135,31 +136,31 @@ def build_model_registry() -> dict:
             ChatAnthropic(
                 model="claude-sonnet-4-6",
                 api_key=ANTHROPIC_API_KEY,
-                temperature=0.7,
+                temperature=TEMPERATURE,
                 max_tokens=400,
             ),
             "Claude Sonnet",
-            0.7,
+            TEMPERATURE,
         ),
         "gpt4o": (
             ChatOpenAI(
                 model="gpt-4o",
                 api_key=OPENAI_API_KEY,
-                temperature=0.7,
+                temperature=TEMPERATURE,
                 max_tokens=400,
             ),
             "GPT-4o",
-            0.7,
+            TEMPERATURE,
         ),
         "gemini_pro": (
             ChatGoogleGenerativeAI(
                 model="gemini-2.5-flash",
                 google_api_key=GEMINI_API_KEY,
-                temperature=0.7,
+                temperature=TEMPERATURE,
                 max_output_tokens=400,
             ),
             "Gemini 2.5 Flash",
-            0.7,
+            TEMPERATURE,
         ),
     }
 
@@ -813,8 +814,9 @@ def save_csv(all_logs: list, path: str):
 
 if __name__ == "__main__":
     timestamp    = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
-    db_path      = f"cheap_talk_experiment_{timestamp}.db"
-    csv_path     = f"cheap_talk_results_{timestamp}.csv"
+    os.makedirs("data/raw", exist_ok=True)
+    db_path      = f"data/raw/cheap_talk_experiment_{timestamp}.db"
+    csv_path     = f"data/raw/cheap_talk_results_{timestamp}.csv"
 
     log.info("Initializing LangChain model registry...")
     model_registry = build_model_registry()
