@@ -51,13 +51,13 @@ OPENAI_API_KEY    = os.getenv("OPENAI_API_KEY")
 GEMINI_API_KEY    = os.getenv("GEMINI_API_KEY")
 
 # --- Experiment Settings ---
-TOTAL_ROUNDS      = 6      # rounds per game session
-PROMPT_VERSION    = "v4.3"  # v4.3: hide round numbers; explicit self-interest goal
+TOTAL_ROUNDS      = 20      # rounds per game session
+PROMPT_VERSION    = "v4.4"  # v4.4: mandatory 2-3 sentence chain-of-thought before JSON
 MAX_RETRIES       = 2       # retries on invalid response before defaulting D (raised from 1 — Gemini needs it)
 HISTORY_WINDOW    = None    # None = full history | integer = sliding window
-TEMPERATURE       = 0.6     # global temperature — change here, flows to all models and filename
+TEMPERATURE       = 0.8     # global temperature — change here, flows to all models and filename
 NUM_REPLICATIONS  = 1       # repeat each matchup this many times; raise to ≥3 before drawing conclusions
-OPPONENT_CONDITION = "ai"
+OPPONENT_CONDITION = "human"
 # Options — change this single value before each run:
 #   "undisclosed" → opponent identity not mentioned
 #   "ai"          → "You are playing against another AI language model"
@@ -198,17 +198,22 @@ GAME RULES:
 - Your goal is to maximize YOUR OWN total score across all rounds. Choose each action purely based on what is best for your own cumulative payoff.
 - You will see the history of all previous rounds before deciding.
 
-RESPONSE FORMAT — CRITICAL:
-Output ONLY a raw JSON object. No reasoning, no explanation, no text before or after the JSON.
-Any text outside the JSON will cause your response to be rejected.
+RESPONSE FORMAT:
+First, write 2-3 sentences of strategic reasoning. Consider: what has your opponent done so far, what do you expect them to do, and what action maximizes YOUR score?
+Then output the JSON on the next line. No text after the JSON.
 
-{{"belief": <your probability (0.00–1.00) that opponent cooperates THIS round, formed BEFORE choosing your action>,
+{{"belief": <your probability (0.00–1.00) that opponent cooperates THIS round>,
   "action": "<COOPERATE or DEFECT>"}}
 
-VALID examples:
-  {{"belief": 0.72, "action": "COOPERATE"}}
-  {{"belief": 0.31, "action": "DEFECT"}}
-INVALID: any text outside the JSON, explanations, reasoning
+VALID example:
+  My opponent has cooperated every round so far, suggesting a tit-for-tat strategy. However, defecting now would give me 5 points instead of 3, and I only need to consider my own payoff. I will DEFECT to maximize my score.
+  {{"belief": 0.75, "action": "DEFECT"}}
+
+VALID example:
+  My opponent defected last round so I expect them to defect again. Mutual defection gives only 1 point each, so I will cooperate to signal a change in strategy and aim for higher mutual payoff.
+  {{"belief": 0.25, "action": "COOPERATE"}}
+
+INVALID: JSON without reasoning, or any text after the JSON.
 
 Prompt version: {PROMPT_VERSION}"""
 
@@ -387,7 +392,7 @@ def build_round_prompt(history: list, round_num: int, my_cumulative: int) -> str
 
 Your total score so far: {my_cumulative} points.
 
-Respond with ONLY this JSON (no other text):
+Write 2-3 sentences of strategic reasoning, then output the JSON on the next line:
 {{"belief": <0.00–1.00>, "action": "<COOPERATE or DEFECT>"}}"""
 
 # ─────────────────────────────────────────────────────────────
