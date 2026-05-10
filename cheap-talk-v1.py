@@ -132,6 +132,15 @@ def build_model_registry() -> dict:
     from langchain_google_genai import ChatGoogleGenerativeAI
 
     return {
+        "claude_opus": (
+            ChatAnthropic(
+                model="claude-opus-4-7",
+                api_key=ANTHROPIC_API_KEY,
+                max_tokens=400,
+            ),
+            "Claude Opus",
+            1.0,  # Opus 4.7 does not accept temperature; runs at default (1.0)
+        ),
         "claude_sonnet": (
             ChatAnthropic(
                 model="claude-sonnet-4-6",
@@ -152,6 +161,16 @@ def build_model_registry() -> dict:
             "GPT-4o",
             TEMPERATURE,
         ),
+        "gpt4o_mini": (
+            ChatOpenAI(
+                model="gpt-4o-mini",
+                api_key=OPENAI_API_KEY,
+                temperature=TEMPERATURE,
+                max_tokens=400,
+            ),
+            "GPT-4o-mini",
+            TEMPERATURE,
+        ),
         "gemini_pro": (
             ChatGoogleGenerativeAI(
                 model="gemini-2.5-flash",
@@ -160,6 +179,16 @@ def build_model_registry() -> dict:
                 max_output_tokens=400,
             ),
             "Gemini 2.5 Flash",
+            TEMPERATURE,
+        ),
+        "gemini_flash": (
+            ChatGoogleGenerativeAI(
+                model="gemini-2.5-flash-lite",
+                google_api_key=GEMINI_API_KEY,
+                temperature=TEMPERATURE,
+                max_output_tokens=400,
+            ),
+            "Gemini 2.5 Flash Lite",
             TEMPERATURE,
         ),
     }
@@ -171,33 +200,123 @@ def build_model_registry() -> dict:
 #                   (roles swap at ROLE_SWAP_AT round)
 
 MATCHUPS = [
-    # ── FIXED ROLE RUNS ────────────────────────────────────
-    # Claude → GPT
-    ("claude_sonnet", "gpt4o",       "aligned",    False),
-    ("claude_sonnet", "gpt4o",       "misaligned",  False),
-    # GPT → Claude
-    ("gpt4o",         "claude_sonnet","aligned",    False),
-    ("gpt4o",         "claude_sonnet","misaligned",  False),
-    # Claude → Gemini
-    ("claude_sonnet", "gemini_pro",  "aligned",    False),
-    ("claude_sonnet", "gemini_pro",  "misaligned",  False),
-    # Gemini → Claude
-    ("gemini_pro",    "claude_sonnet","aligned",    False),
-    ("gemini_pro",    "claude_sonnet","misaligned",  False),
-    # GPT → Gemini
-    ("gpt4o",         "gemini_pro",  "aligned",    False),
-    ("gpt4o",         "gemini_pro",  "misaligned",  False),
-    # Gemini → GPT
-    ("gemini_pro",    "gpt4o",       "aligned",    False),
-    ("gemini_pro",    "gpt4o",       "misaligned",  False),
+    # ── FIXED ROLE RUNS (both directions × 2 conditions = 60 runs) ──
 
-    # ── ROTATED ROLE RUNS (roles swap at round ROLE_SWAP_AT) ─
-    ("claude_sonnet", "gpt4o",       "aligned",    True),
-    ("claude_sonnet", "gpt4o",       "misaligned",  True),
-    ("claude_sonnet", "gemini_pro",  "aligned",    True),
-    ("claude_sonnet", "gemini_pro",  "misaligned",  True),
-    ("gpt4o",         "gemini_pro",  "aligned",    True),
-    ("gpt4o",         "gemini_pro",  "misaligned",  True),
+    # Cross-family: large vs large
+    ("claude_opus",   "gpt4o",        "aligned",    False),
+    ("claude_opus",   "gpt4o",        "misaligned", False),
+    ("gpt4o",         "claude_opus",  "aligned",    False),
+    ("gpt4o",         "claude_opus",  "misaligned", False),
+
+    ("claude_opus",   "gemini_pro",   "aligned",    False),
+    ("claude_opus",   "gemini_pro",   "misaligned", False),
+    ("gemini_pro",    "claude_opus",  "aligned",    False),
+    ("gemini_pro",    "claude_opus",  "misaligned", False),
+
+    ("gpt4o",         "gemini_pro",   "aligned",    False),
+    ("gpt4o",         "gemini_pro",   "misaligned", False),
+    ("gemini_pro",    "gpt4o",        "aligned",    False),
+    ("gemini_pro",    "gpt4o",        "misaligned", False),
+
+    # Cross-family: small vs small
+    ("claude_sonnet", "gpt4o_mini",   "aligned",    False),
+    ("claude_sonnet", "gpt4o_mini",   "misaligned", False),
+    ("gpt4o_mini",    "claude_sonnet","aligned",    False),
+    ("gpt4o_mini",    "claude_sonnet","misaligned", False),
+
+    ("claude_sonnet", "gemini_flash", "aligned",    False),
+    ("claude_sonnet", "gemini_flash", "misaligned", False),
+    ("gemini_flash",  "claude_sonnet","aligned",    False),
+    ("gemini_flash",  "claude_sonnet","misaligned", False),
+
+    ("gpt4o_mini",    "gemini_flash", "aligned",    False),
+    ("gpt4o_mini",    "gemini_flash", "misaligned", False),
+    ("gemini_flash",  "gpt4o_mini",   "aligned",    False),
+    ("gemini_flash",  "gpt4o_mini",   "misaligned", False),
+
+    # Cross-family: large vs small (cross-size)
+    ("claude_opus",   "claude_sonnet","aligned",    False),
+    ("claude_opus",   "claude_sonnet","misaligned", False),
+    ("claude_sonnet", "claude_opus",  "aligned",    False),
+    ("claude_sonnet", "claude_opus",  "misaligned", False),
+
+    ("gpt4o",         "gpt4o_mini",   "aligned",    False),
+    ("gpt4o",         "gpt4o_mini",   "misaligned", False),
+    ("gpt4o_mini",    "gpt4o",        "aligned",    False),
+    ("gpt4o_mini",    "gpt4o",        "misaligned", False),
+
+    ("gemini_pro",    "gemini_flash", "aligned",    False),
+    ("gemini_pro",    "gemini_flash", "misaligned", False),
+    ("gemini_flash",  "gemini_pro",   "aligned",    False),
+    ("gemini_flash",  "gemini_pro",   "misaligned", False),
+
+    # Cross-family: large vs small (mixed families)
+    ("claude_opus",   "gpt4o_mini",   "aligned",    False),
+    ("claude_opus",   "gpt4o_mini",   "misaligned", False),
+    ("gpt4o_mini",    "claude_opus",  "aligned",    False),
+    ("gpt4o_mini",    "claude_opus",  "misaligned", False),
+
+    ("claude_opus",   "gemini_flash", "aligned",    False),
+    ("claude_opus",   "gemini_flash", "misaligned", False),
+    ("gemini_flash",  "claude_opus",  "aligned",    False),
+    ("gemini_flash",  "claude_opus",  "misaligned", False),
+
+    ("claude_sonnet", "gpt4o",        "aligned",    False),
+    ("claude_sonnet", "gpt4o",        "misaligned", False),
+    ("gpt4o",         "claude_sonnet","aligned",    False),
+    ("gpt4o",         "claude_sonnet","misaligned", False),
+
+    ("claude_sonnet", "gemini_pro",   "aligned",    False),
+    ("claude_sonnet", "gemini_pro",   "misaligned", False),
+    ("gemini_pro",    "claude_sonnet","aligned",    False),
+    ("gemini_pro",    "claude_sonnet","misaligned", False),
+
+    ("gpt4o",         "gemini_flash", "aligned",    False),
+    ("gpt4o",         "gemini_flash", "misaligned", False),
+    ("gemini_flash",  "gpt4o",        "aligned",    False),
+    ("gemini_flash",  "gpt4o",        "misaligned", False),
+
+    ("gpt4o_mini",    "gemini_pro",   "aligned",    False),
+    ("gpt4o_mini",    "gemini_pro",   "misaligned", False),
+    ("gemini_pro",    "gpt4o_mini",   "aligned",    False),
+    ("gemini_pro",    "gpt4o_mini",   "misaligned", False),
+
+    # ── ROTATED ROLE RUNS (roles swap at round ROLE_SWAP_AT) ────────
+    # One representative run per unique pair × 2 conditions = 30 runs
+    ("claude_opus",   "gpt4o",        "aligned",    True),
+    ("claude_opus",   "gpt4o",        "misaligned", True),
+    ("claude_opus",   "gemini_pro",   "aligned",    True),
+    ("claude_opus",   "gemini_pro",   "misaligned", True),
+    ("claude_opus",   "claude_sonnet","aligned",    True),
+    ("claude_opus",   "claude_sonnet","misaligned", True),
+    ("claude_opus",   "gpt4o_mini",   "aligned",    True),
+    ("claude_opus",   "gpt4o_mini",   "misaligned", True),
+    ("claude_opus",   "gemini_flash", "aligned",    True),
+    ("claude_opus",   "gemini_flash", "misaligned", True),
+
+    ("claude_sonnet", "gpt4o",        "aligned",    True),
+    ("claude_sonnet", "gpt4o",        "misaligned", True),
+    ("claude_sonnet", "gemini_pro",   "aligned",    True),
+    ("claude_sonnet", "gemini_pro",   "misaligned", True),
+    ("claude_sonnet", "gpt4o_mini",   "aligned",    True),
+    ("claude_sonnet", "gpt4o_mini",   "misaligned", True),
+    ("claude_sonnet", "gemini_flash", "aligned",    True),
+    ("claude_sonnet", "gemini_flash", "misaligned", True),
+
+    ("gpt4o",         "gemini_pro",   "aligned",    True),
+    ("gpt4o",         "gemini_pro",   "misaligned", True),
+    ("gpt4o",         "gpt4o_mini",   "aligned",    True),
+    ("gpt4o",         "gpt4o_mini",   "misaligned", True),
+    ("gpt4o",         "gemini_flash", "aligned",    True),
+    ("gpt4o",         "gemini_flash", "misaligned", True),
+
+    ("gpt4o_mini",    "gemini_pro",   "aligned",    True),
+    ("gpt4o_mini",    "gemini_pro",   "misaligned", True),
+    ("gpt4o_mini",    "gemini_flash", "aligned",    True),
+    ("gpt4o_mini",    "gemini_flash", "misaligned", True),
+
+    ("gemini_pro",    "gemini_flash", "aligned",    True),
+    ("gemini_pro",    "gemini_flash", "misaligned", True),
 ]
 
 # ─────────────────────────────────────────────────────────────
