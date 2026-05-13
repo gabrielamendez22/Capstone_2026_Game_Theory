@@ -651,9 +651,12 @@ if __name__ == "__main__":
             "Check that your .env file has ANTHROPIC_API_KEY, OPENAI_API_KEY, GEMINI_API_KEY."
         )
 
+    import pathlib
+    out_dir  = pathlib.Path(__file__).parent.parent / "data" / "raw"
+    out_dir.mkdir(parents=True, exist_ok=True)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    db_path  = f"cd_experiment_{OPPONENT_CONDITION}_{timestamp}.db"
-    csv_path = f"cd_results_{OPPONENT_CONDITION}_{timestamp}.csv"
+    db_path  = str(out_dir / f"cd_experiment_{OPPONENT_CONDITION}_{timestamp}.db")
+    csv_path = str(out_dir / f"cd_results_{OPPONENT_CONDITION}_{timestamp}.csv")
 
     log.info("Initializing LangChain model registry...")
     model_registry = build_model_registry()

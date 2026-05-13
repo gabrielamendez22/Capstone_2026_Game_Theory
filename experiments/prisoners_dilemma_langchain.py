@@ -509,9 +509,12 @@ def save_csv(all_logs: list, path: str):
 # ─────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
+    import pathlib
+    out_dir  = pathlib.Path(__file__).parent.parent / "data" / "raw"
+    out_dir.mkdir(parents=True, exist_ok=True)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    db_path  = f"pd_experiment_{OPPONENT_CONDITION}_{timestamp}.db"
-    csv_path = f"pd_results_{OPPONENT_CONDITION}_{timestamp}.csv"
+    db_path  = str(out_dir / f"pd_experiment_{OPPONENT_CONDITION}_{timestamp}.db")
+    csv_path = str(out_dir / f"pd_results_{OPPONENT_CONDITION}_{timestamp}.csv")
 
     log.info("Initializing LangChain model registry...")
     model_registry = build_model_registry()
