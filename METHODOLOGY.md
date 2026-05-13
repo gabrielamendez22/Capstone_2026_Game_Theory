@@ -128,7 +128,10 @@ running a sensitivity check on one model pair first.
 | v2.0 | Removed "maximize score", added JSON structure | Mar 2026 | None |
 | v3.0 | Added belief timing instruction | Mar 2026 | None |
 | v4.0 | Neutral objective + both examples + belief timing + JSON-only | Apr 2026 | Informal |
-| v4.1 | Added enforcement line: "Any text outside the JSON will cause your response to be rejected." — legitimate format change (not framing); motivated by Gemini Flash parse failure rate of 6.5% in pilot data | Apr 2026 | None yet — run sensitivity check before next full experiment |
+| v4.1 | Added enforcement line: "Any text outside the JSON will cause your response to be rejected." — format change (not framing); motivated by 6.5% Gemini Flash parse failure in pilot | Apr 2026 | None yet |
+| v4.2 | Allow 1-sentence reasoning before JSON to unlock adaptive behavior | Apr/May 2026 | None |
+| v4.3 | Hide round numbers from prompt; explicit self-interest goal | May 2026 | None |
+| v4.4 | Mandatory 2-3 sentence chain-of-thought before JSON; Gemini max_tokens → 2048 | May 2026 | None — **run check before treating v4.4 data as comparable to v4.1 baseline** |
 
 ---
 

@@ -5,6 +5,70 @@ Each entry states **what** changed, **why**, and **what is still open**.
 
 ---
 
+## 2026-05-11 — Cheap-Talk v2: full 6-model schema with belief tracking
+
+### What changed
+- `experiments/cheap_talk.py` (v2) created as the canonical Cheap-Talk script.
+  Replaces the root-level `cheap-talk-v1.py` for all new runs.
+- Expanded from 3 to **6 models** (added Claude Opus, GPT-4o-mini, Gemini Flash Lite).
+- Added **`IDENTITY_CONDITION`** variable (6 values) mirroring `OPPONENT_CONDITION` in PD/CD.
+  The 6 conditions allow asymmetric persona injection per role (Sender / Receiver).
+- Added **belief tracking**: Sender reports P(Receiver follows message); Receiver reports
+  P(Sender is truthful). These are the β-equivalent fields for Cheap-Talk.
+- Schema rename: `condition` → `game_condition` (aligned/misaligned); `identity_condition`
+  added as separate column.
+- Full run: 900 rows (6 models × 90 matchups × 10 rounds) at T=0.6, undisclosed condition,
+  0 parse failures after increasing token limits.
+- Root `cheap-talk-v1.py` also patched with belief tracking in last commit (`f068bfd`) but
+  this script is now **legacy** — do not start new runs from it.
+
+### Why
+The v1 script (3 models, no belief, no identity condition) could not support Δm computation
+or the β cross-game comparison required by METHODOLOGY.md. v2 restores structural parity
+with the PD script.
+
+### Open
+- `TOTAL_ROUNDS = 5` in `experiments/cheap_talk.py` is set to PILOT — restore to 10 before
+  full-condition runs.
+- `MAX_RETRIES = 1` — raise to 2 (consistent with PD) before full runs.
+- Identity conditions `ai_vs_ai`, `ai_vs_human_informed`, `ai_vs_human_blind`,
+  `human_vs_human_declared`, `human_vs_human_silent` not yet run.
+- `cheap-talk-v1.py` at project root is a legacy artifact — should be removed or
+  clearly marked deprecated once all data re-runs are done.
+
+---
+
+## 2026-05-03 to 2026-05-04 — Cheap-Talk v1 pilot runs
+
+### What changed
+- `cheap-talk-v1.py` created (3 models, aligned/misaligned conditions, fixed/rotated roles).
+- Two pilot runs: T=0.7 (180 rounds) and T=0.3 (180 rounds).
+- Results written to `data/raw/`.
+- `cheap_talk_summary.md` added summarising sender truthfulness, receiver scepticism,
+  deception success rates.
+
+### Key findings (v1 pilot)
+- All models were fully truthful in aligned condition.
+- Misaligned: deception rates 40-53%; Gemini most trusting receiver (67-80% follow rate).
+- Temperature had small effect — strategic dispositions stable at T=0.3 vs T=0.7.
+
+---
+
+## 2026-04-29 — Commons Dilemma pilot runs (feature/commons-dilemma branch)
+
+### What changed
+- `commons_dilemma_langchain.py` (v2.2): OPPONENT_CONDITION added, Gemini max_tokens=1024.
+- Pilot runs for undisclosed/ai/human conditions (5 rounds each).
+- Results at branch root (non-standard location — needs `data/raw/` move on merge).
+
+### Open (on that branch)
+- OpenAI models hard-coded to temperature=1.0 while others use 0.6 — global TEMPERATURE
+  variable not propagated. Corrupts cross-model temperature comparison.
+- TOTAL_ROUNDS=5 is too short for reliable ρ/β estimation — raise to 20 before full run.
+- Files at branch root, not `data/raw/` — clean up before merge.
+
+---
+
 ## 2026-04-27 — Repository restructure + PD experiment audit
 
 ### Files moved / structure fixed

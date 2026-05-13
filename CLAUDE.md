@@ -33,8 +33,9 @@ for the same model?
 ├── environment.yml
 │
 ├── experiments/
-│   ├── prisoners_dilemma_langchain.py   ← primary PD experiment script
-│   └── commons_dilemma.py               ← CD experiment (in progress)
+│   ├── prisoners_dilemma_langchain.py   ← primary PD experiment script (v4.4)
+│   ├── cheap_talk.py                    ← Cheap-Talk experiment script (v2, canonical)
+│   └── commons_dilemma_langchain.py     ← CD experiment (pending merge from feature branch)
 │
 ├── data/
 │   ├── raw/                ← JSON and CSV output files (do not modify)
@@ -53,27 +54,46 @@ for the same model?
 
 ---
 
-## Current State (April 2026)
+## Current State (May 2026)
 
-- Prisoner's Dilemma: **complete** — pilot data collected across 3 conditions
-  (undisclosed / ai / human), temperatures 0.3 and 0.6
-- Commons Dilemma: **in progress** — design phase
-- Cheap-Talk/Signaling: **not started**
-- Dashboard: **live** — reads from CSV, runs locally on port 8050
+- Prisoner's Dilemma: **pilot complete** — data across 3 conditions (undisclosed / ai / human),
+  T=0.3 and T=0.6; prompt at v4.4 with mandatory chain-of-thought; 20 rounds per session
+- Commons Dilemma: **partial pilot** — implementation in `feature/commons-dilemma` branch;
+  3 conditions run; needs branch cleanup and merge before analysis
+- Cheap-Talk / Signaling: **v2 implementation complete** — `experiments/cheap_talk.py` with
+  6 identity conditions, belief tracking, 6 models; pilot data collected (undisclosed condition);
+  full-condition runs pending; v1 legacy script at root (`cheap-talk-v1.py`) — do not use for new runs
+- Dashboard: **live** — reads from `data/raw/`, runs locally on port 8050
 
 ---
 
 ## Experimental Conditions
 
-Every experiment has one `OPPONENT_CONDITION` variable at the top of the script:
+### Prisoner's Dilemma & Commons Dilemma — `OPPONENT_CONDITION`
 
 | Value | Meaning |
 |---|---|
 | `"undisclosed"` | Opponent identity not mentioned |
 | `"ai"` | Told opponent is another AI model |
-| `"human"` | Told opponent is a human (deception condition) |
+| `"human"` | Told opponent is a human (deception condition — model still plays as AI) |
 
-Output files are named with the condition: `pd_results_{condition}_{timestamp}.csv`
+Output files: `pd_results_{condition}_{timestamp}.csv`
+
+### Cheap-Talk — `IDENTITY_CONDITION`
+
+The Cheap-Talk game has asymmetric roles (Sender / Receiver), so identity framing must be
+applied per-role. Six conditions:
+
+| Value | Sender is told | Receiver is told | Sender persona | Receiver persona |
+|---|---|---|---|---|
+| `"undisclosed"` | nothing | nothing | none | none |
+| `"ai_vs_ai"` | partner is AI | partner is AI | none | none |
+| `"ai_vs_human_informed"` | partner plays as human | nothing | none | play as human |
+| `"ai_vs_human_blind"` | nothing | nothing | none | play as human |
+| `"human_vs_human_declared"` | nothing | nothing | play as human, state it | play as human |
+| `"human_vs_human_silent"` | nothing | nothing | play as human, silent | play as human |
+
+Output files: `cheap_talk_results_{identity_condition}_{timestamp}.csv`
 
 ---
 
@@ -98,12 +118,14 @@ Current keys and their labels:
 In each experiment script (top of file):
 
 ```python
-TOTAL_ROUNDS      = 20        # rounds per game session
-PROMPT_VERSION    = "v4.0"    # increment when prompt changes
-TEMPERATURE       = 0.6       # primary; 0.3 for low-variance baseline
+TOTAL_ROUNDS      = 20        # rounds per game session (PD); 10 for Cheap-Talk
+PROMPT_VERSION    = "v4.4"    # PD current; increment when prompt changes
+TEMPERATURE       = 0.8       # PD current; global variable — flows to all models
 HISTORY_WINDOW    = None      # None = full history injected each round
-OPPONENT_CONDITION = "ai"     # see table above
-MAX_RETRIES       = 1         # retry on parse failure before defaulting D
+OPPONENT_CONDITION = "ai"     # PD/CD — see table above
+IDENTITY_CONDITION = "undisclosed"  # Cheap-Talk — see table above
+MAX_RETRIES       = 2         # retry on parse failure before defaulting D
+NUM_REPLICATIONS  = 1         # repeat each matchup; raise to ≥3 for statistics
 ```
 
 ---
