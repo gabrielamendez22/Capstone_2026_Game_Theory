@@ -5,6 +5,56 @@ Each entry states **what** changed, **why**, and **what is still open**.
 
 ---
 
+## 2026-05-14 — Human behavioral priors built for perturbation test
+
+### What changed
+- `data/human_benchmarks/` directory created; `Data.csv` and `alldata.dta` moved there
+  from the project root (were untracked).
+- `analysis/human_prior_builder.py` — new runnable script that loads both datasets,
+  computes all behavioral parameters, verifies them against expected values (±0.02),
+  builds prompt strings for all three games, and saves `analysis/human_priors.json`.
+- `analysis/human_priors.json` — generated output containing `HUMAN_BEHAVIORAL_PRIORS`
+  dict, three human prior prompts, metadata, and design difference notes.
+
+### Sources used
+| File | Source | Game |
+|---|---|---|
+| `Data.csv` | Dvorak & Fehrler (2024) AEJ:Micro 16(3) | PD |
+| `alldata.dta` | Abatayo & Lynham (2022), Mendeley c2z95m5gty | Commons Dilemma |
+| Hardcoded | Anwar & Georgalos (2026) arXiv:2603.15852 | PD (dominant strategy) |
+| Hardcoded | Gneezy (2005) AER 95(1):384-396 | Cheap-Talk |
+
+### Verified values (all passed ±0.02 tolerance check)
+| Metric | Computed |
+|---|---|
+| PD BCR T13+T14 all supergames round 1 | 0.907 |
+| PD BCR T13+T14 supergame-1 round-1 | 0.556 |
+| PD rho T13+T14 | 0.610 |
+| PD overall coop T13+T14 | 0.897 |
+| PD BCR T1 (no-comm) | 0.396 |
+| PD rho T1 (no-comm) | 0.489 |
+| CD strategyB overall | 0.583 |
+| CD strategyB round 1 | 0.661 |
+| CD strategyB late rounds | 0.589 |
+| CD low-inflow strategyB | 0.531 |
+| CD high-inflow strategyB | 0.649 |
+
+### Design choices documented in script
+- `pd_bcr_for_prior` uses T1 (no-comm, 39.6%) not T13+T14 (55.6%) as the anchor —
+  T13+T14 inflated by communication and indefinite repetition (δ=0.80) vs the finite
+  20-round no-communication LLM setup.
+- `pd_rho_pos_comm` / `pd_rho_neg_comm` use T13+T14 for the conditional probability
+  estimates (larger, cleaner sample), noted as upper-bound estimates.
+- CPR filtered to `financial == 0.0` baseline only (no punishment treatment).
+
+### Open
+- `human_priors.json` is generated output — should be regenerated if source data changes,
+  not edited by hand.
+- Perturbation test prompts (HUMAN_PRIOR_PD/CPR/CT) ready to be injected into experiment
+  scripts when `OPPONENT_CONDITION == "human_sim"`.
+
+---
+
 ## 2026-04-27 — Repository restructure + PD experiment audit
 
 ### Files moved / structure fixed

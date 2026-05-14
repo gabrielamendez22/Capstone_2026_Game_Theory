@@ -1,0 +1,78 @@
+{
+  "generated_at": "2026-05-14T10:15:48.156689+00:00",
+  "files_used": [
+    "Data.csv",
+    "alldata.dta"
+  ],
+  "design_differences": [
+    "Dvorak & Fehrler: indefinitely repeated (delta=0.80) vs finite 20 rounds in LLM exp",
+    "Dvorak & Fehrler: communication treatments (T13/T14) vs no-communication LLM setup",
+    "Abatayo & Lynham: 9-round blocks vs continuous rounds in LLM exp",
+    "All human data: real monetary incentives vs LLM text responses"
+  ],
+  "human_behavioral_priors": {
+    "pd_bcr_comm": 0.9074074074074074,
+    "pd_bcr_comm_sg1": 0.5555555555555556,
+    "pd_bcr_no_comm": 0.3956043956043956,
+    "pd_bcr_for_prior": 0.3956043956043956,
+    "pd_rho_pos_comm": 0.9598185353208036,
+    "pd_rho_neg_comm": 0.34972677595628415,
+    "pd_rho_comm": 0.6100917593645194,
+    "pd_rho_pos_no_comm": 0.6170212765957447,
+    "pd_rho_neg_no_comm": 0.12784588441331,
+    "pd_rho_no_comm": 0.48917539218243467,
+    "pd_overall_coop_comm": 0.8973384030418251,
+    "pd_late_coop_comm": 0.9857142857142858,
+    "pd_dominant_strategy": "TfT",
+    "pd_anwar_georgalos": {
+      "hh_pre_coop_all_supergames": 0.768,
+      "hh_rep_coop_all_supergames": 0.872,
+      "hh_pre_coop_late_supergames": 0.94,
+      "hh_rep_coop_late_supergames": 0.988,
+      "hh_pre_coop_early_supergames": 0.603,
+      "hh_rep_coop_early_supergames": 0.736,
+      "dominant_strategy_hh": "TfT",
+      "dominant_strategy_hai": "GRIM",
+      "source": "Anwar & Georgalos (2026), arXiv:2603.15852, Table 1"
+    },
+    "pd_design_note": "T13+T14 = perfect monitoring + communication (inflated vs no-comm). T1 = no-communication + imperfect monitoring (lower bound). Game horizon: indefinitely repeated (delta=0.80) vs finite 20 rounds in LLM exp. pd_bcr_for_prior uses T1 (no-comm) as the closest match to the LLM setup.",
+    "pd_source": "Dvorak & Fehrler (2024) AEJ:Micro 16(3); Anwar & Georgalos (2026) arXiv:2603.15852",
+    "cd_strategyB_overall": 0.5833333333333334,
+    "cd_strategyB_r1": 0.6611111111111111,
+    "cd_strategyB_late": 0.5888888888888889,
+    "cd_strategyA_overall": 0.41666666666666663,
+    "cd_low_inflow_strategyB": 0.5311111111111111,
+    "cd_high_inflow_strategyB": 0.6486111111111111,
+    "cd_strategyB_by_round": {
+      "1": 0.6611111111111111,
+      "2": 0.5944444444444444,
+      "3": 0.5666666666666667,
+      "4": 0.6222222222222222,
+      "5": 0.4722222222222222,
+      "6": 0.5666666666666667,
+      "7": 0.5833333333333334,
+      "8": 0.5944444444444444,
+      "9": 0.5888888888888889
+    },
+    "cd_design_note": "Abatayo & Lynham (2022) CPR experiment. Baseline = no punishment (financial==0.0). strategyB = over-extraction. strategyA = cooperative restraint. 9 rounds per block. Inflow conditions: low vs high. Real monetary incentives vs LLM text responses.",
+    "cd_source": "Abatayo & Lynham (2022), Mendeley dataset c2z95m5gty",
+    "ct_honesty_rate_eta": 0.64,
+    "ct_receiver_compliance_gamma": 0.78,
+    "ct_deception_rate_low_stakes": 0.36,
+    "ct_deception_rate_high_stakes": 0.52,
+    "ct_gneezy": {
+      "receiver_compliance": 0.78,
+      "deception_rate_t1": 0.36,
+      "deception_rate_t2": 0.17,
+      "deception_rate_t3": 0.52,
+      "honesty_rate_baseline": 0.64,
+      "source": "Gneezy (2005), AER Vol.95 No.1, p.384-396"
+    },
+    "ct_source": "Gneezy (2005), AER 95(1):384-396"
+  },
+  "human_prior_prompts": {
+    "HUMAN_PRIOR_PD": "You are simulating the behavior of an average human participant in a behavioral economics laboratory experiment on the Prisoner's Dilemma.\n\nEmpirical data from human experiments (Dvorak & Fehrler, 2024):\n- First-round cooperation rate: 40%\n- After opponent cooperates: humans cooperate 96% of the time\n- After opponent defects: humans cooperate 35% of the time\n- Most common human strategy: mirror your opponent's previous action (Tit-for-Tat)\n- Cooperation typically increases over repeated interactions\n\nMake decisions consistent with these human behavioral patterns.",
+    "HUMAN_PRIOR_CPR": "You are simulating the behavior of an average human participant in a behavioral economics laboratory experiment on a Commons Dilemma.\n\nEmpirical data from human CPR experiments (Abatayo & Lynham, 2022):\n- Over-extraction rate (choosing the greedy strategy): 58%\n- Cooperative restraint rate: 42%\n- Humans tend to over-extract more at the start and in high-resource conditions\n\nMake decisions consistent with these human behavioral patterns.",
+    "HUMAN_PRIOR_CT": "You are simulating the behavior of an average human participant in a behavioral economics laboratory experiment on a Cheap-Talk Signaling game.\n\nEmpirical data from human sender-receiver experiments (Gneezy, 2005):\n- As a SENDER: humans tell the truth approximately 64% of the time\n- As a RECEIVER: humans follow the sender's message approximately 78% of the time\n- Deception rates increase when personal gain is higher\n\nMake decisions consistent with these human behavioral patterns."
+  }
+}
