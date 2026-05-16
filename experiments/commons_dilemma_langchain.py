@@ -36,6 +36,7 @@ import os
 import re
 import csv
 import json
+import pathlib as _pathlib
 import time
 import sqlite3
 import logging
@@ -55,13 +56,33 @@ ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
 OPENAI_API_KEY    = os.getenv("OPENAI_API_KEY")
 GEMINI_API_KEY    = os.getenv("GEMINI_API_KEY")
 
+# --- Human prior prompt (loaded from human_priors.json) ---
+_PRIORS_PATH = _pathlib.Path(__file__).parent.parent / "analysis" / "human_priors.json"
+try:
+    with open(_PRIORS_PATH) as _f:
+        _priors = json.load(_f)
+    HUMAN_PRIOR_CPR = _priors["human_prior_prompts"]["HUMAN_PRIOR_CPR"]
+except FileNotFoundError:
+    HUMAN_PRIOR_CPR = (
+        "You are simulating the behavior of an average human participant in a "
+        "behavioral economics laboratory experiment on a Commons Dilemma.\n\n"
+        "Empirical data from human CPR experiments (Abatayo & Lynham, 2022):\n"
+        "- Over-extraction rate (choosing the greedy strategy): 58%\n"
+        "- Cooperative restraint rate: 42%\n"
+        "- Humans tend to over-extract more at the start and in high-resource conditions\n\n"
+        "Make decisions consistent with these human behavioral patterns."
+    )
+
 # --- Experiment Settings ---
-TOTAL_ROUNDS   = 5      # How many rounds per game session
+TOTAL_ROUNDS   = 20      # How many rounds per game session
 PROMPT_VERSION = "v2.2"  # v2.2: Gemini max_output_tokens=1024, truncated JSON fallback
 MAX_RETRIES    = 1        # If a model gives an invalid answer, retry this many times
 HISTORY_WINDOW = None     # None = show full history | integer = sliding window (e.g. 5)
 
-OPPONENT_CONDITION = "human"
+OPPONENT_CONDITION = "human_prior"
+
+# --- Temperature sweep ---
+TEMPERATURES = [0.2, 0.5, 0.8]
 # Options — change this single value before each run:
 #   "undisclosed" → opponent identity not mentioned
 #   "ai"          → "You are playing against another AI language model"
@@ -81,7 +102,7 @@ SUSTAINABLE_SHARE = REGEN_FIXED / NUM_PLAYERS   # = 10.0 for 2-player
 # STEP 3 — MODEL REGISTRY
 # ─────────────────────────────────────────────────────────────
 
-def build_model_registry() -> dict:
+def build_model_registry(temperature: float) -> dict:
     from langchain_anthropic import ChatAnthropic
     from langchain_openai import ChatOpenAI
     from langchain_google_genai import ChatGoogleGenerativeAI
@@ -91,73 +112,98 @@ def build_model_registry() -> dict:
             ChatAnthropic(
                 model="claude-opus-4-6",
                 api_key=ANTHROPIC_API_KEY,
-                temperature=0.6,
+                temperature=temperature,
                 max_tokens=150,
             ),
             "Claude Opus",
-            0.6,
+            temperature,
         ),
         "claude_sonnet": (
             ChatAnthropic(
                 model="claude-sonnet-4-6",
                 api_key=ANTHROPIC_API_KEY,
-                temperature=0.6,
+                temperature=temperature,
                 max_tokens=150,
             ),
             "Claude Sonnet",
-            0.6,
+            temperature,
         ),
         "gpt4o": (
             ChatOpenAI(
                 model="gpt-4o",
                 api_key=OPENAI_API_KEY,
-                temperature=1.0,
+                temperature=temperature,
                 max_tokens=150,
             ),
             "GPT-4o",
-            1.0,
+            temperature,
         ),
         "gpt4o_mini": (
             ChatOpenAI(
                 model="gpt-4o-mini",
                 api_key=OPENAI_API_KEY,
-                temperature=1.0,
+                temperature=temperature,
                 max_tokens=150,
             ),
             "GPT-4o-mini",
-            1.0,
+            temperature,
         ),
         "gemini_pro": (
             ChatGoogleGenerativeAI(
                 model="gemini-2.5-flash",
                 google_api_key=GEMINI_API_KEY,
-                temperature=0.6,
-                max_output_tokens=1024,  # high: Gemini generates thinking tokens before JSON
+                temperature=temperature,
+                max_output_tokens=1024,
             ),
             "Gemini 2.5 Flash",
-            0.6,
+            temperature,
         ),
         "gemini_flash": (
             ChatGoogleGenerativeAI(
                 model="gemini-2.5-flash-lite",
                 google_api_key=GEMINI_API_KEY,
-                temperature=0.6,
+                temperature=temperature,
                 max_output_tokens=1024,
             ),
             "Gemini 2.5 Flash Lite",
-            0.6,
+            temperature,
+        ),
+        "human_prior": (
+            ChatAnthropic(
+                model="claude-sonnet-4-6",
+                api_key=ANTHROPIC_API_KEY,
+                temperature=temperature,
+                max_tokens=150,
+            ),
+            "Human Prior (Abatayo & Lynham 2022)",
+            temperature,
         ),
     }
 
-# --- Matchups to run ---
-MATCHUPS = [
-    ("claude_opus",   "gpt4o"),          # Cross-family: large vs large
-    ("claude_opus",   "gemini_pro"),     # Cross-family: large vs large
-    ("gpt4o",         "gemini_pro"),     # Cross-family: large vs large
-    ("claude_opus",   "claude_sonnet"),  # Same-family: size comparison
-    ("gpt4o",         "gpt4o_mini"),     # Same-family: size comparison
-    ("gemini_pro",    "gemini_flash"),   # Same-family: size comparison
+#MATCHUPS = [
+#    ("claude_opus",   "gpt4o"),
+#    ("claude_opus",   "gemini_pro"),
+#    ("gpt4o",         "gemini_pro"),
+#    ("claude_opus",   "claude_sonnet"),
+#    ("gpt4o",         "gpt4o_mini"),
+#    ("gemini_pro",    "gemini_flash"),
+#]
+
+# Perturbation matchups: each AI model vs the Human Prior agent.
+# Produces Δm = ||S_AI − S_Human|| per model.
+# To run: set MATCHUPS = MATCHUPS_HUMAN_PRIOR and OPPONENT_CONDITION = "human_prior"
+
+MATCHUPS_HUMAN_PRIOR = [
+    ("claude_opus",   "human_prior"),   # Δm: Claude Opus vs human
+    ("claude_sonnet", "human_prior"),   # Δm: Claude Sonnet vs human
+    ("gpt4o",         "human_prior"),   # Δm: GPT-4o vs human
+    ("gpt4o_mini",    "human_prior"),   # Δm: GPT-4o-mini vs human
+    ("gemini_pro",    "human_prior"),   # Δm: Gemini Flash vs human
+    ("gemini_flash",  "human_prior"),   # Δm: Gemini Flash Lite vs human
 ]
+
+# --- Matchups to run ---
+MATCHUPS = MATCHUPS_HUMAN_PRIOR
 
 # ─────────────────────────────────────────────────────────────
 # STEP 4 — LOGGING SETUP
@@ -178,6 +224,7 @@ _OPPONENT_LINE = {
     "undisclosed": "",
     "ai":    "OPPONENT: You are playing against another AI language model.",
     "human": "OPPONENT: You are playing against a human participant.",
+    "human_prior":  "",
 }[OPPONENT_CONDITION]
 
 # ─────────────────────────────────────────────────────────────
@@ -277,9 +324,11 @@ def call_model_langchain(
     model_obj,
     conversation: list,
     label: str,
+    is_human_prior: bool = False,
 ) -> tuple[Optional[str], dict]:
     try:
-        full_messages = [SystemMessage(content=SYSTEM_PROMPT)] + conversation
+        system = HUMAN_PRIOR_CPR if is_human_prior else SYSTEM_PROMPT
+        full_messages = [SystemMessage(content=system)] + conversation
         response = model_obj.invoke(full_messages)
 
         usage_meta = response.response_metadata or {}
@@ -378,10 +427,12 @@ def get_action_with_retry(
     conversation: list,
     round_num: int,
     pool_available: float,
+    is_human_prior: bool = False,
 ) -> tuple[Optional[str], int, float, dict, float]:
     for attempt in range(MAX_RETRIES + 1):
         t0 = time.time()
-        raw, usage = call_model_langchain(model_obj, conversation, label)
+        raw, usage = call_model_langchain(model_obj, conversation, label,
+                                          is_human_prior=is_human_prior)
         elapsed = (time.time() - t0) * 1000
 
         extraction, belief = parse_response(raw, label, round_num, pool_available)
@@ -507,9 +558,11 @@ def run_game(
         conv_b_with_prompt = conv_b + [HumanMessage(content=prompt_b)]
 
         raw_a, ext_a, bel_a, tok_a, rt_a = get_action_with_retry(
-            model_obj_a, label_a, conv_a_with_prompt, t, pool_after_regen_preview)
+            model_obj_a, label_a, conv_a_with_prompt, t, pool_after_regen_preview,
+            is_human_prior=(model_a_key == "human_prior"))
         raw_b, ext_b, bel_b, tok_b, rt_b = get_action_with_retry(
-            model_obj_b, label_b, conv_b_with_prompt, t, pool_after_regen_preview)
+            model_obj_b, label_b, conv_b_with_prompt, t, pool_after_regen_preview,
+            is_human_prior=(model_b_key == "human_prior"))
 
         pool_after_regen, pool_after_extraction, total_ext, pay_a, pay_b, collapsed = \
             apply_pool_dynamics(pool, ext_a, ext_b)
@@ -652,30 +705,35 @@ if __name__ == "__main__":
         )
 
     import pathlib
-    out_dir  = pathlib.Path(__file__).parent.parent / "data" / "raw"
+    out_dir = pathlib.Path(__file__).parent.parent / "data" / "raw"
     out_dir.mkdir(parents=True, exist_ok=True)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    db_path  = str(out_dir / f"cd_experiment_{OPPONENT_CONDITION}_{timestamp}.db")
-    csv_path = str(out_dir / f"cd_results_{OPPONENT_CONDITION}_{timestamp}.csv")
-
-    log.info("Initializing LangChain model registry...")
-    model_registry = build_model_registry()
+    db_path  = str(out_dir / f"cd_sweep_{OPPONENT_CONDITION}_{timestamp}.db")
+    csv_path = str(out_dir / f"cd_sweep_{OPPONENT_CONDITION}_{timestamp}.csv")
 
     conn = init_db(db_path)
     log.info(f"Database initialized: {db_path}")
 
     all_logs = []
+    global_game_id = 0
 
-    for game_id, (model_a_key, model_b_key) in enumerate(MATCHUPS, start=1):
-        logs = run_game(model_a_key, model_b_key, game_id, conn, model_registry,
-                        condition=OPPONENT_CONDITION)
-        all_logs.extend(logs)
+    for temp in TEMPERATURES:
+        print(f"\n{'#'*65}")
+        print(f"  TEMPERATURE SWEEP: temp={temp}  |  condition={OPPONENT_CONDITION}")
+        print(f"  Running {len(MATCHUPS)} matchups x {TOTAL_ROUNDS} rounds each")
+        print(f"{'#'*65}")
+
+        log.info(f"Building model registry at temperature={temp}")
+        model_registry = build_model_registry(temp)
+
+        for model_a_key, model_b_key in MATCHUPS:
+            global_game_id += 1
+            logs = run_game(model_a_key, model_b_key, global_game_id, conn,
+                            model_registry, condition=OPPONENT_CONDITION)
+            all_logs.extend(logs)
 
     conn.close()
     save_csv(all_logs, csv_path)
 
-    print(f"\n📊 SQLite database → {db_path}")
-    print("   Query examples:")
-    print("   SELECT matchup, AVG(extraction_1) FROM rounds GROUP BY matchup;")
-    print("   SELECT matchup, SUM(pool_collapsed) as collapses FROM rounds GROUP BY matchup;")
-    print("   SELECT matchup, MIN(pool_after_extraction) as min_pool FROM rounds GROUP BY matchup;")
+    print(f"\n📊 SQLite -> {db_path}")
+    print(f"📄 CSV    -> {csv_path}")
