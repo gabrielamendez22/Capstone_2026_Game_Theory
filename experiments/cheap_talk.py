@@ -56,7 +56,6 @@ import time
 import random
 import sqlite3
 import logging
-import concurrent.futures
 from datetime import datetime, timezone
 from typing import Optional
 
@@ -220,6 +219,7 @@ def build_model_registry() -> dict:
                 google_api_key=GEMINI_API_KEY,
                 temperature=TEMPERATURE,
                 max_output_tokens=500,
+                timeout=90,
             ),
             "Gemini 2.5 Flash",
             TEMPERATURE,
@@ -230,6 +230,7 @@ def build_model_registry() -> dict:
                 google_api_key=GEMINI_API_KEY,
                 temperature=TEMPERATURE,
                 max_output_tokens=500,
+                timeout=90,
             ),
             "Gemini 2.5 Flash Lite",
             TEMPERATURE,
@@ -528,17 +529,16 @@ def init_db(db_path: str) -> sqlite3.Connection:
 # STEP 7 — UNIFIED MODEL CALLER
 # ─────────────────────────────────────────────────────────────
 
-API_TIMEOUT_SECONDS = 90
-
 def call_model_langchain(
     model_obj,
     conversation: list,
     system_prompt: str,
     label: str,
 ) -> tuple[Optional[str], dict]:
-    def _invoke():
+    try:
         full_messages = [SystemMessage(content=system_prompt)] + conversation
         response = model_obj.invoke(full_messages)
+
         usage_meta = response.response_metadata or {}
         usage = {
             "prompt": usage_meta.get("input_tokens",
@@ -550,13 +550,6 @@ def call_model_langchain(
         }
         return response.content.strip(), usage
 
-    try:
-        with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
-            future = executor.submit(_invoke)
-            return future.result(timeout=API_TIMEOUT_SECONDS)
-    except concurrent.futures.TimeoutError:
-        log.error(f"[{label}] API call timed out after {API_TIMEOUT_SECONDS}s — skipping")
-        return None, {}
     except Exception as e:
         log.error(f"[{label}] LangChain API error: {e}")
         return None, {}
