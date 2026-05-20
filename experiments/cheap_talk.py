@@ -113,7 +113,7 @@ except FileNotFoundError:
 TOTAL_ROUNDS   = 15      # full run
 ROLE_SWAP_AT   = 6
 PROMPT_VERSION = "v2.1"
-TEMPERATURE    = 0.6
+TEMPERATURE    = 0.8
 MAX_RETRIES    = 1
 
 # --- Identity condition ---
