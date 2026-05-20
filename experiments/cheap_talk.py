@@ -80,15 +80,15 @@ ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
 OPENAI_API_KEY    = os.getenv("OPENAI_API_KEY")
 GEMINI_API_KEY    = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
 
-TOTAL_ROUNDS   = 10      # full run
+TOTAL_ROUNDS   = 15      # full run
 ROLE_SWAP_AT   = 6
 PROMPT_VERSION = "v2.1"
-TEMPERATURE    = 0.6
+TEMPERATURE    = 0.8
 MAX_RETRIES    = 1
 
 # --- Identity condition ---
 # Change this single value before each run; it is recorded in every row.
-IDENTITY_CONDITION = "undisclosed"
+IDENTITY_CONDITION = "ai_vs_ai"
 # Options:
 #   "undisclosed"             — neither model told who partner is; no persona
 #   "ai_vs_ai"               — both told partner is an AI model; no persona
