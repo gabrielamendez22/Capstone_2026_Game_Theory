@@ -34,7 +34,7 @@ for the same model?
 │
 ├── experiments/
 │   ├── prisoners_dilemma_langchain.py   ← primary PD experiment script (v4.4)
-│   ├── cheap_talk.py                    ← Cheap-Talk experiment script (v2, canonical)
+│   ├── cheap_talk_langchain.py          ← Cheap-Talk experiment script (v2, canonical)
 │   └── commons_dilemma_langchain.py     ← CD experiment (pending merge from feature branch)
 │
 ├── data/
@@ -60,7 +60,7 @@ for the same model?
   T=0.3 and T=0.6; prompt at v4.4 with mandatory chain-of-thought; 20 rounds per session
 - Commons Dilemma: **partial pilot** — implementation in `feature/commons-dilemma` branch;
   3 conditions run; needs branch cleanup and merge before analysis
-- Cheap-Talk / Signaling: **v2 implementation complete** — `experiments/cheap_talk.py` with
+- Cheap-Talk / Signaling: **v2 implementation complete** — `experiments/cheap_talk_langchain.py` with
   6 identity conditions, belief tracking, 6 models; pilot data collected (undisclosed condition);
   full-condition runs pending; v1 legacy script at root (`cheap-talk-v1.py`) — do not use for new runs
 - Dashboard: **live** — reads from `data/raw/`, runs locally on port 8050
