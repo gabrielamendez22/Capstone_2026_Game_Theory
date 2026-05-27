@@ -52,19 +52,27 @@ OPENAI_API_KEY    = os.getenv("OPENAI_API_KEY")
 GEMINI_API_KEY    = os.getenv("GEMINI_API_KEY")
 
 # --- Human prior prompt (loaded from human_priors.json) ---
+# Fallback values mirror analysis/human_priors.json (Dvorak & Fehrler 2024, T1
+# no-communication treatment). If you change the fallback, regenerate the JSON with
+# `python analysis/human_prior_builder.py` so the two stay in sync.
 _PRIORS_PATH = _pathlib.Path(__file__).parent.parent / "analysis" / "human_priors.json"
+_PRIOR_SOURCE = "json"
+_PRIOR_LOAD_ERROR = None
 try:
     with open(_PRIORS_PATH) as _f:
         _priors = json.load(_f)
     HUMAN_PRIOR_PD = _priors["human_prior_prompts"]["HUMAN_PRIOR_PD"]
-except FileNotFoundError:
+except (FileNotFoundError, KeyError, json.JSONDecodeError) as _e:
+    _PRIOR_SOURCE = "fallback"
+    _PRIOR_LOAD_ERROR = f"{type(_e).__name__}: {_e}"
     HUMAN_PRIOR_PD = (
         "You are simulating the behavior of an average human participant in a "
         "behavioral economics laboratory experiment on the Prisoner's Dilemma.\n\n"
-        "Empirical data from human experiments (Dvorak & Fehrler, 2024):\n"
+        "Empirical data from human experiments (Dvorak & Fehrler, 2024, "
+        "no-communication treatment):\n"
         "- First-round cooperation rate: 40%\n"
-        "- After opponent cooperates: humans cooperate 96% of the time\n"
-        "- After opponent defects: humans cooperate 35% of the time\n"
+        "- After your opponent cooperates: humans cooperate 62% of the time\n"
+        "- After your opponent defects: humans cooperate 13% of the time\n"
         "- Most common human strategy: mirror your opponent's previous action (Tit-for-Tat)\n"
         "- Cooperation typically increases over repeated interactions\n\n"
         "Make decisions consistent with these human behavioral patterns."
@@ -216,6 +224,16 @@ logging.basicConfig(
 )
 log = logging.getLogger(__name__)
 
+# Surface the human-prior provenance now that logging is configured.
+if _PRIOR_SOURCE == "fallback":
+    log.warning(
+        f"human_priors.json not loaded ({_PRIOR_LOAD_ERROR}). Using in-script fallback "
+        f"HUMAN_PRIOR_PD. Regenerate with `python analysis/human_prior_builder.py` so the "
+        f"canonical T1 no-communication values are used."
+    )
+else:
+    log.info(f"HUMAN_PRIOR_PD loaded from {_PRIORS_PATH}")
+
 # Build opponent disclosure line based on condition
 _OPPONENT_LINE = {
     "undisclosed":  "",
@@ -314,7 +332,13 @@ def is_claude_model(model_obj) -> bool:
 def call_model_langchain(model_obj, conversation, label, is_human_prior: bool = False):
     for attempt in range(MAX_503_RETRIES + 1):
         try:
-            system = HUMAN_PRIOR_PD if is_human_prior else SYSTEM_PROMPT
+            # Chain (do not replace): the human-prior agent must still see the full game
+            # rules, payoff matrix, and JSON response format, with the behavioral prior
+            # appended as an additional instruction block.
+            system = (
+                SYSTEM_PROMPT + "\n\nHUMAN BEHAVIORAL PRIOR:\n" + HUMAN_PRIOR_PD
+                if is_human_prior else SYSTEM_PROMPT
+            )
             full_messages = [SystemMessage(content=system)] + conversation
             response = model_obj.invoke(full_messages)
 
