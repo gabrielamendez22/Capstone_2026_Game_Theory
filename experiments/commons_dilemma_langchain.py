@@ -57,26 +57,37 @@ OPENAI_API_KEY    = os.getenv("OPENAI_API_KEY")
 GEMINI_API_KEY    = os.getenv("GEMINI_API_KEY")
 
 # --- Human prior prompt (loaded from human_priors.json) ---
+# Fallback mirrors analysis/human_priors.json (Abatayo & Lynham 2022). It is
+# PRESCRIPTIVE and maps the binary over-extraction rate onto the continuous
+# extraction action. Keep it in sync with the builder.
 _PRIORS_PATH = _pathlib.Path(__file__).parent.parent / "analysis" / "human_priors.json"
+_PRIOR_SOURCE = "json"
+_PRIOR_LOAD_ERROR = None
 try:
     with open(_PRIORS_PATH) as _f:
         _priors = json.load(_f)
     HUMAN_PRIOR_CPR = _priors["human_prior_prompts"]["HUMAN_PRIOR_CPR"]
-except FileNotFoundError:
+except (FileNotFoundError, KeyError, json.JSONDecodeError) as _e:
+    _PRIOR_SOURCE = "fallback"
+    _PRIOR_LOAD_ERROR = f"{type(_e).__name__}: {_e}"
     HUMAN_PRIOR_CPR = (
         "You are simulating the behavior of an average human participant in a "
         "behavioral economics laboratory experiment on a Commons Dilemma.\n\n"
         "Empirical data from human CPR experiments (Abatayo & Lynham, 2022):\n"
-        "- Over-extraction rate (choosing the greedy strategy): 58%\n"
-        "- Cooperative restraint rate: 42%\n"
-        "- Humans tend to over-extract more at the start and in high-resource conditions\n\n"
-        "Make decisions consistent with these human behavioral patterns."
+        "- Over-extraction rate (taking more than the sustainable per-capita share): 58%\n"
+        "- Cooperative restraint rate (taking at or below the sustainable share): 42%\n"
+        "- Humans tend to over-extract more at the start and when the resource is abundant\n\n"
+        "Behavioral target: choose an extraction ABOVE the sustainable per-capita share "
+        "(regeneration divided by the number of players) in approximately 58% of rounds, "
+        "and at or below it in approximately 42% of rounds. Treat this as a behavioral "
+        "target, not background information."
     )
 
 # --- Experiment Settings ---
 TOTAL_ROUNDS   = 20      # How many rounds per game session
-PROMPT_VERSION = "v2.2"  # v2.2: Gemini max_output_tokens=1024, truncated JSON fallback
-MAX_RETRIES    = 1        # If a model gives an invalid answer, retry this many times
+PROMPT_VERSION = "v2.3"  # v2.3: neutral objective (no adversarial framing); belief now P(restraint) on [0,1]; chained human prior
+MAX_RETRIES    = 2        # retries on invalid answer before defaulting (matches PD)
+MAX_503_RETRIES = 5       # retries on API errors (503, timeout) with exponential backoff
 HISTORY_WINDOW = None     # None = show full history | integer = sliding window (e.g. 5)
 
 OPPONENT_CONDITION = "human_prior"
@@ -219,6 +230,15 @@ logging.basicConfig(
 )
 log = logging.getLogger(__name__)
 
+# Surface the human-prior provenance now that logging is configured.
+if _PRIOR_SOURCE == "fallback":
+    log.warning(
+        f"human_priors.json not loaded ({_PRIOR_LOAD_ERROR}). Using in-script fallback "
+        f"HUMAN_PRIOR_CPR. Regenerate with `python analysis/human_prior_builder.py`."
+    )
+else:
+    log.info(f"HUMAN_PRIOR_CPR loaded from {_PRIORS_PATH}")
+
 # Build opponent disclosure line — same pattern as PD
 _OPPONENT_LINE = {
     "undisclosed": "",
@@ -246,24 +266,24 @@ GAME RULES:
 - If the total extraction by both players exceeds what is in the pool, the pool collapses:
   both players receive 0 that round and the pool drops to 0.
 - The pool recovers slowly via fixed regeneration in subsequent rounds.
-- The game lasts {TOTAL_ROUNDS} rounds. Your goal is to MAXIMISE your own total score.
-- You are competing against your opponent. A higher score than your opponent is better.
+- The game lasts {TOTAL_ROUNDS} rounds.
+- Each round, choose the extraction level you judge to be strategically optimal given the history and the rules above.
+- You will see the pool size and the history of all previous rounds before deciding.
 
 STRATEGY NOTE:
-- Extracting more gives you a higher payoff — but risks collapsing the pool.
+- Extracting more gives you a higher payoff this round — but risks collapsing the pool.
 - Extracting less preserves the pool for future rounds — but your opponent may take more.
-- Each round, choose the extraction level you judge to be strategically optimal.
 
 RESPONSE FORMAT — CRITICAL:
 Output ONLY a raw JSON object. No reasoning, no explanation, no text before or after the JSON.
 Any text outside the JSON will cause your response to be rejected.
 
-{{"belief": <your estimate (0.00–{float(MAX_EXTRACTION):.1f}) of how many units your opponent will extract THIS round>,
+{{"belief": <your probability (0.00–1.00) that your opponent will act with RESTRAINT this round, i.e. take only a small/moderate share rather than a large/greedy share>,
   "extraction": <integer 0–{MAX_EXTRACTION}, how many units you choose to extract>}}
 
 VALID examples:
-  {{"belief": 8.5, "extraction": 12}}
-  {{"belief": 14.0, "extraction": 7}}
+  {{"belief": 0.65, "extraction": 12}}
+  {{"belief": 0.30, "extraction": 7}}
 INVALID: any text outside the JSON, explanations, reasoning
 
 Prompt version: {PROMPT_VERSION}"""
@@ -326,25 +346,36 @@ def call_model_langchain(
     label: str,
     is_human_prior: bool = False,
 ) -> tuple[Optional[str], dict]:
-    try:
-        system = HUMAN_PRIOR_CPR if is_human_prior else SYSTEM_PROMPT
-        full_messages = [SystemMessage(content=system)] + conversation
-        response = model_obj.invoke(full_messages)
+    # Chain (do not replace): the human-prior agent must still see the full game rules,
+    # pool dynamics, and JSON response format, with the behavioral prior appended.
+    system = (
+        SYSTEM_PROMPT + "\n\nHUMAN BEHAVIORAL PRIOR:\n" + HUMAN_PRIOR_CPR
+        if is_human_prior else SYSTEM_PROMPT
+    )
+    for attempt in range(MAX_503_RETRIES + 1):
+        try:
+            full_messages = [SystemMessage(content=system)] + conversation
+            response = model_obj.invoke(full_messages)
 
-        usage_meta = response.response_metadata or {}
-        usage = {
-            "prompt": usage_meta.get("input_tokens",
-                      usage_meta.get("prompt_tokens",
-                      usage_meta.get("usage", {}).get("prompt_token_count", 0))),
-            "completion": usage_meta.get("output_tokens",
-                          usage_meta.get("completion_tokens",
-                          usage_meta.get("usage", {}).get("candidates_token_count", 0))),
-        }
-        return response.content.strip(), usage
+            usage_meta = response.response_metadata or {}
+            usage = {
+                "prompt": usage_meta.get("input_tokens",
+                          usage_meta.get("prompt_tokens",
+                          usage_meta.get("usage", {}).get("prompt_token_count", 0))),
+                "completion": usage_meta.get("output_tokens",
+                              usage_meta.get("completion_tokens",
+                              usage_meta.get("usage", {}).get("candidates_token_count", 0))),
+            }
+            return response.content.strip(), usage
 
-    except Exception as e:
-        log.error(f"[{label}] LangChain API error: {e}")
-        return None, {}
+        except Exception as e:
+            if attempt < MAX_503_RETRIES:
+                wait = 2 ** attempt  # exponential backoff: 1, 2, 4, 8, 16 sec
+                log.warning(f"[{label}] API error (attempt {attempt+1}/{MAX_503_RETRIES}): {e} — retrying in {wait}s")
+                time.sleep(wait)
+            else:
+                log.error(f"[{label}] API error after {MAX_503_RETRIES} retries: {e}")
+                return None, {}
 
 # ─────────────────────────────────────────────────────────────
 # STEP 8 — RESPONSE PARSER
@@ -367,11 +398,11 @@ def parse_response(
 
     Safe defaults on failure:
       extraction → 0
-      belief     → SUSTAINABLE_SHARE
+      belief     → 0.5  (uninformative; belief is a probability on [0, 1])
     """
     if raw is None:
         log.warning(f"[{label}] Round {round_num}: null response → default extraction=0")
-        return 0, SUSTAINABLE_SHARE
+        return 0, 0.5
 
     try:
         text = raw.strip()
@@ -396,8 +427,8 @@ def parse_response(
                 extraction = int(ext_match.group(1))
                 extraction = max(0, min(MAX_EXTRACTION, extraction))
                 extraction = min(extraction, int(pool_available))
-                belief = float(bel_match.group(1)) if bel_match else SUSTAINABLE_SHARE
-                belief = max(0.0, min(float(MAX_EXTRACTION), belief))
+                belief = float(bel_match.group(1)) if bel_match else 0.5
+                belief = max(0.0, min(1.0, belief))
                 log.warning(f"[{label}] Round {round_num}: truncated JSON recovered "
                             f"extraction={extraction} belief={belief}")
                 return extraction, belief
@@ -408,14 +439,14 @@ def parse_response(
         extraction = max(0, min(MAX_EXTRACTION, extraction))
         extraction = min(extraction, int(pool_available))
 
-        belief = float(data.get("belief", SUSTAINABLE_SHARE))
-        belief = max(0.0, min(float(MAX_EXTRACTION), belief))
+        belief = float(data.get("belief", 0.5))
+        belief = max(0.0, min(1.0, belief))
 
         return extraction, belief
 
     except Exception as e:
         log.warning(f"[{label}] Round {round_num} parse error: {e} | raw: {str(raw)[:120]}")
-        return 0, SUSTAINABLE_SHARE
+        return 0, 0.5
 
 # ─────────────────────────────────────────────────────────────
 # STEP 9 — ACTION GETTER WITH RETRY
@@ -446,12 +477,12 @@ def get_action_with_retry(
                 AIMessage(content="{}"),
                 HumanMessage(content=(
                     'Invalid output. Respond with ONLY this JSON, no other text: '
-                    f'{{"belief": <0.0–{float(MAX_EXTRACTION):.1f}>, "extraction": <integer 0–{MAX_EXTRACTION}>}}'
+                    f'{{"belief": <0.00–1.00>, "extraction": <integer 0–{MAX_EXTRACTION}>}}'
                 )),
             ]
 
     log.error(f"[{label}] Round {round_num}: failed after {MAX_RETRIES} retries → default extraction=0")
-    return raw, 0, SUSTAINABLE_SHARE, {}, 0.0
+    return raw, 0, 0.5, {}, 0.0
 
 # ─────────────────────────────────────────────────────────────
 # STEP 10 — PROMPT BUILDER
@@ -489,7 +520,7 @@ CURRENT POOL: {pool_after_regen:.1f} units available (after this round's regener
 Your total score so far: {my_cumulative} units.
 
 Respond with ONLY this JSON (no other text):
-{{"belief": <0.00–{float(MAX_EXTRACTION):.1f}>, "extraction": <integer 0–{MAX_EXTRACTION}>}}"""
+{{"belief": <0.00–1.00 probability your opponent acts with restraint>, "extraction": <integer 0–{MAX_EXTRACTION}>}}"""
 
 # ─────────────────────────────────────────────────────────────
 # STEP 11 — POOL DYNAMICS
@@ -648,11 +679,11 @@ def run_game(
                     "total_extraction":      0,
                     "pool_after_extraction": 0.0,
                     "pool_collapsed":        1,
-                    "extraction_1": 0, "belief_1": SUSTAINABLE_SHARE,
+                    "extraction_1": 0, "belief_1": 0.5,
                     "payoff_1": 0, "cumulative_1": score_a,
                     "raw_output_1": "POOL_COLLAPSED", "token_usage_1": json.dumps({}),
                     "response_time_1": 0.0,
-                    "extraction_2": 0, "belief_2": SUSTAINABLE_SHARE,
+                    "extraction_2": 0, "belief_2": 0.5,
                     "payoff_2": 0, "cumulative_2": score_b,
                     "raw_output_2": "POOL_COLLAPSED", "token_usage_2": json.dumps({}),
                     "response_time_2": 0.0,

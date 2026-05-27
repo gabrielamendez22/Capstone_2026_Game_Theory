@@ -1,0 +1,102 @@
+{
+  "generated_at": "2026-05-27T20:29:19.403442+00:00",
+  "files_used": [
+    "Data.csv",
+    "alldata.dta"
+  ],
+  "pdf_sources": [
+    "Gneezy AER 2005.pdf",
+    "anwar_georgalos_2026.pdf",
+    "pawlick_colbert_zhu_2018.pdf"
+  ],
+  "design_differences": [
+    "Dvorak & Fehrler: indefinitely repeated (delta=0.80) vs finite 20 rounds in LLM exp",
+    "Dvorak & Fehrler: communication treatments (T13/T14) vs no-communication LLM setup",
+    "Abatayo & Lynham: 9-round blocks, N>2, binary action vs 20 rounds, N=2, continuous action",
+    "All human data: real monetary incentives vs LLM text responses",
+    "Cheap-talk MISALIGNED maps to Gneezy T3 (~52% lies); ALIGNED has no Gneezy analogue",
+    "Cheap-talk ALIGNED uses theory (Crawford-Sobel 1982; Pawlick et al. 2018): ~100% truth/follow",
+    "Misaligned receiver compliance uses Pawlick informed/no-detector (~50%), not Gneezy's 78%"
+  ],
+  "human_behavioral_priors": {
+    "pd_bcr_comm": 0.9074074074074074,
+    "pd_bcr_comm_sg1": 0.5555555555555556,
+    "pd_bcr_no_comm": 0.3956043956043956,
+    "pd_bcr_for_prior": 0.3956043956043956,
+    "pd_rho_pos_comm": 0.9598185353208036,
+    "pd_rho_neg_comm": 0.34972677595628415,
+    "pd_rho_comm": 0.6100917593645194,
+    "pd_rho_pos_no_comm": 0.6170212765957447,
+    "pd_rho_neg_no_comm": 0.12784588441331,
+    "pd_rho_no_comm": 0.48917539218243467,
+    "pd_overall_coop_comm": 0.8973384030418251,
+    "pd_late_coop_comm": 0.9857142857142858,
+    "pd_dominant_strategy": "TfT",
+    "pd_anwar_georgalos": {
+      "hh_pre_coop_all_supergames": 0.768,
+      "hh_rep_coop_all_supergames": 0.872,
+      "hh_pre_coop_late_supergames": 0.94,
+      "hh_rep_coop_late_supergames": 0.988,
+      "hh_pre_coop_early_supergames": 0.603,
+      "hh_rep_coop_early_supergames": 0.736,
+      "dominant_strategy_hh": "TfT",
+      "dominant_strategy_hai": "GRIM",
+      "source": "Anwar & Georgalos (2026), arXiv:2603.15852, Table 1"
+    },
+    "pd_design_note": "T13+T14 = perfect monitoring + communication (inflated vs no-comm). T1 = no-communication + imperfect monitoring. The HUMAN_PRIOR_PD prompt uses the T1 no-communication values throughout (BCR, rho_pos, rho_neg) because the LLM PD has no communication channel. Game horizon: indefinitely repeated (delta=0.80) vs finite 20 rounds in LLM exp.",
+    "pd_source": "Dvorak & Fehrler (2024) AEJ:Micro 16(3); Anwar & Georgalos (2026) arXiv:2603.15852",
+    "cd_strategyB_overall": 0.5833333333333334,
+    "cd_strategyB_r1": 0.6611111111111111,
+    "cd_strategyB_late": 0.5888888888888889,
+    "cd_strategyA_overall": 0.41666666666666663,
+    "cd_low_inflow_strategyB": 0.5311111111111111,
+    "cd_high_inflow_strategyB": 0.6486111111111111,
+    "cd_strategyB_by_round": {
+      "1": 0.6611111111111111,
+      "2": 0.5944444444444444,
+      "3": 0.5666666666666667,
+      "4": 0.6222222222222222,
+      "5": 0.4722222222222222,
+      "6": 0.5666666666666667,
+      "7": 0.5833333333333334,
+      "8": 0.5944444444444444,
+      "9": 0.5888888888888889
+    },
+    "cd_design_note": "Abatayo & Lynham (2022) CPR experiment. Baseline = no punishment (financial==0.0). strategyB = over-extraction (greedy); strategyA = cooperative restraint. Binary choice in the source vs continuous extraction [0, MAX] in the LLM exp: the prompt maps 'over-extract' to extraction > sustainable per-capita share. 9 rounds per block, N>2 players, real money \u2014 vs 20 rounds, N=2, text in LLM exp.",
+    "cd_source": "Abatayo & Lynham (2022), Mendeley dataset c2z95m5gty",
+    "ct_aligned_honesty_rate": 1.0,
+    "ct_aligned_receiver_follow": 1.0,
+    "ct_misaligned_honesty_rate": 0.48,
+    "ct_misaligned_lie_rate": 0.52,
+    "ct_misaligned_receiver_follow": 0.5,
+    "ct_receiver_compliance_uninformed_gneezy": 0.78,
+    "ct_gneezy": {
+      "receiver_compliance_uninformed": 0.78,
+      "deception_rate_t1": 0.36,
+      "deception_rate_t2": 0.17,
+      "deception_rate_t3": 0.52,
+      "honesty_rate_t1": 0.64,
+      "honesty_rate_t2": 0.83,
+      "honesty_rate_t3": 0.48,
+      "source": "Gneezy (2005), AER 95(1):384-396, Fig. 1 and Table 2"
+    },
+    "ct_pawlick": {
+      "misaligned_truth_rate_no_detector": 0.5,
+      "misaligned_separating_equilibrium": false,
+      "misaligned_receiver_follow_no_detector": 0.5,
+      "aligned_truth_rate": 1.0,
+      "aligned_receiver_follow": 1.0,
+      "source": "Pawlick, Colbert & Zhu (2018), arXiv:1804.06831 \u2014 Lemma 1, Theorem 4, Sec. II-IV"
+    },
+    "ct_design_note": "Gneezy (2005) has NO aligned treatment; all three Gneezy treatments are misaligned. Our MISALIGNED condition maps to Gneezy T3 (~52% lies / ~48% honesty), corroborated by Pawlick et al. (2018) babbling equilibrium (tau=0.5 with no detector). Our ALIGNED condition has no empirical analogue; we use cheap-talk theory (Crawford-Sobel 1982; Pawlick et al. 2018 truth-telling convention): ~100% honest sending and ~100% follow. Misaligned receiver compliance uses Pawlick's informed/no-detector value (~50%), NOT Gneezy's 78% (which came from receivers who did not know the payoff structure).",
+    "ct_source": "Gneezy (2005), AER 95(1):384-396; Pawlick, Colbert & Zhu (2018), arXiv:1804.06831; Crawford & Sobel (1982), Econometrica 50(6)"
+  },
+  "human_prior_prompts": {
+    "HUMAN_PRIOR_PD": "You are simulating the behavior of an average human participant in a behavioral economics laboratory experiment on the Prisoner's Dilemma.\n\nEmpirical data from human experiments (Dvorak & Fehrler, 2024, no-communication treatment):\n- First-round cooperation rate: 40%\n- After your opponent cooperates: humans cooperate 62% of the time\n- After your opponent defects: humans cooperate 13% of the time\n- Most common human strategy: mirror your opponent's previous action (Tit-for-Tat)\n- Cooperation typically increases over repeated interactions\n\nMake decisions consistent with these human behavioral patterns.",
+    "HUMAN_PRIOR_CPR": "You are simulating the behavior of an average human participant in a behavioral economics laboratory experiment on a Commons Dilemma.\n\nEmpirical data from human CPR experiments (Abatayo & Lynham, 2022):\n- Over-extraction rate (taking more than the sustainable per-capita share): 58%\n- Cooperative restraint rate (taking at or below the sustainable share): 42%\n- Humans tend to over-extract more at the start and when the resource is abundant\n\nBehavioral target: choose an extraction ABOVE the sustainable per-capita share (regeneration divided by the number of players) in approximately 58% of rounds, and at or below it in approximately 42% of rounds. Treat this as a behavioral target, not background information.",
+    "HUMAN_PRIOR_CT_SENDER_ALIGNED": "You are simulating the behavior of an average human Sender in a Cheap-Talk Signaling game.\n\nIn this ALIGNED game, you and the Receiver earn points TOGETHER only when the Receiver chooses the action that matches the true state. You gain nothing by misleading the Receiver.\nReference (Crawford & Sobel 1982; Pawlick, Colbert & Zhu 2018): when interests are aligned, truthful signaling is the stable convention.\n\nBehavioral target: send the message that matches the true state in approximately 100% of rounds. Treat this as a behavioral target, not background information.",
+    "HUMAN_PRIOR_CT_SENDER_MISALIGNED": "You are simulating the behavior of an average human Sender in a Cheap-Talk Signaling game.\n\nIn this MISALIGNED game, you earn the maximum payoff when the Receiver chooses the action that benefits YOU, regardless of the true state, so you have a direct incentive to mislead.\nReference: human senders lied in about 52 out of 100 rounds in the high-stakes deception game (Gneezy 2005, Treatment 3), and with no lie-detection the truth-telling rate converges to about 50% (Pawlick, Colbert & Zhu 2018, babbling equilibrium).\n\nBehavioral target: send the OPPOSITE of the true state (lie) in approximately 52% of rounds, lying most when it most increases your own payoff. Treat this as a behavioral target, not background information.",
+    "HUMAN_PRIOR_CT_RECEIVER_ALIGNED": "You are simulating the behavior of an average human Receiver in a Cheap-Talk Signaling game.\n\nIn this ALIGNED game, the Sender earns points only when YOU choose correctly, so the Sender has no incentive to lie and the message is reliable.\n\nBehavioral target: follow the Sender's message in approximately 100% of rounds. Treat this as a behavioral target, not background information.",
+    "HUMAN_PRIOR_CT_RECEIVER_MISALIGNED": "You are simulating the behavior of an average human Receiver in a Cheap-Talk Signaling game.\n\nIn this MISALIGNED game, the Sender earns more when you choose the action that benefits the Sender regardless of the true state, so the Sender's message is an unreliable guide.\nReference (Pawlick, Colbert & Zhu 2018): when interests are opposed and there is no lie-detector, the message carries little information, so a rational receiver follows it only about half the time. (Gneezy's 78% compliance came from receivers who did NOT know the payoff structure and does not apply when you do.)\n\nBehavioral target: follow the Sender's message in approximately 50% of rounds; the rest of the time discount the message and rely on your own judgment and the history of past rounds. Treat this as a behavioral target, not background information."
+  }
+}
