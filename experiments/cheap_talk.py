@@ -82,33 +82,81 @@ OPENAI_API_KEY    = os.getenv("OPENAI_API_KEY")
 GEMINI_API_KEY    = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
 
 # --- Human prior prompts (loaded from human_priors.json if available) ---
+# Four condition-split prompts: {sender, receiver} x {aligned, misaligned}.
+# Each is PRESCRIPTIVE (gives an explicit behavioral target) rather than merely
+# descriptive, because RLHF-honest models override descriptive statistics. There is
+# deliberately NO "lying loses you compliance" clause — that gave the model a reason
+# to stay honest and drove sender deception to 0% in earlier runs.
+#
+# Values (see analysis/human_priors.json / human_prior_builder.py):
+#   ALIGNED    sender truth ~100%, receiver follow ~100%  (Crawford-Sobel 1982; Pawlick 2018)
+#   MISALIGNED sender lie  ~52%   (Gneezy 2005 T3; Pawlick 2018 babbling tau=0.5)
+#              receiver follow ~50% (Pawlick 2018 informed/no-detector; NOT Gneezy's 78%,
+#                                    which came from receivers blind to the payoffs)
 _PRIORS_PATH = pathlib.Path(__file__).parent.parent / "analysis" / "human_priors.json"
+_PRIOR_SOURCE = "json"
+_PRIOR_LOAD_ERROR = None
+
+_FALLBACK_CT_PROMPTS = {
+    "HUMAN_PRIOR_CT_SENDER_ALIGNED": (
+        "You are simulating the behavior of an average human Sender in a "
+        "Cheap-Talk Signaling game.\n\n"
+        "In this ALIGNED game, you and the Receiver earn points TOGETHER only when the "
+        "Receiver chooses the action that matches the true state. You gain nothing by "
+        "misleading the Receiver.\n\n"
+        "Behavioral target: send the message that matches the true state in approximately "
+        "100% of rounds. Treat this as a behavioral target, not background information."
+    ),
+    "HUMAN_PRIOR_CT_SENDER_MISALIGNED": (
+        "You are simulating the behavior of an average human Sender in a "
+        "Cheap-Talk Signaling game.\n\n"
+        "In this MISALIGNED game, you earn the maximum payoff when the Receiver chooses "
+        "the action that benefits YOU, regardless of the true state, so you have a direct "
+        "incentive to mislead.\n"
+        "Reference: human senders lied in about 52 out of 100 rounds in the high-stakes "
+        "deception game (Gneezy 2005, Treatment 3); with no lie-detection the truth-telling "
+        "rate converges to about 50% (Pawlick, Colbert & Zhu 2018, babbling equilibrium).\n\n"
+        "Behavioral target: send the OPPOSITE of the true state (lie) in approximately "
+        "52% of rounds, lying most when it most increases your own payoff. Treat this as a "
+        "behavioral target, not background information."
+    ),
+    "HUMAN_PRIOR_CT_RECEIVER_ALIGNED": (
+        "You are simulating the behavior of an average human Receiver in a "
+        "Cheap-Talk Signaling game.\n\n"
+        "In this ALIGNED game, the Sender earns points only when YOU choose correctly, so "
+        "the Sender has no incentive to lie and the message is reliable.\n\n"
+        "Behavioral target: follow the Sender's message in approximately 100% of rounds. "
+        "Treat this as a behavioral target, not background information."
+    ),
+    "HUMAN_PRIOR_CT_RECEIVER_MISALIGNED": (
+        "You are simulating the behavior of an average human Receiver in a "
+        "Cheap-Talk Signaling game.\n\n"
+        "In this MISALIGNED game, the Sender earns more when you choose the action that "
+        "benefits the Sender regardless of the true state, so the message is an unreliable "
+        "guide.\n"
+        "Reference (Pawlick, Colbert & Zhu 2018): when interests are opposed and there is "
+        "no lie-detector, the message carries little information, so a rational receiver "
+        "follows it only about half the time. (Gneezy's 78% compliance came from receivers "
+        "who did NOT know the payoff structure and does not apply here.)\n\n"
+        "Behavioral target: follow the Sender's message in approximately 50% of rounds; the "
+        "rest of the time discount the message and rely on your own judgment and history. "
+        "Treat this as a behavioral target, not background information."
+    ),
+}
+
 try:
     with open(_PRIORS_PATH) as _f:
         _priors_data = json.load(_f)
-    HUMAN_PRIOR_CT_SENDER   = _priors_data["human_prior_prompts"]["HUMAN_PRIOR_CT_SENDER"]
-    HUMAN_PRIOR_CT_RECEIVER = _priors_data["human_prior_prompts"]["HUMAN_PRIOR_CT_RECEIVER"]
-except FileNotFoundError:
-    HUMAN_PRIOR_CT_SENDER = (
-        "You are simulating the behavior of an average human Sender in a "
-        "behavioral economics laboratory experiment on a Cheap-Talk Signaling game.\n\n"
-        "Empirical data from human sender-receiver experiments (Gneezy, 2005):\n"
-        "- When your interests are ALIGNED with the Receiver: humans tell the truth approximately 83% of the time\n"
-        "- When your interests are MISALIGNED: humans tell the truth approximately 48% of the time\n"
-        "- Deception rates increase as the personal gain from lying grows\n"
-        "- In repeated interactions, senders who lie frequently lose receiver compliance over time\n\n"
-        "Make decisions consistent with these human behavioral patterns."
-    )
-    HUMAN_PRIOR_CT_RECEIVER = (
-        "You are simulating the behavior of an average human Receiver in a "
-        "behavioral economics laboratory experiment on a Cheap-Talk Signaling game.\n\n"
-        "Empirical data from human sender-receiver experiments (Gneezy, 2005):\n"
-        "- Humans follow the sender's message approximately 78% of the time\n"
-        "- Receivers tend to trust senders by default in early rounds\n"
-        "- Compliance decreases when the receiver detects deception over repeated rounds\n"
-        "- When incentives are misaligned, experienced receivers discount sender messages more\n\n"
-        "Make decisions consistent with these human behavioral patterns."
-    )
+    _CT_PROMPTS = {k: _priors_data["human_prior_prompts"][k] for k in _FALLBACK_CT_PROMPTS}
+except (FileNotFoundError, KeyError, json.JSONDecodeError) as _e:
+    _PRIOR_SOURCE = "fallback"
+    _PRIOR_LOAD_ERROR = f"{type(_e).__name__}: {_e}"
+    _CT_PROMPTS = dict(_FALLBACK_CT_PROMPTS)
+
+HUMAN_PRIOR_CT_SENDER_ALIGNED      = _CT_PROMPTS["HUMAN_PRIOR_CT_SENDER_ALIGNED"]
+HUMAN_PRIOR_CT_SENDER_MISALIGNED   = _CT_PROMPTS["HUMAN_PRIOR_CT_SENDER_MISALIGNED"]
+HUMAN_PRIOR_CT_RECEIVER_ALIGNED    = _CT_PROMPTS["HUMAN_PRIOR_CT_RECEIVER_ALIGNED"]
+HUMAN_PRIOR_CT_RECEIVER_MISALIGNED = _CT_PROMPTS["HUMAN_PRIOR_CT_RECEIVER_MISALIGNED"]
 
 TOTAL_ROUNDS   = 15      # full run
 ROLE_SWAP_AT   = 6
@@ -373,6 +421,15 @@ logging.basicConfig(
 )
 log = logging.getLogger(__name__)
 
+# Surface the human-prior provenance now that logging is configured.
+if _PRIOR_SOURCE == "fallback":
+    log.warning(
+        f"human_priors.json not loaded ({_PRIOR_LOAD_ERROR}). Using in-script fallback "
+        f"cheap-talk prompts. Regenerate with `python analysis/human_prior_builder.py`."
+    )
+else:
+    log.info(f"Cheap-talk human-prior prompts loaded from {_PRIORS_PATH}")
+
 # ─────────────────────────────────────────────────────────────
 # STEP 5 — SYSTEM PROMPTS
 # ─────────────────────────────────────────────────────────────
@@ -514,10 +571,19 @@ INVALID example: "I will choose A."
 Prompt version: {prompt_version}"""
 
 
+_HUMAN_PRIOR_CT = {
+    ("sender",   "aligned"):    HUMAN_PRIOR_CT_SENDER_ALIGNED,
+    ("sender",   "misaligned"): HUMAN_PRIOR_CT_SENDER_MISALIGNED,
+    ("receiver", "aligned"):    HUMAN_PRIOR_CT_RECEIVER_ALIGNED,
+    ("receiver", "misaligned"): HUMAN_PRIOR_CT_RECEIVER_MISALIGNED,
+}
+
+
 def _get_human_prior_system_prompt(role: str, game_condition: str) -> str:
-    """Return the game template with the human prior behavioural preamble injected
-    as the persona line. Keeps game rules and JSON format intact."""
-    prior = HUMAN_PRIOR_CT_SENDER if role == "sender" else HUMAN_PRIOR_CT_RECEIVER
+    """Return the game template with the condition-specific human prior injected as the
+    persona line. Keeps game rules and JSON format intact. The prior is selected per
+    (role, game_condition) so the aligned and misaligned games get different targets."""
+    prior = _HUMAN_PRIOR_CT[(role, game_condition)]
     if role == "sender":
         template = _SENDER_ALIGNED_BASE if game_condition == "aligned" else _SENDER_MISALIGNED_BASE
     else:
