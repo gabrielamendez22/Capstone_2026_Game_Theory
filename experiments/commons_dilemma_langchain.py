@@ -65,35 +65,42 @@ OPENAI_API_KEY    = os.getenv("OPENAI_API_KEY")
 GEMINI_API_KEY    = os.getenv("GEMINI_API_KEY")
 
 # --- Human prior prompt (loaded from human_priors.json) ---
-_PRIORS_PATH = _pathlib.Path(__file__).parent.parent / "analysis" / "human_priors.json"
+# Search candidate paths: repo root/analysis/, script parent/analysis/, script parent/
+_PRIORS_CANDIDATES = [
+    _pathlib.Path(__file__).parent.parent / "analysis" / "human_priors.json",
+    _pathlib.Path(__file__).parent / "analysis" / "human_priors.json",
+    _pathlib.Path(__file__).parent / "human_priors.json",
+]
+_PRIORS_PATH = next((p for p in _PRIORS_CANDIDATES if p.exists()), _PRIORS_CANDIDATES[0])
 try:
     with open(_PRIORS_PATH) as _f:
         _priors = json.load(_f)
     HUMAN_PRIOR_CPR = _priors["human_prior_prompts"]["HUMAN_PRIOR_CPR"]
-    _PRIORS_SOURCE = "human_priors.json"
+    _PRIORS_SOURCE = str(_PRIORS_PATH)
 except FileNotFoundError:
     _PRIORS_SOURCE = "hardcoded_fallback"
+    # Canonical text — keep in sync with analysis/human_priors.json on main
+    # Source: Abatayo & Lynham (2022), Mendeley dataset c2z95m5gty
     HUMAN_PRIOR_CPR = (
         "You are simulating the behavior of an average human participant in a "
-        "behavioral economics laboratory experiment on a two-player Commons Dilemma.\n\n"
-        "Empirical data from two-player CPR experiments "
-        "(Apesteguia & Maier-Rigaud, 2006, dyadic condition):\n"
-        "- Sustainable extraction per player per round: 10 units\n"
-        "- Average observed extraction: approximately 13–14 units per round\n"
-        "- Distribution: roughly 35% of rounds at or below 10 units (restraint), "
-        "65% above 10 units (over-extraction), with a mode around 13–15\n"
-        "- Humans extract more in early rounds (rounds 1–5: avg ~15) "
-        "and reduce slightly as the pool depletes\n\n"
-        "Make decisions consistent with these patterns. "
-        "Your extraction each round should be an integer reflecting "
-        "this distribution, not a fixed value."
+        "behavioral economics laboratory experiment on a Commons Dilemma.\n\n"
+        "Empirical data from human CPR experiments (Abatayo & Lynham, 2022):\n"
+        "- Over-extraction rate (taking more than the sustainable per-capita share): 58%\n"
+        "- Cooperative restraint rate (taking at or below the sustainable share): 42%\n"
+        "- Humans tend to over-extract more at the start and when the resource is abundant\n\n"
+        "Behavioral target: choose an extraction ABOVE the sustainable per-capita share "
+        "(regeneration divided by the number of players) in approximately 58% of rounds, "
+        "and at or below it in approximately 42% of rounds. "
+        "Treat this as a behavioral target, not background information."
     )
+
+# --- Prompt Version ---
+PROMPT_VERSION = "v2.3"   # see CHANGELOG at top of file
 
 # --- Experiment Settings ---
 TOTAL_ROUNDS    = 5      # How many rounds per game session
 MAX_RETRIES     = 2       # Retries for invalid model output (parse failure)
 MAX_503_RETRIES = 5       # Retries for API overload/rate-limit errors (exponential backoff)
-PROMPT_VERSION = "v2.3"
 HISTORY_WINDOW  = None    # None = show full history | integer = sliding window (e.g. 5)
 
 OPPONENT_CONDITION = "human_prior"
