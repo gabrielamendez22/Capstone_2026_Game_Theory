@@ -98,7 +98,7 @@ except FileNotFoundError:
 PROMPT_VERSION = "v2.3"   # see CHANGELOG at top of file
 
 # --- Experiment Settings ---
-TOTAL_ROUNDS    = 5      # How many rounds per game session
+TOTAL_ROUNDS    = 20      # How many rounds per game session
 MAX_RETRIES     = 2       # Retries for invalid model output (parse failure)
 MAX_503_RETRIES = 5       # Retries for API overload/rate-limit errors (exponential backoff)
 HISTORY_WINDOW  = None    # None = show full history | integer = sliding window (e.g. 5)
