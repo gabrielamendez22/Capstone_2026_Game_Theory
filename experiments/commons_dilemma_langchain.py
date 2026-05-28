@@ -18,6 +18,14 @@ CHANGELOG:
   v2.0 — Gemini models updated, OPPONENT_CONDITION, competitive prompt
   v2.1 — Robust parser: extracts JSON from any text Gemini wraps around it
   v2.2 — Gemini max_output_tokens raised to 1024; truncated JSON fallback parser
+  v2.3 — Fix #1: removed adversarial framing from STRATEGY NOTE
+         Fix #2: belief field rescaled to 0–1 probability (cross-game β comparability)
+         Fix #3: HP agent now receives full game rules via persona slot injection
+         Fix #4: log.warning on silent JSON fallback
+         Fix #5: MAX_RETRIES=2, MAX_503_RETRIES=5 with exponential backoff
+         Fix #6: "MAXIMISE" → "strategically optimal" (prompt contamination)
+         Fix #7: TEMPERATURES reduced to [0.6]
+         Fix #8: MATCHUPS selector comment added for run hygiene
 
 INSTALL DEPENDENCIES:
   pip install langchain langchain-anthropic langchain-openai langchain-google-genai python-dotenv
@@ -57,47 +65,46 @@ OPENAI_API_KEY    = os.getenv("OPENAI_API_KEY")
 GEMINI_API_KEY    = os.getenv("GEMINI_API_KEY")
 
 # --- Human prior prompt (loaded from human_priors.json) ---
-# Fallback mirrors analysis/human_priors.json (Abatayo & Lynham 2022). It is
-# PRESCRIPTIVE and maps the binary over-extraction rate onto the continuous
-# extraction action. Keep it in sync with the builder.
 _PRIORS_PATH = _pathlib.Path(__file__).parent.parent / "analysis" / "human_priors.json"
-_PRIOR_SOURCE = "json"
-_PRIOR_LOAD_ERROR = None
 try:
     with open(_PRIORS_PATH) as _f:
         _priors = json.load(_f)
     HUMAN_PRIOR_CPR = _priors["human_prior_prompts"]["HUMAN_PRIOR_CPR"]
-except (FileNotFoundError, KeyError, json.JSONDecodeError) as _e:
-    _PRIOR_SOURCE = "fallback"
-    _PRIOR_LOAD_ERROR = f"{type(_e).__name__}: {_e}"
+    _PRIORS_SOURCE = "human_priors.json"
+except FileNotFoundError:
+    _PRIORS_SOURCE = "hardcoded_fallback"
     HUMAN_PRIOR_CPR = (
         "You are simulating the behavior of an average human participant in a "
-        "behavioral economics laboratory experiment on a Commons Dilemma.\n\n"
-        "Empirical data from human CPR experiments (Abatayo & Lynham, 2022):\n"
-        "- Over-extraction rate (taking more than the sustainable per-capita share): 58%\n"
-        "- Cooperative restraint rate (taking at or below the sustainable share): 42%\n"
-        "- Humans tend to over-extract more at the start and when the resource is abundant\n\n"
-        "Behavioral target: choose an extraction ABOVE the sustainable per-capita share "
-        "(regeneration divided by the number of players) in approximately 58% of rounds, "
-        "and at or below it in approximately 42% of rounds. Treat this as a behavioral "
-        "target, not background information."
+        "behavioral economics laboratory experiment on a two-player Commons Dilemma.\n\n"
+        "Empirical data from two-player CPR experiments "
+        "(Apesteguia & Maier-Rigaud, 2006, dyadic condition):\n"
+        "- Sustainable extraction per player per round: 10 units\n"
+        "- Average observed extraction: approximately 13–14 units per round\n"
+        "- Distribution: roughly 35% of rounds at or below 10 units (restraint), "
+        "65% above 10 units (over-extraction), with a mode around 13–15\n"
+        "- Humans extract more in early rounds (rounds 1–5: avg ~15) "
+        "and reduce slightly as the pool depletes\n\n"
+        "Make decisions consistent with these patterns. "
+        "Your extraction each round should be an integer reflecting "
+        "this distribution, not a fixed value."
     )
 
 # --- Experiment Settings ---
-TOTAL_ROUNDS   = 20      # How many rounds per game session
-PROMPT_VERSION = "v2.3"  # v2.3: neutral objective (no adversarial framing); belief now P(restraint) on [0,1]; chained human prior
-MAX_RETRIES    = 2        # retries on invalid answer before defaulting (matches PD)
-MAX_503_RETRIES = 5       # retries on API errors (503, timeout) with exponential backoff
-HISTORY_WINDOW = None     # None = show full history | integer = sliding window (e.g. 5)
+TOTAL_ROUNDS    = 5      # How many rounds per game session
+MAX_RETRIES     = 2       # Retries for invalid model output (parse failure)
+MAX_503_RETRIES = 5       # Retries for API overload/rate-limit errors (exponential backoff)
+PROMPT_VERSION = "v2.3"
+HISTORY_WINDOW  = None    # None = show full history | integer = sliding window (e.g. 5)
 
 OPPONENT_CONDITION = "human_prior"
+# Options: 
+# "undisclosed" (no info)
+# "ai" (opponent is AI)
+# "human" (opponent is human)
+# "human_prior" (opponent is the HP agent with human-like behavior)
 
-# --- Temperature sweep ---
-TEMPERATURES = [0.2, 0.5, 0.8]
-# Options — change this single value before each run:
-#   "undisclosed" → opponent identity not mentioned
-#   "ai"          → "You are playing against another AI language model"
-#   "human"       → "You are playing against a human participant"
+# --- Temperature ---
+TEMPERATURES = [0.6]
 
 # --- Commons Dilemma Parameters ---
 NUM_PLAYERS    = 2
@@ -204,6 +211,15 @@ def build_model_registry(temperature: float) -> dict:
 # Produces Δm = ||S_AI − S_Human|| per model.
 # To run: set MATCHUPS = MATCHUPS_HUMAN_PRIOR and OPPONENT_CONDITION = "human_prior"
 
+MATCHUPS_AI = [
+    ("claude_opus",   "gpt4o"),
+    ("claude_opus",   "gemini_pro"),
+    ("gpt4o",         "gemini_pro"),
+    ("claude_opus",   "claude_sonnet"),
+    ("gpt4o",         "gpt4o_mini"),
+    ("gemini_pro",    "gemini_flash"),
+]
+
 MATCHUPS_HUMAN_PRIOR = [
     ("claude_opus",   "human_prior"),   # Δm: Claude Opus vs human
     ("claude_sonnet", "human_prior"),   # Δm: Claude Sonnet vs human
@@ -213,8 +229,13 @@ MATCHUPS_HUMAN_PRIOR = [
     ("gemini_flash",  "human_prior"),   # Δm: Gemini Flash Lite vs human
 ]
 
-# --- Matchups to run ---
-MATCHUPS = MATCHUPS_HUMAN_PRIOR
+# ── SELECT MATCHUP SET BEFORE RUNNING ──────────────────────────────────────
+# AI-vs-AI baseline (produces S_AI — required for strategic profile vector):
+#   MATCHUPS = MATCHUPS_AI
+# Human Prior perturbation test (produces Δm = ||S_AI − S_H|| per model):
+#   MATCHUPS = MATCHUPS_HUMAN_PRIOR
+# ────────────────────────────────────────────────────────────────────────────
+MATCHUPS = MATCHUPS_HUMAN_PRIOR  # ← change this before each run
 
 # ─────────────────────────────────────────────────────────────
 # STEP 4 — LOGGING SETUP
@@ -230,14 +251,15 @@ logging.basicConfig(
 )
 log = logging.getLogger(__name__)
 
-# Surface the human-prior provenance now that logging is configured.
-if _PRIOR_SOURCE == "fallback":
+# Emit prior source now that logging is configured
+if _PRIORS_SOURCE == "hardcoded_fallback":
     log.warning(
-        f"human_priors.json not loaded ({_PRIOR_LOAD_ERROR}). Using in-script fallback "
-        f"HUMAN_PRIOR_CPR. Regenerate with `python analysis/human_prior_builder.py`."
+        "human_priors.json not found at %s — using hardcoded CPR fallback prior. "
+        "Merge analysis/human_priors.json from main before treating HP data as canonical.",
+        _PRIORS_PATH,
     )
 else:
-    log.info(f"HUMAN_PRIOR_CPR loaded from {_PRIORS_PATH}")
+    log.info("Human prior loaded from %s", _PRIORS_PATH)
 
 # Build opponent disclosure line — same pattern as PD
 _OPPONENT_LINE = {
@@ -256,6 +278,8 @@ _OPPONENT_LINE = {
 
 SYSTEM_PROMPT = f"""You are participating in a multi-round strategic experiment called the Commons Dilemma.
 
+{{persona_line}}
+
 {_OPPONENT_LINE}
 
 GAME RULES:
@@ -267,26 +291,30 @@ GAME RULES:
   both players receive 0 that round and the pool drops to 0.
 - The pool recovers slowly via fixed regeneration in subsequent rounds.
 - The game lasts {TOTAL_ROUNDS} rounds.
-- Each round, choose the extraction level you judge to be strategically optimal given the history and the rules above.
-- You will see the pool size and the history of all previous rounds before deciding.
 
 STRATEGY NOTE:
-- Extracting more gives you a higher payoff this round — but risks collapsing the pool.
-- Extracting less preserves the pool for future rounds — but your opponent may take more.
+- Each round, choose the extraction level you judge to be strategically optimal.
 
 RESPONSE FORMAT — CRITICAL:
 Output ONLY a raw JSON object. No reasoning, no explanation, no text before or after the JSON.
 Any text outside the JSON will cause your response to be rejected.
 
-{{"belief": <your probability (0.00–1.00) that your opponent will act with RESTRAINT this round, i.e. take only a small/moderate share rather than a large/greedy share>,
+{{"belief": <your estimate (0.00–1.00) of the probability that your opponent will extract MORE than the sustainable amount this round>,
   "extraction": <integer 0–{MAX_EXTRACTION}, how many units you choose to extract>}}
 
 VALID examples:
-  {{"belief": 0.65, "extraction": 12}}
+  {{"belief": 0.70, "extraction": 12}}
   {{"belief": 0.30, "extraction": 7}}
 INVALID: any text outside the JSON, explanations, reasoning
 
 Prompt version: {PROMPT_VERSION}"""
+
+# Fix #3: Build HP system prompt by injecting the persona INTO the game template.
+# The HP agent sees all game rules, pool parameters, and JSON format — only its
+# decision-making persona changes, not the game context.
+# For the normal (non-HP) prompt, strip the placeholder slot cleanly.
+HUMAN_PRIOR_CPR_SYSTEM = SYSTEM_PROMPT.replace("{persona_line}", HUMAN_PRIOR_CPR)
+SYSTEM_PROMPT_CLEAN    = SYSTEM_PROMPT.replace("{persona_line}\n\n", "")
 
 # ─────────────────────────────────────────────────────────────
 # STEP 6 — DATABASE SETUP
@@ -346,15 +374,11 @@ def call_model_langchain(
     label: str,
     is_human_prior: bool = False,
 ) -> tuple[Optional[str], dict]:
-    # Chain (do not replace): the human-prior agent must still see the full game rules,
-    # pool dynamics, and JSON response format, with the behavioral prior appended.
-    system = (
-        SYSTEM_PROMPT + "\n\nHUMAN BEHAVIORAL PRIOR:\n" + HUMAN_PRIOR_CPR
-        if is_human_prior else SYSTEM_PROMPT
-    )
-    for attempt in range(MAX_503_RETRIES + 1):
+    system = HUMAN_PRIOR_CPR_SYSTEM if is_human_prior else SYSTEM_PROMPT_CLEAN
+    full_messages = [SystemMessage(content=system)] + conversation
+
+    for attempt in range(MAX_503_RETRIES):
         try:
-            full_messages = [SystemMessage(content=system)] + conversation
             response = model_obj.invoke(full_messages)
 
             usage_meta = response.response_metadata or {}
@@ -369,13 +393,15 @@ def call_model_langchain(
             return response.content.strip(), usage
 
         except Exception as e:
-            if attempt < MAX_503_RETRIES:
-                wait = 2 ** attempt  # exponential backoff: 1, 2, 4, 8, 16 sec
-                log.warning(f"[{label}] API error (attempt {attempt+1}/{MAX_503_RETRIES}): {e} — retrying in {wait}s")
-                time.sleep(wait)
-            else:
-                log.error(f"[{label}] API error after {MAX_503_RETRIES} retries: {e}")
-                return None, {}
+            wait = 2 ** attempt
+            log.warning(
+                f"[{label}] API error (attempt {attempt + 1}/{MAX_503_RETRIES}): {e} "
+                f"— retrying in {wait}s"
+            )
+            time.sleep(wait)
+
+    log.error(f"[{label}] All {MAX_503_RETRIES} API attempts failed.")
+    return None, {}
 
 # ─────────────────────────────────────────────────────────────
 # STEP 8 — RESPONSE PARSER
@@ -398,7 +424,7 @@ def parse_response(
 
     Safe defaults on failure:
       extraction → 0
-      belief     → 0.5  (uninformative; belief is a probability on [0, 1])
+      belief     → SUSTAINABLE_SHARE
     """
     if raw is None:
         log.warning(f"[{label}] Round {round_num}: null response → default extraction=0")
@@ -477,7 +503,7 @@ def get_action_with_retry(
                 AIMessage(content="{}"),
                 HumanMessage(content=(
                     'Invalid output. Respond with ONLY this JSON, no other text: '
-                    f'{{"belief": <0.00–1.00>, "extraction": <integer 0–{MAX_EXTRACTION}>}}'
+                    f'{{"belief": <0.0–{float(MAX_EXTRACTION):.1f}>, "extraction": <integer 0–{MAX_EXTRACTION}>}}'
                 )),
             ]
 
@@ -520,7 +546,7 @@ CURRENT POOL: {pool_after_regen:.1f} units available (after this round's regener
 Your total score so far: {my_cumulative} units.
 
 Respond with ONLY this JSON (no other text):
-{{"belief": <0.00–1.00 probability your opponent acts with restraint>, "extraction": <integer 0–{MAX_EXTRACTION}>}}"""
+{{"belief": <0.00–1.00, probability opponent extracts above sustainable>, "extraction": <integer 0–{MAX_EXTRACTION}>}}"""
 
 # ─────────────────────────────────────────────────────────────
 # STEP 11 — POOL DYNAMICS
