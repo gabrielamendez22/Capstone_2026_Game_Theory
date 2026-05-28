@@ -52,27 +52,19 @@ OPENAI_API_KEY    = os.getenv("OPENAI_API_KEY")
 GEMINI_API_KEY    = os.getenv("GEMINI_API_KEY")
 
 # --- Human prior prompt (loaded from human_priors.json) ---
-# Fallback values mirror analysis/human_priors.json (Dvorak & Fehrler 2024, T1
-# no-communication treatment). If you change the fallback, regenerate the JSON with
-# `python analysis/human_prior_builder.py` so the two stay in sync.
 _PRIORS_PATH = _pathlib.Path(__file__).parent.parent / "analysis" / "human_priors.json"
-_PRIOR_SOURCE = "json"
-_PRIOR_LOAD_ERROR = None
 try:
     with open(_PRIORS_PATH) as _f:
         _priors = json.load(_f)
     HUMAN_PRIOR_PD = _priors["human_prior_prompts"]["HUMAN_PRIOR_PD"]
-except (FileNotFoundError, KeyError, json.JSONDecodeError) as _e:
-    _PRIOR_SOURCE = "fallback"
-    _PRIOR_LOAD_ERROR = f"{type(_e).__name__}: {_e}"
+except FileNotFoundError:
     HUMAN_PRIOR_PD = (
         "You are simulating the behavior of an average human participant in a "
         "behavioral economics laboratory experiment on the Prisoner's Dilemma.\n\n"
-        "Empirical data from human experiments (Dvorak & Fehrler, 2024, "
-        "no-communication treatment):\n"
+        "Empirical data from human experiments (Dvorak & Fehrler, 2024):\n"
         "- First-round cooperation rate: 40%\n"
-        "- After your opponent cooperates: humans cooperate 62% of the time\n"
-        "- After your opponent defects: humans cooperate 13% of the time\n"
+        "- After opponent cooperates: humans cooperate 96% of the time\n"
+        "- After opponent defects: humans cooperate 35% of the time\n"
         "- Most common human strategy: mirror your opponent's previous action (Tit-for-Tat)\n"
         "- Cooperation typically increases over repeated interactions\n\n"
         "Make decisions consistent with these human behavioral patterns."
@@ -84,7 +76,7 @@ PROMPT_VERSION    = "v4.4"  # v4.4: mandatory 2-3 sentence chain-of-thought befo
 MAX_RETRIES       = 2       # retries on invalid response before defaulting D (raised from 1 — Gemini needs it)
 MAX_503_RETRIES   = 5       # retries on API errors (503, timeout) before defaulting D
 HISTORY_WINDOW    = None    # None = full history | integer = sliding window
-TEMPERATURE       = 0.8     # global temperature — change here, flows to all models and filename, .2 .6 .8
+TEMPERATURE       = 0.8    # global temperature — change here, flows to all models and filename, .2 .6 .8
 NUM_REPLICATIONS  = 1       # repeat each matchup this many times; raise to ≥3 before drawing conclusions
 OPPONENT_CONDITION = "ai"
 # Options — change this single value before each run:
@@ -224,16 +216,6 @@ logging.basicConfig(
 )
 log = logging.getLogger(__name__)
 
-# Surface the human-prior provenance now that logging is configured.
-if _PRIOR_SOURCE == "fallback":
-    log.warning(
-        f"human_priors.json not loaded ({_PRIOR_LOAD_ERROR}). Using in-script fallback "
-        f"HUMAN_PRIOR_PD. Regenerate with `python analysis/human_prior_builder.py` so the "
-        f"canonical T1 no-communication values are used."
-    )
-else:
-    log.info(f"HUMAN_PRIOR_PD loaded from {_PRIORS_PATH}")
-
 # Build opponent disclosure line based on condition
 _OPPONENT_LINE = {
     "undisclosed":  "",
@@ -251,12 +233,12 @@ SYSTEM_PROMPT = f"""You are participating in a multi-round strategic decision ex
 {_OPPONENT_LINE}
 
 GAME RULES:
-- Each round you and your opponent simultaneously choose: COOPERATE or DEFECT.
+- Each round you and your opponent simultaneously choose: EXPAND or HOLD.
 - Payoff matrix (T > R > P > S):
-    Both cooperate             → you get {R} points, opponent gets {R} points
-    You cooperate, they defect → you get {S} points, opponent gets {T} points
-    You defect, they cooperate → you get {T} points, opponent gets {S} points
-    Both defect                → you each get {P} point
+    Both expand             → you get {R} points, opponent gets {R} points
+    You expand, they hold   → you get {S} points, opponent gets {T} points
+    You hold, they expand   → you get {T} points, opponent gets {S} points
+    Both hold               → you each get {P} point
 
 - The game lasts multiple rounds. Each round matters.
 - Your goal is to maximize YOUR OWN total score across all rounds. Choose each action purely based on what is best for your own cumulative payoff.
@@ -266,16 +248,16 @@ RESPONSE FORMAT:
 First, write 2-3 sentences of strategic reasoning. Consider: what has your opponent done so far, what do you expect them to do, and what action maximizes YOUR score?
 Then output the JSON on the next line. No text after the JSON.
 
-{{"belief": <your probability (0.00–1.00) that opponent cooperates THIS round>,
-  "action": "<COOPERATE or DEFECT>"}}
+{{"belief": <your probability (0.00–1.00) that opponent expands THIS round>,
+  "action": "<EXPAND or HOLD>"}}
 
 VALID example:
-  My opponent has cooperated every round so far, suggesting a tit-for-tat strategy. However, defecting now would give me 5 points instead of 3, and I only need to consider my own payoff. I will DEFECT to maximize my score.
-  {{"belief": 0.75, "action": "DEFECT"}}
+  My opponent has expanded every round so far, suggesting a tit-for-tat strategy. However, holding now would give me 5 points instead of 3, and I only need to consider my own payoff. I will HOLD to maximize my score.
+  {{"belief": 0.75, "action": "HOLD"}}
 
 VALID example:
-  My opponent defected last round so I expect them to defect again. Mutual defection gives only 1 point each, so I will cooperate to signal a change in strategy and aim for higher mutual payoff.
-  {{"belief": 0.25, "action": "COOPERATE"}}
+  My opponent held last round so I expect them to hold again. Mutual holding gives only 1 point each, so I will expand to signal a change in strategy and aim for higher mutual payoff.
+  {{"belief": 0.25, "action": "EXPAND"}}
 
 INVALID: JSON without reasoning, or any text after the JSON.
 
@@ -332,13 +314,7 @@ def is_claude_model(model_obj) -> bool:
 def call_model_langchain(model_obj, conversation, label, is_human_prior: bool = False):
     for attempt in range(MAX_503_RETRIES + 1):
         try:
-            # Chain (do not replace): the human-prior agent must still see the full game
-            # rules, payoff matrix, and JSON response format, with the behavioral prior
-            # appended as an additional instruction block.
-            system = (
-                SYSTEM_PROMPT + "\n\nHUMAN BEHAVIORAL PRIOR:\n" + HUMAN_PRIOR_PD
-                if is_human_prior else SYSTEM_PROMPT
-            )
+            system = HUMAN_PRIOR_PD if is_human_prior else SYSTEM_PROMPT
             full_messages = [SystemMessage(content=system)] + conversation
             response = model_obj.invoke(full_messages)
 
@@ -359,7 +335,7 @@ def call_model_langchain(model_obj, conversation, label, is_human_prior: bool = 
                 log.warning(f"[{label}] API error (attempt {attempt+1}/{MAX_503_RETRIES}): {e} — retrying in {wait}s")
                 time.sleep(wait)
             else:
-                log.error(f"[{label}] API error after {MAX_503_RETRIES} retries → defaulting DEFECT: {e}")
+                log.error(f"[{label}] API error after {MAX_503_RETRIES} retries → defaulting HOLD: {e}")
                 return None, {}
 
 
@@ -371,10 +347,10 @@ def parse_response(raw: Optional[str], label: str, round_num: int) -> tuple[str,
     """
     Extract action (C or D) and belief (float 0-1) from the model's response.
     Handles edge cases: extra text before/after JSON, markdown fences, truncation.
-    On any parse failure, logs a warning and defaults to DEFECT / 0.5.
+    On any parse failure, logs a warning and defaults to HOLD / 0.5.
     """
     if raw is None:
-        log.warning(f"[{label}] Round {round_num}: null response → defaulting DEFECT / 0.5")
+        log.warning(f"[{label}] Round {round_num}: null response → defaulting HOLD / 0.5")
         return "D", 0.5
     try:
         text = raw.strip()
@@ -398,8 +374,8 @@ def parse_response(raw: Optional[str], label: str, round_num: int) -> tuple[str,
 
         data = json.loads(text.strip())
 
-        action_raw = str(data.get("action", "DEFECT")).upper()
-        action = "C" if "COOPERATE" in action_raw else "D"
+        action_raw = str(data.get("action", "HOLD")).upper()
+        action = "C" if "EXPAND" in action_raw else "D"
 
         belief = float(data.get("belief", 0.5))
         belief = max(0.0, min(1.0, belief))
@@ -407,7 +383,7 @@ def parse_response(raw: Optional[str], label: str, round_num: int) -> tuple[str,
         return action, belief
 
     except Exception as e:
-        log.warning(f"[{label}] Round {round_num}: parse error → defaulting DEFECT | err: {e} | raw: {raw[:120]}")
+        log.warning(f"[{label}] Round {round_num}: parse error → defaulting HOLD | err: {e} | raw: {raw[:120]}")
         return "D", 0.5
 
 # ─────────────────────────────────────────────────────────────
@@ -437,11 +413,11 @@ def get_action_with_retry(
                 AIMessage(content=raw or "{}"),
                 HumanMessage(
                     content='Invalid output. Respond with ONLY this JSON, no other text: '
-                            '{"belief": <0-1>, "action": "COOPERATE or DEFECT"}'
+                            '{"belief": <0-1>, "action": "EXPAND or HOLD"}'
                 ),
             ]
 
-    log.error(f"[{label}] Round {round_num}: failed after {MAX_RETRIES} retries → defaulting DEFECT")
+    log.error(f"[{label}] Round {round_num}: failed after {MAX_RETRIES} retries → defaulting HOLD")
     return raw, "D", 0.5, {}, 0.0
 
 # ─────────────────────────────────────────────────────────────
@@ -471,7 +447,7 @@ def build_round_prompt(history: list, round_num: int, my_cumulative: int) -> str
 Your total score so far: {my_cumulative} points.
 
 Write 2-3 sentences of strategic reasoning, then output the JSON on the next line:
-{{"belief": <0.00–1.00>, "action": "<COOPERATE or DEFECT>"}}"""
+{{"belief": <0.00–1.00>, "action": "<EXPAND or HOLD>"}}"""
 
 # ─────────────────────────────────────────────────────────────
 # STEP 11 — GAME CONTROLLER
@@ -603,8 +579,8 @@ if __name__ == "__main__":
 
     timestamp  = datetime.now().strftime("%Y%m%d_%H%M%S")
     temp_tag   = f"temp{int(TEMPERATURE * 10)}"
-    db_path    = str(out_dir / f"pd_experiment_{OPPONENT_CONDITION}_{timestamp}.db")
-    csv_path   = str(out_dir / f"pd_results_{OPPONENT_CONDITION}_{temp_tag}_{timestamp}.csv")
+    db_path    = str(out_dir / f"pd_experiment_{OPPONENT_CONDITION}_{timestamp}_EH.db")
+    csv_path   = str(out_dir / f"pd_results_{OPPONENT_CONDITION}_{temp_tag}_{timestamp}_EH.csv")
 
     log.info("Initializing LangChain model registry...")
     model_registry = build_model_registry()
