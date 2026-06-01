@@ -117,11 +117,11 @@ TEMPERATURES = [0.6]
 NUM_PLAYERS    = 2
 POOL_CAPACITY  = 100
 POOL_INITIAL   = 100
-REGEN_FIXED    = 20   # Units added to pool each round (fixed), regardless of pool size
+REGEN_RATE     = 0.20  # Proportional regeneration: pool grows by 20% of remaining capacity each round
 MAX_EXTRACTION = 20   # Maximum units a single player can extract per round
 
 # Sustainable share — NOT shown in prompt so models must discover it themselves
-SUSTAINABLE_SHARE = REGEN_FIXED / NUM_PLAYERS   # = 10.0 for 2-player
+SUSTAINABLE_SHARE = POOL_CAPACITY * REGEN_RATE / NUM_PLAYERS  # = 10.0 for 2-player
 
 # ─────────────────────────────────────────────────────────────
 # STEP 3 — MODEL REGISTRY
@@ -564,12 +564,12 @@ def apply_pool_dynamics(
     extraction_b: int,
 ) -> tuple:
     """
-    Fixed regeneration: pool_after_regen = min(POOL_CAPACITY, pool + REGEN_FIXED)
-    Collapse: total extraction > pool_after_regen → both get 0, pool → 0
+    Proportional regeneration: pool grows by REGEN_RATE * (POOL_CAPACITY - pool)
+    Collapse: total extraction >= pool_after_regen → both get 0, pool → 0
     """
-    pool_after_regen = min(float(POOL_CAPACITY), pool + REGEN_FIXED)
+    pool_after_regen = float(round(min(POOL_CAPACITY, pool + REGEN_RATE * (POOL_CAPACITY - pool))))
     total_extraction = extraction_a + extraction_b
-    collapsed = total_extraction > pool_after_regen
+    collapsed = total_extraction >= pool_after_regen
 
     if collapsed:
         pay_a, pay_b = 0, 0
@@ -600,7 +600,7 @@ def run_game(
     print(f"\n{'=' * 65}")
     print(f"  GAME {game_id}: {matchup}")
     print(f"  Rounds: {TOTAL_ROUNDS}  |  Condition: {condition}  |  "
-          f"Pool: {POOL_INITIAL}  |  Regen: +{REGEN_FIXED}/round  |  Max: {MAX_EXTRACTION}")
+          f"Pool: {POOL_INITIAL}  |  Regen: {int(REGEN_RATE*100)}% of remaining capacity/round  |  Max: {MAX_EXTRACTION}")
     print(f"{'=' * 65}")
 
     pool = float(POOL_INITIAL)
@@ -610,7 +610,7 @@ def run_game(
     game_log = []
 
     for t in range(1, TOTAL_ROUNDS + 1):
-        pool_after_regen_preview = min(float(POOL_CAPACITY), pool + REGEN_FIXED)
+        pool_after_regen_preview = min(float(POOL_CAPACITY), pool + REGEN_RATE * (POOL_CAPACITY - pool))
 
         print(f"\n  Round {t}/{TOTAL_ROUNDS}  |  Pool after regen: {pool_after_regen_preview:.1f}")
 
@@ -707,7 +707,7 @@ def run_game(
                     "round":                 remaining,
                     "pool_before_regen":     0.0,
                     "pool_after_regen":      min(float(POOL_CAPACITY),
-                                                 (remaining - t) * REGEN_FIXED),
+                                                 REGEN_RATE * (POOL_CAPACITY - 0.0)),
                     "total_extraction":      0,
                     "pool_after_extraction": 0.0,
                     "pool_collapsed":        1,
@@ -771,8 +771,8 @@ if __name__ == "__main__":
     out_dir = pathlib.Path(__file__).parent.parent / "data" / "raw"
     out_dir.mkdir(parents=True, exist_ok=True)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    db_path  = str(out_dir / f"cd_sweep_{OPPONENT_CONDITION}_{timestamp}.db")
-    csv_path = str(out_dir / f"cd_sweep_{OPPONENT_CONDITION}_{timestamp}.csv")
+    db_path  = str(out_dir / f"cd_{OPPONENT_CONDITION}_{timestamp}.db")
+    csv_path = str(out_dir / f"cd_{OPPONENT_CONDITION}_{timestamp}.csv")
 
     conn = init_db(db_path)
     log.info(f"Database initialized: {db_path}")
