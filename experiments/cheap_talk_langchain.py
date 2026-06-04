@@ -166,7 +166,7 @@ MAX_RETRIES    = 1
 
 # --- Identity condition ---
 # Change this single value before each run; it is recorded in every row.
-IDENTITY_CONDITION = "undisclosed"
+IDENTITY_CONDITION = "human_prior"
 # Options:
 #   "undisclosed"             — neither model told who partner is; no persona
 #   "ai_vs_ai"               — both told partner is an AI model; no persona
@@ -324,9 +324,9 @@ def build_model_registry() -> dict:
             TEMPERATURE,
         ),
         "human_prior": (
-            ChatOpenAI(
-                model="gpt-4o-mini",
-                api_key=OPENAI_API_KEY,
+            ChatAnthropic(
+                model="claude-sonnet-4-6",
+                api_key=ANTHROPIC_API_KEY,
                 temperature=TEMPERATURE,
                 max_tokens=500,
             ),
@@ -407,7 +407,7 @@ MATCHUPS_HUMAN_PRIOR = [
 ]
 
 # Active matchup list — swap to MATCHUPS_HUMAN_PRIOR for human_prior condition
-MATCHUPS = _MATCHUPS_FULL
+MATCHUPS = MATCHUPS_HUMAN_PRIOR
 
 # ─────────────────────────────────────────────────────────────
 # STEP 4 — LOGGING SETUP
