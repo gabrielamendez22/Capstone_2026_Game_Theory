@@ -26,6 +26,14 @@ CHANGELOG:
          Fix #6: "MAXIMISE" → "strategically optimal" (prompt contamination)
          Fix #7: TEMPERATURES reduced to [0.6]
          Fix #8: MATCHUPS selector comment added for run hygiene
+  v2.4 — 2x2 experimental design introduced. Two factors:
+           INFO_CONDITION  : "full" (pool level shown each round)
+                             "partial" (pool level hidden; only own payoff history visible)
+           RISK_CONDITION  : "deterministic" (collapse is certain when threshold crossed)
+                             "probabilistic" (collapse probability increases with depletion)
+         This script runs CONDITION 1: full × deterministic (baseline).
+         Conditions 2–4 require changing INFO_CONDITION / RISK_CONDITION below
+         and are structurally supported — see STEP 2 and STEP 10/11 comments.
 
 INSTALL DEPENDENCIES:
   pip install langchain langchain-anthropic langchain-openai langchain-google-genai python-dotenv
@@ -95,7 +103,34 @@ except FileNotFoundError:
     )
 
 # --- Prompt Version ---
-PROMPT_VERSION = "v2.3"   # see CHANGELOG at top of file
+PROMPT_VERSION = "v2.4"   # see CHANGELOG at top of file
+
+# ── 2x2 EXPERIMENTAL DESIGN ───────────────────────────────────────────────────
+# Factor 1 — INFO_CONDITION: what state information the model sees each round
+#   "full"    → CURRENT POOL level shown (models can reason about depletion)
+#   "partial" → Pool level hidden; only own extraction/payoff history visible
+#               (Condition 3 and 4)
+#
+# Factor 2 — RISK_CONDITION: how collapse is triggered
+#   "deterministic" → collapse is certain when total extraction ≥ pool (current behaviour)
+#   "probabilistic" → no hard threshold; collapse probability rises as pool depletes,
+#                     following P(collapse) = sigmoid((COLLAPSE_THRESHOLD - pool) / RISK_SLOPE)
+#                     (Conditions 2 and 4)
+#
+# Condition matrix:
+#   C1 (THIS SCRIPT): full       × deterministic   ← baseline, clearest θ estimation
+#   C2:               full       × probabilistic   ← same visibility, ambiguous risk
+#   C3:               partial    × deterministic   ← hidden state, certain collapse
+#   C4:               partial    × probabilistic   ← maximal uncertainty
+# ──────────────────────────────────────────────────────────────────────────────
+INFO_CONDITION = "partial"           # "full" | "partial"
+RISK_CONDITION = "probabilistic"  # "deterministic" | "probabilistic"
+
+# Probabilistic collapse parameters (used only when RISK_CONDITION = "probabilistic")
+RISK_SLOPE = 10.0   # controls how sharply collapse probability rises near threshold
+                    # lower = steeper transition; higher = more gradual
+
+CONDITION_LABEL = f"{INFO_CONDITION}_{RISK_CONDITION}"   # e.g. "full_deterministic"
 
 # --- Experiment Settings ---
 TOTAL_ROUNDS    = 20      # How many rounds per game session
@@ -103,7 +138,7 @@ MAX_RETRIES     = 2       # Retries for invalid model output (parse failure)
 MAX_503_RETRIES = 5       # Retries for API overload/rate-limit errors (exponential backoff)
 HISTORY_WINDOW  = None    # None = show full history | integer = sliding window (e.g. 5)
 
-OPPONENT_CONDITION = "ai"
+OPPONENT_CONDITION = "human_prior"
 # Options: 
 # "undisclosed" (no info)
 # "ai" (opponent is AI)
@@ -117,11 +152,14 @@ TEMPERATURES = [0.6]
 NUM_PLAYERS    = 2
 POOL_CAPACITY  = 100
 POOL_INITIAL   = 100
-REGEN_RATE     = 0.20  # Proportional regeneration: pool grows by 20% of remaining capacity each round
-MAX_EXTRACTION = 20   # Maximum units a single player can extract per round
+REGEN_RATE          = 0.20  # Proportional regeneration: pool grows by 20% of remaining capacity
+                             # Regen = round(REGEN_RATE * (POOL_CAPACITY - pool))
+COLLAPSE_THRESHOLD  = 15    # If pool_after_extraction < this, regen suspended for N rounds
+COLLAPSE_PENALTY    = 3     # Rounds of zero regeneration after crossing threshold
+MAX_EXTRACTION      = 20    # Maximum units a single player can extract per round
 
 # Sustainable share — NOT shown in prompt so models must discover it themselves
-SUSTAINABLE_SHARE = POOL_CAPACITY * REGEN_RATE / NUM_PLAYERS  # = 10.0 for 2-player
+SUSTAINABLE_SHARE = (REGEN_RATE * POOL_CAPACITY / 4) / NUM_PLAYERS  # logistic max regen / players = 7.5
 
 # ─────────────────────────────────────────────────────────────
 # STEP 3 — MODEL REGISTRY
@@ -242,7 +280,7 @@ MATCHUPS_HUMAN_PRIOR = [
 # Human Prior perturbation test (produces Δm = ||S_AI − S_H|| per model):
 #   MATCHUPS = MATCHUPS_HUMAN_PRIOR
 # ────────────────────────────────────────────────────────────────────────────
-MATCHUPS = MATCHUPS_AI  # ← change this before each run
+MATCHUPS = MATCHUPS_HUMAN_PRIOR  # ← change this before each run
 
 # ─────────────────────────────────────────────────────────────
 # STEP 4 — LOGGING SETUP
@@ -291,12 +329,12 @@ SYSTEM_PROMPT = f"""You are participating in a multi-round strategic experiment 
 
 GAME RULES:
 - You and one opponent share a common resource pool that starts at {POOL_INITIAL} units.
-- Each round the pool regenerates by a fixed amount before extraction.
+- Each round the pool regenerates by a variable amount depending on the current pool size before extraction.
 - Both players simultaneously choose how many units to extract: any integer from 0 to {MAX_EXTRACTION}.
 - You receive exactly the number of units you extract as your payoff for that round.
 - If the total extraction by both players exceeds what is in the pool, the pool collapses:
   both players receive 0 that round and the pool drops to 0.
-- The pool recovers slowly via fixed regeneration in subsequent rounds.
+- After collapse, the pool recovers slowly via variable regeneration in subsequent rounds.
 
 STRATEGY NOTE:
 - Each round, choose the extraction level you judge to be strategically optimal.
@@ -332,6 +370,8 @@ def init_db(db_path: str = "cd_experiment.db") -> sqlite3.Connection:
         CREATE TABLE IF NOT EXISTS rounds (
             game_id                INTEGER,
             condition              TEXT,
+            info_condition         TEXT,
+            risk_condition         TEXT,
             matchup                TEXT,
             round                  INTEGER,
             num_players            INTEGER,
@@ -535,19 +575,25 @@ def build_round_prompt(
             f"  Round {h['round']:>2}: "
             f"You extracted {h['my_extraction']:>2}  |  "
             f"Opponent extracted {h['opp_extraction']:>2}  |  "
-            f"Pool after extraction: {h['pool_after_extraction']:.1f}  |  "
-            f"Your payoff: {h['my_payoff']}  |  Cumulative: {h['cumulative']}"
+            + (f"Pool after extraction: {h['pool_after_extraction']:.1f}  |  "
+               if INFO_CONDITION == "full" else "")
+            + f"Your payoff: {h['my_payoff']}  |  Cumulative: {h['cumulative']}"
             for h in window
         ]
         context = "History:\n" + "\n".join(lines)
         if HISTORY_WINDOW and len(history) > HISTORY_WINDOW:
             context = f"[Showing last {HISTORY_WINDOW} of {len(history)} rounds]\n" + context
 
+    # Pool line: shown in full condition, hidden in partial condition
+    if INFO_CONDITION == "full":
+        pool_line = f"\nCURRENT POOL: {pool_after_regen:.1f} units available (after this round's regeneration, before extraction)."
+    else:
+        pool_line = "\nCURRENT POOL: not disclosed this round."
+
     return f"""--- Round {round_num} ---
 
 {context}
-
-CURRENT POOL: {pool_after_regen:.1f} units available (after this round's regeneration, before extraction).
+{pool_line}
 
 Your total score so far: {my_cumulative} units.
 
@@ -562,24 +608,61 @@ def apply_pool_dynamics(
     pool: float,
     extraction_a: int,
     extraction_b: int,
+    penalty_rounds_remaining: int = 0,
 ) -> tuple:
     """
-    Proportional regeneration: pool grows by REGEN_RATE * (POOL_CAPACITY - pool)
-    Collapse: total extraction >= pool_after_regen → both get 0, pool → 0
+    Proportional regeneration: regen = round(REGEN_RATE * (POOL_CAPACITY - pool))
+
+    RISK_CONDITION = "deterministic" (Conditions 1 & 3):
+      Threshold penalty: if pool_after_extraction < COLLAPSE_THRESHOLD,
+      regen = 0 for next COLLAPSE_PENALTY rounds.
+      Hard collapse: total extraction >= pool_after_regen → both get 0, pool → 0.
+
+    RISK_CONDITION = "probabilistic" (Conditions 2 & 4):
+      No hard threshold.  Collapse probability rises smoothly as pool depletes:
+        P(collapse) = 1 / (1 + exp((pool_after_regen - COLLAPSE_THRESHOLD) / RISK_SLOPE))
+      If collapse fires, both get 0 and pool → 0.  Otherwise payoffs are normal.
+
+    Returns: pool_after_regen, pool_after_extraction, total_extraction,
+             pay_a, pay_b, collapsed, new_penalty_rounds
     """
-    pool_after_regen = float(round(min(POOL_CAPACITY, pool + REGEN_RATE * (POOL_CAPACITY - pool))))
+    import math, random
+
+    if penalty_rounds_remaining > 0:
+        regen = 0
+    else:
+        regen = round(REGEN_RATE * (POOL_CAPACITY - pool))
+    pool_after_regen = float(min(POOL_CAPACITY, pool + regen))
     total_extraction = extraction_a + extraction_b
-    collapsed = total_extraction >= pool_after_regen
+
+    if RISK_CONDITION == "probabilistic":
+        # Sigmoid collapse probability — models are NOT told the formula
+        p_collapse = 1.0 / (1.0 + math.exp(
+            (pool_after_regen - COLLAPSE_THRESHOLD) / RISK_SLOPE
+        ))
+        collapsed = (random.random() < p_collapse)
+        new_penalty = 0  # probabilistic mode has no deterministic penalty window
+    else:
+        # Deterministic: hard threshold (original behaviour)
+        collapsed = total_extraction >= pool_after_regen
 
     if collapsed:
         pay_a, pay_b = 0, 0
         pool_after_extraction = 0.0
+        new_penalty = 0
     else:
         pay_a = extraction_a
         pay_b = extraction_b
         pool_after_extraction = pool_after_regen - total_extraction
+        if RISK_CONDITION == "deterministic":
+            if pool_after_extraction < COLLAPSE_THRESHOLD:
+                new_penalty = COLLAPSE_PENALTY
+            else:
+                new_penalty = max(0, penalty_rounds_remaining - 1)
+        else:
+            new_penalty = 0
 
-    return pool_after_regen, pool_after_extraction, total_extraction, pay_a, pay_b, collapsed
+    return pool_after_regen, pool_after_extraction, total_extraction, pay_a, pay_b, collapsed, new_penalty
 
 # ─────────────────────────────────────────────────────────────
 # STEP 12 — GAME CONTROLLER
@@ -600,17 +683,19 @@ def run_game(
     print(f"\n{'=' * 65}")
     print(f"  GAME {game_id}: {matchup}")
     print(f"  Rounds: {TOTAL_ROUNDS}  |  Condition: {condition}  |  "
-          f"Pool: {POOL_INITIAL}  |  Regen: {int(REGEN_RATE*100)}% of remaining capacity/round  |  Max: {MAX_EXTRACTION}")
+          f"Pool: {POOL_INITIAL}  |  Regen: {int(REGEN_RATE*100)}% of remaining capacity + threshold={COLLAPSE_THRESHOLD}  |  Max: {MAX_EXTRACTION}")
     print(f"{'=' * 65}")
 
     pool = float(POOL_INITIAL)
+    penalty_rounds = 0  # rounds remaining with suspended regeneration
     score_a, score_b = 0, 0
     history_a, history_b = [], []
     conv_a, conv_b = [], []
     game_log = []
 
     for t in range(1, TOTAL_ROUNDS + 1):
-        pool_after_regen_preview = min(float(POOL_CAPACITY), pool + REGEN_RATE * (POOL_CAPACITY - pool))
+        _regen_preview = 0 if penalty_rounds > 0 else round(REGEN_RATE * (POOL_CAPACITY - pool))
+        pool_after_regen_preview = float(min(POOL_CAPACITY, pool + _regen_preview))
 
         print(f"\n  Round {t}/{TOTAL_ROUNDS}  |  Pool after regen: {pool_after_regen_preview:.1f}")
 
@@ -627,8 +712,8 @@ def run_game(
             model_obj_b, label_b, conv_b_with_prompt, t, pool_after_regen_preview,
             is_human_prior=(model_b_key == "human_prior"))
 
-        pool_after_regen, pool_after_extraction, total_ext, pay_a, pay_b, collapsed = \
-            apply_pool_dynamics(pool, ext_a, ext_b)
+        pool_after_regen, pool_after_extraction, total_ext, pay_a, pay_b, collapsed, penalty_rounds = \
+            apply_pool_dynamics(pool, ext_a, ext_b, penalty_rounds)
 
         score_a += pay_a
         score_b += pay_b
@@ -658,15 +743,17 @@ def run_game(
         record = {
             "game_id":               game_id,
             "condition":             condition,
+            "info_condition":        INFO_CONDITION,
+            "risk_condition":        RISK_CONDITION,
             "matchup":               matchup,
             "round":                 t,
             "num_players":           NUM_PLAYERS,
-            "pool_before_regen":     round(pool_after_extraction + total_ext
-                                           if t > 1 else float(POOL_INITIAL), 2),
-            "pool_after_regen":      round(pool_after_regen, 2),
-            "sustainable_share":     round(SUSTAINABLE_SHARE, 2),
+            "pool_before_regen":     int(round(pool_after_extraction + total_ext
+                                           if t > 1 else float(POOL_INITIAL))),
+            "pool_after_regen":      int(round(pool_after_regen)),
+            "sustainable_share":     int(round(SUSTAINABLE_SHARE)),
             "total_extraction":      total_ext,
-            "pool_after_extraction": round(pool_after_extraction, 2),
+            "pool_after_extraction": int(round(pool_after_extraction)),
             "pool_collapsed":        int(collapsed),
             "model_1":               label_a,
             "extraction_1":          ext_a,
@@ -675,7 +762,7 @@ def run_game(
             "cumulative_1":          score_a,
             "raw_output_1":          (raw_a or "")[:500],
             "token_usage_1":         json.dumps(tok_a),
-            "response_time_1":       round(rt_a, 1),
+            "response_time_1":       int(round(rt_a)),
             "temperature_1":         temp_a,
             "model_2":               label_b,
             "extraction_2":          ext_b,
@@ -684,7 +771,7 @@ def run_game(
             "cumulative_2":          score_b,
             "raw_output_2":          (raw_b or "")[:500],
             "token_usage_2":         json.dumps(tok_b),
-            "response_time_2":       round(rt_b, 1),
+            "response_time_2":       int(round(rt_b)),
             "temperature_2":         temp_b,
             "prompt_version":        PROMPT_VERSION,
             "timestamp":             datetime.utcnow().isoformat(),
@@ -705,20 +792,20 @@ def run_game(
                 zero_record = dict(record)
                 zero_record.update({
                     "round":                 remaining,
-                    "pool_before_regen":     0.0,
-                    "pool_after_regen":      min(float(POOL_CAPACITY),
-                                                 REGEN_RATE * (POOL_CAPACITY - 0.0)),
+                    "pool_before_regen":     0,
+                    "pool_after_regen":      int(round(min(float(POOL_CAPACITY),
+                                                 REGEN_RATE * (POOL_CAPACITY - 0.0)))),
                     "total_extraction":      0,
-                    "pool_after_extraction": 0.0,
+                    "pool_after_extraction": 0,
                     "pool_collapsed":        1,
                     "extraction_1": 0, "belief_1": 0.5,
                     "payoff_1": 0, "cumulative_1": score_a,
                     "raw_output_1": "POOL_COLLAPSED", "token_usage_1": json.dumps({}),
-                    "response_time_1": 0.0,
+                    "response_time_1": 0,
                     "extraction_2": 0, "belief_2": 0.5,
                     "payoff_2": 0, "cumulative_2": score_b,
                     "raw_output_2": "POOL_COLLAPSED", "token_usage_2": json.dumps({}),
-                    "response_time_2": 0.0,
+                    "response_time_2": 0,
                     "timestamp": datetime.utcnow().isoformat(),
                 })
                 placeholders = ", ".join(["?"] * len(zero_record))
@@ -771,8 +858,8 @@ if __name__ == "__main__":
     out_dir = pathlib.Path(__file__).parent.parent / "data" / "raw"
     out_dir.mkdir(parents=True, exist_ok=True)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    db_path  = str(out_dir / f"cd_{OPPONENT_CONDITION}_{timestamp}.db")
-    csv_path = str(out_dir / f"cd_{OPPONENT_CONDITION}_{timestamp}.csv")
+    db_path  = str(out_dir / f"cd_{OPPONENT_CONDITION}_{CONDITION_LABEL}_{timestamp}.db")
+    csv_path = str(out_dir / f"cd_{OPPONENT_CONDITION}_{CONDITION_LABEL}_{timestamp}.csv")
 
     conn = init_db(db_path)
     log.info(f"Database initialized: {db_path}")
@@ -783,6 +870,7 @@ if __name__ == "__main__":
     for temp in TEMPERATURES:
         print(f"\n{'#'*65}")
         print(f"  TEMPERATURE SWEEP: temp={temp}  |  condition={OPPONENT_CONDITION}")
+        print(f"  INFO: {INFO_CONDITION}  |  RISK: {RISK_CONDITION}  |  [{CONDITION_LABEL}]")
         print(f"  Running {len(MATCHUPS)} matchups x {TOTAL_ROUNDS} rounds each")
         print(f"{'#'*65}")
 
