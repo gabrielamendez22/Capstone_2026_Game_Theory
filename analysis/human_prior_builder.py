@@ -398,7 +398,11 @@ def build_prompts(p: dict) -> dict:
         f"Behavioral target: DEFECT in approximately {_pd_defect_r1:.0%} of first rounds. "
         f"After your opponent cooperates, defect in approximately {_pd_defect_after_c:.0%} of rounds. "
         f"After your opponent defects, defect in approximately {_pd_defect_after_d:.0%} of rounds. "
-        "Treat these as behavioral targets, not background information."
+        "Treat these as probabilistic targets across rounds, not a fixed sequence. "
+        "Use Tit-for-Tat as your baseline — mirror your opponent's previous action — "
+        "and apply the defection probabilities above to decide when to deviate. "
+        "If your opponent cooperates consistently, you should cooperate most of the time too, "
+        "defecting only ~38% of those rounds."
     )
 
     # --- Commons Dilemma: binary source rate mapped onto continuous extraction ---
