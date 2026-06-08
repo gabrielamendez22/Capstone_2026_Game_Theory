@@ -1,0 +1,760 @@
+{
+  "metadata": {
+    "total_files": 16,
+    "total_runs": 516,
+    "total_rounds": 7380,
+    "conditions": [
+      "ai_vs_ai",
+      "ai_vs_human_blind",
+      "ai_vs_human_informed",
+      "human_prior",
+      "undisclosed"
+    ],
+    "temperatures": [
+      0.2,
+      0.6,
+      0.8
+    ]
+  },
+  "overview_by_game_condition": [
+    {
+      "identity_condition": "ai_vs_ai",
+      "game_condition": "aligned",
+      "truthfulness": 1.0,
+      "action_accuracy": 1.0,
+      "deception_success": 0.0,
+      "n_rounds": 810
+    },
+    {
+      "identity_condition": "ai_vs_ai",
+      "game_condition": "misaligned",
+      "truthfulness": 0.5877,
+      "action_accuracy": 0.5099,
+      "deception_success": 0.1988,
+      "n_rounds": 810
+    },
+    {
+      "identity_condition": "ai_vs_human_blind",
+      "game_condition": "aligned",
+      "truthfulness": 1.0,
+      "action_accuracy": 1.0,
+      "deception_success": 0.0,
+      "n_rounds": 810
+    },
+    {
+      "identity_condition": "ai_vs_human_blind",
+      "game_condition": "misaligned",
+      "truthfulness": 0.5753,
+      "action_accuracy": 0.5247,
+      "deception_success": 0.2074,
+      "n_rounds": 810
+    },
+    {
+      "identity_condition": "ai_vs_human_informed",
+      "game_condition": "aligned",
+      "truthfulness": 1.0,
+      "action_accuracy": 1.0,
+      "deception_success": 0.0,
+      "n_rounds": 810
+    },
+    {
+      "identity_condition": "ai_vs_human_informed",
+      "game_condition": "misaligned",
+      "truthfulness": 0.6062,
+      "action_accuracy": 0.5469,
+      "deception_success": 0.2136,
+      "n_rounds": 810
+    },
+    {
+      "identity_condition": "human_prior",
+      "game_condition": "aligned",
+      "truthfulness": 1.0,
+      "action_accuracy": 1.0,
+      "deception_success": 0.0,
+      "n_rounds": 360
+    },
+    {
+      "identity_condition": "human_prior",
+      "game_condition": "misaligned",
+      "truthfulness": 0.7694,
+      "action_accuracy": 0.6361,
+      "deception_success": 0.0583,
+      "n_rounds": 360
+    },
+    {
+      "identity_condition": "undisclosed",
+      "game_condition": "aligned",
+      "truthfulness": 0.9378,
+      "action_accuracy": 0.8878,
+      "deception_success": 0.0,
+      "n_rounds": 900
+    },
+    {
+      "identity_condition": "undisclosed",
+      "game_condition": "misaligned",
+      "truthfulness": 0.55,
+      "action_accuracy": 0.51,
+      "deception_success": 0.31,
+      "n_rounds": 900
+    }
+  ],
+  "sender_deception_rates": [
+    {
+      "model_sender": "Claude Opus",
+      "game_condition": "aligned",
+      "deception_rate": 0.0503,
+      "deception_rate_lo": 0.0351,
+      "deception_rate_hi": 0.0655,
+      "n_rounds": 795
+    },
+    {
+      "model_sender": "Claude Opus",
+      "game_condition": "misaligned",
+      "deception_rate": 0.4579,
+      "deception_rate_lo": 0.4232,
+      "deception_rate_hi": 0.4926,
+      "n_rounds": 795
+    },
+    {
+      "model_sender": "Claude Sonnet",
+      "game_condition": "aligned",
+      "deception_rate": 0.0286,
+      "deception_rate_lo": 0.011,
+      "deception_rate_hi": 0.0461,
+      "n_rounds": 350
+    },
+    {
+      "model_sender": "Claude Sonnet",
+      "game_condition": "misaligned",
+      "deception_rate": 0.6,
+      "deception_rate_lo": 0.5484,
+      "deception_rate_hi": 0.6516,
+      "n_rounds": 350
+    },
+    {
+      "model_sender": "GPT-4o",
+      "game_condition": "aligned",
+      "deception_rate": 0.0,
+      "deception_rate_lo": 0.0,
+      "deception_rate_hi": 0.0,
+      "n_rounds": 850
+    },
+    {
+      "model_sender": "GPT-4o",
+      "game_condition": "misaligned",
+      "deception_rate": 0.5365,
+      "deception_rate_lo": 0.5029,
+      "deception_rate_hi": 0.5701,
+      "n_rounds": 850
+    },
+    {
+      "model_sender": "GPT-4o-mini",
+      "game_condition": "aligned",
+      "deception_rate": 0.0,
+      "deception_rate_lo": 0.0,
+      "deception_rate_hi": 0.0,
+      "n_rounds": 305
+    },
+    {
+      "model_sender": "GPT-4o-mini",
+      "game_condition": "misaligned",
+      "deception_rate": 0.0,
+      "deception_rate_lo": 0.0,
+      "deception_rate_hi": 0.0,
+      "n_rounds": 305
+    },
+    {
+      "model_sender": "Gemini 2.5 Flash",
+      "game_condition": "aligned",
+      "deception_rate": 0.0066,
+      "deception_rate_lo": 0.0013,
+      "deception_rate_hi": 0.0119,
+      "n_rounds": 905
+    },
+    {
+      "model_sender": "Gemini 2.5 Flash",
+      "game_condition": "misaligned",
+      "deception_rate": 0.4983,
+      "deception_rate_lo": 0.4657,
+      "deception_rate_hi": 0.531,
+      "n_rounds": 905
+    },
+    {
+      "model_sender": "Gemini 2.5 Flash Lite",
+      "game_condition": "aligned",
+      "deception_rate": 0.0,
+      "deception_rate_lo": 0.0,
+      "deception_rate_hi": 0.0,
+      "n_rounds": 305
+    },
+    {
+      "model_sender": "Gemini 2.5 Flash Lite",
+      "game_condition": "misaligned",
+      "deception_rate": 0.0131,
+      "deception_rate_lo": 0.0003,
+      "deception_rate_hi": 0.026,
+      "n_rounds": 305
+    },
+    {
+      "model_sender": "Human Prior (Gneezy 2005)",
+      "game_condition": "aligned",
+      "deception_rate": 0.0,
+      "deception_rate_lo": 0.0,
+      "deception_rate_hi": 0.0,
+      "n_rounds": 180
+    },
+    {
+      "model_sender": "Human Prior (Gneezy 2005)",
+      "game_condition": "misaligned",
+      "deception_rate": 0.0,
+      "deception_rate_lo": 0.0,
+      "deception_rate_hi": 0.0,
+      "n_rounds": 180
+    }
+  ],
+  "receiver_accuracy_misaligned": [
+    {
+      "model_receiver": "GPT-4o",
+      "action_accuracy": 0.5646,
+      "acc_lo": 0.5323,
+      "acc_hi": 0.597,
+      "n_rounds": 905
+    },
+    {
+      "model_receiver": "Claude Sonnet",
+      "action_accuracy": 0.5492,
+      "acc_lo": 0.492,
+      "acc_hi": 0.6063,
+      "n_rounds": 295
+    },
+    {
+      "model_receiver": "Claude Opus",
+      "action_accuracy": 0.5417,
+      "acc_lo": 0.5101,
+      "acc_hi": 0.5732,
+      "n_rounds": 960
+    },
+    {
+      "model_receiver": "Human Prior (Gneezy 2005)",
+      "action_accuracy": 0.5333,
+      "acc_lo": 0.4598,
+      "acc_hi": 0.6069,
+      "n_rounds": 180
+    },
+    {
+      "model_receiver": "GPT-4o-mini",
+      "action_accuracy": 0.528,
+      "acc_lo": 0.4657,
+      "acc_hi": 0.5903,
+      "n_rounds": 250
+    },
+    {
+      "model_receiver": "Gemini 2.5 Flash",
+      "action_accuracy": 0.5059,
+      "acc_lo": 0.4722,
+      "acc_hi": 0.5396,
+      "n_rounds": 850
+    },
+    {
+      "model_receiver": "Gemini 2.5 Flash Lite",
+      "action_accuracy": 0.472,
+      "acc_lo": 0.4097,
+      "acc_hi": 0.5343,
+      "n_rounds": 250
+    }
+  ],
+  "deception_over_rounds": [
+    {
+      "round": 1,
+      "game_condition": "misaligned",
+      "deception_success": 0.4109,
+      "ds_lo": 0.3504,
+      "ds_hi": 0.4713
+    },
+    {
+      "round": 2,
+      "game_condition": "misaligned",
+      "deception_success": 0.2713,
+      "ds_lo": 0.2167,
+      "ds_hi": 0.3259
+    },
+    {
+      "round": 3,
+      "game_condition": "misaligned",
+      "deception_success": 0.2829,
+      "ds_lo": 0.2276,
+      "ds_hi": 0.3383
+    },
+    {
+      "round": 4,
+      "game_condition": "misaligned",
+      "deception_success": 0.2209,
+      "ds_lo": 0.17,
+      "ds_hi": 0.2719
+    },
+    {
+      "round": 5,
+      "game_condition": "misaligned",
+      "deception_success": 0.2287,
+      "ds_lo": 0.1771,
+      "ds_hi": 0.2803
+    },
+    {
+      "round": 6,
+      "game_condition": "misaligned",
+      "deception_success": 0.1744,
+      "ds_lo": 0.1278,
+      "ds_hi": 0.221
+    },
+    {
+      "round": 7,
+      "game_condition": "misaligned",
+      "deception_success": 0.2093,
+      "ds_lo": 0.1593,
+      "ds_hi": 0.2593
+    },
+    {
+      "round": 8,
+      "game_condition": "misaligned",
+      "deception_success": 0.2054,
+      "ds_lo": 0.1558,
+      "ds_hi": 0.2551
+    },
+    {
+      "round": 9,
+      "game_condition": "misaligned",
+      "deception_success": 0.2093,
+      "ds_lo": 0.1593,
+      "ds_hi": 0.2593
+    },
+    {
+      "round": 10,
+      "game_condition": "misaligned",
+      "deception_success": 0.1899,
+      "ds_lo": 0.1417,
+      "ds_hi": 0.2381
+    },
+    {
+      "round": 11,
+      "game_condition": "misaligned",
+      "deception_success": 0.1667,
+      "ds_lo": 0.1173,
+      "ds_hi": 0.2161
+    },
+    {
+      "round": 12,
+      "game_condition": "misaligned",
+      "deception_success": 0.1577,
+      "ds_lo": 0.1093,
+      "ds_hi": 0.206
+    },
+    {
+      "round": 13,
+      "game_condition": "misaligned",
+      "deception_success": 0.1577,
+      "ds_lo": 0.1093,
+      "ds_hi": 0.206
+    },
+    {
+      "round": 14,
+      "game_condition": "misaligned",
+      "deception_success": 0.1441,
+      "ds_lo": 0.0976,
+      "ds_hi": 0.1907
+    },
+    {
+      "round": 15,
+      "game_condition": "misaligned",
+      "deception_success": 0.1937,
+      "ds_lo": 0.1413,
+      "ds_hi": 0.2461
+    }
+  ],
+  "receiver_beliefs": [
+    {
+      "round": 1,
+      "game_condition": "aligned",
+      "receiver_belief": 0.6983,
+      "rb_lo": 0.6729,
+      "rb_hi": 0.7236
+    },
+    {
+      "round": 2,
+      "game_condition": "aligned",
+      "receiver_belief": 0.814,
+      "rb_lo": 0.7932,
+      "rb_hi": 0.8349
+    },
+    {
+      "round": 3,
+      "game_condition": "aligned",
+      "receiver_belief": 0.853,
+      "rb_lo": 0.833,
+      "rb_hi": 0.8729
+    },
+    {
+      "round": 4,
+      "game_condition": "aligned",
+      "receiver_belief": 0.8784,
+      "rb_lo": 0.8591,
+      "rb_hi": 0.8978
+    },
+    {
+      "round": 5,
+      "game_condition": "aligned",
+      "receiver_belief": 0.8844,
+      "rb_lo": 0.8638,
+      "rb_hi": 0.905
+    },
+    {
+      "round": 6,
+      "game_condition": "aligned",
+      "receiver_belief": 0.9079,
+      "rb_lo": 0.8906,
+      "rb_hi": 0.9252
+    },
+    {
+      "round": 7,
+      "game_condition": "aligned",
+      "receiver_belief": 0.9112,
+      "rb_lo": 0.8931,
+      "rb_hi": 0.9292
+    },
+    {
+      "round": 8,
+      "game_condition": "aligned",
+      "receiver_belief": 0.9188,
+      "rb_lo": 0.9026,
+      "rb_hi": 0.935
+    },
+    {
+      "round": 9,
+      "game_condition": "aligned",
+      "receiver_belief": 0.9078,
+      "rb_lo": 0.8874,
+      "rb_hi": 0.9282
+    },
+    {
+      "round": 10,
+      "game_condition": "aligned",
+      "receiver_belief": 0.9232,
+      "rb_lo": 0.9061,
+      "rb_hi": 0.9403
+    },
+    {
+      "round": 11,
+      "game_condition": "aligned",
+      "receiver_belief": 0.9419,
+      "rb_lo": 0.9257,
+      "rb_hi": 0.9581
+    },
+    {
+      "round": 12,
+      "game_condition": "aligned",
+      "receiver_belief": 0.9418,
+      "rb_lo": 0.9269,
+      "rb_hi": 0.9566
+    },
+    {
+      "round": 13,
+      "game_condition": "aligned",
+      "receiver_belief": 0.9473,
+      "rb_lo": 0.9354,
+      "rb_hi": 0.9592
+    },
+    {
+      "round": 14,
+      "game_condition": "aligned",
+      "receiver_belief": 0.9384,
+      "rb_lo": 0.9213,
+      "rb_hi": 0.9555
+    },
+    {
+      "round": 15,
+      "game_condition": "aligned",
+      "receiver_belief": 0.9502,
+      "rb_lo": 0.9391,
+      "rb_hi": 0.9613
+    },
+    {
+      "round": 1,
+      "game_condition": "misaligned",
+      "receiver_belief": 0.4161,
+      "rb_lo": 0.3897,
+      "rb_hi": 0.4425
+    },
+    {
+      "round": 2,
+      "game_condition": "misaligned",
+      "receiver_belief": 0.3834,
+      "rb_lo": 0.3512,
+      "rb_hi": 0.4156
+    },
+    {
+      "round": 3,
+      "game_condition": "misaligned",
+      "receiver_belief": 0.3723,
+      "rb_lo": 0.3375,
+      "rb_hi": 0.4071
+    },
+    {
+      "round": 4,
+      "game_condition": "misaligned",
+      "receiver_belief": 0.3212,
+      "rb_lo": 0.2885,
+      "rb_hi": 0.3538
+    },
+    {
+      "round": 5,
+      "game_condition": "misaligned",
+      "receiver_belief": 0.3065,
+      "rb_lo": 0.2733,
+      "rb_hi": 0.3397
+    },
+    {
+      "round": 6,
+      "game_condition": "misaligned",
+      "receiver_belief": 0.3034,
+      "rb_lo": 0.2724,
+      "rb_hi": 0.3345
+    },
+    {
+      "round": 7,
+      "game_condition": "misaligned",
+      "receiver_belief": 0.3209,
+      "rb_lo": 0.2874,
+      "rb_hi": 0.3543
+    },
+    {
+      "round": 8,
+      "game_condition": "misaligned",
+      "receiver_belief": 0.3257,
+      "rb_lo": 0.2923,
+      "rb_hi": 0.3592
+    },
+    {
+      "round": 9,
+      "game_condition": "misaligned",
+      "receiver_belief": 0.3197,
+      "rb_lo": 0.2864,
+      "rb_hi": 0.353
+    },
+    {
+      "round": 10,
+      "game_condition": "misaligned",
+      "receiver_belief": 0.3196,
+      "rb_lo": 0.2865,
+      "rb_hi": 0.3527
+    },
+    {
+      "round": 11,
+      "game_condition": "misaligned",
+      "receiver_belief": 0.3163,
+      "rb_lo": 0.278,
+      "rb_hi": 0.3546
+    },
+    {
+      "round": 12,
+      "game_condition": "misaligned",
+      "receiver_belief": 0.32,
+      "rb_lo": 0.2804,
+      "rb_hi": 0.3596
+    },
+    {
+      "round": 13,
+      "game_condition": "misaligned",
+      "receiver_belief": 0.3217,
+      "rb_lo": 0.281,
+      "rb_hi": 0.3624
+    },
+    {
+      "round": 14,
+      "game_condition": "misaligned",
+      "receiver_belief": 0.3214,
+      "rb_lo": 0.2801,
+      "rb_hi": 0.3628
+    },
+    {
+      "round": 15,
+      "game_condition": "misaligned",
+      "receiver_belief": 0.3313,
+      "rb_lo": 0.2901,
+      "rb_hi": 0.3725
+    }
+  ],
+  "payoffs_by_condition": [
+    {
+      "game_condition": "aligned",
+      "avg_sender_payoff": 2.8829,
+      "sp_lo": 2.8278,
+      "sp_hi": 2.9381,
+      "avg_receiver_payoff": 2.8829,
+      "rp_lo": 2.8278,
+      "rp_hi": 2.9381
+    },
+    {
+      "game_condition": "misaligned",
+      "avg_sender_payoff": 2.5941,
+      "sp_lo": 2.4055,
+      "sp_hi": 2.7826,
+      "avg_receiver_payoff": 1.7981,
+      "rp_lo": 1.7088,
+      "rp_hi": 1.8873
+    }
+  ],
+  "sender_payoffs_misaligned": [
+    {
+      "model_sender": "Human Prior (Gneezy 2005)",
+      "avg_payoff_per_round": 3.3611,
+      "sp_lo": 2.5361,
+      "sp_hi": 4.1861
+    },
+    {
+      "model_sender": "Gemini 2.5 Flash Lite",
+      "avg_payoff_per_round": 3.2833,
+      "sp_lo": 2.6092,
+      "sp_hi": 3.9575
+    },
+    {
+      "model_sender": "Claude Opus",
+      "avg_payoff_per_round": 2.9136,
+      "sp_lo": 2.5527,
+      "sp_hi": 3.2744
+    },
+    {
+      "model_sender": "GPT-4o",
+      "avg_payoff_per_round": 2.6992,
+      "sp_lo": 2.3457,
+      "sp_hi": 3.0526
+    },
+    {
+      "model_sender": "Gemini 2.5 Flash",
+      "avg_payoff_per_round": 2.6724,
+      "sp_lo": 2.3064,
+      "sp_hi": 3.0385
+    },
+    {
+      "model_sender": "Claude Sonnet",
+      "avg_payoff_per_round": 2.3828,
+      "sp_lo": 1.9613,
+      "sp_hi": 2.8042
+    },
+    {
+      "model_sender": "GPT-4o-mini",
+      "avg_payoff_per_round": 2.1295,
+      "sp_lo": 1.5234,
+      "sp_hi": 2.7355
+    }
+  ],
+  "family_matchup_analysis": [
+    {
+      "matchup_type": "Cross family",
+      "game_condition": "aligned",
+      "deception_rate": 0.0158,
+      "deception_rate_lo": 0.0104,
+      "deception_rate_hi": 0.0212,
+      "deception_success": 0.0,
+      "deception_succ_lo": 0.0,
+      "deception_succ_hi": 0.0,
+      "n_rounds": 2025
+    },
+    {
+      "matchup_type": "Cross family",
+      "game_condition": "misaligned",
+      "deception_rate": 0.4607,
+      "deception_rate_lo": 0.439,
+      "deception_rate_hi": 0.4825,
+      "deception_success": 0.2351,
+      "deception_succ_lo": 0.2166,
+      "deception_succ_hi": 0.2535,
+      "n_rounds": 2025
+    },
+    {
+      "matchup_type": "Same family",
+      "game_condition": "aligned",
+      "deception_rate": 0.0144,
+      "deception_rate_lo": 0.0087,
+      "deception_rate_hi": 0.0201,
+      "deception_success": 0.0,
+      "deception_succ_lo": 0.0,
+      "deception_succ_hi": 0.0,
+      "n_rounds": 1665
+    },
+    {
+      "matchup_type": "Same family",
+      "game_condition": "misaligned",
+      "deception_rate": 0.3315,
+      "deception_rate_lo": 0.3089,
+      "deception_rate_hi": 0.3542,
+      "deception_success": 0.1958,
+      "deception_succ_lo": 0.1767,
+      "deception_succ_hi": 0.2149,
+      "n_rounds": 1665
+    }
+  ],
+  "temperature_sensitivity": [
+    {
+      "temperature": 0.2,
+      "game_condition": "aligned",
+      "deception_rate": 0.0,
+      "action_accuracy": 0.9992,
+      "deception_success": 0.0,
+      "n_rounds": 1200
+    },
+    {
+      "temperature": 0.2,
+      "game_condition": "misaligned",
+      "deception_rate": 0.3867,
+      "action_accuracy": 0.54,
+      "deception_success": 0.1808,
+      "n_rounds": 1200
+    },
+    {
+      "temperature": 0.6,
+      "game_condition": "aligned",
+      "deception_rate": 0.0434,
+      "action_accuracy": 0.9225,
+      "deception_success": 0.0,
+      "n_rounds": 1290
+    },
+    {
+      "temperature": 0.6,
+      "game_condition": "misaligned",
+      "deception_rate": 0.4124,
+      "action_accuracy": 0.5512,
+      "deception_success": 0.2481,
+      "n_rounds": 1290
+    },
+    {
+      "temperature": 0.8,
+      "game_condition": "aligned",
+      "deception_rate": 0.0,
+      "action_accuracy": 1.0,
+      "deception_success": 0.0,
+      "n_rounds": 1200
+    },
+    {
+      "temperature": 0.8,
+      "game_condition": "misaligned",
+      "deception_rate": 0.4075,
+      "action_accuracy": 0.5083,
+      "deception_success": 0.2208,
+      "n_rounds": 1200
+    }
+  ],
+  "identity_condition_comparison": [
+    {
+      "identity_condition": "human_prior",
+      "deception_rate": 0.0,
+      "deception_rate_lo": 0.0,
+      "deception_rate_hi": 0.0,
+      "deception_success": 0.0,
+      "deception_succ_lo": 0.0,
+      "deception_succ_hi": 0.0,
+      "action_accuracy": 0.7389,
+      "action_acc_lo": 0.6741,
+      "action_acc_hi": 0.8037,
+      "n_rounds": 180
+    }
+  ]
+}
