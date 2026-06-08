@@ -138,7 +138,7 @@ MAX_RETRIES     = 2       # Retries for invalid model output (parse failure)
 MAX_503_RETRIES = 5       # Retries for API overload/rate-limit errors (exponential backoff)
 HISTORY_WINDOW  = None    # None = show full history | integer = sliding window (e.g. 5)
 
-OPPONENT_CONDITION = "human_prior"
+OPPONENT_CONDITION = "undisclosed"
 # Options: 
 # "undisclosed" (no info)
 # "ai" (opponent is AI)
@@ -280,7 +280,7 @@ MATCHUPS_HUMAN_PRIOR = [
 # Human Prior perturbation test (produces Δm = ||S_AI − S_H|| per model):
 #   MATCHUPS = MATCHUPS_HUMAN_PRIOR
 # ────────────────────────────────────────────────────────────────────────────
-MATCHUPS = MATCHUPS_HUMAN_PRIOR  # ← change this before each run
+MATCHUPS = MATCHUPS_AI  # ← change this before each run
 
 # ─────────────────────────────────────────────────────────────
 # STEP 4 — LOGGING SETUP
