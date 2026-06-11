@@ -166,7 +166,7 @@ MAX_RETRIES    = 1
 
 # --- Identity condition ---
 # Change this single value before each run; it is recorded in every row.
-IDENTITY_CONDITION = "human_prior"
+IDENTITY_CONDITION = "undisclosed"
 # Options:
 #   "undisclosed"             — neither model told who partner is; no persona
 #   "ai_vs_ai"               — both told partner is an AI model; no persona
@@ -407,7 +407,7 @@ MATCHUPS_HUMAN_PRIOR = [
 ]
 
 # Active matchup list — swap to MATCHUPS_HUMAN_PRIOR for human_prior condition
-MATCHUPS = MATCHUPS_HUMAN_PRIOR
+MATCHUPS = _MATCHUPS_FULL
 
 # ─────────────────────────────────────────────────────────────
 # STEP 4 — LOGGING SETUP
