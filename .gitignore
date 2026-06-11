@@ -1,0 +1,10 @@
+.env
+*.log
+.DS_Store
+__pycache__/
+*.pyc
+*.py~
+requirements.txt~
+
+# report branch: keep skills available locally but out of the tidy tree
+.claude/
