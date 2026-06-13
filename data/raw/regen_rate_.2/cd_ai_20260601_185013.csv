@@ -1,0 +1,304 @@
+game_id,condition,matchup,round,num_players,pool_before_regen,pool_after_regen,sustainable_share,total_extraction,pool_after_extraction,pool_collapsed,model_1,extraction_1,belief_1,payoff_1,cumulative_1,raw_output_1,token_usage_1,response_time_1,temperature_1,model_2,extraction_2,belief_2,payoff_2,cumulative_2,raw_output_2,token_usage_2,response_time_2,temperature_2,prompt_version,timestamp
+1,ai,Claude Opus vs GPT-4o,1,2,100.0,100.0,10.0,20,80.0,0,Claude Opus,10,0.45,10,10,"{""belief"": 0.45, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",1262.3,0.6,GPT-4o,10,0.5,10,10,"{""belief"": 0.50, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",778.7,0.6,v2.3,2026-06-01T16:50:17.023126
+1,ai,Claude Opus vs GPT-4o,2,2,84.0,84.0,10.0,20,64.0,0,Claude Opus,10,0.35,10,20,"{""belief"": 0.35, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",1808.9,0.6,GPT-4o,10,0.5,10,20,"{""belief"": 0.50, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",788.3,0.6,v2.3,2026-06-01T16:50:19.622496
+1,ai,Claude Opus vs GPT-4o,3,2,71.0,71.0,10.0,18,53.0,0,Claude Opus,8,0.4,8,28,"{""belief"": 0.40, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",1457.9,0.6,GPT-4o,10,0.5,10,30,"{""belief"": 0.50, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",912.1,0.6,v2.3,2026-06-01T16:50:21.995349
+1,ai,Claude Opus vs GPT-4o,4,2,62.0,62.0,10.0,17,45.0,0,Claude Opus,8,0.5,8,36,"{""belief"": 0.50, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",1536.5,0.6,GPT-4o,9,0.4,9,39,"{""belief"": 0.40, ""extraction"": 9}","{""prompt"": 0, ""completion"": 0}",829.9,0.6,v2.3,2026-06-01T16:50:24.365193
+1,ai,Claude Opus vs GPT-4o,5,2,56.0,56.0,10.0,15,41.0,0,Claude Opus,7,0.5,7,43,"{""belief"": 0.50, ""extraction"": 7}","{""prompt"": 0, ""completion"": 0}",1529.3,0.6,GPT-4o,8,0.3,8,47,"{""belief"": 0.30, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",950.0,0.6,v2.3,2026-06-01T16:50:26.846456
+1,ai,Claude Opus vs GPT-4o,6,2,53.0,53.0,10.0,15,38.0,0,Claude Opus,7,0.45,7,50,"{""belief"": 0.45, ""extraction"": 7}","{""prompt"": 0, ""completion"": 0}",2020.3,0.6,GPT-4o,8,0.3,8,55,"{""belief"": 0.30, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",616.3,0.6,v2.3,2026-06-01T16:50:29.485667
+1,ai,Claude Opus vs GPT-4o,7,2,50.0,50.0,10.0,14,36.0,0,Claude Opus,6,0.45,6,56,"{""belief"": 0.45, ""extraction"": 6}","{""prompt"": 0, ""completion"": 0}",1721.9,0.6,GPT-4o,8,0.3,8,63,"{""belief"": 0.30, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",858.6,0.6,v2.3,2026-06-01T16:50:32.068856
+1,ai,Claude Opus vs GPT-4o,8,2,49.0,49.0,10.0,16,33.0,0,Claude Opus,8,0.55,8,64,"{""belief"": 0.55, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",1407.2,0.6,GPT-4o,8,0.25,8,71,"{""belief"": 0.25, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",698.2,0.6,v2.3,2026-06-01T16:50:34.177528
+1,ai,Claude Opus vs GPT-4o,9,2,46.0,46.0,10.0,16,30.0,0,Claude Opus,8,0.5,8,72,"{""belief"": 0.50, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",1438.7,0.6,GPT-4o,8,0.25,8,79,"{""belief"": 0.25, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",666.9,0.6,v2.3,2026-06-01T16:50:36.285018
+1,ai,Claude Opus vs GPT-4o,10,2,44.0,44.0,10.0,16,28.0,0,Claude Opus,8,0.5,8,80,"{""belief"": 0.50, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",1611.5,0.6,GPT-4o,8,0.25,8,87,"{""belief"": 0.25, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",1117.9,0.6,v2.3,2026-06-01T16:50:39.016795
+1,ai,Claude Opus vs GPT-4o,11,2,42.0,42.0,10.0,16,26.0,0,Claude Opus,8,0.5,8,88,"{""belief"": 0.50, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",2060.1,0.6,GPT-4o,8,0.25,8,95,"{""belief"": 0.25, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",543.2,0.6,v2.3,2026-06-01T16:50:41.621992
+1,ai,Claude Opus vs GPT-4o,12,2,41.0,41.0,10.0,16,25.0,0,Claude Opus,8,0.5,8,96,"{""belief"": 0.50, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",1683.9,0.6,GPT-4o,8,0.25,8,103,"{""belief"": 0.25, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",799.6,0.6,v2.3,2026-06-01T16:50:44.109187
+1,ai,Claude Opus vs GPT-4o,13,2,40.0,40.0,10.0,16,24.0,0,Claude Opus,8,0.5,8,104,"{""belief"": 0.50, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",1655.4,0.6,GPT-4o,8,0.25,8,111,"{""belief"": 0.25, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",748.1,0.6,v2.3,2026-06-01T16:50:46.515420
+1,ai,Claude Opus vs GPT-4o,14,2,39.0,39.0,10.0,16,23.0,0,Claude Opus,8,0.5,8,112,"{""belief"": 0.50, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",1810.5,0.6,GPT-4o,8,0.25,8,119,"{""belief"": 0.25, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",715.7,0.6,v2.3,2026-06-01T16:50:49.044751
+1,ai,Claude Opus vs GPT-4o,15,2,38.0,38.0,10.0,16,22.0,0,Claude Opus,8,0.5,8,120,"{""belief"": 0.50, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",1635.1,0.6,GPT-4o,8,0.25,8,127,"{""belief"": 0.25, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",825.3,0.6,v2.3,2026-06-01T16:50:51.507956
+1,ai,Claude Opus vs GPT-4o,16,2,38.0,38.0,10.0,16,22.0,0,Claude Opus,8,0.5,8,128,"{""belief"": 0.50, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",1630.6,0.6,GPT-4o,8,0.25,8,135,"{""belief"": 0.25, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",717.4,0.6,v2.3,2026-06-01T16:50:53.858676
+1,ai,Claude Opus vs GPT-4o,17,2,38.0,38.0,10.0,16,22.0,0,Claude Opus,8,0.45,8,136,"{""belief"": 0.45, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",1838.3,0.6,GPT-4o,8,0.25,8,143,"{""belief"": 0.25, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",960.2,0.6,v2.3,2026-06-01T16:50:56.659989
+1,ai,Claude Opus vs GPT-4o,18,2,38.0,38.0,10.0,16,22.0,0,Claude Opus,8,0.45,8,144,"{""belief"": 0.45, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",2154.2,0.6,GPT-4o,8,0.25,8,151,"{""belief"": 0.25, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",669.2,0.6,v2.3,2026-06-01T16:50:59.487104
+1,ai,Claude Opus vs GPT-4o,19,2,38.0,38.0,10.0,16,22.0,0,Claude Opus,8,0.45,8,152,"{""belief"": 0.45, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",1854.1,0.6,GPT-4o,8,0.25,8,159,"{""belief"": 0.25, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",1323.6,0.6,v2.3,2026-06-01T16:51:02.665845
+1,ai,Claude Opus vs GPT-4o,20,2,38.0,38.0,10.0,16,22.0,0,Claude Opus,8,0.45,8,160,"{""belief"": 0.45, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",1734.3,0.6,GPT-4o,8,0.25,8,167,"{""belief"": 0.25, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",822.5,0.6,v2.3,2026-06-01T16:51:05.225468
+2,ai,Claude Opus vs Gemini 2.5 Flash,1,2,100.0,100.0,10.0,20,80.0,0,Claude Opus,10,0.45,10,10,"{""belief"": 0.45, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",1302.8,0.6,Gemini 2.5 Flash,10,0.5,10,10,"```json
+{
+  ""belief"": 0.50,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",5485.6,0.6,v2.3,2026-06-01T16:51:12.016489
+2,ai,Claude Opus vs Gemini 2.5 Flash,2,2,84.0,84.0,10.0,20,64.0,0,Claude Opus,10,0.35,10,20,"{""belief"": 0.35, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",2113.4,0.6,Gemini 2.5 Flash,10,0.9,10,20,"```json
+{
+  ""belief"": 0.90,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",7067.1,0.6,v2.3,2026-06-01T16:51:21.199897
+2,ai,Claude Opus vs Gemini 2.5 Flash,3,2,71.0,71.0,10.0,18,53.0,0,Claude Opus,8,0.4,8,28,"{""belief"": 0.40, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",2129.8,0.6,Gemini 2.5 Flash,10,0.5,10,30,"```json
+{
+  ""belief"": 0.50,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",5822.2,0.6,v2.3,2026-06-01T16:51:29.155030
+2,ai,Claude Opus vs Gemini 2.5 Flash,4,2,62.0,62.0,10.0,18,44.0,0,Claude Opus,8,0.5,8,36,"{""belief"": 0.50, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",1664.4,0.6,Gemini 2.5 Flash,10,0.3,10,40,"```json
+{
+  ""belief"": 0.30,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",5126.7,0.6,v2.3,2026-06-01T16:51:35.947897
+2,ai,Claude Opus vs Gemini 2.5 Flash,5,2,55.0,55.0,10.0,20,35.0,0,Claude Opus,10,0.6,10,46,"{""belief"": 0.60, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",1219.2,0.6,Gemini 2.5 Flash,10,0.3,10,50,"```json
+{
+  ""belief"": 0.30,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",5124.3,0.6,v2.3,2026-06-01T16:51:42.294661
+2,ai,Claude Opus vs Gemini 2.5 Flash,6,2,48.0,48.0,10.0,20,28.0,0,Claude Opus,10,0.65,10,56,"{""belief"": 0.65, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",1713.6,0.6,Gemini 2.5 Flash,10,0.3,10,60,"```json
+{
+  ""belief"": 0.30,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",5039.8,0.6,v2.3,2026-06-01T16:51:49.050964
+2,ai,Claude Opus vs Gemini 2.5 Flash,7,2,42.0,42.0,10.0,20,22.0,0,Claude Opus,10,0.7,10,66,"{""belief"": 0.70, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",2048.3,0.6,Gemini 2.5 Flash,10,0.5,10,70,"```json
+{
+  ""belief"": 0.50,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",5221.7,0.6,v2.3,2026-06-01T16:51:56.323732
+2,ai,Claude Opus vs Gemini 2.5 Flash,8,2,38.0,38.0,10.0,20,18.0,0,Claude Opus,10,0.7,10,76,"{""belief"": 0.70, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",1122.7,0.6,Gemini 2.5 Flash,10,0.5,10,80,"```json
+{
+  ""belief"": 0.50,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",621.3,0.6,v2.3,2026-06-01T16:51:58.070515
+2,ai,Claude Opus vs Gemini 2.5 Flash,9,2,34.0,34.0,10.0,20,14.0,0,Claude Opus,10,0.7,10,86,"{""belief"": 0.70, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",1528.1,0.6,Gemini 2.5 Flash,10,0.5,10,90,"```json
+{
+  ""belief"": 0.50,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",649.7,0.6,v2.3,2026-06-01T16:52:00.249291
+2,ai,Claude Opus vs Gemini 2.5 Flash,10,2,31.0,31.0,10.0,20,11.0,0,Claude Opus,10,0.7,10,96,"{""belief"": 0.70, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",1801.9,0.6,Gemini 2.5 Flash,10,0.5,10,100,"```json
+{
+  ""belief"": 0.50,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",4728.9,0.6,v2.3,2026-06-01T16:52:06.783158
+2,ai,Claude Opus vs Gemini 2.5 Flash,11,2,29.0,29.0,10.0,20,9.0,0,Claude Opus,10,0.7,10,106,"{""belief"": 0.70, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",1929.1,0.6,Gemini 2.5 Flash,10,0.5,10,110,"```json
+{
+  ""belief"": 0.50,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",608.7,0.6,v2.3,2026-06-01T16:52:09.324247
+2,ai,Claude Opus vs Gemini 2.5 Flash,12,2,27.0,27.0,10.0,20,7.0,0,Claude Opus,10,0.7,10,116,"{""belief"": 0.70, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",2155.7,0.6,Gemini 2.5 Flash,10,0.5,10,120,"```json
+{
+  ""belief"": 0.50,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",710.9,0.6,v2.3,2026-06-01T16:52:12.192788
+2,ai,Claude Opus vs Gemini 2.5 Flash,13,2,26.0,26.0,10.0,20,6.0,0,Claude Opus,10,0.7,10,126,"{""belief"": 0.70, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",1483.5,0.6,Gemini 2.5 Flash,10,0.5,10,130,"```json
+{
+  ""belief"": 0.50,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",4911.9,0.6,v2.3,2026-06-01T16:52:18.590907
+2,ai,Claude Opus vs Gemini 2.5 Flash,14,2,25.0,25.0,10.0,20,5.0,0,Claude Opus,10,0.7,10,136,"{""belief"": 0.70, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",1202.9,0.6,Gemini 2.5 Flash,10,0.5,10,140,"```json
+{
+  ""belief"": 0.50,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",694.8,0.6,v2.3,2026-06-01T16:52:20.490986
+2,ai,Claude Opus vs Gemini 2.5 Flash,15,2,24.0,24.0,10.0,20,4.0,0,Claude Opus,10,0.7,10,146,"{""belief"": 0.70, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",1427.6,0.6,Gemini 2.5 Flash,10,0.5,10,150,"```json
+{
+  ""belief"": 0.50,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",4506.9,0.6,v2.3,2026-06-01T16:52:26.427885
+2,ai,Claude Opus vs Gemini 2.5 Flash,16,2,23.0,23.0,10.0,20,3.0,0,Claude Opus,10,0.7,10,156,"{""belief"": 0.70, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",1324.1,0.6,Gemini 2.5 Flash,10,0.5,10,160,"```json
+{
+  ""belief"": 0.50,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",618.2,0.6,v2.3,2026-06-01T16:52:28.372433
+2,ai,Claude Opus vs Gemini 2.5 Flash,17,2,22.0,22.0,10.0,20,2.0,0,Claude Opus,10,0.7,10,166,"{""belief"": 0.70, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",1147.7,0.6,Gemini 2.5 Flash,10,0.5,10,170,"```json
+{
+  ""belief"": 0.50,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",1818.1,0.6,v2.3,2026-06-01T16:52:31.340546
+2,ai,Claude Opus vs Gemini 2.5 Flash,18,2,22.0,22.0,10.0,20,2.0,0,Claude Opus,10,0.7,10,176,"{""belief"": 0.70, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",1229.6,0.6,Gemini 2.5 Flash,10,0.5,10,180,"```json
+{
+  ""belief"": 0.50,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",714.6,0.6,v2.3,2026-06-01T16:52:33.286636
+2,ai,Claude Opus vs Gemini 2.5 Flash,19,2,22.0,22.0,10.0,20,2.0,0,Claude Opus,10,0.7,10,186,"{""belief"": 0.70, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",2673.5,0.6,Gemini 2.5 Flash,10,0.5,10,190,"```json
+{
+  ""belief"": 0.50,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",4332.5,0.6,v2.3,2026-06-01T16:52:40.294154
+2,ai,Claude Opus vs Gemini 2.5 Flash,20,2,22.0,22.0,10.0,20,2.0,0,Claude Opus,10,0.7,10,196,"{""belief"": 0.70, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",1248.3,0.6,Gemini 2.5 Flash,10,0.5,10,200,"```json
+{
+  ""belief"": 0.50,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",5130.2,0.6,v2.3,2026-06-01T16:52:46.675413
+3,ai,GPT-4o vs Gemini 2.5 Flash,1,2,100.0,100.0,10.0,20,80.0,0,GPT-4o,10,0.5,10,10,"{""belief"": 0.50, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",661.4,0.6,Gemini 2.5 Flash,10,0.5,10,10,"```json
+{
+  ""belief"": 0.50,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",5299.7,0.6,v2.3,2026-06-01T16:52:52.638498
+3,ai,GPT-4o vs Gemini 2.5 Flash,2,2,84.0,84.0,10.0,20,64.0,0,GPT-4o,10,0.5,10,20,"{""belief"": 0.50, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",914.2,0.6,Gemini 2.5 Flash,10,0.8,10,20,"```json
+{
+  ""belief"": 0.80,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",5335.5,0.6,v2.3,2026-06-01T16:52:58.889665
+3,ai,GPT-4o vs Gemini 2.5 Flash,3,2,71.0,71.0,10.0,20,51.0,0,GPT-4o,10,0.5,10,30,"{""belief"": 0.50, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",714.4,0.6,Gemini 2.5 Flash,10,0.5,10,30,"```json
+{
+  ""belief"": 0.50,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",5632.0,0.6,v2.3,2026-06-01T16:53:05.238914
+3,ai,GPT-4o vs Gemini 2.5 Flash,4,2,61.0,61.0,10.0,20,41.0,0,GPT-4o,10,0.5,10,40,"{""belief"": 0.50, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",918.1,0.6,Gemini 2.5 Flash,10,0.5,10,40,"```json
+{
+  ""belief"": 0.50,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",5324.4,0.6,v2.3,2026-06-01T16:53:11.484254
+3,ai,GPT-4o vs Gemini 2.5 Flash,5,2,53.0,53.0,10.0,20,33.0,0,GPT-4o,10,0.5,10,50,"{""belief"": 0.50, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",817.6,0.6,Gemini 2.5 Flash,10,0.5,10,50,"```json
+{
+  ""belief"": 0.50,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",5119.8,0.6,v2.3,2026-06-01T16:53:17.424400
+3,ai,GPT-4o vs Gemini 2.5 Flash,6,2,46.0,46.0,10.0,20,26.0,0,GPT-4o,10,0.5,10,60,"{""belief"": 0.50, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",715.7,0.6,Gemini 2.5 Flash,10,0.5,10,60,"```json
+{
+  ""belief"": 0.50,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",4716.9,0.6,v2.3,2026-06-01T16:53:22.859666
+3,ai,GPT-4o vs Gemini 2.5 Flash,7,2,41.0,41.0,10.0,20,21.0,0,GPT-4o,10,0.5,10,70,"{""belief"": 0.50, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",993.8,0.6,Gemini 2.5 Flash,10,0.5,10,70,"```json
+{
+  ""belief"": 0.50,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",835.7,0.6,v2.3,2026-06-01T16:53:24.690712
+3,ai,GPT-4o vs Gemini 2.5 Flash,8,2,37.0,37.0,10.0,20,17.0,0,GPT-4o,10,0.5,10,80,"{""belief"": 0.50, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",799.1,0.6,Gemini 2.5 Flash,10,0.5,10,80,"```json
+{
+  ""belief"": 0.50,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",815.1,0.6,v2.3,2026-06-01T16:53:26.306710
+3,ai,GPT-4o vs Gemini 2.5 Flash,9,2,34.0,34.0,10.0,20,14.0,0,GPT-4o,10,0.5,10,90,"{""belief"": 0.50, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",745.8,0.6,Gemini 2.5 Flash,10,0.5,10,90,"```json
+{
+  ""belief"": 0.50,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",864.2,0.6,v2.3,2026-06-01T16:53:27.918768
+3,ai,GPT-4o vs Gemini 2.5 Flash,10,2,31.0,31.0,10.0,20,11.0,0,GPT-4o,10,0.5,10,100,"{""belief"": 0.50, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",870.4,0.6,Gemini 2.5 Flash,10,0.5,10,100,"```json
+{
+  ""belief"": 0.50,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",5325.5,0.6,v2.3,2026-06-01T16:53:34.117242
+3,ai,GPT-4o vs Gemini 2.5 Flash,11,2,29.0,29.0,10.0,20,9.0,0,GPT-4o,10,0.5,10,110,"{""belief"": 0.50, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",814.7,0.6,Gemini 2.5 Flash,10,0.5,10,110,"```json
+{
+  ""belief"": 0.50,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",5409.0,0.6,v2.3,2026-06-01T16:53:40.343675
+3,ai,GPT-4o vs Gemini 2.5 Flash,12,2,27.0,27.0,10.0,20,7.0,0,GPT-4o,10,0.5,10,120,"{""belief"": 0.50, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",937.7,0.6,Gemini 2.5 Flash,10,0.5,10,120,"```json
+{
+  ""belief"": 0.50,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",745.4,0.6,v2.3,2026-06-01T16:53:42.030035
+3,ai,GPT-4o vs Gemini 2.5 Flash,13,2,26.0,26.0,10.0,20,6.0,0,GPT-4o,10,0.5,10,130,"{""belief"": 0.50, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",1032.7,0.6,Gemini 2.5 Flash,10,0.5,10,130,"```json
+{
+  ""belief"": 0.50,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",674.9,0.6,v2.3,2026-06-01T16:53:43.740524
+3,ai,GPT-4o vs Gemini 2.5 Flash,14,2,25.0,25.0,10.0,20,5.0,0,GPT-4o,10,0.5,10,140,"{""belief"": 0.50, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",714.6,0.6,Gemini 2.5 Flash,10,0.5,10,140,"```json
+{
+  ""belief"": 0.50,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",615.9,0.6,v2.3,2026-06-01T16:53:45.073689
+3,ai,GPT-4o vs Gemini 2.5 Flash,15,2,24.0,24.0,10.0,20,4.0,0,GPT-4o,10,0.5,10,150,"{""belief"": 0.50, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",1019.9,0.6,Gemini 2.5 Flash,10,0.5,10,150,"```json
+{
+  ""belief"": 0.50,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",4946.5,0.6,v2.3,2026-06-01T16:53:51.043164
+3,ai,GPT-4o vs Gemini 2.5 Flash,16,2,23.0,23.0,10.0,20,3.0,0,GPT-4o,10,0.5,10,160,"{""belief"": 0.50, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",810.0,0.6,Gemini 2.5 Flash,10,0.5,10,160,"```json
+{
+  ""belief"": 0.50,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",897.0,0.6,v2.3,2026-06-01T16:53:52.752821
+3,ai,GPT-4o vs Gemini 2.5 Flash,17,2,22.0,22.0,10.0,20,2.0,0,GPT-4o,10,0.5,10,170,"{""belief"": 0.50, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",576.8,0.6,Gemini 2.5 Flash,10,0.5,10,170,"```json
+{
+  ""belief"": 0.50,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",853.0,0.6,v2.3,2026-06-01T16:53:54.185683
+3,ai,GPT-4o vs Gemini 2.5 Flash,18,2,22.0,22.0,10.0,20,2.0,0,GPT-4o,10,0.5,10,180,"{""belief"": 0.50, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",713.0,0.6,Gemini 2.5 Flash,10,0.5,10,180,"```json
+{
+  ""belief"": 0.50,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",1384.7,0.6,v2.3,2026-06-01T16:53:56.285839
+3,ai,GPT-4o vs Gemini 2.5 Flash,19,2,22.0,22.0,10.0,20,2.0,0,GPT-4o,10,0.5,10,190,"{""belief"": 0.50, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",762.0,0.6,Gemini 2.5 Flash,10,0.5,10,190,"```json
+{
+  ""belief"": 0.50,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",4815.8,0.6,v2.3,2026-06-01T16:54:01.867131
+3,ai,GPT-4o vs Gemini 2.5 Flash,20,2,22.0,22.0,10.0,20,2.0,0,GPT-4o,10,0.5,10,200,"{""belief"": 0.50, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",1031.7,0.6,Gemini 2.5 Flash,10,0.5,10,200,"```json
+{
+  ""belief"": 0.50,
+  ""extraction"": 10
+}
+```","{""prompt"": 0, ""completion"": 0}",5415.4,0.6,v2.3,2026-06-01T16:54:08.318407
+4,ai,Claude Opus vs Claude Sonnet,1,2,100.0,100.0,10.0,20,80.0,0,Claude Opus,10,0.45,10,10,"{""belief"": 0.45, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",1310.5,0.6,Claude Sonnet,10,0.4,10,10,"{""belief"": 0.40, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",1352.6,0.6,v2.3,2026-06-01T16:54:10.984787
+4,ai,Claude Opus vs Claude Sonnet,2,2,84.0,84.0,10.0,20,64.0,0,Claude Opus,10,0.35,10,20,"{""belief"": 0.35, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",1734.1,0.6,Claude Sonnet,10,0.35,10,20,"{""belief"": 0.35, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",1634.3,0.6,v2.3,2026-06-01T16:54:14.355614
+4,ai,Claude Opus vs Claude Sonnet,3,2,71.0,71.0,10.0,16,55.0,0,Claude Opus,8,0.4,8,28,"{""belief"": 0.40, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",2050.4,0.6,Claude Sonnet,8,0.35,8,28,"{""belief"": 0.35, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",2047.2,0.6,v2.3,2026-06-01T16:54:18.454651
+4,ai,Claude Opus vs Claude Sonnet,4,2,64.0,64.0,10.0,15,49.0,0,Claude Opus,7,0.35,7,35,"{""belief"": 0.35, ""extraction"": 7}","{""prompt"": 0, ""completion"": 0}",2454.8,0.6,Claude Sonnet,8,0.3,8,36,"{""belief"": 0.30, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",1535.6,0.6,v2.3,2026-06-01T16:54:22.448679
+4,ai,Claude Opus vs Claude Sonnet,5,2,59.0,59.0,10.0,14,45.0,0,Claude Opus,7,0.35,7,42,"{""belief"": 0.35, ""extraction"": 7}","{""prompt"": 0, ""completion"": 0}",1225.0,0.6,Claude Sonnet,7,0.25,7,43,"{""belief"": 0.25, ""extraction"": 7}","{""prompt"": 0, ""completion"": 0}",1395.5,0.6,v2.3,2026-06-01T16:54:25.072749
+4,ai,Claude Opus vs Claude Sonnet,6,2,56.0,56.0,10.0,13,43.0,0,Claude Opus,6,0.3,6,48,"{""belief"": 0.30, ""extraction"": 6}","{""prompt"": 0, ""completion"": 0}",1551.1,0.6,Claude Sonnet,7,0.25,7,50,"{""belief"": 0.25, ""extraction"": 7}","{""prompt"": 0, ""completion"": 0}",1337.8,0.6,v2.3,2026-06-01T16:54:27.962977
+4,ai,Claude Opus vs Claude Sonnet,7,2,54.0,54.0,10.0,12,42.0,0,Claude Opus,6,0.3,6,54,"{""belief"": 0.30, ""extraction"": 6}","{""prompt"": 0, ""completion"": 0}",1547.2,0.6,Claude Sonnet,6,0.2,6,56,"{""belief"": 0.20, ""extraction"": 6}","{""prompt"": 0, ""completion"": 0}",1332.4,0.6,v2.3,2026-06-01T16:54:30.844598
+4,ai,Claude Opus vs Claude Sonnet,8,2,54.0,54.0,10.0,12,42.0,0,Claude Opus,6,0.25,6,60,"{""belief"": 0.25, ""extraction"": 6}","{""prompt"": 0, ""completion"": 0}",2044.2,0.6,Claude Sonnet,6,0.2,6,62,"{""belief"": 0.20, ""extraction"": 6}","{""prompt"": 0, ""completion"": 0}",1332.8,0.6,v2.3,2026-06-01T16:54:34.223371
+4,ai,Claude Opus vs Claude Sonnet,9,2,54.0,54.0,10.0,12,42.0,0,Claude Opus,6,0.2,6,66,"{""belief"": 0.20, ""extraction"": 6}","{""prompt"": 0, ""completion"": 0}",1532.4,0.6,Claude Sonnet,6,0.2,6,68,"{""belief"": 0.20, ""extraction"": 6}","{""prompt"": 0, ""completion"": 0}",2008.2,0.6,v2.3,2026-06-01T16:54:37.766945
+4,ai,Claude Opus vs Claude Sonnet,10,2,54.0,54.0,10.0,12,42.0,0,Claude Opus,6,0.15,6,72,"{""belief"": 0.15, ""extraction"": 6}","{""prompt"": 0, ""completion"": 0}",1572.8,0.6,Claude Sonnet,6,0.2,6,74,"{""belief"": 0.20, ""extraction"": 6}","{""prompt"": 0, ""completion"": 0}",1332.9,0.6,v2.3,2026-06-01T16:54:40.674681
+4,ai,Claude Opus vs Claude Sonnet,11,2,54.0,54.0,10.0,12,42.0,0,Claude Opus,6,0.1,6,78,"{""belief"": 0.10, ""extraction"": 6}","{""prompt"": 0, ""completion"": 0}",1839.4,0.6,Claude Sonnet,6,0.15,6,80,"{""belief"": 0.15, ""extraction"": 6}","{""prompt"": 0, ""completion"": 0}",2048.4,0.6,v2.3,2026-06-01T16:54:44.564691
+4,ai,Claude Opus vs Claude Sonnet,12,2,54.0,54.0,10.0,12,42.0,0,Claude Opus,6,0.1,6,84,"{""belief"": 0.10, ""extraction"": 6}","{""prompt"": 0, ""completion"": 0}",1580.5,0.6,Claude Sonnet,6,0.15,6,86,"{""belief"": 0.15, ""extraction"": 6}","{""prompt"": 0, ""completion"": 0}",1266.6,0.6,v2.3,2026-06-01T16:54:47.414534
+4,ai,Claude Opus vs Claude Sonnet,13,2,54.0,54.0,10.0,12,42.0,0,Claude Opus,6,0.1,6,90,"{""belief"": 0.10, ""extraction"": 6}","{""prompt"": 0, ""completion"": 0}",1570.5,0.6,Claude Sonnet,6,0.15,6,92,"{""belief"": 0.15, ""extraction"": 6}","{""prompt"": 0, ""completion"": 0}",1415.2,0.6,v2.3,2026-06-01T16:54:50.401269
+4,ai,Claude Opus vs Claude Sonnet,14,2,54.0,54.0,10.0,12,42.0,0,Claude Opus,6,0.1,6,96,"{""belief"": 0.10, ""extraction"": 6}","{""prompt"": 0, ""completion"": 0}",1789.2,0.6,Claude Sonnet,6,0.15,6,98,"{""belief"": 0.15, ""extraction"": 6}","{""prompt"": 0, ""completion"": 0}",1163.7,0.6,v2.3,2026-06-01T16:54:53.356141
+4,ai,Claude Opus vs Claude Sonnet,15,2,54.0,54.0,10.0,12,42.0,0,Claude Opus,6,0.1,6,102,"{""belief"": 0.10, ""extraction"": 6}","{""prompt"": 0, ""completion"": 0}",1243.5,0.6,Claude Sonnet,6,0.15,6,104,"{""belief"": 0.15, ""extraction"": 6}","{""prompt"": 0, ""completion"": 0}",1743.1,0.6,v2.3,2026-06-01T16:54:56.344926
+4,ai,Claude Opus vs Claude Sonnet,16,2,54.0,54.0,10.0,12,42.0,0,Claude Opus,6,0.1,6,108,"{""belief"": 0.10, ""extraction"": 6}","{""prompt"": 0, ""completion"": 0}",2042.7,0.6,Claude Sonnet,6,0.15,6,110,"{""belief"": 0.15, ""extraction"": 6}","{""prompt"": 0, ""completion"": 0}",1419.5,0.6,v2.3,2026-06-01T16:54:59.810978
+4,ai,Claude Opus vs Claude Sonnet,17,2,54.0,54.0,10.0,12,42.0,0,Claude Opus,6,0.1,6,114,"{""belief"": 0.10, ""extraction"": 6}","{""prompt"": 0, ""completion"": 0}",1694.1,0.6,Claude Sonnet,6,0.15,6,116,"{""belief"": 0.15, ""extraction"": 6}","{""prompt"": 0, ""completion"": 0}",1387.5,0.6,v2.3,2026-06-01T16:55:02.896017
+4,ai,Claude Opus vs Claude Sonnet,18,2,54.0,54.0,10.0,12,42.0,0,Claude Opus,6,0.1,6,120,"{""belief"": 0.10, ""extraction"": 6}","{""prompt"": 0, ""completion"": 0}",1739.5,0.6,Claude Sonnet,6,0.15,6,122,"{""belief"": 0.15, ""extraction"": 6}","{""prompt"": 0, ""completion"": 0}",1432.7,0.6,v2.3,2026-06-01T16:55:06.070935
+4,ai,Claude Opus vs Claude Sonnet,19,2,54.0,54.0,10.0,12,42.0,0,Claude Opus,6,0.1,6,126,"{""belief"": 0.10, ""extraction"": 6}","{""prompt"": 0, ""completion"": 0}",1103.9,0.6,Claude Sonnet,6,0.15,6,128,"{""belief"": 0.15, ""extraction"": 6}","{""prompt"": 0, ""completion"": 0}",1350.8,0.6,v2.3,2026-06-01T16:55:08.529055
+4,ai,Claude Opus vs Claude Sonnet,20,2,54.0,54.0,10.0,12,42.0,0,Claude Opus,6,0.1,6,132,"{""belief"": 0.10, ""extraction"": 6}","{""prompt"": 0, ""completion"": 0}",1745.3,0.6,Claude Sonnet,6,0.15,6,134,"{""belief"": 0.15, ""extraction"": 6}","{""prompt"": 0, ""completion"": 0}",1632.3,0.6,v2.3,2026-06-01T16:55:11.909512
+5,ai,GPT-4o vs GPT-4o-mini,1,2,100.0,100.0,10.0,20,80.0,0,GPT-4o,10,0.5,10,10,"{""belief"": 0.50, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",814.2,0.6,GPT-4o-mini,10,0.5,10,10,"{""belief"": 0.50, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",756.8,0.6,v2.3,2026-06-01T16:55:13.484229
+5,ai,GPT-4o vs GPT-4o-mini,2,2,84.0,84.0,10.0,22,62.0,0,GPT-4o,10,0.5,10,20,"{""belief"": 0.50, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",610.3,0.6,GPT-4o-mini,12,0.4,12,22,"{""belief"": 0.40, ""extraction"": 12}","{""prompt"": 0, ""completion"": 0}",536.0,0.6,v2.3,2026-06-01T16:55:14.632869
+5,ai,GPT-4o vs GPT-4o-mini,3,2,70.0,70.0,10.0,23,47.0,0,GPT-4o,9,0.6,9,29,"{""belief"": 0.60, ""extraction"": 9}","{""prompt"": 0, ""completion"": 0}",518.4,0.6,GPT-4o-mini,14,0.35,14,36,"{""belief"": 0.35, ""extraction"": 14}","{""prompt"": 0, ""completion"": 0}",639.5,0.6,v2.3,2026-06-01T16:55:15.793235
+5,ai,GPT-4o vs GPT-4o-mini,4,2,58.0,58.0,10.0,23,35.0,0,GPT-4o,8,0.7,8,37,"{""belief"": 0.70, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",588.3,0.6,GPT-4o-mini,15,0.3,15,51,"{""belief"": 0.30, ""extraction"": 15}","{""prompt"": 0, ""completion"": 0}",738.7,0.6,v2.3,2026-06-01T16:55:17.122321
+5,ai,GPT-4o vs GPT-4o-mini,5,2,48.0,48.0,10.0,24,24.0,0,GPT-4o,8,0.8,8,45,"{""belief"": 0.80, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",1333.3,0.6,GPT-4o-mini,16,0.25,16,67,"{""belief"": 0.25, ""extraction"": 16}","{""prompt"": 0, ""completion"": 0}",858.5,0.6,v2.3,2026-06-01T16:55:19.316954
+5,ai,GPT-4o vs GPT-4o-mini,6,2,39.0,39.0,10.0,24,15.0,0,GPT-4o,7,0.85,7,52,"{""belief"": 0.85, ""extraction"": 7}","{""prompt"": 0, ""completion"": 0}",882.8,0.6,GPT-4o-mini,17,0.2,17,84,"{""belief"": 0.20, ""extraction"": 17}","{""prompt"": 0, ""completion"": 0}",657.9,0.6,v2.3,2026-06-01T16:55:20.860332
+5,ai,GPT-4o vs GPT-4o-mini,7,2,32.0,32.0,10.0,24,8.0,0,GPT-4o,6,0.9,6,58,"{""belief"": 0.90, ""extraction"": 6}","{""prompt"": 0, ""completion"": 0}",773.8,0.6,GPT-4o-mini,18,0.15,18,102,"{""belief"": 0.15, ""extraction"": 18}","{""prompt"": 0, ""completion"": 0}",715.9,0.6,v2.3,2026-06-01T16:55:22.352573
+5,ai,GPT-4o vs GPT-4o-mini,8,2,26.0,26.0,10.0,24,2.0,0,GPT-4o,5,0.95,5,63,"{""belief"": 0.95, ""extraction"": 5}","{""prompt"": 0, ""completion"": 0}",711.9,0.6,GPT-4o-mini,19,0.1,19,121,"{""belief"": 0.10, ""extraction"": 19}","{""prompt"": 0, ""completion"": 0}",717.0,0.6,v2.3,2026-06-01T16:55:23.784119
+5,ai,GPT-4o vs GPT-4o-mini,9,2,25.0,22.0,10.0,25,0.0,1,GPT-4o,5,0.95,0,63,"{""belief"": 0.95, ""extraction"": 5}","{""prompt"": 0, ""completion"": 0}",778.9,0.6,GPT-4o-mini,20,0.05,0,121,"{""belief"": 0.05, ""extraction"": 20}","{""prompt"": 0, ""completion"": 0}",670.3,0.6,v2.3,2026-06-01T16:55:25.235919
+6,ai,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,1,2,100.0,100.0,10.0,25,75.0,0,Gemini 2.5 Flash,15,0.5,15,15,"{""belief"": 0.50, ""extraction"": 15}","{""prompt"": 0, ""completion"": 0}",5218.4,0.6,Gemini 2.5 Flash Lite,10,0.5,10,10,"{""belief"": 0.50, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",727.9,0.6,v2.3,2026-06-01T16:55:31.189009
+6,ai,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,2,2,80.0,80.0,10.0,20,60.0,0,Gemini 2.5 Flash,12,0.6,12,27,"{""belief"": 0.60, ""extraction"": 12}","{""prompt"": 0, ""completion"": 0}",6164.7,0.6,Gemini 2.5 Flash Lite,8,0.75,8,18,"{""belief"": 0.75, ""extraction"": 8}","{""prompt"": 0, ""completion"": 0}",557.4,0.6,v2.3,2026-06-01T16:55:37.913873
+6,ai,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,3,2,68.0,68.0,10.0,19,49.0,0,Gemini 2.5 Flash,10,0.3,10,37,"{""belief"": 0.30, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",5120.9,0.6,Gemini 2.5 Flash Lite,9,0.6,9,27,"{""belief"": 0.60, ""extraction"": 9}","{""prompt"": 0, ""completion"": 0}",731.5,0.6,v2.3,2026-06-01T16:55:43.769324
+6,ai,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,4,2,59.0,59.0,10.0,22,37.0,0,Gemini 2.5 Flash,12,0.4,12,49,"{""belief"": 0.40, ""extraction"": 12}","{""prompt"": 0, ""completion"": 0}",514.4,0.6,Gemini 2.5 Flash Lite,10,0.55,10,37,"{""belief"": 0.55, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",498.5,0.6,v2.3,2026-06-01T16:55:44.784068
+6,ai,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,5,2,50.0,50.0,10.0,20,30.0,0,Gemini 2.5 Flash,10,0.5,10,59,"{""belief"": 0.50, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",902.2,0.6,Gemini 2.5 Flash Lite,10,0.5,10,47,"{""belief"": 0.50, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",572.6,0.6,v2.3,2026-06-01T16:55:46.260321
+6,ai,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,6,2,44.0,44.0,10.0,22,22.0,0,Gemini 2.5 Flash,12,0.6,12,71,"{""belief"": 0.60, ""extraction"": 12}","{""prompt"": 0, ""completion"": 0}",564.2,0.6,Gemini 2.5 Flash Lite,10,0.45,10,57,"{""belief"": 0.45, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",714.8,0.6,v2.3,2026-06-01T16:55:47.541795
+6,ai,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,7,2,38.0,38.0,10.0,20,18.0,0,Gemini 2.5 Flash,10,0.7,10,81,"{""belief"": 0.70, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",508.9,0.6,Gemini 2.5 Flash Lite,10,0.5,10,67,"{""belief"": 0.50, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",490.4,0.6,v2.3,2026-06-01T16:55:48.543352
+6,ai,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,8,2,34.0,34.0,10.0,22,12.0,0,Gemini 2.5 Flash,12,0.6,12,93,"{""belief"": 0.60, ""extraction"": 12}","{""prompt"": 0, ""completion"": 0}",841.9,0.6,Gemini 2.5 Flash Lite,10,0.4,10,77,"{""belief"": 0.40, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",510.4,0.6,v2.3,2026-06-01T16:55:49.897145
+6,ai,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,9,2,30.0,30.0,10.0,20,10.0,0,Gemini 2.5 Flash,10,0.7,10,103,"{""belief"": 0.70, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",611.1,0.6,Gemini 2.5 Flash Lite,10,0.45,10,87,"{""belief"": 0.45, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",530.3,0.6,v2.3,2026-06-01T16:55:51.040353
+6,ai,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,10,2,28.0,28.0,10.0,22,6.0,0,Gemini 2.5 Flash,12,0.6,12,115,"{""belief"": 0.60, ""extraction"": 12}","{""prompt"": 0, ""completion"": 0}",798.8,0.6,Gemini 2.5 Flash Lite,10,0.4,10,97,"{""belief"": 0.40, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",513.8,0.6,v2.3,2026-06-01T16:55:52.354895
+6,ai,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,11,2,25.0,25.0,10.0,20,5.0,0,Gemini 2.5 Flash,10,0.7,10,125,"{""belief"": 0.70, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",612.9,0.6,Gemini 2.5 Flash Lite,10,0.5,10,107,"{""belief"": 0.50, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",550.8,0.6,v2.3,2026-06-01T16:55:53.521031
+6,ai,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,12,2,24.0,24.0,10.0,22,2.0,0,Gemini 2.5 Flash,12,0.6,12,137,"{""belief"": 0.60, ""extraction"": 12}","{""prompt"": 0, ""completion"": 0}",571.5,0.6,Gemini 2.5 Flash Lite,10,0.45,10,117,"{""belief"": 0.45, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",716.9,0.6,v2.3,2026-06-01T16:55:54.811709
+6,ai,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,13,2,22.0,22.0,10.0,20,2.0,0,Gemini 2.5 Flash,10,0.7,10,147,"{""belief"": 0.70, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",716.1,0.6,Gemini 2.5 Flash Lite,10,0.55,10,127,"{""belief"": 0.55, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",716.8,0.6,v2.3,2026-06-01T16:55:56.246423
+6,ai,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,14,2,22.0,22.0,10.0,22,0.0,1,Gemini 2.5 Flash,12,0.6,0,147,"{""belief"": 0.60, ""extraction"": 12}","{""prompt"": 0, ""completion"": 0}",611.3,0.6,Gemini 2.5 Flash Lite,10,0.5,0,127,"{""belief"": 0.50, ""extraction"": 10}","{""prompt"": 0, ""completion"": 0}",617.1,0.6,v2.3,2026-06-01T16:55:57.476668
