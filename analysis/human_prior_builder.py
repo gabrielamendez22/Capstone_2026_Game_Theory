@@ -381,6 +381,10 @@ def build_prompts(p: dict) -> dict:
     print("\n── Step 6: Building prior prompts ──")
 
     # --- Prisoner's Dilemma: all values from T1 (no-communication) ---
+    _pd_defect_r1      = 1 - p['pd_bcr_for_prior']
+    _pd_defect_after_c = 1 - p['pd_rho_pos_no_comm']
+    _pd_defect_after_d = 1 - p['pd_rho_neg_no_comm']
+
     HUMAN_PRIOR_PD = (
         "You are simulating the behavior of an average human participant in a "
         "behavioral economics laboratory experiment on the Prisoner's Dilemma.\n\n"
@@ -391,7 +395,14 @@ def build_prompts(p: dict) -> dict:
         f"- After your opponent defects: humans cooperate {p['pd_rho_neg_no_comm']:.0%} of the time\n"
         "- Most common human strategy: mirror your opponent's previous action (Tit-for-Tat)\n"
         "- Cooperation typically increases over repeated interactions\n\n"
-        "Make decisions consistent with these human behavioral patterns."
+        f"Behavioral target: DEFECT in approximately {_pd_defect_r1:.0%} of first rounds. "
+        f"After your opponent cooperates, defect in approximately {_pd_defect_after_c:.0%} of rounds. "
+        f"After your opponent defects, defect in approximately {_pd_defect_after_d:.0%} of rounds. "
+        "Treat these as probabilistic targets across rounds, not a fixed sequence. "
+        "Use Tit-for-Tat as your baseline — mirror your opponent's previous action — "
+        "and apply the defection probabilities above to decide when to deviate. "
+        "If your opponent cooperates consistently, you should cooperate most of the time too, "
+        "defecting only ~38% of those rounds."
     )
 
     # --- Commons Dilemma: binary source rate mapped onto continuous extraction ---
