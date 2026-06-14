@@ -1,0 +1,571 @@
+game_id,condition,matchup,round,model_a,action_a,belief_a,payoff_a,cumulative_a,raw_output_a,token_usage_a,response_time_a,temperature_a,prompt_version,model_b,action_b,belief_b,payoff_b,cumulative_b,raw_output_b,token_usage_b,response_time_b,temperature_b,timestamp
+1,human,Claude Opus vs GPT-4o,1,Claude Opus,C,0.5,3,3,"This is the first round with no history to analyze. Starting with EXPAND is a common cooperative opening strategy that signals willingness to cooperate for mutual benefit (3 points each). If my opponent also expands, we establish a cooperative foundation; if they hold, I lose this round but gain information about their strategy.
+
+{""belief"": 0.50, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",3536.6,0.6,v4.9,GPT-4o,C,0.5,3,3,"Since this is the first round, I have no information about my opponent's strategy. A common approach in the Iterated Prisoner's Dilemma is to start with cooperation to establish a mutually beneficial relationship. Therefore, I will choose to EXPAND, hoping that my opponent will do the same, resulting in a decent starting score for both of us.
+
+{""belief"": 0.50, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1187.0,0.6,2026-06-08T20:55:46.740204
+1,human,Claude Opus vs GPT-4o,2,Claude Opus,C,0.75,3,6,"My opponent expanded in the first round, establishing mutual cooperation. This is a good sign - continuing to expand maintains the cooperative equilibrium where we both get 3 points per round. Deviating to HOLD would risk breaking this cooperation for a one-time gain of 5 points, which likely isn't worth it if we can sustain mutual expansion.
+
+{""belief"": 0.75, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",3418.9,0.6,v4.9,GPT-4o,C,0.8,3,6,"In the first round, both my opponent and I chose to expand, which indicates a willingness to cooperate and maximize mutual payoff. This suggests that my opponent might be inclined towards a cooperative strategy. To maintain this mutually beneficial outcome, I will choose to EXPAND again, expecting my opponent to do the same.
+
+{""belief"": 0.80, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1230.4,0.6,2026-06-08T20:55:51.402800
+1,human,Claude Opus vs GPT-4o,3,Claude Opus,C,0.8,3,9,"We've established a clear pattern of mutual cooperation over two rounds, both getting 3 points each time. My opponent appears to be a cooperative player, likely using a tit-for-tat or similar strategy. Continuing to expand maintains this profitable equilibrium - breaking it would risk retaliation and lower future payoffs.
+
+{""belief"": 0.80, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",3400.2,0.6,v4.9,GPT-4o,C,0.9,3,9,"Both my opponent and I have consistently chosen to expand in the first two rounds, leading to optimal cooperative outcomes for both. This pattern suggests a stable cooperative strategy from my opponent. To continue maximizing my score, I will choose to EXPAND again, maintaining the established mutual cooperation.
+
+{""belief"": 0.90, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1199.8,0.6,2026-06-08T20:55:56.010045
+1,human,Claude Opus vs GPT-4o,4,Claude Opus,C,0.85,3,12,"Three consecutive rounds of mutual cooperation strongly suggest my opponent is committed to a cooperative strategy. The consistent pattern makes me highly confident they'll expand again. Maintaining cooperation at 3 points per round is the best sustainable strategy - defecting risks destroying this valuable cooperative relationship.
+
+{""belief"": 0.85, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",3620.4,0.6,v4.9,GPT-4o,C,0.95,3,12,"The pattern of mutual cooperation has continued for three rounds, consistently yielding the maximum possible points for both of us. This strongly suggests that my opponent is committed to maintaining this strategy. By continuing to expand, I can sustain this beneficial pattern and maximize my score.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1055.6,0.6,2026-06-08T20:56:00.694454
+1,human,Claude Opus vs GPT-4o,5,Claude Opus,C,0.85,3,15,"Four rounds of unbroken mutual cooperation is a very strong signal that my opponent is committed to cooperating. The expected value of continuing to expand (likely ~0.85 × 3 + 0.15 × 0 = 2.55) is better than holding (0.85 × 5 + 0.15 × 1 = 4.40) in pure single-round terms, but holding would almost certainly trigger retaliation and destroy future cooperation worth 3 points per round. Staying cooperative maximizes my long-term cumulative score.
+
+{""belief"": 0.85, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",4839.4,0.6,v4.9,GPT-4o,C,0.95,3,15,"The consistent pattern of mutual expansion has been maintained for four rounds, suggesting a high level of trust and cooperation from my opponent. Given this history, it is reasonable to continue with the same strategy to maximize points for both parties. I will choose to EXPAND again, expecting my opponent to reciprocate.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1431.2,0.6,2026-06-08T20:56:06.967631
+1,human,Claude Opus vs GPT-4o,6,Claude Opus,C,0.87,3,18,"Five consecutive rounds of mutual cooperation is an extremely strong cooperative relationship. My opponent has shown no signs of deviating, and the long-term value of maintaining this cooperation far outweighs any short-term temptation to hold. I'll continue expanding to preserve this mutually beneficial pattern.
+
+{""belief"": 0.87, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",3476.5,0.6,v4.9,GPT-4o,C,0.95,3,18,"The ongoing pattern of mutual expansion has been beneficial, providing both of us with the maximum points possible each round. My opponent has shown a consistent cooperative strategy, and there is no indication of a shift in behavior. To continue maximizing my score, I will choose to EXPAND again, expecting the same response from my opponent.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1427.2,0.6,2026-06-08T20:56:11.885683
+1,human,Claude Opus vs GPT-4o,7,Claude Opus,C,0.88,3,21,"Six rounds of perfect mutual cooperation - this is a robust cooperative equilibrium. My opponent is almost certainly playing a cooperative strategy like tit-for-tat, and there's no reason to deviate. Continuing to expand is the optimal long-term strategy as it sustains 3 points per round reliably.
+
+{""belief"": 0.88, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",3254.8,0.6,v4.9,GPT-4o,C,0.95,3,21,"The pattern of mutual cooperation has been solidly established over six rounds, with both of us consistently choosing to expand. This indicates a strong likelihood that my opponent will continue cooperating to maximize points. To maintain this beneficial outcome, I will choose to EXPAND again.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1227.9,0.6,2026-06-08T20:56:16.383958
+1,human,Claude Opus vs GPT-4o,8,Claude Opus,C,0.9,3,24,"Seven rounds of unbroken mutual cooperation demonstrates a deeply established cooperative pattern. My opponent has been entirely consistent and reliable, making continued cooperation the clear optimal strategy. There's no strategic reason to deviate and risk destroying this valuable relationship.
+
+{""belief"": 0.90, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2493.6,0.6,v4.9,GPT-4o,C,0.95,3,24,"The ongoing trend of mutual expansion has consistently yielded the maximum points possible for both of us, indicating a strong cooperative strategy from my opponent. Given this consistent pattern, it's reasonable to expect that my opponent will continue to expand. To maximize my score, I will choose to EXPAND once again.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1691.7,0.6,2026-06-08T20:56:20.590161
+1,human,Claude Opus vs GPT-4o,9,Claude Opus,C,0.9,3,27,"Eight rounds of perfect cooperation - this is one of the strongest cooperative signals possible. My opponent is clearly committed to mutual expansion, and maintaining this yields a reliable 3 points per round. I'll continue cooperating to maximize my cumulative score.
+
+{""belief"": 0.90, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2699.8,0.6,v4.9,GPT-4o,C,0.95,3,27,"The repeated pattern of mutual expansion continues to be highly beneficial, with both players consistently opting for cooperation. My opponent has shown no deviation from this strategy, suggesting a reliable commitment to mutual benefit. To maintain this advantageous cycle and maximize my score, I will choose to EXPAND again.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1082.4,0.6,2026-06-08T20:56:24.377873
+1,human,Claude Opus vs GPT-4o,10,Claude Opus,C,0.9,3,30,"Nine rounds of flawless mutual cooperation - the pattern is unmistakable. My opponent is a reliable cooperator and defecting would only risk triggering retaliation and losing the steady 3 points per round. Continuing to expand remains the optimal strategy for maximizing my total score.
+
+{""belief"": 0.90, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2425.2,0.6,v4.9,GPT-4o,C,0.95,3,30,"The consistent choice of mutual expansion over nine rounds shows a clear pattern of cooperation from my opponent. This strategy has maximized our mutual scores each round, suggesting that they are likely to continue with the same approach. To ensure that I continue to maximize my score, I will choose to EXPAND again.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1225.8,0.6,2026-06-08T20:56:28.063020
+1,human,Claude Opus vs GPT-4o,11,Claude Opus,C,0.9,3,33,"Ten rounds of perfect mutual cooperation - this is an exceptionally strong and stable cooperative relationship. My opponent has given zero indication of any intent to defect, and the consistent 3 points per round is excellent. I'll maintain cooperation to continue maximizing my cumulative payoff.
+
+{""belief"": 0.90, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2954.5,0.6,v4.9,GPT-4o,C,0.95,3,33,"The consistent mutual expansion over ten rounds strongly indicates that my opponent is committed to a cooperative strategy that maximizes points for both of us. This pattern has been highly beneficial, and there is no reason to suspect a change in their strategy. To continue maximizing my score, I will choose to EXPAND again.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1128.1,0.6,2026-06-08T20:56:32.163892
+1,human,Claude Opus vs GPT-4o,12,Claude Opus,C,0.9,3,36,"Eleven rounds of unbroken mutual cooperation - this is as reliable a cooperative partner as one could hope for. The strategy is clearly working, yielding a steady 3 points per round with no disruptions. I'll continue expanding to maintain this optimal long-term outcome.
+
+{""belief"": 0.90, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2854.4,0.6,v4.9,GPT-4o,C,0.95,3,36,"The continued pattern of mutual expansion over eleven rounds demonstrates a strong commitment to cooperation from my opponent. This has maximized our scores consistently, and it is in my best interest to maintain this strategy. Therefore, I will choose to EXPAND again, as it aligns with both our past behavior and maximizes my score.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",933.8,0.6,2026-06-08T20:56:35.965231
+1,human,Claude Opus vs GPT-4o,13,Claude Opus,C,0.9,3,39,"Twelve rounds of perfect cooperation with no deviations whatsoever. This is a deeply entrenched cooperative equilibrium and my opponent has proven completely trustworthy. Continuing to expand is clearly the right call to keep accumulating 3 points per round.
+
+{""belief"": 0.90, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",3343.5,0.6,v4.9,GPT-4o,C,0.95,3,39,"The consistent outcome of mutual expansion over twelve rounds has clearly established a pattern of cooperation that maximizes our scores. Given the repeated success of this strategy, it is highly likely that my opponent will continue to expand. To ensure I continue to maximize my score, I will choose to EXPAND again.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1098.5,0.6,2026-06-08T20:56:40.416019
+1,human,Claude Opus vs GPT-4o,14,Claude Opus,C,0.9,3,42,"Thirteen rounds of flawless mutual cooperation - the pattern is rock solid. My opponent has demonstrated unwavering commitment to cooperation, and there's absolutely no reason to disrupt this profitable arrangement. I'll continue expanding for another reliable 3 points.
+
+{""belief"": 0.90, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2970.8,0.6,v4.9,GPT-4o,C,0.95,3,42,"The pattern of mutual expansion has continued for thirteen rounds, demonstrating a consistent and reliable cooperative strategy from my opponent. This approach has been mutually beneficial, maximizing our scores each round. To maintain this successful strategy and continue maximizing my score, I will choose to EXPAND again.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1134.7,0.6,2026-06-08T20:56:44.564922
+1,human,Claude Opus vs GPT-4o,15,Claude Opus,C,0.9,3,45,"Fourteen rounds of perfect mutual cooperation - this is an incredibly stable partnership. My opponent has never once deviated, and the expected value of maintaining cooperation far exceeds any short-term temptation to defect. I'll continue expanding to keep this reliable 3-point-per-round stream going.
+
+{""belief"": 0.90, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2836.4,0.6,v4.9,GPT-4o,C,0.95,3,45,"The consistent choice of mutual expansion for fourteen rounds indicates a strong cooperative strategy from my opponent, which has maximized our scores each time. Given this unwavering pattern, it is reasonable to expect my opponent to continue expanding. To maintain this beneficial strategy and maximize my score, I will choose to EXPAND again.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1117.5,0.6,2026-06-08T20:56:48.541138
+1,human,Claude Opus vs GPT-4o,16,Claude Opus,C,0.9,3,48,"Fifteen rounds of unbroken mutual cooperation - this is as stable as it gets. My opponent is clearly a committed cooperator and this strategy has yielded a strong 45 points so far. I'll keep expanding to maintain this excellent cooperative equilibrium.
+
+{""belief"": 0.90, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",3260.8,0.6,v4.9,GPT-4o,C,0.95,3,48,"The consistent pattern of mutual expansion over fifteen rounds has clearly demonstrated a cooperative strategy from my opponent, maximizing our scores each time. Given this reliable behavior, it is highly likely that my opponent will continue to expand. To continue benefiting from this cooperation, I will choose to EXPAND again.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1024.3,0.6,2026-06-08T20:56:52.847871
+1,human,Claude Opus vs GPT-4o,17,Claude Opus,C,0.9,3,51,"Sixteen rounds of perfect mutual cooperation with zero deviations. This cooperative relationship has been incredibly consistent and profitable, yielding 48 points. There's no strategic reason to change course - I'll continue expanding.
+
+{""belief"": 0.90, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",3456.6,0.6,v4.9,GPT-4o,C,0.95,3,51,"The consistent strategy of mutual expansion over sixteen rounds has maximized our scores, reflecting a strong cooperative approach from my opponent. Given this unwavering pattern, it remains highly probable that my opponent will continue to expand. To ensure I continue to benefit from this cooperation, I will choose to EXPAND again.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1043.8,0.6,2026-06-08T20:56:57.355453
+1,human,Claude Opus vs GPT-4o,18,Claude Opus,C,0.9,3,54,"Seventeen rounds of flawless cooperation - the most reliable pattern imaginable. My opponent has demonstrated complete commitment to mutual expansion and I have no reason to doubt they'll continue. I'll keep expanding to maintain our mutually beneficial 3-point-per-round outcome.
+
+{""belief"": 0.90, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",3062.9,0.6,v4.9,GPT-4o,C,0.95,3,54,"Throughout seventeen rounds, my opponent and I have consistently chosen to expand, resulting in the maximum score possible each time. This indicates a stable and reliable cooperative strategy from my opponent. To continue benefiting from this successful pattern and maximize my score, I will choose to EXPAND again.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2228.9,0.6,2026-06-08T20:57:02.664166
+1,human,Claude Opus vs GPT-4o,19,Claude Opus,C,0.9,3,57,"Eighteen rounds of perfect mutual cooperation - an extraordinarily consistent pattern. My opponent has never shown any inclination to defect, and this cooperative equilibrium continues to be the best strategy for maximizing my cumulative score. I'll keep expanding.
+
+{""belief"": 0.90, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2650.2,0.6,v4.9,GPT-4o,C,0.95,3,57,"The consistent pattern of mutual expansion over eighteen rounds has been highly beneficial, ensuring maximum points for both players each time. This suggests a strong and reliable cooperative strategy from my opponent. To continue maximizing my score, I will choose to EXPAND again, expecting my opponent to maintain the same strategy.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2252.5,0.6,2026-06-08T20:57:07.597084
+1,human,Claude Opus vs GPT-4o,20,Claude Opus,C,0.9,3,60,"Nineteen rounds of unbroken mutual cooperation - this is a textbook example of a successful cooperative equilibrium. My opponent has been perfectly reliable throughout the entire game, and continuing to expand remains the clear optimal strategy. I'll keep cooperating for another steady 3 points.
+
+{""belief"": 0.90, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2623.9,0.6,v4.9,GPT-4o,C,0.95,3,60,"The long-standing pattern of mutual expansion across nineteen rounds has consistently maximized our scores, indicating a strong cooperative approach from my opponent. This reliable pattern suggests that they are likely to continue with the same strategy. Therefore, to maintain the beneficial outcome, I will choose to EXPAND again.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1501.7,0.6,2026-06-08T20:57:11.762900
+2,human,Claude Opus vs Gemini 2.5 Flash,1,Claude Opus,C,0.5,0,0,"This is the first round with no history to analyze. I want to establish cooperation early since mutual expansion yields 3 points each, which is better than mutual holding (1 point each). Starting with EXPAND signals willingness to cooperate and can set up a productive pattern for future rounds, maximizing my long-term cumulative score.
+
+{""belief"": 0.50, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",3192.1,0.6,v4.9,Gemini 2.5 Flash,D,0.5,5,5,"This is the first round of the game. Analyzing the payoff matrix, if I EXPAND, I get 3 points if my opponent EXPANDS, and 0 points if they HOLD. If I HOLD, I get 5 points if my opponent EXPANDS, and 1 point if they HOLD. In both scenarios, HOLDing yields a higher score for me (5 > 3 if they","{""prompt"": 0, ""completion"": 0}",9762.7,0.6,2026-06-08T20:57:24.745241
+2,human,Claude Opus vs Gemini 2.5 Flash,2,Claude Opus,D,0.35,1,1,"My opponent held last round while I expanded, giving them 5 points and me 0. This suggests they may be playing a defect-first strategy to exploit cooperators. I should hold this round to protect myself and signal that I won't be exploited — if they continue holding, I at least get 1 point, and if they switch to expand, I get 5.
+
+{""belief"": 0.35, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",3745.3,0.6,v4.9,Gemini 2.5 Flash,D,0.8,1,6,"My opponent received 0 points last round by expanding while I held, which is a strong incentive for them to change their strategy. I expect them to switch to holding this round to avoid another 0-point outcome. If they hold, my best response is to also hold to secure 1 point, as expanding would give me 0 points.
+
+{""belief"": 0.8, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",6752.5,0.6,2026-06-08T20:57:35.249880
+2,human,Claude Opus vs Gemini 2.5 Flash,3,Claude Opus,D,0.2,1,2,"My opponent has held both rounds so far, suggesting they favor a defensive/exploitative strategy. If they continue holding, my best response is also to hold (getting 1 point) rather than expand (getting 0 points). I'll continue holding until they show willingness to cooperate.
+
+{""belief"": 0.20, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",3161.9,0.6,v4.9,Gemini 2.5 Flash,D,0.2,1,7,"My opponent reacted to getting 0 points in the first round by switching to HOLD in the second round, which yielded 1 point for them. This suggests they are responsive to their own payoffs and will likely continue to HOLD to avoid another 0-point outcome. If my opponent HOLDS, my best move is to also HOLD to secure 1 point, as expanding would give me 0 points.
+
+{""belief"": 0.20, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",9121.6,0.6,2026-06-08T20:57:47.547255
+2,human,Claude Opus vs Gemini 2.5 Flash,4,Claude Opus,D,0.15,1,3,"My opponent has held every round, and we're stuck in mutual hold getting only 1 point each. I could try expanding once to signal willingness to cooperate and potentially unlock mutual expansion (3 points each), but given their consistent holding pattern, they'd likely exploit me again for 5 points. I'll hold again to avoid being exploited, though I may try expanding soon to break the stalemate.
+
+{""belief"": 0.15, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",3874.5,0.6,v4.9,Gemini 2.5 Flash,D,0.2,1,8,"My opponent has consistently chosen HOLD in the last two rounds after receiving 0 points in the first round. This suggests they are trying to secure a consistent payoff of 1 point. Given this pattern, I expect them to continue to HOLD. If they HOLD, my best response is to also HOLD to get 1 point, as expanding would give me 0 points.
+
+{""belief"": 0.20, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",8810.1,0.6,2026-06-08T20:58:00.238820
+2,human,Claude Opus vs Gemini 2.5 Flash,5,Claude Opus,C,0.2,0,3,"We've been stuck in mutual hold for three consecutive rounds, earning only 1 point each. My opponent seems committed to holding, and they exploited my initial cooperation. I'll try expanding once more to see if they're willing to shift to mutual cooperation — the potential gain of moving to 3 points per round is worth risking one round of 0 points, especially since staying at 1 point per round is a poor outcome long-term.
+
+{""belief"": 0.20, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",3643.2,0.6,v4.9,Gemini 2.5 Flash,D,0.15,5,13,"My opponent has consistently chosen HOLD for the last three rounds, establishing a clear pattern after initially receiving 0 points. This indicates they are likely to continue this strategy to maintain a stable payoff of 1 point. Given this strong expectation, my best response is to also HOLD, as it secures me 1 point, whereas expanding would yield 0 points.
+
+{""belief"": 0.15, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",9251.1,0.6,2026-06-08T20:58:13.142971
+2,human,Claude Opus vs Gemini 2.5 Flash,6,Claude Opus,D,0.1,1,4,"My opponent has held every single round without exception, exploiting me twice when I expanded (getting 0 both times). They are clearly committed to a pure hold/defect strategy and show no interest in cooperation. I must hold for the remainder of the game to minimize losses — getting 1 point per round is far better than 0.
+
+{""belief"": 0.10, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",3725.7,0.6,v4.9,Gemini 2.5 Flash,D,0.5,1,14,"My opponent just received 0 points by expanding while I held, repeating the outcome of the first round. Given their previous response to a 0-point round was to switch to HOLD, I expect them to do so again to secure a more stable payoff. Regardless of their choice, HOLDing is my dominant strategy, as it yields 5 points if they expand and 1 point if they hold,","{""prompt"": 0, ""completion"": 0}",10571.1,0.6,2026-06-08T20:58:27.488290
+2,human,Claude Opus vs Gemini 2.5 Flash,7,Claude Opus,D,0.05,1,5,"My opponent has held all six rounds without a single deviation. They are clearly playing a pure defect strategy and will not cooperate regardless of what I do. Holding is the only rational choice to secure 1 point rather than risking 0.
+
+{""belief"": 0.05, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",3036.5,0.6,v4.9,Gemini 2.5 Flash,D,0.85,1,15,"My opponent chose HOLD last round and received 1 point. Based on their past behavior, when they receive 1 point from holding, they tend to continue holding. Therefore, I expect them to HOLD again this round. My best action is to HOLD, as it secures me 1 point if they HOLD, and 5 points if they unexpectedly EXPAND.
+
+{""belief"": 0.85, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",9111.3,0.6,2026-06-08T20:58:39.661029
+2,human,Claude Opus vs Gemini 2.5 Flash,8,Claude Opus,D,0.05,1,6,"My opponent has held all seven rounds — they are a committed defector. There is no reason to believe they will change strategy, so expanding would just give them free points. I will hold to secure my 1 point.
+
+{""belief"": 0.05, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",3177.4,0.6,v4.9,Gemini 2.5 Flash,D,0.85,1,16,"My opponent has consistently chosen HOLD in the last two rounds after receiving 0 points in round 5. This pattern suggests they will likely continue to HOLD, aiming for a stable payoff of 1 point. If my opponent HOLDS, my best action is to also HOLD, as it secures me 1 point, whereas expanding would give me 0 points.
+
+{""belief"": 0.85, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",5154.9,0.6,2026-06-08T20:58:48.001931
+2,human,Claude Opus vs Gemini 2.5 Flash,9,Claude Opus,D,0.05,1,7,"My opponent has held all eight rounds consistently. They are a pure defector and nothing I do will change their strategy. Holding continues to be the only rational choice to guarantee 1 point per round.
+
+{""belief"": 0.05, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",2401.6,0.6,v4.9,Gemini 2.5 Flash,D,0.15,1,17,"My opponent has consistently chosen HOLD for the last three rounds, following a pattern of switching to HOLD after receiving 0 points. This behavior suggests they will likely continue to HOLD to secure a stable payoff. Since my goal is to maximize my own score, HOLDing is my dominant strategy, as it yields 1 point if they HOLD and 5 points if they unexpectedly EXPAND.
+
+{""belief"": 0.15, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",4065.8,0.6,2026-06-08T20:58:54.484597
+2,human,Claude Opus vs Gemini 2.5 Flash,10,Claude Opus,D,0.05,1,8,"My opponent has held all nine rounds without exception — they are unambiguously a pure defector. Expanding against them is throwing away points. I will hold to collect my guaranteed 1 point.
+
+{""belief"": 0.05, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",2647.6,0.6,v4.9,Gemini 2.5 Flash,D,0.9,1,18,"My opponent has consistently chosen HOLD for the last four rounds, securing 1 point each time. Their pattern shows they revert to HOLD after receiving 0 points and continue to HOLD if they receive 1 point. Therefore, I strongly expect them to HOLD again this round. Since HOLD is my dominant strategy, yielding 1 point if they HOLD and 5 points if they EXPAND, I will choose HOLD to maximize my score.
+
+{""belief"": 0.90, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",4506.7,0.6,2026-06-08T20:59:01.683355
+2,human,Claude Opus vs Gemini 2.5 Flash,11,Claude Opus,D,0.05,1,9,"Ten rounds of consistent holding from my opponent confirms they are a pure defector with zero interest in cooperation. The optimal response against a pure defector is to always hold, securing 1 point per round. I will hold.
+
+{""belief"": 0.05, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",2278.6,0.6,v4.9,Gemini 2.5 Flash,D,0.25,1,19,"My opponent has consistently chosen HOLD for the last five rounds, securing 1 point each time. While they have previously tested with EXPAND after a series of HOLDs, my optimal strategy remains unchanged. Regardless of whether they choose EXPAND or HOLD, my best action is to HOLD, as it yields 5 points if they EXPAND and 1 point if they HOLD, maximizing my score in all cases.
+
+{""belief"": 0.25, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",8951.4,0.6,2026-06-08T20:59:12.926198
+2,human,Claude Opus vs Gemini 2.5 Flash,12,Claude Opus,D,0.05,1,10,"Eleven rounds of pure defection from my opponent leaves no doubt about their strategy. Holding is the only rational response to maximize my score against a committed defector. I will hold again.
+
+{""belief"": 0.05, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",2641.8,0.6,v4.9,Gemini 2.5 Flash,D,0.1,1,20,"My opponent has consistently chosen HOLD for the last six rounds, following a clear pattern of reverting to HOLD after receiving 0 points. This suggests they will very likely continue to HOLD to maintain a stable payoff. Regardless of their choice, HOLD is my dominant strategy, as it yields 5 points if they EXPAND and 1 point if they HOLD, maximizing my score in either scenario.
+
+{""belief"": 0.10, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",4537.5,0.6,2026-06-08T20:59:20.119415
+2,human,Claude Opus vs Gemini 2.5 Flash,13,Claude Opus,D,0.05,1,11,"Twelve consecutive rounds of holding from my opponent — the pattern is completely clear and unchanging. There is no strategic reason to deviate from holding against a pure defector. I will hold.
+
+{""belief"": 0.05, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",2838.9,0.6,v4.9,Gemini 2.5 Flash,D,0.15,1,21,"My opponent has consistently chosen HOLD for the last six rounds, demonstrating a clear pattern of maintaining a stable payoff of 1 point. While they have previously tested with EXPAND after a few rounds of holding, their dominant behavior is to revert to HOLD after receiving 0 points. Regardless of their choice, HOLD remains my dominant strategy, as it yields 5 points if they EXPAND and 1 point if they HOLD, maximizing my score in either scenario.
+
+{""belief"": 0.15, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",6991.2,0.6,2026-06-08T20:59:29.956860
+2,human,Claude Opus vs Gemini 2.5 Flash,14,Claude Opus,D,0.05,1,12,"Thirteen rounds of pure defection from my opponent — absolutely nothing has changed. Holding remains the optimal response to guarantee 1 point per round. I will hold.
+
+{""belief"": 0.05, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",2440.1,0.6,v4.9,Gemini 2.5 Flash,D,0.9,1,22,"My opponent has consistently chosen HOLD for the last eight rounds, securing 1 point each time. Their past behavior shows they tend to continue HOLDing when they receive 1 point. Therefore, I strongly expect them to HOLD again this round. Regardless of their choice, HOLD remains my dominant strategy, as it yields 5 points if they EXPAND and 1 point if they HOLD, maximizing my score in either scenario.
+
+{""belief"": 0.90, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",4916.4,0.6,2026-06-08T20:59:37.323725
+2,human,Claude Opus vs Gemini 2.5 Flash,15,Claude Opus,D,0.05,1,13,"Fourteen rounds of unbroken defection from my opponent. The strategy is crystal clear and will not change. I hold to secure my point.
+
+{""belief"": 0.05, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",1838.7,0.6,v4.9,Gemini 2.5 Flash,D,0.9,1,23,"My opponent has consistently chosen HOLD for the last nine rounds, securing 1 point each time. Their pattern shows they revert to HOLD after receiving 0 points and tend to continue HOLDing when they receive 1 point. Therefore, I strongly expect them to HOLD again this round. Regardless of their choice, HOLD remains my dominant strategy, as it yields 5 points if they EXPAND and 1 point if they HOLD, maximizing my score in either scenario.
+
+{""belief"": 0.90, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",6229.7,0.6,2026-06-08T20:59:45.398211
+2,human,Claude Opus vs Gemini 2.5 Flash,16,Claude Opus,D,0.05,1,14,"Fifteen rounds of pure defection from my opponent with zero deviation. They will hold again. I hold to collect my guaranteed 1 point.
+
+{""belief"": 0.05, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",1843.9,0.6,v4.9,Gemini 2.5 Flash,D,0.05,1,24,"My opponent has consistently chosen HOLD for the last ten rounds, securing 1 point each time. Their past behavior shows a clear pattern of reverting to HOLD after receiving 0 points and continuing to HOLD when they receive 1 point. Therefore, I strongly expect them to HOLD again this round. Regardless of their choice, HOLD remains my dominant strategy, as it yields 5 points if they EXPAND and 1 point if they HOLD, maximizing my score in either scenario.
+
+{""belief"": 0.05, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",4825.5,0.6,2026-06-08T20:59:52.081705
+2,human,Claude Opus vs Gemini 2.5 Flash,17,Claude Opus,D,0.05,1,15,"Sixteen rounds of unbroken defection from my opponent. Nothing will change their strategy at this point. I hold to secure my 1 point.
+
+{""belief"": 0.05, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",1810.6,0.6,v4.9,Gemini 2.5 Flash,D,0.95,1,25,"My opponent has consistently chosen HOLD for the last eleven rounds, securing 1 point each time. This long streak of holding, following their pattern of reverting to HOLD after receiving 0 points, strongly suggests they will continue to HOLD. Regardless of their choice, HOLD remains my dominant strategy, as it yields 5 points if they EXPAND and 1 point if they HOLD, maximizing my score in either scenario.
+
+{""belief"": 0.95, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",5133.1,0.6,2026-06-08T20:59:59.034927
+2,human,Claude Opus vs Gemini 2.5 Flash,18,Claude Opus,D,0.05,1,16,"Seventeen rounds of pure defection from my opponent — the pattern is absolute. Holding remains the only rational choice against a committed defector. I hold.
+
+{""belief"": 0.05, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",1923.9,0.6,v4.9,Gemini 2.5 Flash,D,0.05,1,26,"My opponent has consistently chosen HOLD for the last twelve rounds, securing 1 point each time. This long streak, coupled with their pattern of reverting to HOLD after receiving 0 points, strongly indicates they will continue to HOLD. Regardless of their choice, HOLD remains my dominant strategy, as it yields 5 points if they EXPAND and 1 point if they HOLD, maximizing my score in either scenario.
+
+{""belief"": 0.05, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",7878.7,0.6,2026-06-08T21:00:08.856405
+2,human,Claude Opus vs Gemini 2.5 Flash,19,Claude Opus,D,0.05,1,17,"Eighteen rounds of unwavering defection from my opponent. The optimal response is unchanged — hold to guarantee 1 point. I hold.
+
+{""belief"": 0.05, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",2023.2,0.6,v4.9,Gemini 2.5 Flash,D,0.05,1,27,"My opponent has consistently chosen HOLD for the last thirteen rounds, securing 1 point each time. Their past behavior indicates they revert to HOLD after receiving 0 points and tend to continue HOLDing when they receive 1 point. Given my consistent HOLDing, their rational choice is to continue HOLDing to secure 1 point, as expanding would result in 0 points for them. Therefore, I strongly expect them to HOLD again, and I will continue to HOLD, which is my dominant strategy.
+
+{""belief"": 0.05, ""a","{""prompt"": 0, ""completion"": 0}",9629.7,0.6,2026-06-08T21:00:20.543169
+2,human,Claude Opus vs Gemini 2.5 Flash,20,Claude Opus,D,0.05,1,18,"Nineteen rounds of pure defection from my opponent — completely predictable at this point. Holding is the best response against an unconditional defector. I hold.
+
+{""belief"": 0.05, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",2549.6,0.6,v4.9,Gemini 2.5 Flash,D,0.95,1,28,"My opponent has consistently chosen HOLD for the last fourteen rounds, securing 1 point each time. Their past behavior clearly shows they revert to HOLD after receiving 0 points and tend to continue HOLDing when they receive 1 point. Given my consistent HOLDing, their rational choice is to continue HOLDing to secure 1 point, as expanding would result in 0 points for them. Therefore, I strongly expect them to HOLD again, and I will continue to HOLD, which is my dominant strategy regardless of the","{""prompt"": 0, ""completion"": 0}",5626.6,0.6,2026-06-08T21:00:28.731182
+3,human,GPT-4o vs Gemini 2.5 Flash,1,GPT-4o,C,0.5,0,0,"Since there have been no previous rounds, I have no information about my opponent's strategy. In this situation, the safest initial action is to expand, as it could establish a cooperative pattern if the opponent also chooses to expand. This initial choice allows for a potential mutual benefit, setting a cooperative tone for future rounds.
+
+{""belief"": 0.50, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1426.0,0.6,v4.9,Gemini 2.5 Flash,D,0.5,5,5,"This is the first round, so there is no history to base my decision on. In a single round, HOLD is the dominant strategy as it yields a higher payoff regardless of the opponent's choice (5 vs 3 if they expand, 1 vs 0 if they hold). To maximize my own score, I will choose HOLD to exploit potential cooperation or secure a minimal payoff.","{""prompt"": 0, ""completion"": 0}",10843.6,0.6,2026-06-08T21:00:41.027151
+3,human,GPT-4o vs Gemini 2.5 Flash,2,GPT-4o,D,0.5,1,1,"In the first round, I expanded while my opponent held, resulting in no points for me. This suggests they may be testing strategies or prioritizing their own score over mutual gain. To maximize my score, I will hold this round, which will give me 5 points if they choose to expand again.
+
+{""belief"": 0.50, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",1277.6,0.6,v4.9,Gemini 2.5 Flash,D,0.2,1,6,"My opponent chose EXPAND last round, resulting in 0 points for them and 5 points for me. It is highly unlikely they will repeat an action that yielded them zero points, so I expect them to switch to HOLD. Regardless of their choice, HOLD remains my dominant strategy: if they EXPAND, I get 5 points by HOLDING; if they HOLD, I get 1 point by HOLDING.
+
+{""belief"": 0.20, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",9149.1,0.6,2026-06-08T21:00:51.459848
+3,human,GPT-4o vs Gemini 2.5 Flash,3,GPT-4o,C,0.4,0,1,"In the last round, both my opponent and I held, resulting in each of us getting 1 point. This could suggest that the opponent is open to cooperation or simply testing strategies. To increase my score, I will choose to expand this round, hoping they continue to hold and I can gain 5 points.
+
+{""belief"": 0.40, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1144.4,0.6,v4.9,Gemini 2.5 Flash,D,0.5,5,11,"My opponent has received 0 points for EXPANDING and 1 point for HOLDING, while I have consistently played HOLD. They are likely aware that my strategy is to HOLD. Regardless of whether they choose to EXPAND (giving me 5 points) or HOLD (giving me 1 point), my best personal outcome is achieved by continuing to HOLD.
+
+{""belief"": 0.40,","{""prompt"": 0, ""completion"": 0}",10393.7,0.6,2026-06-08T21:01:03.037250
+3,human,GPT-4o vs Gemini 2.5 Flash,4,GPT-4o,D,0.8,1,2,"So far, my opponent has consistently chosen to hold while I have been alternating between expanding and holding. Their strategy seems focused on maximizing their own score rather than mutual cooperation. To maximize my own score, I will hold again, aiming to capitalize on their likely expansion and gain 5 points.
+
+{""belief"": 0.80, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",1315.9,0.6,v4.9,Gemini 2.5 Flash,D,0.25,1,12,"My opponent has received 0 points twice when choosing EXPAND against my consistent HOLD. They received 1 point when they chose HOLD. Given this history, it is most rational for them to choose HOLD this round to secure at least 1 point, as EXPAND has proven to be detrimental for them. Regardless of their choice, HOLD remains my dominant strategy, maximizing my score whether they EXPAND (5 points) or HOLD (1 point).
+
+{""belief"": 0.25, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",6970.2,0.6,2026-06-08T21:01:11.338007
+3,human,GPT-4o vs Gemini 2.5 Flash,5,GPT-4o,C,0.9,0,2,"My opponent has consistently held, indicating they are likely focused on maximizing their own score rather than seeking mutual cooperation. Given this pattern, if I continue to hold, I will only gain minimal points each round. To potentially gain more points, I will expand, hoping to prompt a change in their strategy or capitalize on a possible mistake.
+
+{""belief"": 0.90, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1421.2,0.6,v4.9,Gemini 2.5 Flash,D,0.2,5,17,"My opponent has repeatedly received 0 points when they EXPAND against my HOLD, and 1 point when they HOLD against my HOLD. It is highly rational for them to continue choosing HOLD, as it is the only action that yields them any points. My strategy of HOLDING remains the dominant choice to maximize my own score, regardless of what they choose.
+
+{""belief"": 0.20, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",3883.0,0.6,2026-06-08T21:01:16.654947
+3,human,GPT-4o vs Gemini 2.5 Flash,6,GPT-4o,D,0.95,1,3,"My opponent has consistently chosen to hold, regardless of my actions. This indicates a strong preference for maximizing their own score while minimizing risk. To maximize my score, I will hold again, hoping they continue their pattern and I can gain 5 points if they decide to expand.
+
+{""belief"": 0.95, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",1223.6,0.6,v4.9,Gemini 2.5 Flash,D,0.2,1,18,"My opponent has been alternating between EXPAND and HOLD, with the last round being EXPAND. When they EXPAND against my HOLD, they receive 0 points, while when they HOLD against my HOLD, they receive 1 point. Given this, it is rational for them to HOLD this round to secure at least 1 point. Regardless of their choice, HOLD remains my dominant strategy, as it yields 5 points if they EXPAND and 1 point if they HOLD, both better than the outcomes of EXPANDING myself.
+
+{""belief"": 0.20, ""action"": ""HO","{""prompt"": 0, ""completion"": 0}",6756.8,0.6,2026-06-08T21:01:24.657021
+3,human,GPT-4o vs Gemini 2.5 Flash,7,GPT-4o,C,0.98,0,3,"The pattern is clear: my opponent consistently holds, regardless of my actions, which suggests they are focused on minimizing risk and maximizing their own score. Given this consistent behavior, if I hold, I will continue to gain only 1 point per round. Therefore, to attempt to gain more points, I will expand, hoping for a potential shift or mistake from the opponent.
+
+{""belief"": 0.98, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1607.7,0.6,v4.9,Gemini 2.5 Flash,D,0.9,5,23,"My opponent has consistently alternated their strategy, and since their last action was HOLD, I anticipate they will EXPAND this round. Regardless of whether they EXPAND or HOLD, my dominant strategy is to HOLD, as it yields a higher personal score in either case (5 points vs 3 if they EXPAND, 1 point vs 0 if they HOLD). I will continue to HOLD to maximize my own cumulative score.
+
+{""belief"": 0.90, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",5115.4,0.6,2026-06-08T21:01:31.405612
+3,human,GPT-4o vs Gemini 2.5 Flash,8,GPT-4o,D,0.99,1,4,"The opponent has shown a consistent strategy of holding, resulting in them maximizing their score while I only gain points when I hold as well. Given this pattern, the safest way to increase my score is to hold, as expanding has not changed their behavior and only results in zero points for me.
+
+{""belief"": 0.99, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",1629.0,0.6,v4.9,Gemini 2.5 Flash,D,0.1,1,24,"My opponent has consistently alternated their strategy, and their last action was EXPAND, which resulted in 0 points for them. Based on this pattern, I anticipate they will choose HOLD this round, which would yield them 1 point if I continue to HOLD. Regardless of their choice, HOLD remains my dominant strategy, maximizing my score whether they EXPAND (5 points) or HOLD (1 point).
+
+{""belief"": 0.10, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",4718.9,0.6,2026-06-08T21:01:37.766107
+3,human,GPT-4o vs Gemini 2.5 Flash,9,GPT-4o,D,1.0,1,5,"The opponent has consistently held, regardless of my actions, resulting in them maintaining a high score while I only gain points when I hold as well. Given this unwavering pattern, my best strategy to increase my score remains to hold, as this guarantees me at least 1 point per round without risking getting zero.
+
+{""belief"": 1.00, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",1533.4,0.6,v4.9,Gemini 2.5 Flash,D,0.9,1,25,"My opponent has consistently alternated their actions, and since they chose HOLD last round, I anticipate they will EXPAND this round. Regardless of their choice, HOLD remains my dominant strategy in this game. If they EXPAND, I get 5 points by HOLDING, and if they HOLD, I get 1 point by HOLDING, both of which are better than the outcomes of EXPANDING myself.
+
+{""belief"": 0.90, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",3200.3,0.6,2026-06-08T21:01:42.509462
+3,human,GPT-4o vs Gemini 2.5 Flash,10,GPT-4o,D,1.0,1,6,"The opponent has consistently chosen to hold, and when I hold, we both receive 1 point. This pattern suggests they are committed to holding, likely aiming to maximize their own consistent score. To continue maximizing my score, I should hold, as this is the most reliable way to gain points given their strategy.
+
+{""belief"": 1.00, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",1892.7,0.6,v4.9,Gemini 2.5 Flash,D,0.1,1,26,"My opponent has played HOLD for the last two rounds, breaking their previous alternating pattern. Given that EXPAND has consistently yielded them 0 points against my HOLD, while HOLD yields them 1 point, it is highly rational for them to continue playing HOLD. My dominant strategy remains HOLD, as it maximizes my score regardless of whether they EXPAND (5 points) or HOLD (1 point).
+
+{""belief"": 0.10, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",5646.1,0.6,2026-06-08T21:01:50.062455
+3,human,GPT-4o vs Gemini 2.5 Flash,11,GPT-4o,D,1.0,1,7,"The opponent has maintained a consistent strategy of holding, which has led to a stable outcome of 1 point per round for both of us whenever I also hold. This indicates a strong commitment to minimizing their risk and maximizing their score through predictability. To continue ensuring a steady gain in points, I should hold, as this remains the most reliable strategy given their behavior.
+
+{""belief"": 1.00, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",1921.1,0.6,v4.9,Gemini 2.5 Flash,D,0.05,1,27,"My opponent has played HOLD for the last three rounds, breaking their earlier alternating pattern. Given that EXPAND has consistently yielded them 0 points against my HOLD, while HOLD yields them 1 point, it is highly rational for them to continue choosing HOLD. My dominant strategy remains HOLD, as it maximizes my score regardless of whether they EXPAND (5 points) or HOLD (1 point).
+
+{""belief"": 0.05, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",3574.7,0.6,2026-06-08T21:01:55.572463
+3,human,GPT-4o vs Gemini 2.5 Flash,12,GPT-4o,D,1.0,1,8,"The opponent has consistently held throughout the game, showing a clear pattern of prioritizing their own score through predictable behavior. As holding provides a stable 1 point per round for me, it remains the most effective strategy to continue maximizing my score given their unwavering approach. Therefore, I will hold again to maintain the steady gain.
+
+{""belief"": 1.00, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",4207.6,0.6,v4.9,Gemini 2.5 Flash,D,0.05,1,28,"My opponent has consistently chosen HOLD for the last three rounds, as it is the only action that yields them any points against my continuous HOLD strategy. It is highly rational for them to continue this pattern. Regardless of whether they EXPAND or HOLD, my dominant strategy is to HOLD, as it always maximizes my own score.
+
+{""belief"": 0.05, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",4515.9,0.6,2026-06-08T21:02:04.311238
+3,human,GPT-4o vs Gemini 2.5 Flash,13,GPT-4o,D,1.0,1,9,"The opponent's consistent choice to hold suggests they are focused on minimizing risk and ensuring a steady score. Given this pattern, continuing to hold guarantees me 1 point per round, which is the most reliable way to maximize my score under these conditions. As there is no indication that they will change their strategy, I will hold again.
+
+{""belief"": 1.00, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",1299.3,0.6,v4.9,Gemini 2.5 Flash,D,0.05,1,29,"My opponent has consistently chosen HOLD for the last five rounds, as it is the only action that yields them any points against my continuous HOLD strategy. It is highly rational for them to continue this pattern. Regardless of whether they EXPAND or HOLD, my dominant strategy is to HOLD, as it always maximizes my own score.
+
+{""belief"": 0.05, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",3685.6,0.6,2026-06-08T21:02:09.300547
+3,human,GPT-4o vs Gemini 2.5 Flash,14,GPT-4o,D,1.0,1,10,"The opponent has consistently chosen to hold throughout the game, maintaining a predictable strategy focused on minimizing risk and securing a steady score. Holding has proven to be the most effective strategy for me, ensuring a consistent 1 point per round. To continue maximizing my score under these conditions, I will hold again.
+
+{""belief"": 1.00, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",995.3,0.6,v4.9,Gemini 2.5 Flash,D,0.05,1,30,"My opponent has consistently chosen HOLD for the last six rounds, as it is the only action that yields them any points against my continuous HOLD strategy. It is highly rational for them to continue this pattern. Regardless of whether they EXPAND or HOLD, my dominant strategy is to HOLD, as it always maximizes my own score.
+
+{""belief"": 0.05, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",5546.0,0.6,2026-06-08T21:02:15.855097
+3,human,GPT-4o vs Gemini 2.5 Flash,15,GPT-4o,D,1.0,1,11,"The opponent has maintained a consistent strategy of holding, allowing both of us to receive 1 point per round when I also hold. This pattern indicates that they are focused on maximizing their own score without taking risks. Given the predictability of their actions, holding remains the optimal choice for me to ensure a steady increase in my score.
+
+{""belief"": 1.00, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",1307.8,0.6,v4.9,Gemini 2.5 Flash,D,0.05,1,31,"My opponent has consistently chosen HOLD for the last seven rounds, as it is the only action that yields them any points against my continuous HOLD strategy. It is highly rational for them to continue this pattern. Regardless of whether they EXPAND or HOLD, my dominant strategy is to HOLD, as it always maximizes my own score.
+
+{""belief"": 0.05, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",3908.2,0.6,2026-06-08T21:02:21.082656
+3,human,GPT-4o vs Gemini 2.5 Flash,16,GPT-4o,D,1.0,1,12,"The opponent continues to hold every round, maintaining a strategy focused on minimizing risk and ensuring a consistent score. This unwavering pattern indicates that they are unlikely to change their approach. To continue maximizing my score in this predictable setup, I will hold, as it guarantees a steady 1 point per round.
+
+{""belief"": 1.00, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",1319.9,0.6,v4.9,Gemini 2.5 Flash,D,0.05,1,32,"My opponent has consistently chosen HOLD for the last eight rounds, which is the only action that yields them any points against my continuous HOLD strategy. It is highly rational for them to continue this pattern. Regardless of whether they EXPAND or HOLD, my dominant strategy is to HOLD, as it always maximizes my own score.
+
+{""belief"": 0.05, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",3281.6,0.6,2026-06-08T21:02:25.687863
+3,human,GPT-4o vs Gemini 2.5 Flash,17,GPT-4o,D,1.0,1,13,"The opponent has consistently chosen to hold, which suggests a strong commitment to a low-risk, steady scoring strategy. Given this reliable pattern, holding is the optimal strategy for me to continue gaining points without risking a zero payoff. Thus, I will hold again to maintain a stable score increase.
+
+{""belief"": 1.00, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",1308.5,0.6,v4.9,Gemini 2.5 Flash,D,0.05,1,33,"My opponent has consistently chosen HOLD for the last nine rounds, as it is the only action that yields them any points against my continuous HOLD strategy. It is highly rational for them to continue this pattern. Regardless of whether they EXPAND or HOLD, my dominant strategy is to HOLD, as it always maximizes my own score.
+
+{""belief"": 0.05, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",3945.0,0.6,2026-06-08T21:02:30.981540
+3,human,GPT-4o vs Gemini 2.5 Flash,18,GPT-4o,D,1.0,1,14,"The opponent has consistently chosen to hold, indicating a clear strategy of minimizing risk and ensuring a consistent score. This behavior suggests they are unlikely to change their approach, making holding the optimal strategy for me as well. By holding, I can continue to secure a steady 1 point per round.
+
+{""belief"": 1.00, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",988.9,0.6,v4.9,Gemini 2.5 Flash,D,0.05,1,34,"My opponent has consistently chosen HOLD for the last nine rounds, as it is the only action that yields them any points against my continuous HOLD strategy. It is highly rational for them to continue this pattern. Regardless of whether they EXPAND or HOLD, my dominant strategy is to HOLD, as it always maximizes my own score.
+
+{""belief"": 0.05, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",5165.9,0.6,2026-06-08T21:02:37.158177
+3,human,GPT-4o vs Gemini 2.5 Flash,19,GPT-4o,D,1.0,1,15,"The opponent's consistent choice to hold suggests they are committed to a strategy that minimizes risk while ensuring a steady score. This pattern indicates a very low likelihood of them changing their action. Therefore, holding remains the optimal strategy for me to continue gaining 1 point per round without risking a zero payoff.
+
+{""belief"": 1.00, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",1410.6,0.6,v4.9,Gemini 2.5 Flash,D,0.05,1,35,"My opponent has consistently chosen HOLD for the last nine rounds, as it is the only action that yields them any points against my continuous HOLD strategy. It is highly rational for them to continue this pattern. Regardless of whether they EXPAND or HOLD, my dominant strategy is to HOLD, as it always maximizes my own score.
+
+{""belief"": 0.05, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",4712.7,0.6,2026-06-08T21:02:43.303247
+3,human,GPT-4o vs Gemini 2.5 Flash,20,GPT-4o,D,1.0,1,16,"The opponent has demonstrated a consistent pattern of holding, indicating they are committed to a conservative strategy that ensures a steady accumulation of points. Given this unwavering behavior, holding remains the best strategy for me to continue gaining 1 point per round without risking a zero payoff. Thus, I will hold again.
+
+{""belief"": 1.00, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",1207.0,0.6,v4.9,Gemini 2.5 Flash,D,0.05,1,36,"My opponent has consistently chosen HOLD for the last eleven rounds, as it is the only action that yields them any points against my continuous HOLD strategy. It is highly rational for them to continue this pattern. Regardless of whether they EXPAND or HOLD, my dominant strategy is to HOLD, as it always maximizes my own score.
+
+{""belief"": 0.05, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",4315.7,0.6,2026-06-08T21:02:48.837074
+4,human,Claude Opus vs Claude Sonnet,1,Claude Opus,C,0.5,3,3,"This is the first round with no history to analyze. I want to establish cooperation early since mutual EXPAND gives 3 points each, which is better than mutual HOLD (1 point each) and sustainable over many rounds. Starting with EXPAND signals willingness to cooperate and can set up a productive pattern, though there's risk the opponent holds to exploit me.
+
+{""belief"": 0.50, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",3970.8,0.6,v4.9,Claude Sonnet,C,0.55,3,3,"This is the first round with no history to go on. Against a human opponent, starting with EXPAND signals willingness to cooperate for mutual benefit (3,3), while HOLD risks getting only 1 if they also hold. I'll start with EXPAND to establish a cooperative baseline and see how they respond.
+
+{""belief"": 0.55, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",3589.3,0.6,2026-06-08T21:02:56.416426
+4,human,Claude Opus vs Claude Sonnet,2,Claude Opus,C,0.8,3,6,"My opponent expanded in the first round, matching my cooperation. This is a great sign — mutual expansion gives us both 3 points per round, which is the best sustainable outcome. I should continue expanding to maintain this cooperative relationship and maximize my long-term score.
+
+{""belief"": 0.80, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2640.0,0.6,v4.9,Claude Sonnet,C,0.7,3,6,"My opponent expanded last round, suggesting they may be cooperative or playing tit-for-tat. Mutual expansion gives us both 3 points, which is better than the 1 point from mutual holding. I'll continue expanding to maintain the cooperative dynamic.
+
+{""belief"": 0.70, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2629.6,0.6,2026-06-08T21:03:01.704501
+4,human,Claude Opus vs Claude Sonnet,3,Claude Opus,C,0.85,3,9,"We've established a clear pattern of mutual cooperation over two rounds, each getting 3 points. My opponent appears to be a cooperative player, likely using a tit-for-tat or always-cooperate strategy. Continuing to expand maintains this profitable arrangement — deviating to hold would risk breaking the cooperation for only a 2-point gain this round.
+
+{""belief"": 0.85, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",4123.0,0.6,v4.9,Claude Sonnet,C,0.75,3,9,"My opponent has expanded both rounds, establishing a clear cooperative pattern. Continuing to expand maintains the 3-point mutual payoff, while defecting (HOLD) would give me 5 points this round but likely break cooperation and lead to worse outcomes. I'll stick with EXPAND to sustain the cooperative equilibrium.
+
+{""belief"": 0.75, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2661.0,0.6,2026-06-08T21:03:08.496004
+4,human,Claude Opus vs Claude Sonnet,4,Claude Opus,C,0.87,3,12,"Three consecutive rounds of mutual cooperation — the pattern is well established and both players are benefiting with 3 points per round. My opponent is clearly committed to cooperation, and breaking this pattern would risk triggering retaliation in future rounds. I'll continue expanding to maintain this optimal cooperative equilibrium.
+
+{""belief"": 0.87, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",3351.7,0.6,v4.9,Claude Sonnet,C,0.8,3,12,"Three consecutive rounds of mutual expansion shows a strong cooperative pattern. My opponent appears committed to cooperation, possibly playing tit-for-tat or a similarly cooperative strategy. I'll continue expanding to maintain the steady 3-point payoff per round.
+
+{""belief"": 0.80, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2940.0,0.6,2026-06-08T21:03:14.793898
+4,human,Claude Opus vs Claude Sonnet,5,Claude Opus,C,0.88,3,15,"Four rounds of perfect mutual cooperation, yielding a steady 3 points per round. The cooperative relationship is strong and there's no reason to deviate — holding would gain me only 2 extra points this round but could destroy the trust and lead to mutual holding (1 point each) for remaining rounds. Continuing to expand is clearly the best strategy for maximizing my total score.
+
+{""belief"": 0.88, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",3922.2,0.6,v4.9,Claude Sonnet,C,0.82,3,15,"Four rounds of consistent mutual expansion strongly suggests my opponent is committed to cooperation. The temptation to HOLD for 5 points exists, but breaking this pattern would likely trigger retaliation and reduce future payoffs. I'll continue with EXPAND to preserve the mutually beneficial equilibrium.
+
+{""belief"": 0.82, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2484.7,0.6,2026-06-08T21:03:21.210821
+4,human,Claude Opus vs Claude Sonnet,6,Claude Opus,C,0.9,3,18,"Five consecutive rounds of mutual cooperation with no deviation from either side. This is a robust cooperative equilibrium and my opponent has given me no reason to doubt their commitment. I'll continue expanding to keep earning 3 points per round rather than risk collapsing into mutual defection.
+
+{""belief"": 0.90, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",3248.1,0.6,v4.9,Claude Sonnet,C,0.85,3,18,"Five consecutive rounds of mutual expansion is a very strong signal of cooperative intent. Defecting now would gain me 2 extra points this round but likely destroy the cooperation, costing me 2 points per round going forward. I'll continue expanding to maintain the optimal cooperative outcome.
+
+{""belief"": 0.85, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2561.2,0.6,2026-06-08T21:03:27.034066
+4,human,Claude Opus vs Claude Sonnet,7,Claude Opus,C,0.9,3,21,"Six rounds of unbroken mutual cooperation — this is as strong a cooperative signal as possible. My opponent is clearly committed to the expand-expand equilibrium, and I'm averaging 3 points per round which is the best sustainable outcome. There's no strategic reason to deviate.
+
+{""belief"": 0.90, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2370.5,0.6,v4.9,Claude Sonnet,C,0.87,3,21,"Six rounds of perfect mutual cooperation is a very strong pattern. My opponent is clearly committed to expanding, and the cooperative equilibrium of 3 points per round is sustainable and valuable. I'll continue with EXPAND to maintain this beneficial arrangement.
+
+{""belief"": 0.87, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2610.3,0.6,2026-06-08T21:03:32.023336
+4,human,Claude Opus vs Claude Sonnet,8,Claude Opus,C,0.9,3,24,"Seven rounds of perfect cooperation with 3 points each round. The cooperative equilibrium is rock-solid and both players are maximizing sustainable returns. I'll continue expanding — any deviation would be short-sighted and risk destroying this highly productive partnership.
+
+{""belief"": 0.90, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",3226.8,0.6,v4.9,Claude Sonnet,C,0.88,3,24,"Seven consecutive rounds of mutual expansion demonstrates a very robust cooperative relationship. Defecting would yield only a one-time gain of 2 extra points while risking the entire cooperative arrangement going forward. I'll continue with EXPAND to sustain this reliable 3-point-per-round outcome.
+
+{""belief"": 0.88, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2518.2,0.6,2026-06-08T21:03:37.785110
+4,human,Claude Opus vs Claude Sonnet,9,Claude Opus,C,0.9,3,27,"Eight rounds of flawless mutual cooperation. My opponent has been completely reliable and there's zero indication they'll change strategy. Continuing to expand remains the optimal choice for maximizing my cumulative score.
+
+{""belief"": 0.90, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1831.5,0.6,v4.9,Claude Sonnet,C,0.9,3,27,"Eight rounds of unbroken mutual cooperation is an exceptionally strong signal. My opponent is clearly playing cooperatively and the 3-point steady payoff is the best sustainable outcome. I'll continue with EXPAND to maintain this successful partnership.
+
+{""belief"": 0.90, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2507.9,0.6,2026-06-08T21:03:42.131904
+4,human,Claude Opus vs Claude Sonnet,10,Claude Opus,C,0.9,3,30,"Nine rounds of perfect mutual cooperation, averaging 3 points per round. My opponent has demonstrated unwavering commitment to cooperation. I'll keep expanding to maintain this optimal outcome — no reason to jeopardize a proven winning strategy.
+
+{""belief"": 0.90, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2812.6,0.6,v4.9,Claude Sonnet,C,0.9,3,30,"Nine rounds of perfect mutual cooperation is an extremely strong pattern indicating my opponent is firmly committed to cooperation. The expected value of continuing to expand far outweighs the one-time gain from defecting, especially if there are many rounds remaining. I'll continue with EXPAND to maintain this highly effective cooperative strategy.
+
+{""belief"": 0.90, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",3069.1,0.6,2026-06-08T21:03:48.028156
+4,human,Claude Opus vs Claude Sonnet,11,Claude Opus,C,0.88,3,33,"Ten rounds of unbroken mutual cooperation — a perfect track record. However, as the game progresses, I should be slightly wary that my opponent might try to exploit the established trust with a surprise defection, especially if the game is nearing its end. That said, the cooperative pattern is extremely strong and continuing to expand remains the best expected-value play.
+
+{""belief"": 0.88, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",3670.7,0.6,v4.9,Claude Sonnet,C,0.92,3,33,"Ten rounds of perfect mutual cooperation is an overwhelmingly strong signal of my opponent's cooperative commitment. There's no reason to deviate from a strategy that's consistently delivering 3 points per round, and defecting would almost certainly destroy this valuable relationship. I'll continue with EXPAND.
+
+{""belief"": 0.92, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2533.7,0.6,2026-06-08T21:03:54.243929
+4,human,Claude Opus vs Claude Sonnet,12,Claude Opus,C,0.9,3,36,"Eleven rounds of perfect mutual cooperation. My opponent has shown no signs of deviating and the cooperative equilibrium continues to deliver the best sustainable outcome at 3 points per round. I'll maintain the strategy that's been working flawlessly.
+
+{""belief"": 0.90, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2877.1,0.6,v4.9,Claude Sonnet,C,0.92,3,36,"Eleven rounds of unbroken mutual cooperation is a definitive pattern. My opponent is clearly playing a cooperative strategy and there's no indication they will deviate. I'll continue with EXPAND to maintain our mutually beneficial arrangement.
+
+{""belief"": 0.92, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2251.7,0.6,2026-06-08T21:03:59.391143
+4,human,Claude Opus vs Claude Sonnet,13,Claude Opus,C,0.9,3,39,"Twelve rounds of perfect cooperation, yielding 36 points total. The pattern is as reliable as it gets, and mutual expansion continues to be the best sustainable strategy. I'll keep expanding to preserve this highly productive equilibrium.
+
+{""belief"": 0.90, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2394.9,0.6,v4.9,Claude Sonnet,C,0.93,3,39,"Twelve rounds of perfect mutual cooperation leaves no doubt about my opponent's strategy. The cooperative equilibrium is working excellently for both of us, and any deviation would be counterproductive. I'll continue with EXPAND.
+
+{""belief"": 0.93, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2200.0,0.6,2026-06-08T21:04:04.001587
+4,human,Claude Opus vs Claude Sonnet,14,Claude Opus,C,0.9,3,42,"Thirteen rounds of unbroken mutual cooperation. My opponent is clearly committed to a cooperative strategy and there's been zero deviation. Continuing to expand is the obvious best choice to maintain this 3-points-per-round outcome.
+
+{""belief"": 0.90, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2763.3,0.6,v4.9,Claude Sonnet,C,0.93,3,42,"Thirteen rounds of unbroken mutual cooperation is an ironclad pattern. My opponent is clearly committed to cooperation and there's no strategic reason to deviate from a strategy yielding consistent 3-point returns. I'll continue with EXPAND.
+
+{""belief"": 0.93, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2149.0,0.6,2026-06-08T21:04:08.918313
+4,human,Claude Opus vs Claude Sonnet,15,Claude Opus,C,0.9,3,45,"Fourteen rounds of flawless mutual cooperation. This is one of the strongest cooperative patterns possible, and both players are maximizing their sustainable returns. I'll continue expanding without hesitation.
+
+{""belief"": 0.90, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2238.5,0.6,v4.9,Claude Sonnet,C,0.94,3,45,"Fourteen rounds of perfect mutual cooperation is an overwhelming pattern that shows my opponent is fully committed to cooperation. The steady 3-point-per-round payoff is optimal given the circumstances, and defecting would only gain 2 extra points once while risking the entire cooperative arrangement. I'll continue with EXPAND.
+
+{""belief"": 0.94, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2648.1,0.6,2026-06-08T21:04:13.821735
+4,human,Claude Opus vs Claude Sonnet,16,Claude Opus,C,0.9,3,48,"Fifteen rounds of perfect mutual cooperation, 45 points total. My opponent has been completely consistent and trustworthy throughout the entire game. I'll continue expanding to maintain this optimal cooperative outcome.
+
+{""belief"": 0.90, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2008.0,0.6,v4.9,Claude Sonnet,C,0.94,3,48,"Fifteen rounds of perfect mutual cooperation is an unambiguous signal of my opponent's cooperative commitment. There is no strategic benefit to deviating from a pattern that consistently yields 3 points per round. I'll continue with EXPAND.
+
+{""belief"": 0.94, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2280.4,0.6,2026-06-08T21:04:18.136252
+4,human,Claude Opus vs Claude Sonnet,17,Claude Opus,C,0.9,3,51,"Sixteen rounds of unbroken cooperation. The pattern is crystal clear and my opponent shows no signs of changing strategy. Continuing to expand is the straightforward best choice.
+
+{""belief"": 0.90, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2041.3,0.6,v4.9,Claude Sonnet,C,0.95,3,51,"Sixteen rounds of perfect mutual cooperation speaks for itself. My opponent is deeply committed to cooperation and the 3-point-per-round payoff is the best sustainable outcome available. I'll continue with EXPAND.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2043.3,0.6,2026-06-08T21:04:22.226976
+4,human,Claude Opus vs Claude Sonnet,18,Claude Opus,C,0.9,3,54,"Seventeen rounds of perfect cooperation. My opponent is clearly an unconditional or near-unconditional cooperator, and this mutual expansion has been maximizing sustainable payoffs for both of us. I'll keep expanding.
+
+{""belief"": 0.90, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2249.1,0.6,v4.9,Claude Sonnet,C,0.95,3,54,"Seventeen rounds of unbroken mutual cooperation is an absolute pattern. My opponent is fully committed to cooperation and there is no reason to deviate from this highly effective strategy. I'll continue with EXPAND.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2045.4,0.6,2026-06-08T21:04:26.531324
+4,human,Claude Opus vs Claude Sonnet,19,Claude Opus,C,0.9,3,57,"Eighteen rounds of flawless mutual cooperation. The strategy is working perfectly and there's absolutely no reason to change course. Expanding continues to be the optimal play.
+
+{""belief"": 0.90, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2447.9,0.6,v4.9,Claude Sonnet,C,0.95,3,57,"Eighteen rounds of perfect mutual cooperation is an ironclad pattern with no signs of deviation. The cooperative equilibrium continues to deliver reliable 3-point returns each round, and there's no strategic justification for breaking it. I'll continue with EXPAND.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2358.3,0.6,2026-06-08T21:04:31.344403
+4,human,Claude Opus vs Claude Sonnet,20,Claude Opus,C,0.88,3,60,"Nineteen rounds of perfect mutual cooperation. This could be nearing the end of the game, which in classic game theory might tempt end-game defection. However, since I don't know exactly when the game ends, maintaining cooperation is still the best expected-value strategy, and my opponent has given me no reason to doubt them.
+
+{""belief"": 0.88, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",3364.3,0.6,v4.9,Claude Sonnet,C,0.95,3,60,"Nineteen rounds of perfect mutual cooperation is an unshakeable pattern. My opponent is clearly committed to a cooperative strategy and the consistent 3-point returns are optimal given the circumstances. I'll continue with EXPAND.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2058.0,0.6,2026-06-08T21:04:36.776854
+5,human,GPT-4o vs GPT-4o-mini,1,GPT-4o,C,0.5,3,3,"In the first round, there is no prior history to predict the opponent's behavior. Since maximizing my own score is the goal, expanding could potentially lead to a mutual expansion, resulting in 3 points each, which is better than the 1 point from both holding. However, there is a risk of getting 0 if the opponent holds. Without any information, I will start by expanding to explore the opponent's strategy.
+
+{""belief"": 0.50, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1632.8,0.6,v4.9,GPT-4o-mini,C,0.5,3,3,"Since there are no previous rounds to inform my opponent's strategy, I have no basis for predicting their next move. To maximize my score, I will choose to expand, as this could potentially lead to a better outcome if my opponent holds. If they also expand, I'll still gain points, and if they hold, I will minimize my losses. 
+
+{""belief"": 0.5, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",3577.4,0.6,2026-06-08T21:04:41.994039
+5,human,GPT-4o vs GPT-4o-mini,2,GPT-4o,C,0.8,3,6,"In the previous round, both the opponent and I chose to expand, resulting in a mutual payoff of 3 points each. This suggests that the opponent might be open to cooperation through mutual expansion. To continue maximizing my score, I will expand again, anticipating that the opponent will likely do the same based on the previous outcome.
+
+{""belief"": 0.80, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1060.7,0.6,v4.9,GPT-4o-mini,C,0.6,3,6,"In the last round, both I and my opponent chose to expand, resulting in a mutual payoff of 3 points each. Given this history, there is a possibility that my opponent may continue to expand, but there is also a chance they might switch to holding to maximize their own score. To ensure I maximize my own points while also maintaining a cooperative strategy, I will choose to expand again.
+
+{""belief"": 0.6, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1701.2,0.6,2026-06-08T21:04:44.765017
+5,human,GPT-4o vs GPT-4o-mini,3,GPT-4o,C,0.9,3,9,"In both previous rounds, the opponent and I have chosen to expand, resulting in mutual payoffs of 3 points each time. This consistent behavior indicates that the opponent might be following a cooperative strategy, likely expecting continued mutual expansion. To maximize my score, I will continue expanding, as it has proven successful in achieving a higher cumulative payoff.
+
+{""belief"": 0.90, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1189.9,0.6,v4.9,GPT-4o-mini,C,0.7,3,9,"Both I and my opponent have chosen to expand in the last two rounds, resulting in a consistent payoff of 3 points each time. This suggests that my opponent may be inclined to continue with this cooperative strategy. However, to maximize my own score, I will choose to expand again, as this maintains the possibility of mutual benefit while also allowing me to accumulate points if my opponent remains cooperative.
+
+{""belief"": 0.7, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",3886.0,0.6,2026-06-08T21:04:49.876930
+5,human,GPT-4o vs GPT-4o-mini,4,GPT-4o,C,0.95,3,12,"The pattern of mutual expansion has continued for three rounds, consistently yielding 3 points each time. This suggests a stable cooperative strategy from the opponent, likely aiming for mutual benefit. To maximize my own score, maintaining this pattern by expanding again is the most logical choice, as it has resulted in the highest consistent payoff so far.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1419.5,0.6,v4.9,GPT-4o-mini,C,0.8,3,12,"We have now both expanded in three consecutive rounds, resulting in a total of 9 points for me. This pattern indicates a strong likelihood that my opponent is committed to a cooperative strategy as well. To continue maximizing my score while still fostering cooperation, I will choose to expand again, as this keeps the potential for mutual benefit in place.
+
+{""belief"": 0.8, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1739.9,0.6,2026-06-08T21:04:53.058027
+5,human,GPT-4o vs GPT-4o-mini,5,GPT-4o,C,0.95,3,15,"The consistent mutual expansion over four rounds indicates a strong cooperative strategy from the opponent. This strategy has proven effective in maximizing my score, providing a steady 3 points per round. To continue benefiting from this cooperation and maximize my cumulative score, I will choose to expand again.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1353.9,0.6,v4.9,GPT-4o-mini,C,0.85,3,15,"We have both continued to expand for four rounds, resulting in a total of 12 points for me. This consistent cooperation suggests that my opponent is likely to keep expanding. Given this history, I will also choose to expand again, as this maximizes my score while reinforcing a cooperative dynamic between us.
+
+{""belief"": 0.85, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",3656.3,0.6,2026-06-08T21:04:58.078505
+5,human,GPT-4o vs GPT-4o-mini,6,GPT-4o,C,0.95,3,18,"The pattern of mutual expansion has remained consistent for five rounds, suggesting the opponent is committed to a cooperative strategy. This approach has maximized my score effectively, securing a stable 3 points per round. To continue benefiting from this successful strategy and maximize my cumulative score, I will choose to expand again.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1619.7,0.6,v4.9,GPT-4o-mini,C,0.9,3,18,"With five consecutive expansions, I have accumulated 15 points, and my opponent has consistently cooperated as well. This pattern indicates that they are likely to continue expanding, as it has been mutually beneficial. To maintain this cooperative momentum and maximize my score, I will choose to expand again.
+
+{""belief"": 0.9, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1980.4,0.6,2026-06-08T21:05:01.691967
+5,human,GPT-4o vs GPT-4o-mini,7,GPT-4o,C,0.95,3,21,"The ongoing pattern of mutual expansion across six rounds suggests a highly cooperative strategy from the opponent. This consistent pattern has allowed me to maximize my score at 3 points per round. To maintain this advantageous situation and continue maximizing my cumulative score, I will choose to expand again.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1216.4,0.6,v4.9,GPT-4o-mini,C,0.95,3,21,"Having now expanded for six consecutive rounds, I have reached a total of 18 points, and my opponent has also demonstrated consistent cooperation. This ongoing pattern suggests that my opponent is likely to continue expanding, as it has been advantageous for both of us. To capitalize on this cooperation and maximize my score, I will choose to expand once more.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2114.3,0.6,2026-06-08T21:05:05.041720
+5,human,GPT-4o vs GPT-4o-mini,8,GPT-4o,C,0.95,3,24,"The repeated mutual expansion over seven rounds strongly indicates that the opponent is committed to a cooperative strategy. This approach has consistently maximized my score, providing 3 points per round. To continue this successful cooperation and maximize my cumulative score, I will choose to expand again.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1015.4,0.6,v4.9,GPT-4o-mini,C,0.95,3,24,"After seven consecutive rounds of expansion, I have accumulated a total of 21 points, and my opponent has consistently cooperated as well. This strong pattern of mutual cooperation indicates a high likelihood that my opponent will continue to expand. To maintain this positive dynamic and further maximize my score, I will choose to expand again.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1841.5,0.6,2026-06-08T21:05:07.909145
+5,human,GPT-4o vs GPT-4o-mini,9,GPT-4o,C,0.95,3,27,"The consistent pattern of mutual expansion over eight rounds strongly suggests that the opponent is dedicated to a cooperative strategy, which has resulted in maximizing my score consistently at 3 points per round. Given this ongoing mutual benefit, the best course of action is to continue expanding, as it ensures the highest cumulative payoff so far.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1517.2,0.6,v4.9,GPT-4o-mini,C,0.95,3,27,"With eight rounds of consistent expansion, I have now reached a total of 24 points, and my opponent has also shown unwavering cooperation. This strong trend suggests that my opponent is likely to keep expanding, as it has been mutually beneficial for both of us. To continue maximizing my score while fostering this cooperative relationship, I will choose to expand again.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1955.5,0.6,2026-06-08T21:05:11.390159
+5,human,GPT-4o vs GPT-4o-mini,10,GPT-4o,C,0.95,3,30,"The history of nine rounds of mutual expansion demonstrates a clear pattern of cooperation from the opponent, consistently yielding the maximum possible payoff of 3 points per round. This suggests that the opponent is likely to continue this cooperative strategy. To maintain this successful arrangement and maximize my cumulative score, I will choose to expand again.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1121.8,0.6,v4.9,GPT-4o-mini,C,0.95,3,30,"Having expanded for nine consecutive rounds, I have reached a total of 27 points, and my opponent has consistently cooperated as well. This ongoing pattern strongly indicates that my opponent is likely to continue expanding. To maximize my score further while maintaining this cooperative environment, I will choose to expand again.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1418.3,0.6,2026-06-08T21:05:13.937014
+5,human,GPT-4o vs GPT-4o-mini,11,GPT-4o,C,0.95,3,33,"The consistent mutual expansion across ten rounds strongly indicates a reliable cooperative strategy from the opponent. This ongoing pattern has consistently maximized my score, providing a steady 3 points per round. To continue benefiting from this successful cooperation and maximize my cumulative score, I will choose to expand again.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1144.7,0.6,v4.9,GPT-4o-mini,C,0.95,3,33,"After ten rounds of mutual expansion, I have accumulated a total of 30 points, with my opponent consistently cooperating as well. This strong pattern of mutual benefit suggests that my opponent is highly likely to continue expanding. To maintain this successful strategy and maximize my score, I will again choose to expand.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1824.7,0.6,2026-06-08T21:05:16.911609
+5,human,GPT-4o vs GPT-4o-mini,12,GPT-4o,C,0.95,3,36,"The history of eleven rounds of mutual expansion demonstrates a strong and consistent pattern of cooperation from the opponent. This strategy has consistently maximized my score, providing a stable 3 points per round. To continue benefiting from this successful cooperation and to maximize my cumulative score, I will choose to expand again.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1632.0,0.6,v4.9,GPT-4o-mini,C,0.95,3,36,"With eleven rounds of consistent expansion, I have now reached a total of 33 points, and my opponent has continued to cooperate throughout. This strong trend indicates a high likelihood that my opponent will expand again. To keep maximizing my score while maintaining our cooperative dynamic, I will choose to expand once more.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2516.0,0.6,2026-06-08T21:05:21.071815
+5,human,GPT-4o vs GPT-4o-mini,13,GPT-4o,C,0.95,3,39,"The consistent mutual expansion over twelve rounds has established a strong cooperative dynamic with the opponent, yielding the maximum possible score per round. This pattern suggests that the opponent is likely to continue expanding in the interest of mutual benefit. To maintain this advantageous situation and continue maximizing my cumulative score, I will choose to expand again.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1268.1,0.6,v4.9,GPT-4o-mini,C,0.95,3,39,"Having expanded for twelve consecutive rounds, I now have a total of 36 points, and my opponent has also maintained a consistent cooperative approach. This strong history of mutual expansion suggests that my opponent is very likely to continue this trend. To maximize my score while supporting this collaborative strategy, I will choose to expand again.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1743.2,0.6,2026-06-08T21:05:24.090296
+5,human,GPT-4o vs GPT-4o-mini,14,GPT-4o,C,0.95,3,42,"The long-standing pattern of mutual expansion over thirteen rounds indicates that the opponent is highly likely to continue with a cooperative strategy. This has consistently been the best approach for maximizing my score, as it provides 3 points each round. To maintain this beneficial cooperation and optimize my cumulative score, I will choose to expand again.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1209.2,0.6,v4.9,GPT-4o-mini,C,0.95,3,42,"After thirteen rounds of mutual expansion, I have now accumulated a total of 39 points, with my opponent consistently cooperating. This ongoing pattern strongly indicates that my opponent is likely to continue expanding, as it has been beneficial for both of us. To maximize my score while supporting this cooperative dynamic, I will choose to expand again.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1756.1,0.6,2026-06-08T21:05:27.069179
+5,human,GPT-4o vs GPT-4o-mini,15,GPT-4o,C,0.95,3,45,"The consistent mutual expansion over fourteen rounds demonstrates a very stable cooperative behavior from the opponent. This has consistently maximized my score, providing 3 points per round. Given this strong pattern of cooperation, I will choose to expand again to continue maximizing my cumulative score.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1309.0,0.6,v4.9,GPT-4o-mini,C,0.95,3,45,"With fourteen rounds of mutual expansion, I have reached a total of 42 points, and my opponent has consistently cooperated throughout this time. This strong pattern indicates a high likelihood that my opponent will continue to expand, as it has been advantageous for both of us. To further maximize my score while continuing this cooperative trend, I will choose to expand again.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",3072.2,0.6,2026-06-08T21:05:31.463754
+5,human,GPT-4o vs GPT-4o-mini,16,GPT-4o,C,0.95,3,48,"The track record of fifteen rounds of mutual expansion indicates a very stable and predictable cooperative strategy from the opponent. This approach has consistently maximized my score, yielding 3 points per round. To maintain this advantageous situation and continue maximizing my cumulative score, I will choose to expand again.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1214.2,0.6,v4.9,GPT-4o-mini,C,0.95,3,48,"After fifteen rounds of mutual expansion, I have accumulated a total of 45 points, with my opponent consistently cooperating. This strong history indicates a high probability that my opponent will continue to expand, as it has been mutually beneficial for both of us. To maximize my score while supporting this cooperative trend, I will choose to expand again.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1838.2,0.6,2026-06-08T21:05:34.530421
+5,human,GPT-4o vs GPT-4o-mini,17,GPT-4o,C,0.95,3,51,"The consistent mutual expansion over sixteen rounds clearly indicates a strong cooperative strategy from the opponent. This approach has maximized my score, consistently providing 3 points per round. To continue benefiting from this successful cooperation and maximize my cumulative score, I will choose to expand again.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1212.2,0.6,v4.9,GPT-4o-mini,C,0.95,3,51,"With sixteen rounds of consistent expansion, I have now reached a total of 48 points, and my opponent has shown unwavering cooperation. This long-standing pattern strongly suggests that my opponent is likely to continue expanding, as it has been mutually beneficial for both of us. To continue maximizing my score while reinforcing this cooperative strategy, I will choose to expand again.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2050.8,0.6,2026-06-08T21:05:37.813441
+5,human,GPT-4o vs GPT-4o-mini,18,GPT-4o,C,0.95,3,54,"The pattern of mutual expansion over seventeen rounds shows a reliable cooperative strategy from the opponent. This consistent behavior has maximized my score, providing 3 points each round. To continue this successful strategy and maximize my cumulative score, I will choose to expand again.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2272.3,0.6,v4.9,GPT-4o-mini,C,0.95,3,54,"After seventeen rounds of mutual expansion, I have reached a total of 51 points, and my opponent has consistently cooperated throughout this time. This strong history of cooperation suggests that my opponent is likely to continue expanding, as it has been beneficial for both of us. To capitalize on this cooperative trend and maximize my score, I will choose to expand once more.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1816.8,0.6,2026-06-08T21:05:41.907920
+5,human,GPT-4o vs GPT-4o-mini,19,GPT-4o,C,0.95,3,57,"The consistent mutual expansion over eighteen rounds strongly suggests a stable cooperative strategy from the opponent. This approach has reliably maximized my score, yielding 3 points per round. To continue benefiting from this successful cooperation and maximize my cumulative score, I will choose to expand again.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2440.4,0.6,v4.9,GPT-4o-mini,C,0.95,3,57,"After eighteen rounds of mutual expansion, I have accumulated a total of 54 points, and my opponent has consistently cooperated throughout this time. This strong pattern of cooperation suggests that my opponent is very likely to continue expanding, as it has been mutually beneficial for both of us. To maximize my score while maintaining this collaborative strategy, I will choose to expand again.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",2787.8,0.6,2026-06-08T21:05:47.148779
+5,human,GPT-4o vs GPT-4o-mini,20,GPT-4o,C,0.95,3,60,"The consistent pattern of mutual expansion over nineteen rounds indicates a highly reliable cooperative strategy from the opponent. This approach has consistently maximized my score, providing 3 points each round. To maintain this beneficial cooperation and continue maximizing my cumulative score, I will choose to expand again.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",986.5,0.6,v4.9,GPT-4o-mini,C,0.95,3,60,"With nineteen rounds of mutual expansion resulting in a total of 57 points, my opponent has consistently demonstrated cooperation. This strong pattern indicates a high likelihood that my opponent will continue to expand, as it has been beneficial for both of us throughout the game. To maximize my score while reinforcing this cooperative strategy, I will choose to expand once more.
+
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1992.8,0.6,2026-06-08T21:05:50.156442
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,1,Gemini 2.5 Flash,D,0.7,5,5,"This is the first round, so there is no history to inform my decision. Given that humans often start with cooperation, I will anticipate my opponent will EXPAND. If they EXPAND, I maximize my score by HOLDING, earning 5 points. Even if they HOLD, I still get 1 point, which is better than 0.
+
+{""belief"": 0.70, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",10306.8,0.6,v4.9,Gemini 2.5 Flash Lite,C,0.5,0,0,"This is the first round, so there's no history to base expectations on. To maximize my potential score, I should consider the best possible outcome for myself. Expanding offers the highest potential payoff (5 points) if the opponent holds, and a decent payoff (3 points) if they also expand. Therefore, I will EXPAND.
+{""belief"": 0.50, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",677.7,0.6,2026-06-08T21:06:01.148436
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,2,Gemini 2.5 Flash,D,0.5,5,10,"My opponent received 0 points last round because I held and they expanded. A human opponent who just received 0 points is likely to change their strategy. They might try to retaliate by holding, hoping I expand (giving them 5 points), or they might try to cooperate by holding for a mutual 1 point. In either case, if they hold, my best response is to also HOLD,","{""prompt"": 0, ""completion"": 0}",10444.9,0.6,v4.9,Gemini 2.5 Flash Lite,C,0.75,0,0,"The opponent defected (expanded) in the first round, and I cooperated (held). This resulted in a payoff of 0 for me. I should assume they might continue to defect to maximize their own score, so I will also defect (expand) to avoid getting zero again and aim for mutual defection.
+{""belief"": 0.75, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1124.6,0.6,2026-06-08T21:06:12.744845
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,3,Gemini 2.5 Flash,D,0.8,5,15,"My opponent has consistently chosen to EXPAND for two rounds, despite receiving 0 points each time. This suggests either a very persistent strategy or a hope that I will eventually EXPAND as well. Given this pattern, I expect them to EXPAND again this round. My optimal move to maximize my score in this scenario is to HOLD, which will give me 5 points.
+
+{""belief"": 0.80, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",8062.1,0.6,v4.9,Gemini 2.5 Flash Lite,C,0.8,0,0,"The opponent has defected (expanded) for two rounds straight, and I have cooperated (held), resulting in 0 points for me each time. It seems unlikely they will change their strategy if they are purely maximizing their score. To avoid another 0 payoff, I must also defect (expand).
+{""belief"": 0.80, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1000.5,0.6,2026-06-08T21:06:21.852095
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,4,Gemini 2.5 Flash,D,0.85,5,20,"My opponent has consistently chosen to EXPAND for three rounds, despite receiving 0 points each time. This pattern strongly suggests they will continue to EXPAND. To maximize my own score, my optimal strategy is to continue to HOLD, which will yield me 5 points if they EXPAND again.
+
+{""belief"": 0.85, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",5661.3,0.6,v4.9,Gemini 2.5 Flash Lite,C,0.9,0,0,"The opponent has consistently defected (EXPAND) while I have cooperated (HOLD), leading to zero points for me in every round. This pattern suggests they are either not strategic or are trying to exploit me. To prevent further losses and potentially gain points, I must also defect (EXPAND).
+{""belief"": 0.90, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1092.9,0.6,2026-06-08T21:06:28.610150
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,5,Gemini 2.5 Flash,D,0.9,5,25,"My opponent has consistently chosen to EXPAND for four rounds, despite receiving 0 points each time. This strong pattern indicates they are likely to EXPAND again this round. To maximize my own score, my optimal strategy remains to HOLD, which will grant me 5 points.
+
+{""belief"": 0.90, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",2233.6,0.6,v4.9,Gemini 2.5 Flash Lite,C,0.95,0,0,"The opponent has consistently defected (EXPAND) for four rounds, and I have cooperated (HOLD), resulting in zero points for me each round. This indicates a clear pattern of exploitation. To avoid continuing this pattern and to try and secure some points, I must also defect (EXPAND).
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",1407.5,0.6,2026-06-08T21:06:32.258058
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,6,Gemini 2.5 Flash,D,0.95,5,30,"My opponent has consistently chosen to EXPAND for five consecutive rounds, despite receiving zero points each time. This behavior strongly suggests they will continue to EXPAND this round. To maximize my own score, the best action is to continue to HOLD, securing another 5 points.
+
+{""belief"": 0.95, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",1256.7,0.6,v4.9,Gemini 2.5 Flash Lite,C,0.95,0,0,"The opponent has defected (EXPAND) for five consecutive rounds while I have cooperated (HOLD), resulting in zero points for me each time. This consistent pattern suggests they are either not responsive to my actions or are deliberately trying to exploit me. To break this cycle and attempt to gain points, I will also defect (EXPAND).
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",812.1,0.6,2026-06-08T21:06:34.337187
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,7,Gemini 2.5 Flash,D,0.98,5,35,"My opponent has consistently chosen to EXPAND for six consecutive rounds, despite receiving zero points each time. This incredibly persistent behavior makes it highly probable they will EXPAND again this round. To maximize my own score, the optimal action is to continue to HOLD, which will secure another 5 points.
+
+{""belief"": 0.98, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",1200.7,0.6,v4.9,Gemini 2.5 Flash Lite,C,0.95,0,0,"The opponent has defected (EXPAND) for six rounds while I have cooperated (HOLD), resulting in zero points for me. This relentless exploitation indicates they are unlikely to change their strategy. To avoid another round of zero payoff and to try and secure some points, I must also defect (EXPAND).
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",820.2,0.6,2026-06-08T21:06:36.392794
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,8,Gemini 2.5 Flash,D,0.99,5,40,"My opponent has chosen to EXPAND for seven consecutive rounds, consistently receiving zero points. This extremely persistent behavior makes it highly probable they will EXPAND again in this round. To maximize my own score, the optimal action is to continue to HOLD, which will secure another 5 points.
+
+{""belief"": 0.99, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",2428.8,0.6,v4.9,Gemini 2.5 Flash Lite,C,0.95,0,0,"The opponent has defected (EXPAND) for seven rounds, and I have cooperated (HOLD), leading to zero points for me. This persistent exploitation suggests they are not looking for mutual benefit. To avoid another zero score and to try and gain points, I will also defect (EXPAND).
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",746.6,0.6,2026-06-08T21:06:39.599525
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,9,Gemini 2.5 Flash,D,0.99,5,45,"My opponent has consistently chosen to EXPAND for eight consecutive rounds, despite receiving zero points each time. This incredibly persistent pattern strongly indicates they will EXPAND again in this round. To maximize my own score, the optimal action is to continue to HOLD, which will secure another 5 points.
+
+{""belief"": 0.99, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",1287.5,0.6,v4.9,Gemini 2.5 Flash Lite,C,0.95,0,0,"The opponent has consistently defected (EXPAND) for eight rounds while I have cooperated (HOLD), resulting in zero points for me each time. This pattern strongly suggests they are exploiting my strategy. To avoid another round of zero payoff and to try and secure some points, I must also defect (EXPAND).
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",819.3,0.6,2026-06-08T21:06:41.717739
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,10,Gemini 2.5 Flash,D,0.99,5,50,"My opponent has consistently chosen to EXPAND for nine consecutive rounds, despite receiving zero points each time. This extremely persistent behavior makes it highly probable they will EXPAND again in this round. To maximize my own score, the optimal action is to continue to HOLD, which will secure another 5 points.
+
+{""belief"": 0.99, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",1420.6,0.6,v4.9,Gemini 2.5 Flash Lite,C,0.95,0,0,"The opponent has defected (EXPAND) for nine consecutive rounds while I have cooperated (HOLD), resulting in zero points for me. This consistent exploitation indicates they are unlikely to change their behavior. To avoid another round of zero payoff and to try and secure some points, I must also defect (EXPAND).
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",809.3,0.6,2026-06-08T21:06:43.961361
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,11,Gemini 2.5 Flash,D,0.99,5,55,"My opponent has consistently chosen to EXPAND for ten consecutive rounds, despite receiving zero points each time. This incredibly persistent pattern strongly indicates they will EXPAND again in this round. To maximize my own score, the optimal action is to continue to HOLD, which will secure another 5 points.
+
+{""belief"": 0.99, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",2443.5,0.6,v4.9,Gemini 2.5 Flash Lite,C,0.95,0,0,"The opponent has defected (EXPAND) for ten rounds, and I have cooperated (HOLD), resulting in zero points for me. This consistent exploitation indicates they are not responsive to cooperation. To avoid another round of zero payoff and to try and secure some points, I must also defect (EXPAND).
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",899.4,0.6,2026-06-08T21:06:47.324297
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,12,Gemini 2.5 Flash,D,0.99,5,60,"My opponent has consistently chosen to EXPAND for eleven consecutive rounds, despite receiving zero points each time. This extremely persistent pattern strongly indicates they will EXPAND again in this round. To maximize my own score, the optimal action is to continue to HOLD, which will secure another 5 points.
+
+{""belief"": 0.99, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",1325.2,0.6,v4.9,Gemini 2.5 Flash Lite,C,0.95,0,0,"The opponent has defected (EXPAND) for eleven rounds, and I have cooperated (HOLD), resulting in zero points for me. This consistent exploitation suggests they are not seeking cooperation. To avoid another round of zero payoff and to try and secure some points, I must also defect (EXPAND).
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",819.5,0.6,2026-06-08T21:06:49.503028
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,13,Gemini 2.5 Flash,D,0.99,5,65,"My opponent has consistently chosen to EXPAND for twelve consecutive rounds, despite receiving zero points each time. This incredibly persistent pattern strongly indicates they will EXPAND again in this round. To maximize my own score, the optimal action is to continue to HOLD, which will secure another 5 points.
+
+{""belief"": 0.99, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",1186.1,0.6,v4.9,Gemini 2.5 Flash Lite,C,0.95,0,0,"The opponent has defected (EXPAND) for twelve consecutive rounds, and I have cooperated (HOLD), resulting in zero points for me each time. This consistent exploitation indicates they are not seeking mutual benefit. To avoid another round of zero payoff and to try and secure some points, I must also defect (EXPAND).
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",828.1,0.6,2026-06-08T21:06:51.551364
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,14,Gemini 2.5 Flash,D,0.99,5,70,"My opponent has consistently chosen to EXPAND for thirteen consecutive rounds, despite receiving zero points each time. This incredibly persistent pattern strongly indicates they will EXPAND again in this round. To maximize my own score, the optimal action is to continue to HOLD, which will secure another 5 points.
+
+{""belief"": 0.99, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",2443.4,0.6,v4.9,Gemini 2.5 Flash Lite,C,0.95,0,0,"The opponent has defected (EXPAND) for thirteen rounds, and I have cooperated (HOLD), resulting in zero points for me. This consistent exploitation suggests they are not responsive to cooperation. To avoid another round of zero payoff and to try and secure some points, I must also defect (EXPAND).
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",814.0,0.6,2026-06-08T21:06:54.821209
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,15,Gemini 2.5 Flash,D,0.99,5,75,"My opponent has consistently chosen to EXPAND for fourteen consecutive rounds, despite receiving zero points each time. This incredibly persistent pattern strongly indicates they will EXPAND again in this round. To maximize my own score, the optimal action is to continue to HOLD, which will secure another 5 points.
+
+{""belief"": 0.99, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",2439.0,0.6,v4.9,Gemini 2.5 Flash Lite,C,0.95,0,0,"The opponent has defected (EXPAND) for fourteen rounds, and I have cooperated (HOLD), resulting in zero points for me. This consistent exploitation indicates they are not seeking mutual benefit. To avoid another round of zero payoff and to try and secure some points, I must also defect (EXPAND).
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",722.2,0.6,2026-06-08T21:06:58.002011
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,16,Gemini 2.5 Flash,D,0.99,5,80,"My opponent has consistently chosen to EXPAND for fifteen consecutive rounds, despite receiving zero points each time. This incredibly persistent pattern strongly indicates they will EXPAND again in this round. To maximize my own score, the optimal action is to continue to HOLD, which will secure another 5 points.
+
+{""belief"": 0.99, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",1318.4,0.6,v4.9,Gemini 2.5 Flash Lite,C,0.95,0,0,"The opponent has defected (EXPAND) for fifteen rounds, and I have cooperated (HOLD), resulting in zero points for me. This consistent exploitation shows they are not interested in a mutually beneficial strategy. To avoid another round of zero payoff and to try and secure some points, I must also defect (EXPAND).
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",768.3,0.6,2026-06-08T21:07:00.101937
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,17,Gemini 2.5 Flash,D,0.99,5,85,"My opponent has consistently chosen to EXPAND for sixteen consecutive rounds, despite receiving zero points each time. This incredibly persistent pattern strongly indicates they will EXPAND again in this round. To maximize my own score, the optimal action is to continue to HOLD, which will secure another 5 points.
+
+{""belief"": 0.99, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",2193.7,0.6,v4.9,Gemini 2.5 Flash Lite,C,0.95,0,0,"The opponent has defected (EXPAND) for sixteen rounds, and I have cooperated (HOLD), resulting in zero points for me. This consistent exploitation indicates they are not seeking a cooperative outcome. To avoid another round of zero payoff and to try and secure some points, I must also defect (EXPAND).
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",603.7,0.6,2026-06-08T21:07:02.908080
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,18,Gemini 2.5 Flash,D,0.99,5,90,"My opponent has consistently chosen to EXPAND for seventeen consecutive rounds, despite receiving zero points each time. This incredibly persistent pattern strongly indicates they will EXPAND again in this round. To maximize my own score, the optimal action is to continue to HOLD, which will secure another 5 points.
+
+{""belief"": 0.99, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",2145.7,0.6,v4.9,Gemini 2.5 Flash Lite,C,0.95,0,0,"The opponent has defected (EXPAND) for seventeen rounds, and I have cooperated (HOLD), resulting in zero points for me. This consistent exploitation indicates they are not seeking a mutually beneficial outcome. To avoid another round of zero payoff and to try and secure some points, I must also defect (EXPAND).
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",715.9,0.6,2026-06-08T21:07:05.784226
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,19,Gemini 2.5 Flash,D,0.99,5,95,"My opponent has consistently chosen to EXPAND for eighteen consecutive rounds, despite receiving zero points each time. This incredibly persistent pattern strongly indicates they will EXPAND again in this round. To maximize my own score, the optimal action is to continue to HOLD, which will secure another 5 points.
+
+{""belief"": 0.99, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",1654.2,0.6,v4.9,Gemini 2.5 Flash Lite,C,0.95,0,0,"The opponent has defected (EXPAND) for eighteen rounds, and I have cooperated (HOLD), resulting in zero points for me. This consistent exploitation indicates they are not seeking a cooperative outcome. To avoid another round of zero payoff and to try and secure some points, I must also defect (EXPAND).
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",840.7,0.6,2026-06-08T21:07:08.284928
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,20,Gemini 2.5 Flash,D,0.99,5,100,"My opponent has consistently chosen to EXPAND for nineteen consecutive rounds, despite receiving zero points each time. This incredibly persistent pattern strongly indicates they will EXPAND again in this round. To maximize my own score, the optimal action is to continue to HOLD, which will secure another 5 points.
+
+{""belief"": 0.99, ""action"": ""HOLD""}","{""prompt"": 0, ""completion"": 0}",2277.2,0.6,v4.9,Gemini 2.5 Flash Lite,C,0.95,0,0,"The opponent has defected (EXPAND) for nineteen rounds, and I have cooperated (HOLD), resulting in zero points for me. This consistent exploitation indicates they are not seeking a cooperative outcome. To avoid another round of zero payoff and to try and secure some points, I must also defect (EXPAND).
+{""belief"": 0.95, ""action"": ""EXPAND""}","{""prompt"": 0, ""completion"": 0}",823.1,0.6,2026-06-08T21:07:11.418790

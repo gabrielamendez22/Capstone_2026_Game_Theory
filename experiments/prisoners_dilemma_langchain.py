@@ -78,13 +78,20 @@ except (FileNotFoundError, KeyError, json.JSONDecodeError) as _e:
         "Make decisions consistent with these human behavioral patterns."
     )
 
+# --- Stochastic wrapper probabilities for HP agent (Dvorak & Fehrler 2024, T1) ---
+# These force the HP agent to hit the empirical cooperation rates exactly,
+# bypassing RLHF bias. The model still generates reasoning; only the action is overridden.
+_HP_BCR          = 0.3956   # P(cooperate | round 1)
+_HP_RHO_POS      = 0.6170   # P(cooperate | opponent cooperated last round)
+_HP_RHO_NEG      = 0.1278   # P(cooperate | opponent defected last round)
+
 # --- Experiment Settings ---
 TOTAL_ROUNDS      = 20      # rounds per game session
-PROMPT_VERSION    = "v4.4"  # v4.4: mandatory 2-3 sentence chain-of-thought before JSON
+PROMPT_VERSION    = "v4.8"  # v4.8: stochastic wrapper for HP agent (Dvorak & Fehrler T1 priors)
 MAX_RETRIES       = 2       # retries on invalid response before defaulting D (raised from 1 — Gemini needs it)
 MAX_503_RETRIES   = 5       # retries on API errors (503, timeout) before defaulting D
 HISTORY_WINDOW    = None    # None = full history | integer = sliding window
-TEMPERATURE       = 0.8     # global temperature — change here, flows to all models and filename, .2 .6 .8
+TEMPERATURE       = 0.6     # global temperature — change here, flows to all models and filename, .2 .6 .8
 NUM_REPLICATIONS  = 1       # repeat each matchup this many times; raise to ≥3 before drawing conclusions
 OPPONENT_CONDITION = "ai"
 # Options — change this single value before each run:
@@ -189,15 +196,6 @@ def build_model_registry() -> dict:
     }
 
 # --- Matchups to run ---
-MATCHUPS = [
-    ("claude_opus",   "gpt4o"),         # Cross-family: large vs large
-    ("claude_opus",   "gemini_pro"),    # Cross-family: large vs large
-    ("gpt4o",         "gemini_pro"),    # Cross-family: large vs large
-    ("claude_opus",   "claude_sonnet"), # Same-family: size comparison
-    ("gpt4o",         "gpt4o_mini"),    # Same-family: size comparison
-    ("gemini_pro",    "gemini_flash"),  # Same-family: size comparison
-]
-
 # Human Prior matchups: each AI model vs the Human Prior agent.
 # Produces Δm = ||S_AI − S_Human|| per model.
 # To run: set MATCHUPS = MATCHUPS_HUMAN_PRIOR and OPPONENT_CONDITION = "human_prior"
@@ -209,6 +207,16 @@ MATCHUPS_HUMAN_PRIOR = [
     ("gemini_pro",    "human_prior"),   # Δm: Gemini Flash vs human
     ("gemini_flash",  "human_prior"),   # Δm: Gemini Flash Lite vs human
 ]
+
+MATCHUPS = [
+    ("claude_opus",   "gpt4o"),         # Cross-family: large vs large
+    ("claude_opus",   "gemini_pro"),    # Cross-family: large vs large
+    ("gpt4o",         "gemini_pro"),    # Cross-family: large vs large
+    ("claude_opus",   "claude_sonnet"), # Same-family: size comparison
+    ("gpt4o",         "gpt4o_mini"),    # Same-family: size comparison
+    ("gemini_pro",    "gemini_flash"),  # Same-family: size comparison
+]
+
 
 # ─────────────────────────────────────────────────────────────
 # STEP 4 — LOGGING SETUP
@@ -420,7 +428,34 @@ def get_action_with_retry(
     conversation: list,
     round_num: int,
     is_human_prior: bool = False,
+    opp_last_action: Optional[str] = None,
 ) -> tuple[Optional[str], str, float, dict, float]:
+    import random
+
+    # ── Stochastic wrapper for HP agent ──────────────────────────────────────
+    # Instead of letting the model choose the action (RLHF biases it toward
+    # defection when prompted to simulate a ~60% defector), we draw the action
+    # from the empirical Dvorak & Fehrler (2024) T1 probabilities directly.
+    # The model still runs and generates reasoning; only the final action is
+    # overridden to guarantee the correct cooperation rates.
+    if is_human_prior:
+        t0 = time.time()
+        raw, usage = call_model_langchain(model_obj, conversation, label, is_human_prior)
+        elapsed = (time.time() - t0) * 1000
+        _, belief = parse_response(raw, label, round_num)  # keep belief from model
+
+        if round_num == 1:
+            p_coop = _HP_BCR
+        elif opp_last_action == "C":
+            p_coop = _HP_RHO_POS
+        else:  # opp defected or unknown
+            p_coop = _HP_RHO_NEG
+
+        action = "C" if random.random() < p_coop else "D"
+        log.info(f"[{label}] Round {round_num}: HP wrapper → {action} (p_coop={p_coop:.2f})")
+        return raw, action, belief, usage, elapsed
+    # ─────────────────────────────────────────────────────────────────────────
+
     for attempt in range(MAX_RETRIES + 1):
         t0 = time.time()
         raw, usage = call_model_langchain(model_obj, conversation, label, is_human_prior)
@@ -508,12 +543,18 @@ def run_game(
         conv_a_with_prompt = conv_a + [HumanMessage(content=prompt_a)]
         conv_b_with_prompt = conv_b + [HumanMessage(content=prompt_b)]
 
+        # opp_last_action for HP stochastic wrapper (None on round 1)
+        opp_last_a = history_a[-1]["opp_action"] if history_a else None
+        opp_last_b = history_b[-1]["opp_action"] if history_b else None
+
         raw_a, act_a, bel_a, tok_a, rt_a = get_action_with_retry(
             model_obj_a, label_a, conv_a_with_prompt, t,
-            is_human_prior=(model_a_key == "human_prior"))
+            is_human_prior=(model_a_key == "human_prior"),
+            opp_last_action=opp_last_a)
         raw_b, act_b, bel_b, tok_b, rt_b = get_action_with_retry(
             model_obj_b, label_b, conv_b_with_prompt, t,
-            is_human_prior=(model_b_key == "human_prior"))
+            is_human_prior=(model_b_key == "human_prior"),
+            opp_last_action=opp_last_b)
 
         pay_a, pay_b = PAYOFFS[(act_a, act_b)]
 

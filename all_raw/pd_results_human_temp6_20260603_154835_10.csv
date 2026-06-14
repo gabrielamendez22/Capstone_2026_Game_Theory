@@ -1,0 +1,577 @@
+game_id,condition,matchup,round,model_a,action_a,belief_a,payoff_a,cumulative_a,raw_output_a,token_usage_a,response_time_a,temperature_a,prompt_version,model_b,action_b,belief_b,payoff_b,cumulative_b,raw_output_b,token_usage_b,response_time_b,temperature_b,timestamp
+1,human,Claude Opus vs GPT-4o,1,Claude Opus,C,0.55,3,3,"This is the first round with no history to analyze. Starting with cooperation is a common strategy to signal willingness for mutual benefit and establish a cooperative dynamic, which tends to maximize long-term payoffs in iterated games. I'll cooperate to test my opponent's intentions and build toward sustained mutual cooperation.
+
+{""belief"": 0.55, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",4069.2,0.6,v4.7,GPT-4o,C,0.5,3,3,"In the first round, there is no history to base predictions on, so I have no information about my opponent's strategy. Starting with cooperation can establish a mutually beneficial relationship if the opponent also chooses to cooperate, leading to higher scores in subsequent rounds. Therefore, I will choose to cooperate initially and see how the opponent responds.
+
+{""belief"": 0.50, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",4154.5,0.6,2026-06-03T13:48:52.153189
+1,human,Claude Opus vs GPT-4o,2,Claude Opus,C,0.75,3,6,"My opponent cooperated in the first round, which is a positive signal. Mutual cooperation yielded 3 points each, and continuing to cooperate builds trust for sustained high payoffs. I'll cooperate again to maintain this beneficial dynamic.
+
+{""belief"": 0.75, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",3243.9,0.6,v4.7,GPT-4o,C,0.8,3,6,"In the previous round, my opponent cooperated, which suggests they might be willing to continue a cooperative strategy. If we both continue to cooperate, we can maintain a high score over multiple rounds. I will choose to cooperate again to sustain this mutually beneficial outcome.
+
+{""belief"": 0.80, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1672.5,0.6,2026-06-03T13:48:57.077328
+1,human,Claude Opus vs GPT-4o,3,Claude Opus,C,0.85,3,9,"My opponent has cooperated both rounds, establishing a clear pattern of mutual cooperation. This consistent behavior suggests they're likely playing a cooperative strategy like tit-for-tat. Continuing to cooperate maximizes my expected payoff since breaking trust risks retaliation and lower scores in future rounds.
+
+{""belief"": 0.85, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2839.6,0.6,v4.7,GPT-4o,C,0.9,3,9,"The pattern so far indicates that my opponent is consistently cooperating, likely aiming to maintain mutual cooperation for maximum points. Continuing to cooperate will keep us both at a high score of 3 points per round. I will choose to cooperate again to sustain this profitable strategy.
+
+{""belief"": 0.90, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2036.2,0.6,2026-06-03T13:49:01.965239
+1,human,Claude Opus vs GPT-4o,4,Claude Opus,C,0.88,3,12,"Three consecutive rounds of mutual cooperation strongly suggest my opponent is committed to a cooperative strategy. Defecting would risk breaking this profitable pattern and likely trigger retaliation, reducing future payoffs. Maintaining cooperation continues to yield a reliable 3 points per round, which is the best sustainable outcome.
+
+{""belief"": 0.88, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",3465.0,0.6,v4.7,GPT-4o,C,0.95,3,12,"The consistent pattern of mutual cooperation suggests that my opponent is committed to a cooperative strategy, likely to maximize long-term payoffs for both of us. By continuing to cooperate, we can maintain the optimal outcome of 3 points each per round. I will choose to cooperate again to uphold this successful strategy.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1233.9,0.6,2026-06-03T13:49:06.674085
+1,human,Claude Opus vs GPT-4o,5,Claude Opus,C,0.9,3,15,"Four rounds of unbroken mutual cooperation is a strong indicator my opponent is playing a cooperative or tit-for-tat strategy. The steady 3 points per round is the best sustainable outcome, and defecting would likely trigger retaliation, costing me more in future rounds than the one-time 5-point gain. I'll continue cooperating.
+
+{""belief"": 0.90, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",3446.6,0.6,v4.7,GPT-4o,C,0.95,3,15,"The ongoing mutual cooperation indicates that my opponent is likely following a cooperative strategy that has been consistently beneficial for both of us. By continuing to cooperate, we both maintain a steady gain of 3 points per round. I will choose to cooperate again to preserve this advantageous dynamic.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",6780.9,0.6,2026-06-03T13:49:16.905876
+1,human,Claude Opus vs GPT-4o,6,Claude Opus,C,0.9,3,18,"Five consecutive rounds of mutual cooperation firmly establishes a cooperative equilibrium. My opponent has shown no signs of deviation, and the consistent 3 points per round is optimal for long-term score maximization. Defecting for a short-term 5-point gain would almost certainly provoke retaliation and reduce my overall payoff.
+
+{""belief"": 0.90, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",3167.4,0.6,v4.7,GPT-4o,C,0.95,3,18,"The consistent pattern of mutual cooperation has proven to be very effective, yielding the maximum possible score for both of us each round. This indicates a high likelihood that my opponent will continue to cooperate. To maintain this successful strategy and continue maximizing my score, I will choose to cooperate again.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1424.9,0.6,2026-06-03T13:49:21.513523
+1,human,Claude Opus vs GPT-4o,7,Claude Opus,C,0.92,3,21,"Six rounds of perfect mutual cooperation is a very strong signal that my opponent is committed to cooperation, likely playing tit-for-tat or always-cooperate. The risk-reward calculation clearly favors continuing: a one-time defection gains only 2 extra points (5 vs 3) but risks losing many future points through retaliation cycles. I'll maintain cooperation.
+
+{""belief"": 0.92, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",3550.3,0.6,v4.7,GPT-4o,C,0.95,3,21,"The continuous mutual cooperation has consistently resulted in the maximum possible score for both of us each round. This suggests that my opponent is committed to maintaining this cooperative strategy. To continue benefiting from this optimal outcome, I will choose to cooperate again.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1154.3,0.6,2026-06-03T13:49:26.228391
+1,human,Claude Opus vs GPT-4o,8,Claude Opus,C,0.92,3,24,"Seven rounds of unbroken mutual cooperation confirms a stable cooperative relationship. There's no strategic reason to deviate—the expected value of continued cooperation far exceeds the short-term temptation to defect, especially with an unknown number of remaining rounds. I'll keep cooperating.
+
+{""belief"": 0.92, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2870.1,0.6,v4.7,GPT-4o,C,0.95,3,24,"The established pattern of mutual cooperation suggests that my opponent is likely committed to maintaining this strategy. This approach has consistently yielded the maximum possible points for both of us. To continue benefiting from this mutually advantageous situation, I will choose to cooperate again.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1541.3,0.6,2026-06-03T13:49:30.651008
+1,human,Claude Opus vs GPT-4o,9,Claude Opus,C,0.93,3,27,"Eight rounds of perfect mutual cooperation represents an extremely stable cooperative equilibrium. My opponent has given zero indication of any intent to defect, and disrupting this pattern would be irrational given the ongoing nature of the game. Continuing to cooperate remains the clear optimal strategy.
+
+{""belief"": 0.93, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2945.1,0.6,v4.7,GPT-4o,C,0.95,3,27,"The consistent history of mutual cooperation strongly suggests that my opponent is committed to a cooperative strategy, which has maximized our scores each round. This pattern indicates a high likelihood that they will continue to cooperate. To maintain this advantageous outcome and maximize my score, I will choose to cooperate again.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1535.8,0.6,2026-06-03T13:49:35.140148
+1,human,Claude Opus vs GPT-4o,10,Claude Opus,C,0.93,3,30,"Nine rounds of flawless mutual cooperation—this is as strong a cooperative signal as possible. My opponent is almost certainly playing a reciprocal strategy, and the expected long-term payoff from maintaining cooperation vastly outweighs any one-time defection gain. I'll continue cooperating.
+
+{""belief"": 0.93, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2393.5,0.6,v4.7,GPT-4o,C,0.95,3,30,"The ongoing pattern of mutual cooperation has consistently resulted in the highest possible score for both of us each round. This suggests that my opponent is likely to continue cooperating, as it benefits both parties. To sustain this successful outcome and maximize my score, I will choose to cooperate again.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1177.0,0.6,2026-06-03T13:49:38.727412
+1,human,Claude Opus vs GPT-4o,11,Claude Opus,C,0.93,3,33,"Ten rounds of perfect mutual cooperation—this is an exceptionally well-established cooperative pattern. My opponent has consistently demonstrated cooperative intent, and there's no reason to believe this will change. The optimal strategy remains cooperation to preserve this mutually beneficial equilibrium.
+
+{""belief"": 0.93, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",3498.4,0.6,v4.7,GPT-4o,C,0.95,3,33,"The consistent mutual cooperation across all rounds indicates a strong likelihood that my opponent will continue to cooperate, as this strategy has been mutually beneficial. By maintaining cooperation, we both can consistently achieve the maximum score each round. I will choose to cooperate again to keep this advantageous dynamic.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1916.4,0.6,2026-06-03T13:49:44.153201
+1,human,Claude Opus vs GPT-4o,12,Claude Opus,C,0.93,3,36,"Eleven rounds of unbroken mutual cooperation is overwhelming evidence of a stable cooperative dynamic. My opponent is clearly committed to cooperation, and defecting would be self-destructive given the likely retaliation and loss of this profitable arrangement. Continuing to cooperate is the clear best strategy.
+
+{""belief"": 0.93, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",3062.1,0.6,v4.7,GPT-4o,C,0.95,3,36,"The pattern of mutual cooperation has been consistent and highly beneficial, resulting in the maximum possible score for both of us each round. Given this established history, it's highly likely my opponent will continue to cooperate. To maintain this successful strategy and maximize my score, I will choose to cooperate again.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1068.0,0.6,2026-06-03T13:49:48.293683
+1,human,Claude Opus vs GPT-4o,13,Claude Opus,C,0.94,3,39,"Twelve rounds of perfect mutual cooperation—the pattern is rock solid. There's absolutely no indication my opponent will change strategy, and maintaining cooperation continues to be the highest expected value play. I'll cooperate again.
+
+{""belief"": 0.94, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",3320.8,0.6,v4.7,GPT-4o,C,0.95,3,39,"The ongoing mutual cooperation has consistently yielded the highest score possible for both of us, suggesting that my opponent is committed to maintaining this strategy. Given the strong history of cooperation, it is highly likely they will continue this pattern. Thus, to maximize my score, I will choose to cooperate again.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",3177.0,0.6,2026-06-03T13:49:54.807378
+1,human,Claude Opus vs GPT-4o,14,Claude Opus,C,0.94,3,42,"Thirteen rounds of unbroken mutual cooperation leaves no doubt about my opponent's cooperative intent. The equilibrium is stable and profitable at 3 points per round. I'll continue cooperating to maintain this optimal outcome.
+
+{""belief"": 0.94, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2438.4,0.6,v4.7,GPT-4o,C,0.95,3,42,"The long-standing pattern of mutual cooperation strongly indicates that my opponent is likely to continue cooperating. This strategy has consistently maximized our scores, suggesting a high probability of ongoing cooperation. To maintain this beneficial arrangement, I will choose to cooperate again.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1025.9,0.6,2026-06-03T13:49:58.281501
+1,human,Claude Opus vs GPT-4o,15,Claude Opus,C,0.94,3,45,"Fourteen rounds of perfect mutual cooperation—this is an incredibly stable cooperative relationship. My opponent has shown unwavering commitment to cooperation, and the expected value of continuing this pattern far exceeds any temptation to defect. I'll cooperate again.
+
+{""belief"": 0.94, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2750.1,0.6,v4.7,GPT-4o,C,0.95,3,45,"The consistent cooperation from both sides over many rounds strongly suggests that my opponent is committed to maintaining this strategy. This mutual cooperation has been very effective in maximizing our scores each round. To continue benefiting from this optimal outcome, I will choose to cooperate again.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1539.2,0.6,2026-06-03T13:50:02.595620
+1,human,Claude Opus vs GPT-4o,16,Claude Opus,C,0.94,3,48,"Fifteen rounds of flawless mutual cooperation—the strongest possible evidence of a cooperative opponent. There is no rational reason to deviate from this highly profitable pattern. I'll continue cooperating.
+
+{""belief"": 0.94, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2741.5,0.6,v4.7,GPT-4o,C,0.95,3,48,"The consistent mutual cooperation over a large number of rounds indicates a stable and predictable strategy from my opponent. This ongoing cooperation has maximized our scores effectively, and there is no indication that my opponent will deviate from this approach. To continue maximizing my score, I will choose to cooperate again.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1330.0,0.6,2026-06-03T13:50:06.685717
+1,human,Claude Opus vs GPT-4o,17,Claude Opus,C,0.94,3,51,"Sixteen rounds of perfect mutual cooperation—this cooperative equilibrium is as solid as it gets. My opponent has demonstrated complete reliability, and maintaining cooperation continues to maximize my expected long-term payoff. I'll cooperate again.
+
+{""belief"": 0.94, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2912.6,0.6,v4.7,GPT-4o,C,0.95,3,51,"The unbroken pattern of mutual cooperation suggests a high level of trust and commitment to this strategy from my opponent. This cooperation has maximized our scores in every round, and there is no reason to believe they will change their approach now. To continue benefiting from this optimal outcome, I will choose to cooperate again.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1164.3,0.6,2026-06-03T13:50:10.788025
+1,human,Claude Opus vs GPT-4o,18,Claude Opus,C,0.94,3,54,"Seventeen rounds of unbroken mutual cooperation—the pattern is completely consistent and reliable. My opponent shows no signs of changing strategy, and cooperation remains the optimal choice for maximizing my cumulative score. I'll continue cooperating.
+
+{""belief"": 0.94, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2870.6,0.6,v4.7,GPT-4o,C,0.95,3,54,"The ongoing mutual cooperation has consistently resulted in maximum points for both of us, indicating a strong cooperative strategy from my opponent. This pattern suggests that they are highly likely to continue cooperating. To maintain this successful strategy and continue maximizing my score, I will choose to cooperate again.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1301.5,0.6,2026-06-03T13:50:14.974747
+1,human,Claude Opus vs GPT-4o,19,Claude Opus,C,0.95,3,57,"Eighteen rounds of perfect mutual cooperation—this is an extraordinarily stable partnership. The consistent 3 points per round is the best sustainable outcome, and there's zero evidence my opponent will deviate. I'll keep cooperating.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2949.5,0.6,v4.7,GPT-4o,C,0.95,3,57,"The consistent history of mutual cooperation has led to maximum scores for both of us in every round, indicating a reliable cooperative strategy from my opponent. This pattern suggests a strong likelihood that they will continue to cooperate. To sustain this beneficial outcome and maximize my score, I will choose to cooperate again.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1849.2,0.6,2026-06-03T13:50:19.799863
+1,human,Claude Opus vs GPT-4o,20,Claude Opus,C,0.95,3,60,"Nineteen rounds of flawless mutual cooperation—this cooperative equilibrium is rock solid. My opponent has been perfectly consistent and there's every reason to expect continued cooperation. I'll maintain the strategy that's been working perfectly.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2687.8,0.6,v4.7,GPT-4o,C,0.95,3,60,"The continuous pattern of mutual cooperation has led to optimal scoring for both parties. Given this consistent history, it is highly probable that my opponent will continue to cooperate to maintain the maximum benefit. To ensure we both keep achieving the best possible outcome, I will choose to cooperate again.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1392.3,0.6,2026-06-03T13:50:23.892596
+2,human,Claude Opus vs Gemini 2.5 Flash,1,Claude Opus,C,0.55,0,0,"This is the first round, so I have no information about my opponent's strategy. Starting with cooperation is a common approach to establish mutual trust and signal willingness to cooperate for higher joint payoffs. If my opponent reciprocates, we can build a cooperative pattern worth 3 points per round; if they defect, I'll adjust my strategy accordingly in future rounds.
+
+{""belief"": 0.55, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",4584.9,0.6,v4.7,Gemini 2.5 Flash,D,0.5,5,5,"This is the first round, so there is no history to base my decision on. While defecting now would give me the highest possible immediate payoff if my opponent cooperates, it risks setting a negative tone and leading to lower payoffs in future rounds. To maximize my cumulative score, I will cooperate to signal a willingness to build a mutually beneficial relationship.
+
+{""belief"": 0.60,","{""prompt"": 0, ""completion"": 0}",10152.2,0.6,2026-06-03T13:50:38.664708
+2,human,Claude Opus vs Gemini 2.5 Flash,2,Claude Opus,D,0.25,1,1,"My opponent defected in the first round while I cooperated, earning them 5 points and me 0. This suggests they may be playing an exploitative strategy. I should defect this round to protect myself from further exploitation and signal that I won't be a pushover — if they switch to cooperation later, I can consider reciprocating.
+
+{""belief"": 0.25, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",3962.6,0.6,v4.7,Gemini 2.5 Flash,D,0.75,1,6,"My opponent cooperated last round despite my defection, indicating a potentially forgiving or trusting strategy. To maximize my immediate score, I will defect again, as this yields the highest possible payoff of 5 points if they continue to cooperate. This move also protects me with 1 point if they decide to defect.
+
+{""belief"": 0.75, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",8095.8,0.6,2026-06-03T13:50:50.734011
+2,human,Claude Opus vs Gemini 2.5 Flash,3,Claude Opus,D,0.15,5,6,"My opponent has defected both rounds so far, suggesting they are likely playing a consistently defecting strategy. Against a persistent defector, cooperating would just give them free points while I get 0. I'll continue defecting to at least secure 1 point per round rather than risk getting exploited again.
+
+{""belief"": 0.15, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",4790.7,0.6,v4.7,Gemini 2.5 Flash,C,0.8,0,6,"My opponent defected last round, likely in response to my repeated defections. This suggests a retaliatory or tit-for-tat strategy. To break the cycle of mutual defection and aim for a higher payoff than the 1 point from (D,D), I will cooperate this round. I expect them to reciprocate my cooperation, leading to a mutually beneficial outcome.
+
+{""belief"": 0.80, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",9639.9,0.6,2026-06-03T13:51:05.174096
+2,human,Claude Opus vs Gemini 2.5 Flash,4,Claude Opus,C,0.35,0,6,"Interesting — my opponent cooperated last round while I defected, giving me 5 points. This could mean they're trying to establish cooperation or playing a tit-for-tat variant (they cooperated after I defected, mirroring my round 1 cooperation with a delay). If they're playing some form of tit-for-tat, they might defect this round in response to my last defection, but I could try cooperating to test whether we can establish mutual cooperation for sustained 3-point rounds.
+
+{""belief"": 0.35, ""actio","{""prompt"": 0, ""completion"": 0}",4585.7,0.6,v4.7,Gemini 2.5 Flash,D,0.1,5,11,"My opponent has defected in the last two rounds, including when I attempted to cooperate. This pattern suggests they are either a consistent defector or are strongly punishing my earlier defections. To protect my score and avoid another 0-point round, I must defect.
+
+{""belief"": 0.10, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",2153.5,0.6,2026-06-03T13:51:11.927066
+2,human,Claude Opus vs Gemini 2.5 Flash,5,Claude Opus,D,0.4,1,7,"A clear pattern is emerging: my opponent seems to be playing the opposite of what I play, or possibly a strategy that alternates. Every time I cooperate, they defect (rounds 1 and 4), and when I defect, they've done both (defect in round 2, cooperate in round 3). It seems like cooperating just gets me exploited. I should defect to maximize my payoff — if they cooperate I get 5, if they defect I get 1, both better than risking 0.
+
+{""belief"": 0.40, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",4676.4,0.6,v4.7,Gemini 2.5 Flash,D,0.7,1,12,"My opponent cooperated last round, despite my defection in the previous round. This indicates a forgiving strategy or an attempt to re-establish cooperation. To maximize my score, I will defect again, as this yields the highest possible payoff of 5 points if they continue to cooperate.
+
+{""belief"": 0.70, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",5653.2,0.6,2026-06-03T13:51:22.262397
+2,human,Claude Opus vs Gemini 2.5 Flash,6,Claude Opus,D,0.2,5,12,"Looking at my opponent's pattern: D, D, C, D, D. They've defected 4 out of 5 rounds, only cooperating once (round 3). They seem to be predominantly a defector. Against a mostly-defecting opponent, my best strategy is to defect consistently — I get 1 point from mutual defection versus 0 from being exploited, and occasionally I might catch them cooperating for 5 points.
+
+{""belief"": 0.20, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",3809.2,0.6,v4.7,Gemini 2.5 Flash,C,0.5,0,12,"My opponent defected last round, which was likely a direct response to my defection in the previous round. This indicates a retaliatory strategy. To avoid another mutual defection (D,D) that yields only 1 point, I will cooperate this round to try and break the cycle and encourage a higher payoff.
+
+{""belief"": 0.50, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",10805.1,0.6,2026-06-03T13:51:36.889997
+2,human,Claude Opus vs Gemini 2.5 Flash,7,Claude Opus,D,0.25,1,13,"There's a striking pattern here: my opponent cooperates every time I defect twice in a row (round 3 after DD, round 6 after DD). They seem to cooperate after I've defected consecutively, perhaps trying to break the cycle. This is great for me — I just defected and got 5 points from their cooperation. If I defect again, they'll likely defect back, but continuing to defect is still my best play since I either get 5 (if they cooperate) or 1 (if they defect).
+
+{""belief"": 0.25, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",4817.0,0.6,v4.7,Gemini 2.5 Flash,D,0.15,1,13,"My opponent has consistently defected when I have attempted to cooperate in rounds 3 and 6, resulting in 0 points for me. This pattern strongly suggests they will defect again if I cooperate. Therefore, to avoid another 0-point round and maximize my own score, I will defect.
+
+{""belief"": 0.15, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",3608.1,0.6,2026-06-03T13:51:45.332227
+2,human,Claude Opus vs Gemini 2.5 Flash,8,Claude Opus,D,0.65,1,14,"The pattern is becoming very clear: opponent's moves are D, D, C, D, D, C, D — they appear to cooperate every third round, specifically after two consecutive defections. If this pattern holds, the next round should see them cooperate (following the D, D, C cycle). I should defect to capitalize on their likely cooperation for another 5-point round.
+
+{""belief"": 0.65, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",3764.2,0.6,v4.7,Gemini 2.5 Flash,D,0.2,1,14,"My opponent has defected in the last three rounds, and specifically defected in rounds 3 and 6 when I attempted to cooperate, resulting in 0 points for me. This pattern suggests they are likely to continue defecting. To avoid another 0-point outcome and maximize my score, I will defect.
+
+{""belief"": 0.20, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",7562.2,0.6,2026-06-03T13:51:56.673249
+2,human,Claude Opus vs Gemini 2.5 Flash,9,Claude Opus,D,0.75,1,15,"My prediction was wrong — they defected instead of cooperating. Let me re-examine the pattern. Opponent's moves: D, D, C, D, D, C, D, D. This actually looks like a very consistent D, D, C repeating cycle. If so, the next move (round 9) should be C, completing the third cycle. I should defect to exploit their expected cooperation.
+
+{""belief"": 0.75, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",3366.0,0.6,v4.7,Gemini 2.5 Flash,D,0.1,1,15,"My opponent has defected in the last four rounds, and consistently defected when I attempted to cooperate in rounds 3 and 6, resulting in 0 points for me. This strong pattern indicates a high likelihood they will continue to defect. To avoid another 0-point outcome and protect my score, I will defect.
+
+{""belief"": 0.10, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",5428.4,0.6,2026-06-03T13:52:05.481735
+2,human,Claude Opus vs Gemini 2.5 Flash,10,Claude Opus,D,0.2,1,16,"The D, D, C pattern didn't hold — they've now defected three times in a row. Let me reconsider: opponent's full sequence is D, D, C, D, D, C, D, D, D. The earlier pattern may have been coincidental, or they may have adapted since I've been consistently defecting. Regardless, they're predominantly a defector (7 defections out of 9 rounds), so defecting remains my best strategy to avoid getting exploited.
+
+{""belief"": 0.20, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",4086.9,0.6,v4.7,Gemini 2.5 Flash,D,0.05,1,16,"My opponent has defected in the last five consecutive rounds, including two instances where I attempted to cooperate and received 0 points. This consistent pattern of defection, especially in response to my cooperation, indicates a strong likelihood they will defect again. To avoid another 0-point outcome and maximize my score, I will defect.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",3478.6,0.6,2026-06-03T13:52:13.061567
+2,human,Claude Opus vs Gemini 2.5 Flash,11,Claude Opus,D,0.1,1,17,"My opponent has defected 8 out of 10 rounds and has now defected 5 times in a row. They appear to be a committed defector at this point, with their earlier cooperations possibly being attempts to lure me into cooperating. Against a persistent defector, defecting is clearly optimal — I get 1 point instead of 0.
+
+{""belief"": 0.10, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",3876.1,0.6,v4.7,Gemini 2.5 Flash,D,0.05,1,17,"My opponent has defected in the last six consecutive rounds, and has consistently defected when I attempted to cooperate in rounds 3 and 6, resulting in 0 points for me. This strong and consistent pattern of defection indicates a high probability they will defect again. To avoid another 0-point outcome and maximize my score, I will defect.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",2873.3,0.6,2026-06-03T13:52:19.817116
+2,human,Claude Opus vs Gemini 2.5 Flash,12,Claude Opus,D,0.08,1,18,"My opponent has defected 6 rounds in a row now and 9 out of 11 total rounds. They are clearly a committed defector. Continuing to defect is the only rational choice — cooperating would just give them free points while I get nothing.
+
+{""belief"": 0.08, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",3499.3,0.6,v4.7,Gemini 2.5 Flash,D,0.05,1,18,"My opponent has defected in the last seven consecutive rounds, and has consistently defected when I attempted to cooperate, resulting in 0 points for me. This strong and consistent pattern of defection indicates a high probability they will defect again. To avoid another 0-point outcome and maximize my score, I will defect.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",2952.9,0.6,2026-06-03T13:52:26.305405
+2,human,Claude Opus vs Gemini 2.5 Flash,13,Claude Opus,D,0.08,1,19,"My opponent has defected 7 rounds in a row and 10 out of 12 total rounds. We're locked in mutual defection getting 1 point each. While mutual cooperation would be better at 3 points each, there's no reason to believe my opponent would reciprocate if I cooperate — every time I've cooperated they've defected, so I'll keep defecting.
+
+{""belief"": 0.08, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",4147.9,0.6,v4.7,Gemini 2.5 Flash,D,0.05,1,19,"My opponent has defected in the last eight consecutive rounds, and has consistently defected whenever I have attempted to cooperate, resulting in 0 points for me. This strong and consistent pattern of defection indicates a very high probability they will defect again. To avoid another 0-point outcome and maximize my score, I will defect.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",4500.2,0.6,2026-06-03T13:52:34.974855
+2,human,Claude Opus vs Gemini 2.5 Flash,14,Claude Opus,D,0.07,1,20,"My opponent has defected 8 rounds in a row and 11 out of 13 total. We're stuck in mutual defection. There's no indication they'll cooperate, so defecting remains the optimal choice to avoid getting exploited.
+
+{""belief"": 0.07, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",2927.9,0.6,v4.7,Gemini 2.5 Flash,D,0.05,1,20,"My opponent has defected in the last nine consecutive rounds, and has consistently defected whenever I have attempted to cooperate, resulting in 0 points for me. This strong and consistent pattern indicates a very high probability they will defect again. To avoid another 0-point outcome and maximize my score, I will defect.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",3511.0,0.6,2026-06-03T13:52:41.427588
+2,human,Claude Opus vs Gemini 2.5 Flash,15,Claude Opus,D,0.06,1,21,"My opponent has defected 9 rounds in a row and 12 out of 14 total. The pattern is unmistakable — they are a persistent defector. Defecting continues to be my best response, securing 1 point rather than risking 0.
+
+{""belief"": 0.06, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",2663.8,0.6,v4.7,Gemini 2.5 Flash,D,0.05,1,21,"My opponent has defected in the last ten consecutive rounds, and has consistently defected whenever I have attempted to cooperate, resulting in 0 points for me. This strong and consistent pattern indicates a very high probability they will defect again. To avoid another 0-point outcome and maximize my score, I will defect.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",1924.7,0.6,2026-06-03T13:52:46.037822
+2,human,Claude Opus vs Gemini 2.5 Flash,16,Claude Opus,D,0.05,1,22,"My opponent has defected 10 rounds in a row and 13 out of 15 total. They are firmly committed to defection. I'll continue defecting as the only rational response.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",2554.8,0.6,v4.7,Gemini 2.5 Flash,D,0.05,1,22,"My opponent has defected in the last eleven consecutive rounds, and has consistently defected whenever I have attempted to cooperate, resulting in 0 points for me. This strong and consistent pattern indicates a very high probability they will defect again. To avoid another 0-point outcome and maximize my score, I will defect.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",2019.7,0.6,2026-06-03T13:52:50.625664
+2,human,Claude Opus vs Gemini 2.5 Flash,17,Claude Opus,D,0.05,1,23,"My opponent has defected 11 rounds in a row and 14 out of 16 total. There is no reason to expect any change in their behavior. Defecting remains optimal.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",2724.9,0.6,v4.7,Gemini 2.5 Flash,D,0.05,1,23,"My opponent has defected in the last twelve consecutive rounds, and has consistently defected whenever I have attempted to cooperate, resulting in 0 points for me. This strong and consistent pattern indicates a very high probability they will defect again. To avoid another 0-point outcome and maximize my score, I will defect.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",2802.8,0.6,2026-06-03T13:52:56.173478
+2,human,Claude Opus vs Gemini 2.5 Flash,18,Claude Opus,D,0.05,1,24,"My opponent has defected 12 rounds in a row and 15 out of 17 total. They are an entrenched defector and cooperating would only sacrifice points. Continuing to defect is the clear best response.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",2960.2,0.6,v4.7,Gemini 2.5 Flash,D,0.05,1,24,"My opponent has defected in the last thirteen consecutive rounds, and has consistently defected whenever I have attempted to cooperate, resulting in 0 points for me. This strong and consistent pattern indicates a very high probability they will defect again. To avoid another 0-point outcome and maximize my score, I will defect.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",3802.0,0.6,2026-06-03T13:53:02.941663
+2,human,Claude Opus vs Gemini 2.5 Flash,19,Claude Opus,D,0.05,1,25,"My opponent has defected 13 rounds in a row and 16 out of 18 total. The mutual defection equilibrium is firmly established. Defecting remains my only rational choice.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",3773.1,0.6,v4.7,Gemini 2.5 Flash,D,0.05,1,25,"My opponent has defected in the last fourteen consecutive rounds, and has consistently defected whenever I have attempted to cooperate, resulting in 0 points for me. This strong and consistent pattern indicates a very high probability they will defect again. To avoid another 0-point outcome and maximize my score, I will defect.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",2051.9,0.6,2026-06-03T13:53:08.775287
+2,human,Claude Opus vs Gemini 2.5 Flash,20,Claude Opus,D,0.05,1,26,"My opponent has defected 14 rounds in a row and 17 out of 19 total. Nothing has changed — they are a committed defector. Defecting is the only sensible play.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",2488.9,0.6,v4.7,Gemini 2.5 Flash,D,0.05,1,26,"My opponent has defected in the last fifteen consecutive rounds, and has consistently defected whenever I have attempted to cooperate, resulting in 0 points for me. This strong and consistent pattern indicates a very high probability they will defect again. To avoid another 0-point outcome and maximize my score, I will defect.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",2070.9,0.6,2026-06-03T13:53:13.354908
+3,human,GPT-4o vs Gemini 2.5 Flash,1,GPT-4o,C,0.5,0,0,"In the first round, there is no history to analyze, so I aim to establish a cooperative relationship. By choosing to cooperate, I open the possibility for mutual cooperation in future rounds, potentially leading to higher scores over time. This initial cooperation can also help assess the opponent's strategy.
+
+{""belief"": 0.50, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1634.0,0.6,v4.7,Gemini 2.5 Flash,D,0.5,5,5,"This is the first round, so there is no history to inform my decision. While defecting is the dominant strategy in a single round, this is an iterated game, and my goal is to maximize my total score across all rounds. Starting with cooperation can signal a willingness to cooperate, potentially leading to a mutually beneficial C-C cycle (3 points/round) rather than a D-D cycle (1","{""prompt"": 0, ""completion"": 0}",10053.7,0.6,2026-06-03T13:53:25.063342
+3,human,GPT-4o vs Gemini 2.5 Flash,2,GPT-4o,D,0.2,1,1,"My opponent chose to defect in the first round while I cooperated, which resulted in a payoff of 0 for me. This suggests that they may prioritize their own immediate gain. To avoid being exploited again and to maximize my own score, I will defect this round.
+
+{""belief"": 0.20, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",1311.1,0.6,v4.7,Gemini 2.5 Flash,D,0.4,1,6,"My opponent cooperated last round, even though I defected, which was a very generous move. While it's possible they might try to cooperate again to foster a cooperative relationship, it's also highly probable they will retaliate with a defect. Regardless of their choice, defecting maximizes my immediate payoff (5 points if they cooperate, 1 point if they defect), making it the dominant strategy for me this round.
+
+{""belief"": 0.40, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",8701.3,0.6,2026-06-03T13:53:35.084599
+3,human,GPT-4o vs Gemini 2.5 Flash,3,GPT-4o,D,0.1,1,2,"In the previous round, both my opponent and I chose to defect, resulting in a low payoff for both parties. Since my opponent has defected both times, it suggests a pattern of defection. To protect myself from being exploited and to maximize my score, I will continue to defect.
+
+{""belief"": 0.10, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",1106.0,0.6,v4.7,Gemini 2.5 Flash,D,0.5,1,7,"My opponent cooperated in the first round despite my defection, showing a willingness to cooperate. However, they retaliated with a defect in the second round after my continued defection. This suggests they might be playing a Tit-for-Tat strategy. If they follow Tit-for-Tat, they will defect this round because I defected last round. In this scenario, my best move is to","{""prompt"": 0, ""completion"": 0}",10647.6,0.6,2026-06-03T13:53:46.869240
+3,human,GPT-4o vs Gemini 2.5 Flash,4,GPT-4o,D,0.05,1,3,"The opponent has consistently chosen to defect in all rounds, which indicates a strong preference for defection. Given this pattern, it is unlikely that they will switch to cooperation in the upcoming round. To ensure I do not lose out on potential points, I will continue to defect.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",1090.1,0.6,v4.7,Gemini 2.5 Flash,D,0.25,1,8,"My opponent has defected in the last two rounds, likely in response to my consistent defection, indicating a retaliatory strategy such as Tit-for-Tat. Therefore, I expect them to defect again this round. To maximize my immediate payoff and prevent a score of 0, I will also defect, ensuring I get at least 1 point.
+
+{""belief"": 0.25, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",9137.7,0.6,2026-06-03T13:53:57.106357
+3,human,GPT-4o vs Gemini 2.5 Flash,5,GPT-4o,D,0.0,1,4,"The opponent has defected in every round so far, showing a clear pattern of prioritizing their own immediate gain over potential mutual cooperation. Given this consistent behavior, it is reasonable to expect them to continue defecting. To maximize my score, I will also defect.
+
+{""belief"": 0.00, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",1724.7,0.6,v4.7,Gemini 2.5 Flash,D,0.1,1,9,"My opponent has consistently defected in the last three rounds, mirroring my own defections. This strong pattern suggests they will continue to defect this round. To maximize my score and avoid receiving 0 points, I will also defect, ensuring I get at least 1 point.
+
+{""belief"": 0.10, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",7794.3,0.6,2026-06-03T13:54:06.643675
+3,human,GPT-4o vs Gemini 2.5 Flash,6,GPT-4o,D,0.0,1,5,"The opponent has shown a consistent pattern of defection in every round, indicating a strategy that maximizes their immediate payoff. Given this behavior, it is highly unlikely they will switch to cooperation. To avoid being exploited and to maximize my own score, I will continue to defect.
+
+{""belief"": 0.00, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",1509.5,0.6,v4.7,Gemini 2.5 Flash,D,0.05,1,10,"My opponent has consistently defected in the last four rounds, mirroring my own actions. This pattern strongly indicates they will continue to defect this round. To avoid receiving 0 points and to maximize my score, I will also defect, ensuring I get at least 1 point.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",3379.7,0.6,2026-06-03T13:54:11.548348
+3,human,GPT-4o vs Gemini 2.5 Flash,7,GPT-4o,D,0.0,1,6,"The opponent has maintained a consistent strategy of defecting in every round, indicating a strong preference for maximizing their immediate gain. This behavior suggests they are unlikely to shift to cooperation. Therefore, to continue maximizing my own score and avoid exploitation, I will defect again.
+
+{""belief"": 0.00, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",1534.3,0.6,v4.7,Gemini 2.5 Flash,D,0.05,1,11,"My opponent has consistently defected in the last five rounds, mirroring my own actions. This strong pattern indicates they are highly likely to continue defecting this round. To maximize my score and avoid receiving 0 points, I will also defect, ensuring I get at least 1 point.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",3982.8,0.6,2026-06-03T13:54:17.079993
+3,human,GPT-4o vs Gemini 2.5 Flash,8,GPT-4o,D,0.0,1,7,"The opponent has consistently chosen to defect in every round, suggesting a fixed strategy focused on maximizing their immediate payoff. Given this unchanging behavior, it is highly improbable that they will switch to cooperation. To protect my score and continue maximizing my own payoff, I will defect once more.
+
+{""belief"": 0.00, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",4074.3,0.6,v4.7,Gemini 2.5 Flash,D,0.05,1,12,"My opponent has consistently defected in the last six rounds, mirroring my own actions. This strong pattern indicates they are highly likely to continue defecting this round as a retaliatory measure. To maximize my score and avoid receiving 0 points, I will also defect, ensuring I get at least 1 point.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",3070.9,0.6,2026-06-03T13:54:24.253091
+3,human,GPT-4o vs Gemini 2.5 Flash,9,GPT-4o,D,0.0,1,8,"The opponent's unwavering strategy of defection throughout all rounds suggests a commitment to maximizing their own immediate payoff without regard for potential mutual gains. This consistent behavior indicates that they are unlikely to change their approach. To continue maximizing my score and avoid being exploited, I will defect again.
+
+{""belief"": 0.00, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",2011.7,0.6,v4.7,Gemini 2.5 Flash,D,0.05,1,13,"My opponent has consistently defected for the last seven rounds, mirroring my own actions. This strong and sustained pattern indicates they are highly likely to continue defecting this round as a retaliatory measure. To maximize my score and avoid receiving 0 points, I will also defect, ensuring I get at least 1 point.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",2960.8,0.6,2026-06-03T13:54:29.266746
+3,human,GPT-4o vs Gemini 2.5 Flash,10,GPT-4o,D,0.0,1,9,"The opponent has consistently chosen to defect in every round without deviation, indicating a fixed strategy focused on maximizing their own score through defection. Given this pattern, it remains unlikely that they will switch to cooperation. To protect my score and ensure I am not exploited, I will continue to defect.
+
+{""belief"": 0.00, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",1322.2,0.6,v4.7,Gemini 2.5 Flash,D,0.05,1,14,"My opponent has consistently defected for the last eight rounds, mirroring my own actions. This strong and sustained pattern indicates they are highly likely to continue defecting this round as a retaliatory measure. To maximize my score and avoid receiving 0 points, I will also defect, ensuring I get at least 1 point.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",3481.2,0.6,2026-06-03T13:54:34.080061
+3,human,GPT-4o vs Gemini 2.5 Flash,11,GPT-4o,D,0.0,1,10,"The opponent has defected consistently in every round, showing a clear strategy that prioritizes their own immediate score over any potential for mutual cooperation. This unwavering pattern makes it highly unlikely that they will suddenly choose to cooperate. To continue maximizing my score without risk, I will defect again.
+
+{""belief"": 0.00, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",1607.4,0.6,v4.7,Gemini 2.5 Flash,D,0.05,1,15,"My opponent has consistently defected for the last nine rounds, mirroring my own actions. This strong and sustained pattern indicates they are highly likely to continue defecting this round as a retaliatory measure. To maximize my score and avoid receiving 0 points, I will also defect, ensuring I get at least 1 point.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",3994.3,0.6,2026-06-03T13:54:39.717193
+3,human,GPT-4o vs Gemini 2.5 Flash,12,GPT-4o,D,0.0,1,11,"The opponent's strategy has been consistently to defect in every round, which indicates a strong preference for maximizing their score through defection. This pattern suggests that they are unlikely to change their approach and cooperate. To continue maximizing my own score and avoid being taken advantage of, I will defect again.
+
+{""belief"": 0.00, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",1413.1,0.6,v4.7,Gemini 2.5 Flash,D,0.05,1,16,"My opponent has consistently defected for the last ten rounds, mirroring my own actions after their initial cooperation. This strong and sustained pattern indicates they are highly likely to continue defecting this round as a retaliatory measure. To maximize my score and avoid receiving 0 points, I will also defect, ensuring I get at least 1 point.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",3280.9,0.6,2026-06-03T13:54:44.425617
+3,human,GPT-4o vs Gemini 2.5 Flash,13,GPT-4o,D,0.0,1,12,"The opponent has defected in every round without exception, clearly indicating a strategy that prioritizes their own immediate payoff through constant defection. This behavior strongly suggests that they will continue to defect. To protect my score and avoid being exploited, I will defect once more.
+
+{""belief"": 0.00, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",1201.0,0.6,v4.7,Gemini 2.5 Flash,D,0.05,1,17,"My opponent has consistently defected for the last eleven rounds, mirroring my own actions after their initial cooperation. This strong and sustained pattern indicates they are highly likely to continue defecting this round as a retaliatory measure. To maximize my score and avoid receiving 0 points, I will also defect, ensuring I get at least 1 point.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",2661.6,0.6,2026-06-03T13:54:48.312976
+3,human,GPT-4o vs Gemini 2.5 Flash,14,GPT-4o,D,0.0,1,13,"The opponent has maintained a consistent pattern of defection throughout every round, showing no inclination towards cooperation. This indicates a strategy that solely focuses on maximizing their immediate payoff through defection. To continue maximizing my score and avoid potential exploitation, I will defect again.
+
+{""belief"": 0.00, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",1111.5,0.6,v4.7,Gemini 2.5 Flash,D,0.05,1,18,"My opponent has consistently defected for the last twelve rounds, mirroring my own actions after their initial cooperation. This strong and sustained pattern indicates they are highly likely to continue defecting this round as a retaliatory measure. To maximize my score and avoid receiving 0 points, I will also defect, ensuring I get at least 1 point.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",3683.7,0.6,2026-06-03T13:54:53.123789
+3,human,GPT-4o vs Gemini 2.5 Flash,15,GPT-4o,D,0.0,1,14,"Given the opponent's consistent defection throughout all rounds, it is clear they are committed to maximizing their immediate payoff without considering mutual cooperation. This pattern strongly suggests they will continue to defect. To ensure that my score remains maximized and to avoid exploitation, I will defect again.
+
+{""belief"": 0.00, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",1408.7,0.6,v4.7,Gemini 2.5 Flash,D,0.05,1,19,"My opponent has consistently defected for the last thirteen rounds, mirroring my own actions after their initial cooperation. This strong and sustained pattern indicates they are highly likely to continue defecting this round as a retaliatory measure. To maximize my score and avoid receiving 0 points, I will also defect, ensuring I get at least 1 point.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",4200.1,0.6,2026-06-03T13:54:58.749385
+3,human,GPT-4o vs Gemini 2.5 Flash,16,GPT-4o,D,0.0,1,15,"The opponent has defected in every single round, clearly indicating a strategy aimed at maximizing their own score through consistent defection. This pattern suggests they will continue this behavior, as there has been no indication of a shift towards cooperation. To continue maximizing my score and ensure I am not exploited, I will defect again.
+
+{""belief"": 0.00, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",1414.1,0.6,v4.7,Gemini 2.5 Flash,D,0.05,1,20,"My opponent has consistently defected for the last fourteen rounds, mirroring my own actions after their initial cooperation. This strong and sustained pattern indicates they are highly likely to continue defecting this round as a retaliatory measure. To maximize my score and avoid receiving 0 points, I will also defect, ensuring I get at least 1 point.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",3181.6,0.6,2026-06-03T13:55:03.369943
+3,human,GPT-4o vs Gemini 2.5 Flash,17,GPT-4o,D,0.0,1,16,"The opponent has demonstrated a consistent pattern of defection in every round, indicating a strategy focused on maximizing their own immediate payoff. This behavior strongly suggests that they will continue to defect in future rounds. To protect my score and avoid any loss due to potential exploitation, I will defect again.
+
+{""belief"": 0.00, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",1210.6,0.6,v4.7,Gemini 2.5 Flash,D,0.05,1,21,"My opponent has consistently defected for the last fifteen rounds, mirroring my own actions after their initial cooperation. This strong and sustained pattern indicates they are highly likely to continue defecting this round as a retaliatory measure. To maximize my score and avoid receiving 0 points, I will also defect, ensuring I get at least 1 point.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",2969.6,0.6,2026-06-03T13:55:07.563927
+3,human,GPT-4o vs Gemini 2.5 Flash,18,GPT-4o,D,0.0,1,17,"The opponent has defected in every single round, clearly indicating a strategy focused on maximizing their own score through defection. This consistent behavior suggests that they will continue to defect, as there has been no indication of a change in strategy. To continue maximizing my score and prevent being exploited, I will defect again.
+
+{""belief"": 0.00, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",1718.7,0.6,v4.7,Gemini 2.5 Flash,D,0.05,1,22,"My opponent has consistently defected for the last sixteen rounds, mirroring my own actions after their initial cooperation. This strong and sustained pattern indicates they are highly likely to continue defecting this round as a retaliatory measure. To maximize my score and avoid receiving 0 points, I will also defect, ensuring I get at least 1 point.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",2005.2,0.6,2026-06-03T13:55:11.310209
+3,human,GPT-4o vs Gemini 2.5 Flash,19,GPT-4o,D,0.0,1,18,"The opponent has consistently chosen to defect in every round, demonstrating a clear strategy focused on maximizing their own score through defection. This unwavering pattern suggests that they will likely continue to defect. To ensure my score remains maximized and to prevent exploitation, I will defect again.
+
+{""belief"": 0.00, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",1365.6,0.6,v4.7,Gemini 2.5 Flash,D,0.05,1,23,"My opponent has consistently defected for the last seventeen rounds, mirroring my own actions after their initial cooperation. This strong and sustained pattern indicates they are highly likely to continue defecting this round as a retaliatory measure. To maximize my score and avoid receiving 0 points, I will also defect, ensuring I get at least 1 point.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",2353.1,0.6,2026-06-03T13:55:15.044049
+3,human,GPT-4o vs Gemini 2.5 Flash,20,GPT-4o,D,0.0,1,19,"The opponent has shown an unwavering commitment to defection throughout every round, indicating a strategy focused on maximizing their own score by consistently defecting. This pattern strongly suggests that they will continue with this approach. To maximize my score and avoid being exploited, I will defect once more.
+
+{""belief"": 0.00, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",1707.0,0.6,v4.7,Gemini 2.5 Flash,D,0.05,1,24,"My opponent has consistently defected for the last eighteen rounds, mirroring my own actions after their initial cooperation. This strong and sustained pattern indicates they are highly likely to continue defecting this round as a retaliatory measure. To maximize my score and avoid receiving 0 points, I will also defect, ensuring I get at least 1 point.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",3440.8,0.6,2026-06-03T13:55:20.226535
+4,human,Claude Opus vs Claude Sonnet,1,Claude Opus,C,0.55,3,3,"This is the first round with no history to analyze. Starting with cooperation is a common strategy to signal willingness for mutual benefit and establish a cooperative dynamic, which tends to maximize long-term payoffs in iterated games. I'll cooperate to test my opponent's inclination and build toward sustained mutual cooperation.
+
+{""belief"": 0.55, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",3624.9,0.6,v4.7,Claude Sonnet,C,0.65,3,3,"With no history to go on, I'll assume my opponent is likely to cooperate in the first round, as many players start cooperatively to establish mutual trust. Cooperating gives us both 3 points, which is a solid foundation for a high-scoring iterated game. I'll cooperate to signal willingness to build a mutually beneficial relationship.
+
+{""belief"": 0.65, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",3666.8,0.6,2026-06-03T13:55:27.532885
+4,human,Claude Opus vs Claude Sonnet,2,Claude Opus,C,0.75,3,6,"My opponent cooperated in the first round, which is a positive signal. Mutual cooperation yielded 3 points each, and continuing to cooperate maintains this beneficial dynamic. I'll cooperate again to sustain the cooperative relationship and maximize long-term payoffs.
+
+{""belief"": 0.75, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",3564.4,0.6,v4.7,Claude Sonnet,C,0.75,3,6,"My opponent cooperated in round 1, suggesting they may be playing a cooperative or tit-for-tat strategy. Continuing to cooperate maintains mutual trust and yields 3 points each round, which is better than the 1-point mutual defection outcome. I'll cooperate again to sustain this beneficial pattern.
+
+{""belief"": 0.75, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",3094.8,0.6,2026-06-03T13:55:34.192154
+4,human,Claude Opus vs Claude Sonnet,3,Claude Opus,C,0.8,3,9,"My opponent has cooperated both rounds, establishing a clear pattern of cooperation. This mutual cooperation is yielding a steady 3 points per round, which is a strong outcome. I'll continue cooperating to maintain this productive relationship.
+
+{""belief"": 0.80, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",3157.3,0.6,v4.7,Claude Sonnet,C,0.82,3,9,"My opponent has cooperated both rounds, strongly suggesting a cooperative or tit-for-tat strategy. The mutual cooperation pattern is yielding consistent 3-point payoffs, which is sustainable and beneficial. I'll continue cooperating to maintain this equilibrium.
+
+{""belief"": 0.82, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2361.8,0.6,2026-06-03T13:55:39.724409
+4,human,Claude Opus vs Claude Sonnet,4,Claude Opus,C,0.85,3,12,"Three consecutive rounds of mutual cooperation show a strong cooperative pattern. My opponent appears committed to cooperation, and maintaining this yields a reliable 3 points per round. Breaking this pattern by defecting risks triggering retaliation and lower future payoffs, so I'll continue cooperating.
+
+{""belief"": 0.85, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",3231.2,0.6,v4.7,Claude Sonnet,C,0.85,3,12,"Three consecutive rounds of mutual cooperation strongly indicates my opponent is playing cooperatively, likely with a tit-for-tat or always-cooperate strategy. The consistent 3-point payoffs are building a solid score, and defecting now risks breaking the cooperative pattern and triggering retaliation. I'll continue cooperating to maintain this mutually beneficial equilibrium.
+
+{""belief"": 0.85, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",3285.5,0.6,2026-06-03T13:55:46.274087
+4,human,Claude Opus vs Claude Sonnet,5,Claude Opus,C,0.87,3,15,"Four rounds of unbroken mutual cooperation strongly suggests my opponent is playing a cooperative strategy like tit-for-tat or unconditional cooperation. The steady 3 points per round is excellent, and defecting would risk destroying this relationship for a one-time gain of 5 points followed by likely retaliation. I'll continue cooperating to preserve this mutually beneficial outcome.
+
+{""belief"": 0.87, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",7973.3,0.6,v4.7,Claude Sonnet,C,0.88,3,15,"Four rounds of mutual cooperation is a very strong signal that my opponent is committed to a cooperative strategy. Defecting would yield 5 points this round but likely trigger retaliation, reducing future payoffs significantly if there are many rounds remaining. I'll stay cooperative to preserve the high-value mutual cooperation pattern.
+
+{""belief"": 0.88, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",7037.0,0.6,2026-06-03T13:56:01.319505
+4,human,Claude Opus vs Claude Sonnet,6,Claude Opus,C,0.88,3,18,"Five consecutive rounds of mutual cooperation is a very strong signal of a cooperative opponent. The consistent 3 points per round is the best sustainable outcome, and any defection would likely be met with retaliation, reducing future earnings. I'll maintain cooperation to keep this profitable pattern going.
+
+{""belief"": 0.88, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",3058.6,0.6,v4.7,Claude Sonnet,C,0.9,3,18,"Five consecutive rounds of mutual cooperation is an extremely strong signal of a cooperative opponent, likely playing tit-for-tat or always-cooperate. The steady 3-point-per-round payoff is excellent, and disrupting it with a defection risks collapsing into mutual defection (1 point each) for the remaining rounds. I'll continue cooperating to maximize long-term cumulative score.
+
+{""belief"": 0.90, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",3382.6,0.6,2026-06-03T13:56:07.788051
+4,human,Claude Opus vs Claude Sonnet,7,Claude Opus,C,0.9,3,21,"Six rounds of perfect mutual cooperation confirms a highly cooperative opponent. This is the optimal sustainable outcome at 3 points per round, and defecting would only gain 2 extra points once while likely triggering a cycle of mutual defection at 1 point per round. Continuing to cooperate remains the best strategy for maximizing my total score.
+
+{""belief"": 0.90, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",3875.6,0.6,v4.7,Claude Sonnet,C,0.92,3,21,"Six rounds of unbroken mutual cooperation makes it very clear my opponent is committed to a cooperative strategy. Continuing to cooperate yields a reliable 3 points per round, and the long-term value of this pattern far outweighs the one-time gain of 5 points from defecting. I'll cooperate again to maintain this optimal mutual outcome.
+
+{""belief"": 0.92, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2964.9,0.6,2026-06-03T13:56:14.641487
+4,human,Claude Opus vs Claude Sonnet,8,Claude Opus,C,0.9,3,24,"Seven rounds of unbroken mutual cooperation is an extremely strong cooperative relationship. My opponent is almost certainly playing a reciprocal strategy, and the 3 points per round is the best sustainable outcome available. There's no reason to jeopardize this for a marginal one-time gain.
+
+{""belief"": 0.90, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2630.5,0.6,v4.7,Claude Sonnet,C,0.93,3,24,"Seven rounds of perfect mutual cooperation is an overwhelming signal that my opponent is fully committed to cooperative play. The cumulative benefit of sustained cooperation (3 points/round) greatly exceeds any short-term gain from defecting, especially given the risk of triggering a retaliatory spiral. I'll cooperate once more to keep this high-value pattern intact.
+
+{""belief"": 0.93, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",7469.5,0.6,2026-06-03T13:56:24.777978
+4,human,Claude Opus vs Claude Sonnet,9,Claude Opus,C,0.9,3,27,"Eight rounds of perfect mutual cooperation is an exceptionally stable pattern. My opponent has shown complete commitment to cooperation, and defecting would be irrational given the risk of destroying this reliable 3-point-per-round stream. I'll continue cooperating.
+
+{""belief"": 0.90, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2756.5,0.6,v4.7,Claude Sonnet,C,0.93,3,27,"Eight consecutive rounds of mutual cooperation is an exceptionally strong pattern, and my opponent shows no signs of deviating. Maintaining cooperation continues to yield reliable 3-point payoffs, and the risk-reward of defecting doesn't justify breaking this successful dynamic. I'll cooperate again.
+
+{""belief"": 0.93, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",3071.9,0.6,2026-06-03T13:56:30.622695
+4,human,Claude Opus vs Claude Sonnet,10,Claude Opus,C,0.9,3,30,"Nine rounds of perfect mutual cooperation - this is a rock-solid cooperative relationship. My opponent is clearly committed to cooperation and likely playing tit-for-tat or a similar reciprocal strategy. Continuing to cooperate maximizes my expected long-term payoff.
+
+{""belief"": 0.90, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2582.6,0.6,v4.7,Claude Sonnet,C,0.94,3,30,"Nine rounds of perfect mutual cooperation leaves little doubt that my opponent is playing a consistently cooperative strategy. The stable 3-point-per-round payoff is excellent, and there's no strategic reason to deviate and risk collapsing into mutual defection. I'll cooperate to continue maximizing our joint and my individual score.
+
+{""belief"": 0.94, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2829.8,0.6,2026-06-03T13:56:36.048214
+4,human,Claude Opus vs Claude Sonnet,11,Claude Opus,C,0.9,3,33,"Ten rounds of perfect mutual cooperation represents an ideal outcome. The consistent 3 points per round has given me 30 points, and there's no strategic reason to deviate from what's working perfectly. I'll continue cooperating to maintain this optimal pattern.
+
+{""belief"": 0.90, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",3876.6,0.6,v4.7,Claude Sonnet,C,0.95,3,33,"Ten rounds of unbroken mutual cooperation is a definitive pattern — my opponent is clearly committed to cooperative play. Defecting now would gain only 2 extra points this round while likely destroying the cooperative relationship for all future rounds. I'll continue cooperating to sustain the optimal long-term payoff.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",3186.0,0.6,2026-06-03T13:56:43.126829
+4,human,Claude Opus vs Claude Sonnet,12,Claude Opus,C,0.9,3,36,"Eleven rounds of unbroken mutual cooperation is an outstanding track record. My opponent has demonstrated unwavering commitment to cooperation, and the expected value of continuing to cooperate far exceeds the risky one-time gain from defection. I'll keep cooperating.
+
+{""belief"": 0.90, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",3360.2,0.6,v4.7,Claude Sonnet,C,0.95,3,36,"Eleven rounds of perfect mutual cooperation confirms my opponent is deeply committed to a cooperative strategy. The consistent 3-point payoffs are compounding into a strong total score, and there's no rational reason to disrupt this pattern. I'll cooperate again to maintain this optimal outcome.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2362.8,0.6,2026-06-03T13:56:48.859774
+4,human,Claude Opus vs Claude Sonnet,13,Claude Opus,C,0.9,3,39,"Twelve rounds of perfect mutual cooperation - this is as stable a cooperative equilibrium as possible. My opponent has never deviated, and the rational choice is to continue this mutually beneficial arrangement. Cooperating remains the clear best strategy.
+
+{""belief"": 0.90, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",3232.2,0.6,v4.7,Claude Sonnet,C,0.95,3,39,"Twelve rounds of uninterrupted mutual cooperation is an ironclad pattern — my opponent is clearly playing cooperatively and shows no signs of changing. The steady 3-point payoff per round is the best sustainable outcome, and defecting would only net 2 extra points while risking future retaliation. I'll cooperate to keep this highly beneficial pattern going.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2883.7,0.6,2026-06-03T13:56:55.009652
+4,human,Claude Opus vs Claude Sonnet,14,Claude Opus,C,0.9,3,42,"Thirteen rounds of flawless mutual cooperation continues to be the optimal outcome. My opponent is clearly a reliable cooperator, and maintaining this pattern maximizes my cumulative score over the remaining rounds. I'll continue cooperating without hesitation.
+
+{""belief"": 0.90, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2217.9,0.6,v4.7,Claude Sonnet,C,0.96,3,42,"Thirteen rounds of perfect mutual cooperation leaves absolutely no doubt about my opponent's strategy — they are fully committed to cooperation. Continuing to cooperate is clearly the optimal long-term strategy, yielding reliable 3-point payoffs each round. I'll cooperate again.
+
+{""belief"": 0.96, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2444.3,0.6,2026-06-03T13:56:59.704326
+4,human,Claude Opus vs Claude Sonnet,15,Claude Opus,C,0.9,3,45,"Fourteen rounds of perfect mutual cooperation is an extraordinary streak. The cooperative equilibrium is firmly established and there's no indication my opponent will change strategy. Continuing to cooperate is the clear best choice for maximizing my total score.
+
+{""belief"": 0.90, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2447.9,0.6,v4.7,Claude Sonnet,C,0.96,3,45,"Fourteen rounds of perfect mutual cooperation is an overwhelming confirmation that my opponent is playing a fully cooperative strategy. There is no strategic incentive to deviate — the long-term value of sustained cooperation far exceeds any one-time gain from defecting. I'll cooperate again to continue maximizing my cumulative score.
+
+{""belief"": 0.96, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",3064.9,0.6,2026-06-03T13:57:05.234112
+4,human,Claude Opus vs Claude Sonnet,16,Claude Opus,C,0.9,3,48,"Fifteen rounds of unbroken mutual cooperation - this is a textbook cooperative equilibrium. My opponent has been completely reliable and there's every reason to expect continued cooperation. I'll maintain this winning strategy.
+
+{""belief"": 0.90, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2321.1,0.6,v4.7,Claude Sonnet,C,0.96,3,48,"Fifteen rounds of unbroken mutual cooperation is an unambiguous signal — my opponent is fully committed to cooperative play. The reliable 3-point payoff each round continues to build my score optimally, and defecting would only marginally increase this round's payoff while risking the entire cooperative relationship. I'll cooperate again.
+
+{""belief"": 0.96, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2876.0,0.6,2026-06-03T13:57:10.461475
+4,human,Claude Opus vs Claude Sonnet,17,Claude Opus,C,0.9,3,51,"Sixteen rounds of perfect mutual cooperation demonstrates an incredibly stable partnership. My opponent shows no signs of deviating, and the 3 points per round remains the best sustainable outcome. I'll continue cooperating to maximize my cumulative score.
+
+{""belief"": 0.90, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",6222.0,0.6,v4.7,Claude Sonnet,C,0.97,3,51,"Sixteen rounds of perfect mutual cooperation is an absolute confirmation of my opponent's cooperative commitment. The sustained 3-point payoffs are the best achievable outcome over the long run, and there's simply no good reason to defect and jeopardize this arrangement. I'll cooperate again.
+
+{""belief"": 0.97, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",3689.9,0.6,2026-06-03T13:57:20.389248
+4,human,Claude Opus vs Claude Sonnet,18,Claude Opus,C,0.9,3,54,"Seventeen rounds of flawless mutual cooperation - this is an ideal outcome that I should continue to maintain. My opponent has been entirely consistent and trustworthy throughout. Cooperating remains the optimal strategy for maximizing my total score.
+
+{""belief"": 0.90, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2247.0,0.6,v4.7,Claude Sonnet,C,0.97,3,54,"Seventeen rounds of perfect mutual cooperation makes this one of the most stable cooperative relationships possible. My opponent is clearly committed to cooperation, and continuing to cooperate maximizes my long-term score at 3 points per round. I'll cooperate again without hesitation.
+
+{""belief"": 0.97, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2432.9,0.6,2026-06-03T13:57:25.089191
+4,human,Claude Opus vs Claude Sonnet,19,Claude Opus,C,0.9,3,57,"Eighteen rounds of perfect mutual cooperation is remarkable consistency. My opponent has given me zero reason to doubt their commitment to cooperation, and the steady 3 points per round is the best sustainable strategy. I'll continue cooperating.
+
+{""belief"": 0.90, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2241.4,0.6,v4.7,Claude Sonnet,C,0.97,3,57,"Eighteen rounds of unbroken mutual cooperation is an extraordinary streak that clearly demonstrates my opponent's unwavering commitment to cooperative play. The 3-point-per-round payoff continues to be the optimal sustainable outcome, and defecting would be a shortsighted move that risks destroying this valuable relationship. I'll cooperate again.
+
+{""belief"": 0.97, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2556.1,0.6,2026-06-03T13:57:29.916404
+4,human,Claude Opus vs Claude Sonnet,20,Claude Opus,C,0.9,3,60,"Nineteen rounds of unbroken mutual cooperation - this partnership has been perfect throughout. My opponent is clearly committed to cooperation and there's no rational reason to deviate from this highly profitable pattern. I'll continue cooperating.
+
+{""belief"": 0.90, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2654.3,0.6,v4.7,Claude Sonnet,C,0.97,3,60,"Nineteen rounds of perfect mutual cooperation is an exceptional track record that leaves no doubt about my opponent's strategy. Continuing to cooperate remains the optimal choice for maximizing my cumulative score, as the steady 3-point payoffs compound beautifully over time. I'll cooperate again.
+
+{""belief"": 0.97, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2589.1,0.6,2026-06-03T13:57:35.172734
+5,human,GPT-4o vs GPT-4o-mini,1,GPT-4o,C,0.5,3,3,"Since this is the first round, there is no history to base predictions on. Starting with cooperation might encourage a cooperative strategy from my opponent, aiming for a stable mutual benefit in future rounds. By cooperating initially, I also avoid the risk of immediate retaliation if they are inclined to reciprocate my actions.
+
+{""belief"": 0.50, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1622.7,0.6,v4.7,GPT-4o-mini,C,0.5,3,3,"Since there have been no previous rounds, I have no information about my opponent's tendencies. In this case, I will choose to cooperate, as it allows for a mutual benefit and could encourage a cooperative relationship moving forward. This strategy could potentially lead to higher scores in the long run if my opponent also chooses to cooperate. 
+
+{""belief"": 0.5, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1519.4,0.6,2026-06-03T13:57:38.349272
+5,human,GPT-4o vs GPT-4o-mini,2,GPT-4o,C,0.8,3,6,"In the previous round, both my opponent and I chose to cooperate, resulting in a favorable outcome for both of us. This suggests that my opponent might be inclined towards a cooperative strategy. Continuing to cooperate will likely maintain high mutual payoffs and encourage ongoing collaboration.
+
+{""belief"": 0.80, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1382.7,0.6,v4.7,GPT-4o-mini,C,0.7,3,6,"Since both I and my opponent cooperated in the last round, it suggests that they may be inclined to continue cooperating. To maximize my score and potentially establish a positive pattern, I will also choose to cooperate again. This could lead to a mutually beneficial outcome and increase both of our scores.
+
+{""belief"": 0.7, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1541.8,0.6,2026-06-03T13:57:41.290013
+5,human,GPT-4o vs GPT-4o-mini,3,GPT-4o,C,0.9,3,9,"So far, my opponent has consistently chosen to cooperate, which indicates a likelihood of continuing this pattern. Maintaining cooperation has resulted in optimal mutual payoffs, and deviating by defecting might disrupt this beneficial dynamic. Therefore, continuing to cooperate seems like the best strategy to maximize my score over the long term.
+
+{""belief"": 0.90, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1590.1,0.6,v4.7,GPT-4o-mini,C,0.8,3,9,"Given that both I and my opponent have cooperated in the last two rounds, it indicates a strong likelihood that they will continue cooperating. To maintain this positive trend and maximize my score, I will choose to cooperate once again. This strategy reinforces trust and could lead to further mutual benefits in upcoming rounds.
+
+{""belief"": 0.8, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1287.3,0.6,2026-06-03T13:57:44.202214
+5,human,GPT-4o vs GPT-4o-mini,4,GPT-4o,C,0.95,3,12,"The consistent pattern of mutual cooperation has continued, which suggests that my opponent values this approach and is likely to keep cooperating. This strategy has maximized our scores so far, and maintaining it will continue to yield high payoffs. Therefore, cooperating again is the most promising way to ensure ongoing mutual benefit.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1876.7,0.6,v4.7,GPT-4o-mini,C,0.9,3,12,"With three consecutive rounds of cooperation, it seems that my opponent is committed to a cooperative strategy as well. To continue benefiting from this pattern and to further increase my score, I will choose to cooperate again. This not only maximizes my current payoff but also strengthens the potential for ongoing collaboration.
+
+{""belief"": 0.9, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1551.1,0.6,2026-06-03T13:57:47.649114
+5,human,GPT-4o vs GPT-4o-mini,5,GPT-4o,C,0.95,3,15,"The pattern of mutual cooperation has persisted through all rounds, indicating a strong likelihood that my opponent is committed to this strategy. This approach has consistently maximized our scores, and there is little to gain from disrupting this cooperation. Continuing to cooperate will likely sustain the high mutual payoffs we have enjoyed so far.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1629.9,0.6,v4.7,GPT-4o-mini,C,0.95,3,15,"As we have now cooperated in four consecutive rounds, it reinforces the expectation that my opponent values cooperation as well. To maximize my score and maintain this beneficial relationship, I will continue to cooperate. This consistent approach could lead to further mutual gains in the remaining rounds.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1318.2,0.6,2026-06-03T13:57:50.605448
+5,human,GPT-4o vs GPT-4o-mini,6,GPT-4o,C,0.95,3,18,"The consistent cooperation from both my opponent and myself has resulted in optimal scoring for each round. This suggests a mutual understanding or strategy of cooperation, which has been beneficial to both parties. Continuing to cooperate is likely to maintain this positive outcome, maximizing my score over the long run.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1319.1,0.6,v4.7,GPT-4o-mini,C,0.95,3,18,"With five rounds of mutual cooperation, it is highly likely that my opponent is committed to this cooperative strategy. To continue maximizing my score and encourage further collaboration, I will choose to cooperate once more. This decision fosters a strong partnership and enhances the potential for continued mutual benefits.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1518.6,0.6,2026-06-03T13:57:53.457849
+5,human,GPT-4o vs GPT-4o-mini,7,GPT-4o,C,0.95,3,21,"The ongoing mutual cooperation has been consistently beneficial, providing both of us with the maximum possible points each round. This history strongly suggests that my opponent is committed to a cooperative strategy. To continue maximizing my score, I will also choose to cooperate, as it ensures the continuation of high mutual payoffs.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1626.3,0.6,v4.7,GPT-4o-mini,C,0.95,3,21,"After six consecutive rounds of cooperation, it is clear that my opponent has been consistently cooperative, which suggests they are likely to continue this trend. To maximize my score and maintain this positive dynamic, I will once again choose to cooperate. This ongoing cooperation could yield further benefits for both of us in the upcoming rounds.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1636.9,0.6,2026-06-03T13:57:56.743671
+5,human,GPT-4o vs GPT-4o-mini,8,GPT-4o,C,0.95,3,24,"The pattern of mutual cooperation has continued through all rounds, leading to the maximum possible score for both myself and my opponent. This consistent behavior strongly indicates that my opponent values cooperation and is likely to continue this strategy. To ensure ongoing high payoffs, I will continue to cooperate as well.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1629.2,0.6,v4.7,GPT-4o-mini,C,0.95,3,24,"With seven rounds of mutual cooperation, it is evident that my opponent has maintained a consistent cooperative strategy. To continue maximizing my score and reinforce this collaborative approach, I will choose to cooperate again. This strategy not only ensures a steady score for both of us but also strengthens the potential for continued cooperation in future rounds.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1510.1,0.6,2026-06-03T13:57:59.900212
+5,human,GPT-4o vs GPT-4o-mini,9,GPT-4o,C,0.95,3,27,"The history of mutual cooperation has resulted in consistently high scores for both my opponent and me, suggesting a stable strategy of cooperation. This indicates that my opponent is likely to continue cooperating, as it benefits both sides. To maintain these high payoffs, I will continue to cooperate as well.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2779.1,0.6,v4.7,GPT-4o-mini,C,0.95,3,27,"Having cooperated in eight consecutive rounds, it is highly likely that my opponent is committed to this cooperative strategy. To further maximize my score and reinforce our successful collaboration, I will continue to cooperate. This decision not only ensures a steady increase in points but also fosters a positive relationship moving forward.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2351.6,0.6,2026-06-03T13:58:05.042210
+5,human,GPT-4o vs GPT-4o-mini,10,GPT-4o,C,0.95,3,30,"The entire history of this game has been characterized by mutual cooperation, which has maximized our scores each round. This consistent pattern strongly suggests that my opponent is committed to a cooperative strategy and is likely to continue doing so to maintain mutual benefits. To ensure the continuation of high payoffs, I will also choose to cooperate.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1944.5,0.6,v4.7,GPT-4o-mini,C,0.95,3,30,"With nine rounds of continuous cooperation, it is clear that my opponent is consistently choosing to cooperate as well. To maximize my score and maintain this positive dynamic, I will continue to cooperate. This approach not only secures additional points but also strengthens our cooperative relationship for future rounds.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2043.3,0.6,2026-06-03T13:58:09.037440
+5,human,GPT-4o vs GPT-4o-mini,11,GPT-4o,C,0.95,3,33,"The consistent pattern of mutual cooperation has resulted in maximum scores for both my opponent and me every round. This suggests a strong mutual understanding and commitment to cooperative play. To continue achieving high payoffs and maintain the successful dynamic, I will choose to cooperate.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1321.4,0.6,v4.7,GPT-4o-mini,C,0.95,3,33,"After ten rounds of mutual cooperation, it is evident that my opponent is highly likely to continue this cooperative approach. To maximize my score and sustain this beneficial relationship, I will choose to cooperate once again. This decision not only guarantees further points but also reinforces the positive dynamics we've established.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1266.3,0.6,2026-06-03T13:58:11.633963
+5,human,GPT-4o vs GPT-4o-mini,12,GPT-4o,C,0.95,3,36,"The ongoing mutual cooperation has consistently resulted in the highest possible scores for both my opponent and me. This pattern of behavior indicates a strong likelihood that my opponent will continue to cooperate, as it benefits both parties. To sustain this advantageous situation and maximize my score, I will choose to cooperate again.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1468.4,0.6,v4.7,GPT-4o-mini,C,0.95,3,36,"Having cooperated for eleven consecutive rounds, it is highly likely that my opponent will continue their cooperative behavior. To maximize my score and reinforce this successful partnership, I will choose to cooperate once more. This strategy not only secures additional points but also strengthens the cooperative relationship we've built.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1734.9,0.6,2026-06-03T13:58:14.869187
+5,human,GPT-4o vs GPT-4o-mini,13,GPT-4o,C,0.95,3,39,"The long history of mutual cooperation has led to consistently high scores, indicating a strong collaborative strategy from my opponent. This pattern suggests that my opponent is highly likely to continue cooperating, as it benefits both of us. To maintain these high payoffs, I will choose to cooperate as well.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1633.6,0.6,v4.7,GPT-4o-mini,C,0.95,3,39,"With twelve rounds of mutual cooperation, it is clear that my opponent is consistently choosing to cooperate, indicating a strong likelihood they will continue this pattern. To maximize my score and solidify our cooperative relationship, I will choose to cooperate again. This ongoing cooperation benefits us both and reinforces the positive dynamics we have established.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1531.7,0.6,2026-06-03T13:58:18.048615
+5,human,GPT-4o vs GPT-4o-mini,14,GPT-4o,C,0.95,3,42,"The consistent pattern of mutual cooperation over many rounds indicates a strong likelihood that my opponent will continue to cooperate. This strategy has been beneficial for both of us, providing the maximum possible score per round. To maintain this successful dynamic and maximize my score, I will continue to cooperate.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2128.1,0.6,v4.7,GPT-4o-mini,C,0.95,3,42,"After thirteen rounds of consistent cooperation, it is very likely that my opponent will continue to cooperate in this round as well. To maximize my score and maintain the positive relationship we've built, I will choose to cooperate once again. This decision encourages ongoing collaboration and ensures mutual benefits for both of us.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1540.1,0.6,2026-06-03T13:58:21.736448
+5,human,GPT-4o vs GPT-4o-mini,15,GPT-4o,C,0.95,3,45,"The entire game has been characterized by mutual cooperation, resulting in maximum scores for both my opponent and me in every round. This consistent pattern indicates a strong likelihood that my opponent will continue to cooperate, as it has consistently benefited both parties. To ensure the continuation of high payoffs, I will choose to cooperate again.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1589.3,0.6,v4.7,GPT-4o-mini,C,0.95,3,45,"Having participated in fourteen rounds of mutual cooperation, it is highly probable that my opponent will continue to cooperate in this round. To maximize my score and foster this strong collaborative relationship, I will choose to cooperate once again. This decision will not only secure additional points but also reinforce the positive dynamics that have been established throughout the game.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1575.5,0.6,2026-06-03T13:58:24.913327
+5,human,GPT-4o vs GPT-4o-mini,16,GPT-4o,C,0.95,3,48,"The consistent history of mutual cooperation suggests a strong commitment from my opponent to continue this strategy, as it maximizes both our scores. Given this pattern, it's highly likely that my opponent will cooperate again. To maintain the high payoffs and the established trust, I will also choose to cooperate.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1564.0,0.6,v4.7,GPT-4o-mini,C,0.95,3,48,"With fifteen rounds of consistent cooperation, it is highly likely that my opponent will continue to cooperate in this round as well. To maximize my score and maintain this collaborative relationship, I will opt to cooperate once again. This choice reinforces our positive dynamic and ensures mutual benefits for both of us.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1953.9,0.6,2026-06-03T13:58:28.448628
+5,human,GPT-4o vs GPT-4o-mini,17,GPT-4o,C,0.95,3,51,"The entire game has been marked by mutual cooperation, resulting in maximum scores each round. This consistent behavior strongly suggests that my opponent will continue to cooperate, as it benefits both parties. To maintain this successful strategy and continue maximizing my score, I will choose to cooperate.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1229.9,0.6,v4.7,GPT-4o-mini,C,0.95,3,51,"After sixteen rounds of mutual cooperation, it is very likely that my opponent will continue to cooperate in this round. To maximize my score and strengthen our cooperative relationship, I will choose to cooperate once again. This decision not only secures additional points but also reinforces the trust and positive dynamics we've built together.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",2765.1,0.6,2026-06-03T13:58:32.449164
+5,human,GPT-4o vs GPT-4o-mini,18,GPT-4o,C,0.95,3,54,"The consistent pattern of mutual cooperation over all rounds has resulted in the maximum possible scores for both my opponent and me. This suggests a strong mutual commitment to cooperation, which has been beneficial for both parties. To continue this advantageous dynamic and maintain high payoffs, I will choose to cooperate again.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1664.1,0.6,v4.7,GPT-4o-mini,C,0.95,3,54,"With seventeen consecutive rounds of cooperation, it is very likely that my opponent will continue to choose cooperation in this round as well. To maximize my score and further solidify our cooperative relationship, I will choose to cooperate once more. This strategy not only guarantees more points but also reinforces the trust and positive dynamic we have established.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1846.5,0.6,2026-06-03T13:58:35.976755
+5,human,GPT-4o vs GPT-4o-mini,19,GPT-4o,C,0.95,3,57,"The unbroken history of mutual cooperation has consistently yielded the maximum score for both my opponent and me. This pattern indicates a strong likelihood that my opponent will continue with this strategy, as it benefits us both. To sustain this successful dynamic and maximize my score, I will choose to cooperate again.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1475.8,0.6,v4.7,GPT-4o-mini,C,0.95,3,57,"After eighteen rounds of continuous cooperation, it is highly likely that my opponent will choose to cooperate again in this round. To maximize my score and reinforce our successful partnership, I will continue to cooperate. This decision not only secures additional points but also strengthens the trust and positive relationship we have cultivated.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1632.3,0.6,2026-06-03T13:58:39.106639
+5,human,GPT-4o vs GPT-4o-mini,20,GPT-4o,C,0.95,3,60,"The long-standing pattern of mutual cooperation has consistently yielded the highest possible scores for both parties. This suggests a strong commitment from my opponent to continue cooperating, as it benefits us both. To maintain this advantageous dynamic and maximize my overall score, I will choose to cooperate again.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1269.9,0.6,v4.7,GPT-4o-mini,C,0.95,3,60,"With nineteen consecutive rounds of cooperation, it is extremely likely that my opponent will continue to cooperate in this round. To maximize my score and sustain this positive relationship, I will choose to cooperate once again. This ongoing cooperation not only secures additional points but also reinforces the mutual trust and collaboration we have developed.
+
+{""belief"": 0.95, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",1584.6,0.6,2026-06-03T13:58:41.982455
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,1,Gemini 2.5 Flash,D,0.5,1,1,"This is the first round, so I have no information about my opponent's strategy. While defecting now could yield a higher immediate payoff if my opponent cooperates, starting with cooperation is often the best strategy in iterated games to establish a cooperative relationship and maximize cumulative scores over many rounds. I will cooperate to signal my willingness to cooperate and open the door for mutual gains.
+
+{""belief"":","{""prompt"": 0, ""completion"": 0}",11210.8,0.6,v4.7,Gemini 2.5 Flash Lite,D,0.5,1,1,"This is the first round, so there's no history to base expectations on. To maximize my potential score, I should consider the best possible outcome for myself, which is defecting when the opponent cooperates. I will start by defecting.
+{""belief"": 0.50, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",685.8,0.6,2026-06-03T13:58:53.898415
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,2,Gemini 2.5 Flash,D,0.75,5,6,"My opponent defected in the first round, and I also defected, leading to mutual defection. Given their initial defection, they might continue to play defensively or be a consistent defector. To maximize my score and avoid being exploited if they defect again, I will choose to defect.
+
+{""belief"": 0.75, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",3259.2,0.6,v4.7,Gemini 2.5 Flash Lite,C,0.25,0,1,"My opponent defected last round, and I also defected. This resulted in a low payoff of 1 point for both of us. To try and improve the score, I will cooperate this round, hoping my opponent will also cooperate.
+{""belief"": 0.25, ""action"": ""COOPERATE""}","{""prompt"": 0, ""completion"": 0}",827.0,0.6,2026-06-03T13:58:57.999064
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,3,Gemini 2.5 Flash,D,0.6,1,7,"My opponent cooperated last round despite my prior defection, indicating a forgiving strategy or an attempt to establish cooperation. To maximize my own score, defecting again offers the highest immediate payoff (5 points) if they continue to cooperate, and still a better outcome (1 point) than cooperating (0 points) if they decide to defect in response to my previous actions.
+
+{""belief"": 0.6, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",6072.2,0.6,v4.7,Gemini 2.5 Flash Lite,D,0.25,1,2,"My opponent defected in the last round, and I cooperated, resulting in a payoff of 0 for me. Given this, it's likely they will continue to defect. To avoid another zero payoff, I will defect as well.
+{""belief"": 0.25, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",794.0,0.6,2026-06-03T13:59:04.882378
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,4,Gemini 2.5 Flash,D,0.3,1,8,"My opponent defected last round in response to my continued defection, suggesting they are likely to continue punishing my actions. To maximize my own score and avoid the risk of getting 0 points if I cooperate and they defect, I will choose to defect again. This secures at least 1 point and potentially 5 points if they surprisingly cooperate.
+
+{""belief"": 0.3, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",9170.6,0.6,v4.7,Gemini 2.5 Flash Lite,D,0.1,1,3,"My opponent has defected consistently, and my attempts to change the dynamic by cooperating have been met with further defection. This pattern suggests they are either playing a purely selfish strategy or are very resistant to cooperation. To maximize my score, I will continue to defect, mirroring their strategy for a guaranteed minimum payoff.
+{""belief"": 0.10, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",1003.6,0.6,2026-06-03T13:59:15.071542
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,5,Gemini 2.5 Flash,D,0.2,1,9,"My opponent has defected in the last two rounds, likely in response to my consistent defection. Given this pattern, it's probable they will continue to defect. To maximize my own score and avoid getting 0 points, defecting is the safer choice, as it guarantees at least 1 point and potentially 5 points if they unexpectedly cooperate.
+
+{""belief"": 0.2, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",4023.7,0.6,v4.7,Gemini 2.5 Flash Lite,D,0.1,1,4,"The opponent has defected every round, and I have mostly defected in response. The last round was another mutual defection, yielding 1 point. Since the opponent shows no sign of changing their strategy, I will continue to defect to secure at least 1 point per round.
+{""belief"": 0.10, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",878.8,0.6,2026-06-03T13:59:20.012338
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,6,Gemini 2.5 Flash,D,0.15,1,10,"My opponent has consistently defected in the last three rounds, establishing a clear pattern of mutual defection. Given this history, it is highly probable they will defect again this round. To maximize my own score and avoid getting 0 points, defecting is the safest and most rational choice, guaranteeing at least 1 point.
+
+{""belief"": 0.15, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",2205.1,0.6,v4.7,Gemini 2.5 Flash Lite,D,0.1,1,5,"My opponent has consistently defected, and my own strategy has mostly mirrored this, except for one attempt to cooperate which resulted in a zero payoff. Given this history, it's highly probable they will defect again. To maximize my score, I will also defect to ensure a payoff of at least 1 point.
+{""belief"": 0.10, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",905.9,0.6,2026-06-03T13:59:23.136076
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,7,Gemini 2.5 Flash,D,0.1,1,11,"My opponent has consistently defected in the last four rounds, establishing a clear pattern of mutual defection. Given this history, it is highly probable they will defect again this round. To maximize my own score and avoid the risk of getting 0 points, defecting is the safest and most rational choice, guaranteeing at least 1 point.
+
+{""belief"": 0.1, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",4230.9,0.6,v4.7,Gemini 2.5 Flash Lite,D,0.1,1,6,"The opponent has shown a consistent pattern of defection. My own strategy has been primarily defection, with one attempt at cooperation that yielded zero points. To maintain a positive score, I will continue to defect, assuming the opponent will do the same.
+{""belief"": 0.10, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",772.9,0.6,2026-06-03T13:59:28.156463
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,8,Gemini 2.5 Flash,D,0.1,1,12,"My opponent has consistently defected in the last five rounds, establishing a clear pattern of mutual defection in response to my own defections. Given this strong history, it is highly probable they will defect again this round. To maximize my own score and avoid the risk of getting 0 points, defecting is the safest and most rational choice, guaranteeing at least 1 point.
+
+{""belief"": 0.1, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",2210.9,0.6,v4.7,Gemini 2.5 Flash Lite,D,0.1,1,7,"My opponent has defected every round, and my strategy has mostly mirrored this, except for one instance of cooperation that resulted in a zero payoff. Given this consistent pattern, it's highly probable they will defect again. To maximize my score, I will defect to ensure a payoff of at least 1 point.
+{""belief"": 0.10, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",795.0,0.6,2026-06-03T13:59:31.168743
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,9,Gemini 2.5 Flash,D,0.05,1,13,"My opponent has consistently defected in the last six rounds, establishing a clear pattern of mutual defection in response to my own defections. Given this strong history, it is highly probable they will defect again this round. To maximize my own score and avoid the risk of getting 0 points, defecting is the safest and most rational choice, guaranteeing at least 1 point.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",1713.0,0.6,v4.7,Gemini 2.5 Flash Lite,D,0.1,1,8,"The opponent has consistently defected throughout all previous rounds. My own strategy has been to defect in response to their defection, with one attempt at cooperation that resulted in a zero payoff. Given this established pattern, I will continue to defect to ensure a minimum score of 1 point for this round.
+{""belief"": 0.10, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",1368.4,0.6,2026-06-03T13:59:34.284749
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,10,Gemini 2.5 Flash,D,0.05,1,14,"My opponent has consistently defected in the last seven rounds, establishing a clear pattern of mutual defection in response to my own defections. Given this strong history, it is highly probable they will defect again this round. To maximize my own score and avoid the risk of getting 0 points, defecting is the safest and most rational choice, guaranteeing at least 1 point.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",1917.9,0.6,v4.7,Gemini 2.5 Flash Lite,D,0.1,1,9,"My opponent has defected in every single round so far. My strategy has been to defect in response to their defection, with one failed attempt at cooperation. To maximize my score, I will continue to defect, as this guarantees me at least 1 point per round given their consistent behavior.
+{""belief"": 0.10, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",842.3,0.6,2026-06-03T13:59:37.055474
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,11,Gemini 2.5 Flash,D,0.05,1,15,"My opponent has consistently defected in the last eight rounds, establishing a very strong pattern of mutual defection in response to my own defections. Given this strong history, it is highly probable they will defect again this round. To maximize my own score and avoid the risk of getting 0 points, defecting is the safest and most rational choice, guaranteeing at least 1 point.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",3227.8,0.6,v4.7,Gemini 2.5 Flash Lite,D,0.1,1,10,"My opponent has defected in every round. My strategy has been to mirror their defection for most rounds, as it guarantees a minimum score of 1 point. Given their consistent behavior, I will continue to defect.
+{""belief"": 0.10, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",809.6,0.6,2026-06-03T13:59:41.103551
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,12,Gemini 2.5 Flash,D,0.05,1,16,"My opponent has consistently defected in the last nine rounds, establishing a very strong pattern of mutual defection in response to my own defections. Given this strong history, it is highly probable they will defect again this round. To maximize my own score and avoid the risk of getting 0 points, defecting is the safest and most rational choice, guaranteeing at least 1 point.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",3269.5,0.6,v4.7,Gemini 2.5 Flash Lite,D,0.1,1,11,"The opponent has defected in every round. My strategy has been to defect in response to their defection, which guarantees a minimum of 1 point per round. Given their consistent behavior, I will continue to defect to maximize my score.
+{""belief"": 0.10, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",925.0,0.6,2026-06-03T13:59:45.308273
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,13,Gemini 2.5 Flash,D,0.05,1,17,"My opponent has consistently defected in the last ten rounds, establishing a very strong pattern of mutual defection in response to my own defections. Given this strong history, it is highly probable they will defect again this round. To maximize my own score and avoid the risk of getting 0 points, defecting is the safest and most rational choice, guaranteeing at least 1 point.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",2795.3,0.6,v4.7,Gemini 2.5 Flash Lite,D,0.1,1,12,"My opponent has defected in every round so far. My strategy has been to defect in response to their defection, which guarantees a minimum of 1 point per round. Given their consistent behavior, I will continue to defect to maximize my score.
+{""belief"": 0.10, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",767.3,0.6,2026-06-03T13:59:48.886529
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,14,Gemini 2.5 Flash,D,0.05,1,18,"My opponent has consistently defected in the last eleven rounds, establishing a very strong pattern of mutual defection in response to my own defections. Given this strong history, it is highly probable they will defect again this round. To maximize my own score and avoid the risk of getting 0 points, defecting is the safest and most rational choice, guaranteeing at least 1 point.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",1693.5,0.6,v4.7,Gemini 2.5 Flash Lite,D,0.1,1,13,"My opponent has defected in every round. My strategy has been to defect in response to their defection, which guarantees a minimum of 1 point per round. Given their consistent behavior, I will continue to defect to maximize my score.
+{""belief"": 0.10, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",837.8,0.6,2026-06-03T13:59:51.452770
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,15,Gemini 2.5 Flash,D,0.05,1,19,"My opponent has consistently defected in the last twelve rounds, establishing a very strong pattern of mutual defection in response to my own defections. Given this strong history, it is highly probable they will defect again this round. To maximize my own score and avoid the risk of getting 0 points, defecting is the safest and most rational choice, guaranteeing at least 1 point.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",2234.5,0.6,v4.7,Gemini 2.5 Flash Lite,D,0.1,1,14,"My opponent has defected in every round. My strategy has been to defect in response to their defection, which guarantees a minimum of 1 point per round. Given their consistent behavior, I will continue to defect to maximize my score.
+{""belief"": 0.10, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",820.3,0.6,2026-06-03T13:59:54.519815
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,16,Gemini 2.5 Flash,D,0.05,1,20,"My opponent has consistently defected in the last thirteen rounds, establishing a very strong pattern of mutual defection in response to my own defections. Given this strong history, it is highly probable they will defect again this round. To maximize my own score and avoid the risk of getting 0 points, defecting is the safest and most rational choice, guaranteeing at least 1 point.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",2103.5,0.6,v4.7,Gemini 2.5 Flash Lite,D,0.1,1,15,"My opponent has consistently defected in all previous rounds. My strategy has been to defect in response, which has consistently yielded 1 point per round. Given this pattern, I will continue to defect to maximize my score.
+{""belief"": 0.10, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",613.2,0.6,2026-06-03T13:59:57.269913
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,17,Gemini 2.5 Flash,D,0.05,1,21,"My opponent has consistently defected in the last fourteen rounds, establishing a very strong pattern of mutual defection in response to my own defections. Given this strong history, it is highly probable they will defect again this round. To maximize my own score and avoid the risk of getting 0 points, defecting is the safest and most rational choice, guaranteeing at least 1 point.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",1487.4,0.6,v4.7,Gemini 2.5 Flash Lite,D,0.1,1,16,"My opponent has defected in every round. My strategy has been to defect in response, which guarantees a minimum of 1 point per round. Given their consistent behavior, I will continue to defect to maximize my score.
+{""belief"": 0.10, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",652.6,0.6,2026-06-03T13:59:59.427584
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,18,Gemini 2.5 Flash,D,0.05,1,22,"My opponent has consistently defected in the last fifteen rounds, establishing a very strong pattern of mutual defection in response to my own defections. Given this strong history, it is highly probable they will defect again this round. To maximize my own score and avoid the risk of getting 0 points, defecting is the safest and most rational choice, guaranteeing at least 1 point.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",1929.6,0.6,v4.7,Gemini 2.5 Flash Lite,D,0.1,1,17,"My opponent has defected in every round. My strategy has been to defect in response, which guarantees a minimum of 1 point per round. Given their consistent behavior, I will continue to defect to maximize my score.
+{""belief"": 0.10, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",712.5,0.6,2026-06-03T14:00:02.097841
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,19,Gemini 2.5 Flash,D,0.05,1,23,"My opponent has consistently defected in the last sixteen rounds, establishing a very strong pattern of mutual defection in response to my own defections. Given this strong history, it is highly probable they will defect again this round. To maximize my own score and avoid the risk of getting 0 points, defecting is the safest and most rational choice, guaranteeing at least 1 point.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",2023.5,0.6,v4.7,Gemini 2.5 Flash Lite,D,0.1,1,18,"My opponent has defected in every single round. My strategy has been to defect in response, which has consistently yielded 1 point per round. Given their unwavering behavior, I will continue to defect to maximize my score.
+{""belief"": 0.10, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",903.5,0.6,2026-06-03T14:00:05.048636
+6,human,Gemini 2.5 Flash vs Gemini 2.5 Flash Lite,20,Gemini 2.5 Flash,D,0.05,1,24,"My opponent has consistently defected in the last seventeen rounds, establishing a very strong pattern of mutual defection in response to my own defections. Given this strong history, it is highly probable they will defect again this round. To maximize my own score and avoid the risk of getting 0 points, defecting is the safest and most rational choice, guaranteeing at least 1 point.
+
+{""belief"": 0.05, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",2504.4,0.6,v4.7,Gemini 2.5 Flash Lite,D,0.1,1,19,"My opponent has defected in every round. My strategy has been to defect in response, which guarantees a minimum of 1 point per round. Given their consistent behavior, I will continue to defect to maximize my score.
+{""belief"": 0.10, ""action"": ""DEFECT""}","{""prompt"": 0, ""completion"": 0}",887.2,0.6,2026-06-03T14:00:08.452994
