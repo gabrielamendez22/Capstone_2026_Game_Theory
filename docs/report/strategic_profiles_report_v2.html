@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strategic Profile Analysis v2 — P264</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap');
+
+  :root {
+    --bg:     #F7F7F5;
+    --surf:   #FFFFFF;
+    --ink:    #1A1A1A;
+    --mid:    #6B6B6B;
+    --rule:   #DEDEDD;
+    --acc:    #2D5BE3;
+    --acc2:   #E3642D;
+    --good:   #1A7A4A;
+    --warn:   #B85C00;
+    --mono:   'IBM Plex Mono', monospace;
+    --sans:   'IBM Plex Sans', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--sans);
+         font-size: 15px; line-height: 1.65; padding-bottom: 80px; }
+
+  header { background: var(--ink); color: #fff; padding: 56px 64px 48px;
+           border-bottom: 4px solid var(--acc); }
+  .header-label { font-family: var(--mono); font-size: 11px; letter-spacing: .12em;
+                  text-transform: uppercase; color: #888; margin-bottom: 16px; }
+  header h1 { font-size: 2.4rem; font-weight: 600; line-height: 1.15; max-width: 700px; }
+  header h1 span { color: #6A9BFF; }
+  .header-meta { margin-top: 24px; display: flex; gap: 40px; font-size: 13px;
+                 color: #aaa; font-family: var(--mono); }
+  .header-meta strong { color: #fff; }
+
+  .container { max-width: 980px; margin: 0 auto; padding: 0 64px; }
+  section { padding: 56px 0 0; }
+  .section-label { font-family: var(--mono); font-size: 10px; letter-spacing: .14em;
+                   text-transform: uppercase; color: var(--acc); margin-bottom: 10px; }
+  h2 { font-size: 1.45rem; font-weight: 600; margin-bottom: 20px;
+       border-bottom: 1px solid var(--rule); padding-bottom: 12px; }
+  h3 { font-size: 1.05rem; font-weight: 600; margin: 28px 0 10px; }
+  p { margin-bottom: 14px; color: #2a2a2a; }
+  p:last-child { margin-bottom: 0; }
+
+  .callout { background: var(--surf); border-left: 3px solid var(--acc);
+             padding: 18px 22px; margin: 24px 0; font-size: 14px; }
+  .callout.warn { border-color: var(--warn); }
+  .callout.good { border-color: var(--good); }
+
+  .stat-row { display: flex; gap: 16px; flex-wrap: wrap; margin: 20px 0; }
+  .stat-chip { background: var(--surf); border: 1px solid var(--rule);
+               padding: 14px 20px; flex: 1; min-width: 150px; }
+  .stat-chip .val { font-family: var(--mono); font-size: 1.5rem; font-weight: 600;
+                    color: var(--acc); display: block; }
+  .stat-chip .desc { font-size: 12px; color: var(--mid); margin-top: 4px; }
+
+  .data-table { width: 100%; border-collapse: collapse; font-size: 13px;
+                margin: 20px 0; background: var(--surf); }
+  .data-table th { background: var(--ink); color: #fff; text-align: left;
+                   padding: 10px 14px; font-family: var(--mono); font-size: 11px;
+                   font-weight: 600; letter-spacing: .05em; white-space: nowrap; }
+  .data-table td { padding: 10px 14px; border-bottom: 1px solid var(--rule);
+                   font-family: var(--mono); font-size: 12px; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: #F0F4FF; }
+  .data-table td.mn { font-family: var(--sans); font-weight: 600; font-size: 13px; }
+  .data-table tr.human td { color: #999; font-style: italic; }
+  .data-table tr.human td.mn { font-weight: 400; }
+
+  .tag { display: inline-block; font-family: var(--mono); font-size: 10px;
+         padding: 2px 7px; border-radius: 2px; letter-spacing: .05em; }
+  .sig  { background: #D4EDDA; color: #155724; }
+  .ns   { background: #F5F5F5; color: #666; }
+  .hi   { background: #FFE5D0; color: #7A3000; }
+  .new  { background: #E8F0FF; color: #1A3A9A; }
+
+  /* delta-eta bar chart */
+  .bar-wrap { margin: 24px 0; }
+  .bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .bar-label { font-family: var(--sans); font-weight: 600; font-size: 13px;
+               width: 190px; flex-shrink: 0; }
+  .bar-track { flex: 1; height: 10px; background: #E8E8E8; border-radius: 2px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 2px; }
+  .bar-fill.high { background: var(--warn); }
+  .bar-fill.low  { background: #CCC; }
+  .bar-val { font-family: var(--mono); font-size: 12px; color: var(--mid);
+             width: 200px; text-align: right; }
+
+  /* spotlight cards */
+  .spotlight { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin: 24px 0; }
+  .card { background: var(--surf); border: 1px solid var(--rule);
+          border-top: 3px solid var(--acc); padding: 18px; }
+  .card.warn-c { border-top-color: var(--warn); }
+  .card.good-c { border-top-color: var(--good); }
+  .card .cm { font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+  .card .cn { font-size: 12px; color: var(--mid); line-height: 1.5; }
+
+  /* param table */
+  .param-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 1px;
+                background: var(--rule); border: 1px solid var(--rule); margin: 24px 0; }
+  .pc { background: var(--surf); padding: 16px 14px; }
+  .pc.hc { background: var(--ink); color: #fff; font-family: var(--mono);
+            font-size: 11px; font-weight: 600; letter-spacing: .06em; }
+  .ps { font-family: var(--mono); font-size: 1.4rem; font-weight: 600;
+        color: var(--acc); display: block; margin-bottom: 4px; }
+  .pn { font-size: 12px; font-weight: 600; margin-bottom: 4px; }
+  .pd { font-size: 12px; color: var(--mid); line-height: 1.4; }
+  .pe { font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+        letter-spacing: .08em; color: var(--acc2); margin-top: 6px; }
+
+  footer { margin-top: 72px; border-top: 1px solid var(--rule); padding-top: 28px;
+           font-size: 12px; color: var(--mid); font-family: var(--mono); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-label">Capstone P264 · ESADE MIBA 2026 · Progress Report v2</div>
+  <h1>Strategic Profile Analysis<br><span>Revised per June 2026 Feedback</span></h1>
+  <div class="header-meta">
+    <div><strong>Supervisor</strong> Carlos Carrasco-Farré, PhD</div>
+    <div><strong>Date</strong> June 14, 2026</div>
+    <div><strong>Version</strong> v2 · Corrected θ, Δη, γ_mis, β</div>
+  </div>
+</header>
+
+<div class="container">
+
+<!-- 01 CHANGES -->
+<section>
+  <div class="section-label">01 · What Changed from v1</div>
+  <h2>Revisions Implemented</h2>
+  <p>Four methodological corrections were applied following supervisor feedback:</p>
+
+  <div class="callout good">
+    <strong>θ — Exploitation intensity (corrected).</strong> Previously computed as
+    extraction / fixed sustainable_share. Now computed as
+    extraction<sub>i,t</sub> / (pool_before_regen<sub>t</sub> × regen_rate / num_players),
+    making the benchmark pool-relative and time-varying. Sustainable play = 1.0.
+    regen_rate is inferred from the sustainable_share column
+    (stored as integer percentage × 10; e.g. 2 → 0.20). θ values dropped from ~4.5 to ~2.0,
+    which is consistent with the actual extraction behaviour observed in the data.
+  </div>
+
+  <div class="callout good">
+    <strong>η — Split by game condition.</strong> Pooled η replaced by
+    η_aligned (honesty when sender incentive = cooperate) and
+    η_misaligned (honesty when sender incentive = deceive).
+    Primary estimate is <strong>Δη = η_aligned − η_misaligned</strong>,
+    the honesty drop under misalignment. Each run_id is entirely aligned
+    or misaligned; Δη is computed by averaging across runs within the
+    same file × matchup × model group before aggregating.
+  </div>
+
+  <div class="callout good">
+    <strong>γ — Misaligned rounds only.</strong> Previously computed on all rounds.
+    Now γ_mis = Pearson r(message_truthful, action_correct) restricted to misaligned
+    runs, where the sender has a genuine incentive to deceive. Pooled γ is
+    retained in the game-level file for reference.
+  </div>
+
+  <div class="callout good">
+    <strong>β — No longer pooled across environments.</strong> β_pd, β_cd, β_ct
+    are reported separately. Cross-environment coherence of β is now measured as
+    Pearson correlations among per-model β means (r(β_PD–CD), r(β_PD–CT),
+    r(β_CD–CT)) rather than variance of a pooled mean.
+  </div>
+</section>
+
+<!-- 02 METHOD -->
+<section>
+  <div class="section-label">02 · Method</div>
+  <h2>Parameter Definitions (v2)</h2>
+
+  <div class="param-grid">
+    <div class="pc hc">Symbol</div>
+    <div class="pc hc">Parameter</div>
+    <div class="pc hc">Operationalisation (v2)</div>
+    <div class="pc hc">Range</div>
+    <div class="pc hc">Environment</div>
+
+    <div class="pc"><span class="ps">ρ</span></div>
+    <div class="pc"><span class="pn">Conditional reciprocity</span></div>
+    <div class="pc pd">P(C | opp cooperated t−1) − P(C | opp defected t−1), rounds 2..N. Unchanged from v1.</div>
+    <div class="pc pd">−1 to +1</div>
+    <div class="pc"><div class="pe">PD</div></div>
+
+    <div class="pc"><span class="ps">θ</span></div>
+    <div class="pc"><span class="pn">Exploitation intensity</span></div>
+    <div class="pc pd">mean(extraction<sub>i,t</sub> / (pool<sub>t</sub> × regen_rate / n_players)). Benchmark = 1.0. <span class="tag new">corrected</span></div>
+    <div class="pc pd">0 to ∞ (1.0 = sustainable)</div>
+    <div class="pc"><div class="pe">CD</div></div>
+
+    <div class="pc"><span class="ps">Δη</span></div>
+    <div class="pc"><span class="pn">Honesty drop</span></div>
+    <div class="pc pd">η_aligned − η_misaligned. Fraction truthful when incentive = cooperate minus when incentive = deceive. <span class="tag new">corrected</span></div>
+    <div class="pc pd">−1 to +1 (positive = strategic deception)</div>
+    <div class="pc"><div class="pe">CT · Sender</div></div>
+
+    <div class="pc"><span class="ps">γ</span></div>
+    <div class="pc"><span class="pn">Receiver gullibility</span></div>
+    <div class="pc pd">Pearson r(message_truthful, action_correct) on misaligned runs only. <span class="tag new">corrected</span></div>
+    <div class="pc pd">−1 to +1</div>
+    <div class="pc"><div class="pe">CT · Receiver</div></div>
+
+    <div class="pc"><span class="ps">β</span></div>
+    <div class="pc"><span class="pn">Belief calibration</span></div>
+    <div class="pc pd">MAE(stated probability, actual binary outcome). Reported separately per environment; not pooled. <span class="tag new">corrected</span></div>
+    <div class="pc pd">0 to 1 per environment</div>
+    <div class="pc"><div class="pe">PD · CD · CT</div></div>
+  </div>
+
+  <p>All parameters estimated at game level (one observation per complete game per model),
+  then aggregated to model level. This avoids within-game dependence inflation.</p>
+</section>
+
+<!-- 03 RESULTS -->
+<section>
+  <div class="section-label">03 · Results</div>
+  <h2>Strategic Profile Vectors (v2)</h2>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Model</th>
+        <th>ρ</th>
+        <th>θ</th>
+        <th>η_aligned</th>
+        <th>η_misaligned</th>
+        <th>Δη</th>
+        <th>γ_mis</th>
+        <th>β_PD</th>
+        <th>β_CD</th>
+        <th>β_CT</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="mn">Claude Opus</td>
+        <td>0.412</td><td>2.076</td><td>0.983</td><td>0.530</td>
+        <td><strong>0.453</strong></td><td>0.018</td>
+        <td>0.160</td><td>0.599</td><td>0.294</td>
+      </tr>
+      <tr>
+        <td class="mn">Claude Sonnet</td>
+        <td>0.091</td><td>1.801</td><td>0.982</td><td>0.463</td>
+        <td><strong>0.519</strong></td><td>−0.001</td>
+        <td>0.218</td><td>0.581</td><td>0.301</td>
+      </tr>
+      <tr>
+        <td class="mn">GPT-4o</td>
+        <td>0.450</td><td>1.828</td><td>0.999</td><td>0.557</td>
+        <td><strong>0.442</strong></td><td>−0.037</td>
+        <td>0.199</td><td>0.409</td><td>0.300</td>
+      </tr>
+      <tr>
+        <td class="mn">GPT-4o-mini</td>
+        <td>0.153</td><td>1.731</td><td>1.000</td><td>0.999</td>
+        <td><strong>0.001</strong></td><td>−0.022</td>
+        <td>0.235</td><td>0.463</td><td>0.311</td>
+      </tr>
+      <tr>
+        <td class="mn">Gemini 2.5 Flash</td>
+        <td>0.009</td><td>2.386</td><td>0.997</td><td>0.565</td>
+        <td><strong>0.432</strong></td><td>−0.017</td>
+        <td>0.244</td><td>0.562</td><td>0.283</td>
+      </tr>
+      <tr>
+        <td class="mn">Gemini 2.5 Flash Lite</td>
+        <td>0.339</td><td>2.164</td><td>0.996</td><td>0.996</td>
+        <td><strong>0.000</strong></td><td>0.598</td>
+        <td>0.495</td><td>0.460</td><td>0.358</td>
+      </tr>
+      <tr class="human">
+        <td class="mn">Human (Dvorak &amp; Fehrler 2024)</td>
+        <td>0.405</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
+        <td>0.460</td><td>—</td><td>—</td>
+      </tr>
+      <tr class="human">
+        <td class="mn">Human (Abatayo &amp; Lynham 2022)</td>
+        <td>—</td><td>2.283</td><td>—</td><td>—</td><td>—</td><td>—</td>
+        <td>—</td><td>0.456</td><td>—</td>
+      </tr>
+      <tr class="human">
+        <td class="mn">Human (Gneezy 2005)</td>
+        <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>−0.150</td>
+        <td>—</td><td>—</td><td>0.305</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 04 DELTA ETA -->
+<section>
+  <div class="section-label">04 · Key Finding</div>
+  <h2>Δη — Strategic Deception Under Misalignment</h2>
+  <p>Δη measures how much a model lowers its honesty when it has an incentive to deceive.
+  Four of six models exhibit substantial strategic adaptation (~0.43–0.52).
+  Two models show near-zero adaptation, suggesting they do not adjust their behaviour
+  to the strategic context.</p>
+
+  <div class="bar-wrap">
+    <div class="bar-row">
+      <span class="bar-label">Claude Sonnet</span>
+      <div class="bar-track"><div class="bar-fill high" style="width:100%"></div></div>
+      <span class="bar-val">Δη=+0.519 (1.00→0.46) <span class="tag hi">most strategic</span></span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Claude Opus</span>
+      <div class="bar-track"><div class="bar-fill high" style="width:87%"></div></div>
+      <span class="bar-val">Δη=+0.453 (0.98→0.53)</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">GPT-4o</span>
+      <div class="bar-track"><div class="bar-fill high" style="width:85%"></div></div>
+      <span class="bar-val">Δη=+0.442 (1.00→0.56)</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Gemini 2.5 Flash</span>
+      <div class="bar-track"><div class="bar-fill high" style="width:83%"></div></div>
+      <span class="bar-val">Δη=+0.432 (1.00→0.57)</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">GPT-4o-mini</span>
+      <div class="bar-track"><div class="bar-fill low" style="width:1%"></div></div>
+      <span class="bar-val">Δη=+0.001 (1.00→1.00) <span class="tag ns">no adaptation</span></span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Gemini 2.5 Flash Lite</span>
+      <div class="bar-track"><div class="bar-fill low" style="width:1%"></div></div>
+      <span class="bar-val">Δη=+0.000 (1.00→1.00) <span class="tag ns">no adaptation</span></span>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Interpretation:</strong> The split between adapters and non-adapters is sharp and
+    does not follow model scale or family. Claude Sonnet (smaller) shows more strategic
+    adaptation than Claude Opus (larger). GPT-4o-mini and Gemini Flash Lite appear to lack
+    the context-sensitivity to adjust honesty to incentive structure — this is a relevant
+    finding for H2 (instruction tuning) and potentially for deployment contexts where
+    strategic communication is expected.
+  </div>
+</section>
+
+<!-- 05 SIGNIFICANCE -->
+<section>
+  <div class="section-label">05 · Significance Tests</div>
+  <h2>Statistical Results</h2>
+
+  <h3>Between-model differences (Kruskal-Wallis, game level)</h3>
+  <table class="data-table">
+    <thead>
+      <tr><th>Parameter</th><th>H</th><th>p-value</th><th>Verdict</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>ρ — conditional reciprocity</td><td>84.37</td><td>&lt;0.0001</td>
+          <td><span class="tag sig">significant</span></td></tr>
+      <tr><td>θ — exploitation intensity</td><td>210.17</td><td>&lt;0.0001</td>
+          <td><span class="tag sig">significant</span></td></tr>
+      <tr><td>η_misaligned — honesty under deception incentive</td><td>498.59</td><td>&lt;0.0001</td>
+          <td><span class="tag sig">significant</span></td></tr>
+      <tr><td>γ_mis — receiver gullibility (misaligned)</td><td>168.03</td><td>&lt;0.0001</td>
+          <td><span class="tag sig">significant</span></td></tr>
+    </tbody>
+  </table>
+
+  <h3>LLM vs. Human benchmarks (Mann-Whitney U)</h3>
+  <table class="data-table">
+    <thead>
+      <tr><th>Comparison</th><th>LLM mean</th><th>Human mean</th><th>p-value</th><th>Direction</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>ρ — vs. Dvorak &amp; Fehrler 2024</td>
+        <td>0.175</td><td>0.405</td><td>&lt;0.0001</td>
+        <td><span class="tag hi">LLMs less reciprocal overall</span></td>
+      </tr>
+      <tr>
+        <td>θ — vs. Abatayo &amp; Lynham 2022</td>
+        <td>2.040</td><td>2.283</td><td>&lt;0.0001</td>
+        <td><span class="tag sig">LLMs extract less than humans</span></td>
+      </tr>
+      <tr>
+        <td>γ_mis — vs. Gneezy 2005</td>
+        <td>0.068</td><td>−0.150</td><td>0.001</td>
+        <td><span class="tag hi">LLMs more gullible under misalignment</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Per-model ρ vs. human benchmark (0.405)</h3>
+  <table class="data-table">
+    <thead>
+      <tr><th>Model</th><th>ρ mean</th><th>p-value</th><th>Verdict</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="mn">Claude Opus</td><td>0.412</td><td>0.998</td>
+          <td><span class="tag ns">not significant — human-like</span></td></tr>
+      <tr><td class="mn">GPT-4o</td><td>0.450</td><td>0.272</td>
+          <td><span class="tag ns">not significant — human-like</span></td></tr>
+      <tr><td class="mn">Gemini 2.5 Flash Lite</td><td>0.339</td><td>0.855</td>
+          <td><span class="tag ns">not significant — human-like</span></td></tr>
+      <tr><td class="mn">GPT-4o-mini</td><td>0.153</td><td>0.001</td>
+          <td><span class="tag sig">significantly less reciprocal</span></td></tr>
+      <tr><td class="mn">Claude Sonnet</td><td>0.091</td><td>&lt;0.0001</td>
+          <td><span class="tag sig">significantly less reciprocal</span></td></tr>
+      <tr><td class="mn">Gemini 2.5 Flash</td><td>0.009</td><td>&lt;0.0001</td>
+          <td><span class="tag sig">significantly less reciprocal</span></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 06 COHERENCE -->
+<section>
+  <div class="section-label">06 · Coherence</div>
+  <h2>β Cross-Environment Correlations</h2>
+  <p>Belief calibration is now reported separately per environment and coherence is
+  measured as cross-model correlations of per-environment β means.</p>
+
+  <table class="data-table">
+    <thead>
+      <tr><th>Pair</th><th>r</th><th>Interpretation</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>r(β_PD, β_CT)</td><td><strong>+0.909</strong></td>
+        <td>Strong positive correlation — models that calibrate well in PD also calibrate
+        well in CT. Both involve binary cooperation/following decisions.</td>
+      </tr>
+      <tr>
+        <td>r(β_PD, β_CD)</td><td>−0.365</td>
+        <td>Weak negative — CD belief calibration is not predicted by PD performance.
+        Consistent with CD measuring a structurally different belief domain.</td>
+      </tr>
+      <tr>
+        <td>r(β_CD, β_CT)</td><td>−0.473</td>
+        <td>Weak negative — further support that CD belief calibration is distinct.
+        CD beliefs concern resource extraction levels, not binary actions.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout warn">
+    <strong>Note:</strong> The β_PD–CT correlation (r = 0.909) suggests a shared
+    calibration ability across binary-action games. β_CD operates on a different
+    domain (continuous extraction, binary threshold) and should not be averaged
+    with the other two. This validates Carlos's concern about cross-environment
+    β poolability.
+  </div>
+</section>
+
+<!-- 07 CROSS-PARAM -->
+<section>
+  <div class="section-label">07 · Structure</div>
+  <h2>Cross-Parameter Correlations</h2>
+  <p>Pearson correlations among ρ, θ, Δη, γ_mis across the six LLM models (n = 6).</p>
+
+  <table class="data-table">
+    <thead>
+      <tr><th></th><th>ρ</th><th>θ</th><th>Δη</th><th>γ_mis</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="mn">ρ</td><td>1.000</td>
+          <td>−0.185 <span class="tag ns">ns</span></td>
+          <td>−0.049 <span class="tag ns">ns</span></td>
+          <td>0.260 <span class="tag ns">ns</span></td></tr>
+      <tr><td class="mn">θ</td><td>—</td><td>1.000</td>
+          <td>0.085 <span class="tag ns">ns</span></td>
+          <td>0.335 <span class="tag ns">ns</span></td></tr>
+      <tr><td class="mn">Δη</td><td>—</td><td>—</td><td>1.000</td>
+          <td>−0.608 <span class="tag ns">p≈0.20</span></td></tr>
+      <tr><td class="mn">γ_mis</td><td>—</td><td>—</td><td>—</td><td>1.000</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <strong>Key structural finding:</strong> The Δη–γ_mis correlation (r = −0.608) is the
+    strongest pairwise relationship. Models that adapt their honesty strategically under
+    misalignment (high Δη) tend to be less influenced by sender messages as receivers
+    (low γ_mis). This suggests a coherent "strategic awareness" dimension spanning both
+    CT roles: models that know when to deceive also know when not to be deceived.
+    With n = 6 this does not reach conventional significance, but the direction and
+    magnitude are theoretically meaningful.
+  </div>
+</section>
+
+<!-- 08 SPOTLIGHTS -->
+<section>
+  <div class="section-label">08 · Model Patterns</div>
+  <h2>Notable Observations</h2>
+
+  <div class="spotlight">
+    <div class="card good-c">
+      <div class="cm">GPT-4o</div>
+      <div class="cn">Human-like ρ (0.450, p=0.27). Lowest θ in the frontier tier (1.83).
+      Strong strategic adaptation (Δη=0.44). Best β_CD (0.409). Most balanced profile
+      across all four parameters.</div>
+    </div>
+    <div class="card warn-c">
+      <div class="cm">Claude Sonnet</div>
+      <div class="cn">Highest strategic deception (Δη=0.519 — drops from 98% to 46% honest).
+      Significantly less reciprocal than humans (ρ=0.091, p&lt;0.0001). Despite being a
+      smaller model than Opus, shows stronger CT strategic adaptation.</div>
+    </div>
+    <div class="card warn-c">
+      <div class="cm">Gemini 2.5 Flash</div>
+      <div class="cn">Near-zero reciprocity (ρ=0.009) — plays as if opponent behaviour is
+      irrelevant. Highest exploitation (θ=2.39). Good β_CT (0.283). The most "context-blind"
+      model in PD, yet strategically adaptive in CT (Δη=0.43).</div>
+    </div>
+    <div class="card">
+      <div class="cm">GPT-4o-mini</div>
+      <div class="cn">Δη≈0 — does not adapt honesty to incentive structure at all. γ_mis≈0 —
+      also uninfluenced by sender messages. Behaves as a fixed-strategy agent in CT
+      regardless of game condition. Lowest θ of all models (1.73).</div>
+    </div>
+    <div class="card warn-c">
+      <div class="cm">Gemini 2.5 Flash Lite</div>
+      <div class="cn">Δη≈0 like GPT-4o-mini, but opposite γ_mis = 0.598 — highly gullible
+      as receiver. The only model that follows sender messages when the sender has an
+      incentive to deceive. Also worst β_PD (0.495).</div>
+    </div>
+    <div class="card">
+      <div class="cm">Claude Opus</div>
+      <div class="cn">Most human-like ρ (0.412, p=0.998 vs human). Adapts honesty
+      strategically (Δη=0.45). But worst β_CD (0.599) — calibration in the Commons
+      environment is particularly poor compared to the other two environments.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 HYPOTHESES -->
+<section>
+  <div class="section-label">09 · Hypotheses</div>
+  <h2>Evidence on H1, H2, H3</h2>
+
+  <h3>H1 — Scaling increases coherence</h3>
+  <p><span class="tag hi" style="font-size:12px;">Not supported</span> &nbsp;
+  Within the Claude family, Sonnet shows stronger CT strategic adaptation than Opus.
+  GPT-4o (larger) and GPT-4o-mini (smaller) differ dramatically on Δη (0.44 vs 0.001)
+  but this follows an instruction-tuning pattern rather than a scale pattern.
+  No monotonic relationship between model tier and any coherence metric.</p>
+
+  <h3>H2 — Instruction tuning shifts the profile</h3>
+  <p><span class="tag ns" style="font-size:12px;">Partially assessable</span> &nbsp;
+  The Δη split (adapters vs non-adapters) does not align with family or scale,
+  suggesting it may reflect instruction-tuning differences. GPT-4o-mini and
+  Gemini Flash Lite — both smaller/lighter models — show zero adaptation,
+  possibly reflecting less nuanced instruction following. Formal base vs.
+  instruction-tuned comparison is not available in this dataset.</p>
+
+  <h3>H3 — Higher temperature decreases coherence</h3>
+  <p><span class="tag ns" style="font-size:12px;">Not yet tested</span> &nbsp;
+  All runs in this dataset use temperature 0.6. Temperature manipulation data
+  would be required.</p>
+</section>
+
+<!-- 10 NEXT STEPS -->
+<section>
+  <div class="section-label">10 · Next Steps</div>
+  <h2>Open Items</h2>
+
+  <div class="callout good">
+    <strong>Logistic mixed models for ρ and γ_mis.</strong> As recommended, replace
+    difference-in-proportions with logistic regression coefficients controlling for round,
+    history length, and condition. This gives standard errors and is directly publishable.
+    Ready to implement from the game-level CSV.
+  </div>
+
+  <div class="callout good">
+    <strong>Profile similarity matrix.</strong> Compute pairwise Euclidean distances between
+    S_m vectors (ρ, θ, Δη, γ_mis) for all six models. Produces a 6×6 matrix amenable to
+    clustering and visual representation. Ready to implement.
+  </div>
+
+  <div class="callout">
+    <strong>Δm — opponent sensitivity.</strong> Condition labels (ai, human, human_prior,
+    undisclosed) are available in the game-level CSV for all three environments.
+    Δ_m = ||S_m^AI − S_m^Human|| can be computed immediately.
+  </div>
+
+  <div class="callout warn">
+    <strong>KW test for Δη.</strong> Kruskal-Wallis on Δη is not yet reported because
+    Δη is currently aggregated at file × matchup × model level before being stored
+    in the game-level CSV, resulting in NaN at the individual game row level.
+    A minor pipeline fix would propagate Δη to game rows, enabling the KW test.
+    Current evidence: η_misaligned differences across models are highly significant
+    (H=498.59, p&lt;0.0001), which is the primary driver of Δη variation.
+  </div>
+</section>
+
+<footer class="container">
+  P264 · Strategic Coherence in Large Language Models · ESADE MIBA 2026 ·
+  Pipeline: build_strategic_profiles_v2.py · Data: strategic_profiles_*_v2.csv
+</footer>
+
+</div>
+</body>
+</html>

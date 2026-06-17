@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Commons Dilemma — Full 2×2 Results | P264</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0f1117; --surface:#181c27; --surface2:#1f2436; --border:#2a3049;
+  --accent:#5b8dee; --accent2:#e8865a; --accent3:#52c97a; --accent4:#c97ab5; --accent5:#f0c040;
+  --text:#e8eaf2; --muted:#7b83a0;
+  --serif:'DM Serif Display',Georgia,serif; --sans:'DM Sans',sans-serif; --mono:'DM Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;line-height:1.7;font-size:15px}
+header{padding:64px 60px 48px;border-bottom:1px solid var(--border);max-width:1200px;margin:0 auto}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+h1{font-family:var(--serif);font-size:clamp(2rem,4vw,3.2rem);font-weight:400;line-height:1.15;color:var(--text);margin-bottom:12px}
+h1 em{font-style:italic;color:var(--accent2)}
+.subtitle{color:var(--muted);font-size:13px;font-family:var(--mono);line-height:2}
+.tag{display:inline-block;background:rgba(91,141,238,.12);border:1px solid rgba(91,141,238,.3);color:var(--accent);border-radius:4px;padding:2px 8px;font-size:11px;margin-right:6px;margin-top:4px}
+main{max-width:1200px;margin:0 auto;padding:0 60px 80px}
+section{margin-top:64px}
+h2{font-family:var(--serif);font-size:1.6rem;font-weight:400;color:var(--text);margin-bottom:6px}
+h3{font-family:var(--sans);font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:20px}
+p{color:var(--muted);font-size:14px;max-width:740px;margin-bottom:10px}
+p strong{color:var(--text);font-weight:500}
+.grid-2x2{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:28px;border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.cell{background:var(--surface);padding:28px 30px;position:relative}
+.cell:hover{background:var(--surface2)}
+.cell-label{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.cell h4{font-family:var(--serif);font-size:1.1rem;font-weight:400;color:var(--text);margin-bottom:8px}
+.cell p{font-size:13px;margin-bottom:0}
+.cell .badge{position:absolute;top:16px;right:16px;font-family:var(--mono);font-size:10px;padding:3px 9px;border-radius:20px;background:var(--surface2);border:1px solid var(--border);color:var(--muted)}
+.cell.c1 .badge{background:rgba(91,141,238,.15);border-color:var(--accent);color:var(--accent)}
+.axis-labels{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:8px}
+.axis-label{text-align:center;font-family:var(--mono);font-size:11px;color:var(--muted);padding:6px;letter-spacing:.1em}
+.chart-wrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:32px 36px;margin-top:24px}
+.chart-title{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:28px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-top:24px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:22px 24px}
+.card-val{font-family:var(--serif);font-size:2.1rem;color:var(--text);line-height:1;margin-bottom:6px}
+.card-label{font-size:12px;color:var(--muted)}
+.card-sub{font-family:var(--mono);font-size:11px;color:var(--accent);margin-top:6px}
+.card.warn .card-val{color:var(--accent2)}
+.card.good .card-val{color:var(--accent3)}
+.card.ns .card-val{color:var(--muted)}
+.findings{margin-top:24px}
+.finding{display:flex;gap:18px;padding:22px 0;border-bottom:1px solid var(--border)}
+.finding:last-child{border-bottom:none}
+.finding-num{font-family:var(--mono);font-size:11px;color:var(--accent);min-width:28px;padding-top:2px}
+.finding-body{flex:1}
+.finding-body strong{color:var(--text);font-weight:500;display:block;margin-bottom:4px;font-size:14px}
+.finding-body span{font-size:13px;color:var(--muted)}
+.tbl-wrap{margin-top:24px;overflow-x:auto;border:1px solid var(--border);border-radius:10px}
+table{width:100%;border-collapse:collapse}
+th{background:var(--surface2);padding:12px 18px;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:left;border-bottom:1px solid var(--border)}
+td{padding:13px 18px;font-size:13px;color:var(--text);border-bottom:1px solid var(--border)}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--surface2)}
+td.mono{font-family:var(--mono);font-size:12px}
+td.hi{color:var(--accent2);font-weight:500}
+td.lo{color:var(--accent3);font-weight:500}
+td.mid{color:var(--accent5);font-weight:500}
+.method-note{background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:16px 20px;margin-top:16px;font-size:13px;color:var(--muted)}
+.method-note strong{color:var(--text)}
+.sig-badge{display:inline-block;font-family:var(--mono);font-size:10px;padding:2px 7px;border-radius:4px;margin-left:6px}
+.sig{background:rgba(82,201,122,.15);border:1px solid rgba(82,201,122,.35);color:var(--accent3)}
+.ns-b{background:rgba(123,131,160,.1);border:1px solid rgba(123,131,160,.25);color:var(--muted)}
+footer{border-top:1px solid var(--border);max-width:1200px;margin:0 auto;padding:32px 60px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+footer span{font-family:var(--mono);font-size:11px;color:var(--muted)}
+@media(max-width:700px){header,main,footer{padding-left:24px;padding-right:24px}.grid-2x2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">ESADE MIBA 2026 · Capstone P264 · Commons Dilemma</div>
+  <h1>2×2 Experimental Results:<br><em>Information × Risk Structure</em></h1>
+  <div class="subtitle">
+    <span class="tag">160 runs</span>
+    <span class="tag">4 opponent conditions</span>
+    <span class="tag">6 model families</span>
+    <span class="tag">20 rounds each</span>
+    <span class="tag">June 2026</span><br>
+    All inference at game level (n=960 games) · rounds aggregated within game before any test · Mann-Whitney U · Kruskal-Wallis · 95% t-CI
+  </div>
+</header>
+
+<main>
+
+<!-- DESIGN -->
+<section>
+  <h2>Why the 2×2 Design</h2>
+  <h3>Motivation &amp; Experimental Logic</h3>
+  <p>In our initial runs (Condition 1), LLM agents behaved as <strong>conservative resource controllers</strong> when the pool level was visible each round — extraction stabilised well below maximum and collapse was relatively rare. This raised an immediate question: is this restraint a <strong>stable strategic disposition</strong>, or simply a reaction to visible state information?</p>
+  <p>Two structural manipulations answer this cleanly: varying <strong>what information models see</strong> (full vs. partial pool visibility) and varying <strong>how risk is structured</strong> (deterministic vs. probabilistic collapse). These produce a 2×2 design that tests whether LLM conservation is robust or context-dependent — directly relevant to Hypotheses H1 and H2.</p>
+  <div class="grid-2x2">
+    <div class="cell c1"><span class="badge">C1 · BASELINE</span><div class="cell-label">Full × Deterministic</div><h4>Transparent State, Certain Collapse</h4><p>Models see the pool level every round. Collapse is guaranteed if total extraction exceeds the available pool. Cleanest estimate of θ and most controllable baseline.</p></div>
+    <div class="cell"><span class="badge">C2</span><div class="cell-label">Full × Probabilistic</div><h4>Transparent State, Ambiguous Risk</h4><p>Pool level visible, but collapse follows a sigmoid probability that rises as the pool depletes. Tests whether ambiguity in the risk function relaxes restraint even with full information.</p></div>
+    <div class="cell"><span class="badge">C3</span><div class="cell-label">Partial × Deterministic</div><h4>Hidden State, Certain Collapse</h4><p>Pool level hidden; models only see their own payoff history. Collapse deterministic. Tests whether C1 conservation was reactive to state or a deeper strategic property.</p></div>
+    <div class="cell"><span class="badge">C4</span><div class="cell-label">Partial × Probabilistic</div><h4>Hidden State, Ambiguous Risk</h4><p>Maximum uncertainty: no pool visibility and probabilistic collapse. Most demanding test of strategic robustness.</p></div>
+  </div>
+  <div class="axis-labels">
+    <div class="axis-label">↑ Deterministic risk</div>
+    <div class="axis-label">↑ Probabilistic risk</div>
+  </div>
+</section>
+
+<!-- KEY NUMBERS -->
+<section>
+  <h2>At a Glance</h2>
+  <h3>Key Numbers — 160 Runs · 960 Games · Game-Level Inference</h3>
+  <div class="cards">
+    <div class="card"><div class="card-val">960</div><div class="card-label">Games (inference unit)</div><div class="card-sub">240 per 2×2 cell · 160 per opponent</div></div>
+    <div class="card good"><div class="card-val">37%</div><div class="card-label">Collapse rate, C1</div><div class="card-sub">full × deterministic (baseline)</div></div>
+    <div class="card warn"><div class="card-val">83%</div><div class="card-label">Collapse rate, C3+C4</div><div class="card-sub">partial info conditions</div></div>
+    <div class="card warn"><div class="card-val">+1.76</div><div class="card-label">Units more, partial vs full</div><div class="card-sub">Z=−16.08 · p&lt;0.001 ✓</div></div>
+    <div class="card"><div class="card-val">+0.60</div><div class="card-label">Units more, probabilistic vs det.</div><div class="card-sub">Z=−4.50 · p&lt;0.001 ✓</div></div>
+    <div class="card"><div class="card-val">H=191</div><div class="card-label">Kruskal-Wallis, model effect</div><div class="card-sub">df=5 · p&lt;0.001 ✓</div></div>
+    <div class="card ns"><div class="card-val">H=1.8</div><div class="card-label">Kruskal-Wallis, opponent effect</div><div class="card-sub">df=3 · p=0.61 · not significant</div></div>
+  </div>
+  <div class="method-note">
+    <strong>Inference unit:</strong> All tests use game-level mean extraction as the single observation per game. Rounds within a game are serially correlated (shared pool trajectory, same model), so round-level inference inflates effective n and produces spuriously large Z-statistics. Each of the 960 games contributes exactly one observation per test. The prior 5-run batch reported H=1.9 (p&lt;0.001) for opponent condition — that is mathematically inconsistent at game level and reflects pre-correction round-level inflation. At game level across 960 games the opponent effect is H=1.8, p=0.61: not significant.
+  </div>
+</section>
+
+<!-- EXTRACTION BY MODEL -->
+<section>
+  <h2>Extraction by Model</h2>
+  <h3>Mean units extracted per game · 95% t-CI · all conditions pooled · sustainable share = 7.5 · Kruskal-Wallis H=191, p&lt;0.001</h3>
+  <div class="chart-wrap">
+    <div class="chart-title">Mean extraction per game (0–20 scale) · 95% CI error bars · green dashed = sustainable share (7.5)</div>
+    <!-- scale: 0–13, 250px, y=270(0)→y=20(13), 250/13≈19.23 px/unit -->
+    <svg viewBox="0 0 760 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+      <line x1="110" y1="20" x2="110" y2="270" stroke="#2a3049" stroke-width="1"/>
+      <line x1="110" y1="270" x2="750" y2="270" stroke="#2a3049" stroke-width="1"/>
+      <line x1="110" y1="270" x2="750" y2="270" stroke="#2a3049" stroke-width="0.5" stroke-dasharray="4,4"/>
+      <line x1="110" y1="232" x2="750" y2="232" stroke="#2a3049" stroke-width="0.5" stroke-dasharray="4,4"/>
+      <line x1="110" y1="193" x2="750" y2="193" stroke="#2a3049" stroke-width="0.5" stroke-dasharray="4,4"/>
+      <line x1="110" y1="155" x2="750" y2="155" stroke="#2a3049" stroke-width="0.5" stroke-dasharray="4,4"/>
+      <line x1="110" y1="116" x2="750" y2="116" stroke="#2a3049" stroke-width="0.5" stroke-dasharray="4,4"/>
+      <line x1="110" y1="78" x2="750" y2="78" stroke="#2a3049" stroke-width="0.5" stroke-dasharray="4,4"/>
+      <text x="100" y="273" text-anchor="end" fill="#7b83a0" font-size="11" font-family="DM Mono">0</text>
+      <text x="100" y="235" text-anchor="end" fill="#7b83a0" font-size="11" font-family="DM Mono">2</text>
+      <text x="100" y="197" text-anchor="end" fill="#7b83a0" font-size="11" font-family="DM Mono">4</text>
+      <text x="100" y="158" text-anchor="end" fill="#7b83a0" font-size="11" font-family="DM Mono">6</text>
+      <text x="100" y="120" text-anchor="end" fill="#7b83a0" font-size="11" font-family="DM Mono">8</text>
+      <text x="100" y="81" text-anchor="end" fill="#7b83a0" font-size="11" font-family="DM Mono">10</text>
+      <text x="100" y="43" text-anchor="end" fill="#7b83a0" font-size="11" font-family="DM Mono">12</text>
+      <!-- sustainable 7.5 → y=270-7.5*19.23=270-144.2=125.8 -->
+      <line x1="110" y1="126" x2="750" y2="126" stroke="#52c97a" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.7"/>
+      <text x="754" y="129" fill="#52c97a" font-size="9" font-family="DM Mono">sust.</text>
+
+      <!-- Gemini 2.5 Flash: 10.573±0.299 → y=270-10.573*19.23=67.3, ci_px=5.75 -->
+      <rect x="130" y="67" width="60" height="203" fill="rgba(232,134,90,0.8)" rx="3"/>
+      <line x1="160" y1="62" x2="160" y2="73" stroke="white" stroke-width="2"/>
+      <line x1="152" y1="62" x2="168" y2="62" stroke="white" stroke-width="1.5"/>
+      <line x1="152" y1="73" x2="168" y2="73" stroke="white" stroke-width="1.5"/>
+      <text x="160" y="285" text-anchor="middle" fill="#7b83a0" font-size="10" font-family="DM Sans">Gemini</text>
+      <text x="160" y="296" text-anchor="middle" fill="#7b83a0" font-size="10" font-family="DM Sans">2.5 Flash</text>
+      <text x="160" y="54" text-anchor="middle" fill="#e8eaf2" font-size="11" font-family="DM Mono" font-weight="500">10.57</text>
+
+      <!-- Gemini Lite: 9.322±0.392 → y=270-9.322*19.23=91.1, ci_px=7.5 -->
+      <rect x="210" y="91" width="60" height="179" fill="rgba(232,134,90,0.45)" rx="3"/>
+      <line x1="240" y1="84" x2="240" y2="99" stroke="white" stroke-width="2"/>
+      <line x1="232" y1="84" x2="248" y2="84" stroke="white" stroke-width="1.5"/>
+      <line x1="232" y1="99" x2="248" y2="99" stroke="white" stroke-width="1.5"/>
+      <text x="240" y="285" text-anchor="middle" fill="#7b83a0" font-size="10" font-family="DM Sans">Gemini</text>
+      <text x="240" y="296" text-anchor="middle" fill="#7b83a0" font-size="10" font-family="DM Sans">Flash Lite</text>
+      <text x="240" y="76" text-anchor="middle" fill="#e8eaf2" font-size="11" font-family="DM Mono" font-weight="500">9.32</text>
+
+      <!-- Claude Opus: 9.207±0.161 → y=270-9.207*19.23=93.3, ci_px=3.1 -->
+      <rect x="290" y="93" width="60" height="177" fill="rgba(91,141,238,0.8)" rx="3"/>
+      <line x1="320" y1="90" x2="320" y2="96" stroke="white" stroke-width="2"/>
+      <line x1="312" y1="90" x2="328" y2="90" stroke="white" stroke-width="1.5"/>
+      <line x1="312" y1="96" x2="328" y2="96" stroke="white" stroke-width="1.5"/>
+      <text x="320" y="285" text-anchor="middle" fill="#7b83a0" font-size="10" font-family="DM Sans">Claude</text>
+      <text x="320" y="296" text-anchor="middle" fill="#7b83a0" font-size="10" font-family="DM Sans">Opus</text>
+      <text x="320" y="82" text-anchor="middle" fill="#e8eaf2" font-size="11" font-family="DM Mono" font-weight="500">9.21</text>
+
+      <!-- Claude Sonnet: 8.335±0.238 → y=270-8.335*19.23=109.7, ci_px=4.6 -->
+      <rect x="370" y="110" width="60" height="160" fill="rgba(91,141,238,0.45)" rx="3"/>
+      <line x1="400" y1="105" x2="400" y2="115" stroke="white" stroke-width="2"/>
+      <line x1="392" y1="105" x2="408" y2="105" stroke="white" stroke-width="1.5"/>
+      <line x1="392" y1="115" x2="408" y2="115" stroke="white" stroke-width="1.5"/>
+      <text x="400" y="285" text-anchor="middle" fill="#7b83a0" font-size="10" font-family="DM Sans">Claude</text>
+      <text x="400" y="296" text-anchor="middle" fill="#7b83a0" font-size="10" font-family="DM Sans">Sonnet</text>
+      <text x="400" y="97" text-anchor="middle" fill="#e8eaf2" font-size="11" font-family="DM Mono" font-weight="500">8.34</text>
+
+      <!-- GPT-4o: 8.230±0.227 → y=270-8.230*19.23=112, ci_px=4.4 -->
+      <rect x="450" y="112" width="60" height="158" fill="rgba(82,201,122,0.8)" rx="3"/>
+      <line x1="480" y1="108" x2="480" y2="116" stroke="white" stroke-width="2"/>
+      <line x1="472" y1="108" x2="488" y2="108" stroke="white" stroke-width="1.5"/>
+      <line x1="472" y1="116" x2="488" y2="116" stroke="white" stroke-width="1.5"/>
+      <text x="480" y="285" text-anchor="middle" fill="#7b83a0" font-size="10" font-family="DM Sans">GPT-4o</text>
+      <text x="480" y="296" text-anchor="middle" fill="#7b83a0" font-size="10" font-family="DM Sans"> </text>
+      <text x="480" y="100" text-anchor="middle" fill="#e8eaf2" font-size="11" font-family="DM Mono" font-weight="500">8.23</text>
+
+      <!-- GPT-4o-mini: 7.291±0.823 → y=270-7.291*19.23=129.8, ci_px=15.8 -->
+      <rect x="530" y="130" width="60" height="140" fill="rgba(82,201,122,0.4)" rx="3"/>
+      <line x1="560" y1="114" x2="560" y2="146" stroke="white" stroke-width="2"/>
+      <line x1="552" y1="114" x2="568" y2="114" stroke="white" stroke-width="1.5"/>
+      <line x1="552" y1="146" x2="568" y2="146" stroke="white" stroke-width="1.5"/>
+      <text x="560" y="285" text-anchor="middle" fill="#7b83a0" font-size="10" font-family="DM Sans">GPT-4o</text>
+      <text x="560" y="296" text-anchor="middle" fill="#7b83a0" font-size="10" font-family="DM Sans">mini</text>
+      <text x="560" y="106" text-anchor="middle" fill="#e8eaf2" font-size="11" font-family="DM Mono" font-weight="500">7.29</text>
+    </svg>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Model</th><th>Mean extraction</th><th>95% CI</th><th>n (games)</th><th>vs sustainable (7.5)</th><th>Δ partial − full</th></tr></thead>
+      <tbody>
+        <tr><td>Gemini 2.5 Flash</td><td class="mono">10.573</td><td class="mono">± 0.299</td><td class="mono">280</td><td class="hi">+3.07</td><td class="mono hi">+2.02</td></tr>
+        <tr><td>Gemini 2.5 Flash Lite</td><td class="mono">9.322</td><td class="mono">± 0.392</td><td class="mono">100</td><td class="hi">+1.82</td><td class="mono hi">+1.77</td></tr>
+        <tr><td>Claude Opus</td><td class="mono">9.207</td><td class="mono">± 0.161</td><td class="mono">400</td><td class="hi">+1.71</td><td class="mono hi">+2.35</td></tr>
+        <tr><td>Claude Sonnet</td><td class="mono">8.335</td><td class="mono">± 0.238</td><td class="mono">100</td><td class="mid">+0.84</td><td class="mono hi">+2.20</td></tr>
+        <tr><td>GPT-4o</td><td class="mono">8.230</td><td class="mono">± 0.227</td><td class="mono">340</td><td class="mid">+0.73</td><td class="mono hi">+1.56</td></tr>
+        <tr><td>GPT-4o-mini</td><td class="mono">7.291</td><td class="mono">± 0.823</td><td class="mono">100</td><td class="lo">−0.21</td><td class="mono lo">−1.04</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- INFORMATION & RISK -->
+<section>
+  <h2>Effect of Information &amp; Risk Structure</h2>
+  <h3>Mean extraction and collapse rate across the four conditions · n=240 games per cell</h3>
+  <div class="chart-wrap">
+    <div class="chart-title">Mean extraction per condition · 95% t-CI · sustainable share = 7.5 · MW info Z=−16.08 p&lt;0.001 · MW risk Z=−4.50 p&lt;0.001</div>
+    <!-- scale 0–12, 220px, y=250(0)→y=30(12), 220/12=18.33 px/unit -->
+    <svg viewBox="0 0 640 290" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+      <line x1="80" y1="30" x2="80" y2="250" stroke="#2a3049" stroke-width="1"/>
+      <line x1="80" y1="250" x2="610" y2="250" stroke="#2a3049" stroke-width="1"/>
+      <line x1="80" y1="250" x2="610" y2="250" stroke="#2a3049" stroke-width="0.5" stroke-dasharray="4,4"/>
+      <line x1="80" y1="213" x2="610" y2="213" stroke="#2a3049" stroke-width="0.5" stroke-dasharray="4,4"/>
+      <line x1="80" y1="177" x2="610" y2="177" stroke="#2a3049" stroke-width="0.5" stroke-dasharray="4,4"/>
+      <line x1="80" y1="140" x2="610" y2="140" stroke="#2a3049" stroke-width="0.5" stroke-dasharray="4,4"/>
+      <line x1="80" y1="103" x2="610" y2="103" stroke="#2a3049" stroke-width="0.5" stroke-dasharray="4,4"/>
+      <line x1="80" y1="67" x2="610" y2="67" stroke="#2a3049" stroke-width="0.5" stroke-dasharray="4,4"/>
+      <text x="70" y="253" text-anchor="end" fill="#7b83a0" font-size="11" font-family="DM Mono">0</text>
+      <text x="70" y="216" text-anchor="end" fill="#7b83a0" font-size="11" font-family="DM Mono">2</text>
+      <text x="70" y="180" text-anchor="end" fill="#7b83a0" font-size="11" font-family="DM Mono">4</text>
+      <text x="70" y="143" text-anchor="end" fill="#7b83a0" font-size="11" font-family="DM Mono">6</text>
+      <text x="70" y="106" text-anchor="end" fill="#7b83a0" font-size="11" font-family="DM Mono">8</text>
+      <text x="70" y="70" text-anchor="end" fill="#7b83a0" font-size="11" font-family="DM Mono">10</text>
+      <!-- sustainable 7.5 → y=250-7.5*18.33=250-137.5=112.5 -->
+      <line x1="80" y1="113" x2="610" y2="113" stroke="#52c97a" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.7"/>
+      <text x="614" y="116" fill="#52c97a" font-size="9" font-family="DM Mono">sust.</text>
+      <!-- C1: 7.803±0.222 → y=250-7.803*18.33=107.0, ci_px=4.07 -->
+      <rect x="105" y="107" width="85" height="143" fill="rgba(91,141,238,0.75)" rx="3"/>
+      <line x1="147" y1="103" x2="147" y2="111" stroke="white" stroke-width="2"/>
+      <line x1="139" y1="103" x2="155" y2="103" stroke="white" stroke-width="1.5"/>
+      <line x1="139" y1="111" x2="155" y2="111" stroke="white" stroke-width="1.5"/>
+      <text x="147" y="265" text-anchor="middle" fill="#7b83a0" font-size="11" font-family="DM Sans">C1</text>
+      <text x="147" y="277" text-anchor="middle" fill="#5b8dee" font-size="10" font-family="DM Mono">37% coll.</text>
+      <text x="147" y="95" text-anchor="middle" fill="#e8eaf2" font-size="12" font-family="DM Mono" font-weight="500">7.80</text>
+      <!-- C2: 8.628±0.217 → y=250-8.628*18.33=92.0, ci_px=3.98 -->
+      <rect x="215" y="92" width="85" height="158" fill="rgba(91,141,238,0.4)" rx="3"/>
+      <line x1="257" y1="88" x2="257" y2="96" stroke="white" stroke-width="2"/>
+      <line x1="249" y1="88" x2="265" y2="88" stroke="white" stroke-width="1.5"/>
+      <line x1="249" y1="96" x2="265" y2="96" stroke="white" stroke-width="1.5"/>
+      <text x="257" y="265" text-anchor="middle" fill="#7b83a0" font-size="11" font-family="DM Sans">C2</text>
+      <text x="257" y="277" text-anchor="middle" fill="#e8865a" font-size="10" font-family="DM Mono">70% coll.</text>
+      <text x="257" y="80" text-anchor="middle" fill="#e8eaf2" font-size="12" font-family="DM Mono" font-weight="500">8.63</text>
+      <!-- C3: 9.792±0.254 → y=250-9.792*18.33=71.0, ci_px=4.66 -->
+      <rect x="375" y="71" width="85" height="179" fill="rgba(232,134,90,0.55)" rx="3"/>
+      <line x1="417" y1="66" x2="417" y2="76" stroke="white" stroke-width="2"/>
+      <line x1="409" y1="66" x2="425" y2="66" stroke="white" stroke-width="1.5"/>
+      <line x1="409" y1="76" x2="425" y2="76" stroke="white" stroke-width="1.5"/>
+      <text x="417" y="265" text-anchor="middle" fill="#7b83a0" font-size="11" font-family="DM Sans">C3</text>
+      <text x="417" y="277" text-anchor="middle" fill="#e8865a" font-size="10" font-family="DM Mono">84% coll.</text>
+      <text x="417" y="58" text-anchor="middle" fill="#e8eaf2" font-size="12" font-family="DM Mono" font-weight="500">9.79</text>
+      <!-- C4: 10.167±0.257 → y=250-10.167*18.33=63.6, ci_px=4.71 -->
+      <rect x="485" y="64" width="85" height="186" fill="rgba(232,134,90,0.85)" rx="3"/>
+      <line x1="527" y1="59" x2="527" y2="69" stroke="white" stroke-width="2"/>
+      <line x1="519" y1="59" x2="535" y2="59" stroke="white" stroke-width="1.5"/>
+      <line x1="519" y1="69" x2="535" y2="69" stroke="white" stroke-width="1.5"/>
+      <text x="527" y="265" text-anchor="middle" fill="#7b83a0" font-size="11" font-family="DM Sans">C4</text>
+      <text x="527" y="277" text-anchor="middle" fill="#e8865a" font-size="10" font-family="DM Mono">83% coll.</text>
+      <text x="527" y="51" text-anchor="middle" fill="#e8eaf2" font-size="12" font-family="DM Mono" font-weight="500">10.17</text>
+      <text x="161" y="18" text-anchor="middle" fill="#5b8dee" font-size="10" font-family="DM Mono">← FULL INFO →</text>
+      <text x="451" y="18" text-anchor="middle" fill="#e8865a" font-size="10" font-family="DM Mono">← PARTIAL INFO →</text>
+    </svg>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Condition</th><th>Info</th><th>Risk</th><th>Mean extraction</th><th>95% CI</th><th>Collapse rate</th><th>n games</th></tr></thead>
+      <tbody>
+        <tr><td><strong>C1 — Baseline</strong></td><td class="mono">Full</td><td class="mono">Deterministic</td><td class="mono lo">7.803</td><td class="mono">± 0.222</td><td class="mono lo">36.7%</td><td class="mono">240</td></tr>
+        <tr><td><strong>C2</strong></td><td class="mono">Full</td><td class="mono">Probabilistic</td><td class="mono mid">8.628</td><td class="mono">± 0.217</td><td class="mono mid">70.4%</td><td class="mono">240</td></tr>
+        <tr><td><strong>C3</strong></td><td class="mono">Partial</td><td class="mono">Deterministic</td><td class="mono hi">9.792</td><td class="mono">± 0.254</td><td class="mono hi">83.8%</td><td class="mono">240</td></tr>
+        <tr><td><strong>C4 — Max uncertainty</strong></td><td class="mono">Partial</td><td class="mono">Probabilistic</td><td class="mono hi">10.167</td><td class="mono">± 0.257</td><td class="mono hi">83.4%</td><td class="mono">240</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- MODEL × INFO -->
+<section>
+  <h2>Model × Information Condition</h2>
+  <h3>Does hiding the pool affect all models equally? · Full (filled) vs Partial (outline)</h3>
+  <p>If a model's extraction changes substantially when the pool is hidden, its restraint in C1 was <strong>reactive to state</strong>, not a stable disposition. Models that change little show more robust strategic architecture.</p>
+  <div class="chart-wrap">
+    <div class="chart-title">Mean extraction · Full info (solid bars) vs Partial info (outline bars) · sustainable share = 7.5</div>
+    <!-- scale 0–13, 250px, y=270(0)→y=20(13), 250/13≈19.23 -->
+    <svg viewBox="0 0 760 310" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+      <line x1="110" y1="20" x2="110" y2="260" stroke="#2a3049" stroke-width="1"/>
+      <line x1="110" y1="260" x2="750" y2="260" stroke="#2a3049" stroke-width="1"/>
+      <line x1="110" y1="260" x2="750" y2="260" stroke="#2a3049" stroke-width="0.5" stroke-dasharray="4,4"/>
+      <line x1="110" y1="222" x2="750" y2="222" stroke="#2a3049" stroke-width="0.5" stroke-dasharray="4,4"/>
+      <line x1="110" y1="183" x2="750" y2="183" stroke="#2a3049" stroke-width="0.5" stroke-dasharray="4,4"/>
+      <line x1="110" y1="145" x2="750" y2="145" stroke="#2a3049" stroke-width="0.5" stroke-dasharray="4,4"/>
+      <line x1="110" y1="106" x2="750" y2="106" stroke="#2a3049" stroke-width="0.5" stroke-dasharray="4,4"/>
+      <line x1="110" y1="68" x2="750" y2="68" stroke="#2a3049" stroke-width="0.5" stroke-dasharray="4,4"/>
+      <text x="100" y="263" text-anchor="end" fill="#7b83a0" font-size="10" font-family="DM Mono">0</text>
+      <text x="100" y="225" text-anchor="end" fill="#7b83a0" font-size="10" font-family="DM Mono">2</text>
+      <text x="100" y="186" text-anchor="end" fill="#7b83a0" font-size="10" font-family="DM Mono">4</text>
+      <text x="100" y="148" text-anchor="end" fill="#7b83a0" font-size="10" font-family="DM Mono">6</text>
+      <text x="100" y="109" text-anchor="end" fill="#7b83a0" font-size="10" font-family="DM Mono">8</text>
+      <text x="100" y="71" text-anchor="end" fill="#7b83a0" font-size="10" font-family="DM Mono">10</text>
+      <!-- sustainable 7.5 → y=260-7.5*19.23=260-144.2=115.8 -->
+      <line x1="110" y1="116" x2="750" y2="116" stroke="#52c97a" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.7"/>
+
+      <!-- Pairs: full(solid) + partial(outline). bar_w=30, pair_gap=8, group_gap=14
+           Groups at x: 125,235,345,455,565,670
+           G.Flash: full=9.562→y=260-183.8=76.2; partial=11.584→y=260-222.7=37.3 -->
+      <rect x="125" y="76" width="30" height="184" fill="rgba(232,134,90,0.85)" rx="2"/>
+      <rect x="161" y="37" width="30" height="223" fill="none" stroke="rgba(232,134,90,0.85)" stroke-width="2" rx="2"/>
+      <text x="153" y="276" text-anchor="middle" fill="#7b83a0" font-size="9" font-family="DM Sans">G.Flash</text>
+      <text x="140" y="68" text-anchor="middle" fill="#e8eaf2" font-size="9" font-family="DM Mono">9.56</text>
+      <text x="176" y="29" text-anchor="middle" fill="#e8eaf2" font-size="9" font-family="DM Mono">11.58</text>
+
+      <!-- G.Lite: full=8.439→y=260-162.2=97.8; partial=10.205→y=260-196.2=63.8 -->
+      <rect x="233" y="98" width="30" height="162" fill="rgba(232,134,90,0.5)" rx="2"/>
+      <rect x="269" y="64" width="30" height="196" fill="none" stroke="rgba(232,134,90,0.5)" stroke-width="2" rx="2"/>
+      <text x="261" y="276" text-anchor="middle" fill="#7b83a0" font-size="9" font-family="DM Sans">G.Lite</text>
+      <text x="248" y="90" text-anchor="middle" fill="#e8eaf2" font-size="9" font-family="DM Mono">8.44</text>
+      <text x="284" y="56" text-anchor="middle" fill="#e8eaf2" font-size="9" font-family="DM Mono">10.21</text>
+
+      <!-- C.Opus: full=8.032→y=260-154.4=105.6; partial=10.381→y=260-199.6=60.4 -->
+      <rect x="341" y="106" width="30" height="154" fill="rgba(91,141,238,0.85)" rx="2"/>
+      <rect x="377" y="60" width="30" height="200" fill="none" stroke="rgba(91,141,238,0.85)" stroke-width="2" rx="2"/>
+      <text x="369" y="276" text-anchor="middle" fill="#7b83a0" font-size="9" font-family="DM Sans">C.Opus</text>
+      <text x="356" y="98" text-anchor="middle" fill="#e8eaf2" font-size="9" font-family="DM Mono">8.03</text>
+      <text x="392" y="52" text-anchor="middle" fill="#e8eaf2" font-size="9" font-family="DM Mono">10.38</text>
+
+      <!-- C.Sonnet: full=7.234→y=260-139.1=120.9; partial=9.437→y=260-181.4=78.6 -->
+      <rect x="449" y="121" width="30" height="139" fill="rgba(91,141,238,0.5)" rx="2"/>
+      <rect x="485" y="79" width="30" height="181" fill="none" stroke="rgba(91,141,238,0.5)" stroke-width="2" rx="2"/>
+      <text x="477" y="276" text-anchor="middle" fill="#7b83a0" font-size="9" font-family="DM Sans">C.Sonnet</text>
+      <text x="464" y="113" text-anchor="middle" fill="#e8eaf2" font-size="9" font-family="DM Mono">7.23</text>
+      <text x="500" y="71" text-anchor="middle" fill="#e8eaf2" font-size="9" font-family="DM Mono">9.44</text>
+
+      <!-- GPT-4o: full=7.452→y=260-143.3=116.7; partial=9.008→y=260-173.1=86.9 -->
+      <rect x="557" y="117" width="30" height="143" fill="rgba(82,201,122,0.85)" rx="2"/>
+      <rect x="593" y="87" width="30" height="173" fill="none" stroke="rgba(82,201,122,0.85)" stroke-width="2" rx="2"/>
+      <text x="585" y="276" text-anchor="middle" fill="#7b83a0" font-size="9" font-family="DM Sans">GPT-4o</text>
+      <text x="572" y="109" text-anchor="middle" fill="#e8eaf2" font-size="9" font-family="DM Mono">7.45</text>
+      <text x="608" y="79" text-anchor="middle" fill="#e8eaf2" font-size="9" font-family="DM Mono">9.01</text>
+
+      <!-- GPT-mini: full=7.812→y=260-150.2=109.8; partial=6.770→y=260-130.1=129.9 -->
+      <rect x="660" y="110" width="30" height="150" fill="rgba(82,201,122,0.45)" rx="2"/>
+      <rect x="696" y="130" width="30" height="130" fill="none" stroke="rgba(82,201,122,0.45)" stroke-width="2" rx="2"/>
+      <text x="693" y="276" text-anchor="middle" fill="#7b83a0" font-size="9" font-family="DM Sans">GPT-mini</text>
+      <text x="675" y="102" text-anchor="middle" fill="#e8eaf2" font-size="9" font-family="DM Mono">7.81</text>
+      <text x="711" y="122" text-anchor="middle" fill="#e8eaf2" font-size="9" font-family="DM Mono">6.77</text>
+      <!-- anomaly arrow for mini -->
+      <text x="678" y="293" text-anchor="middle" fill="#52c97a" font-size="9" font-family="DM Mono">↓ anomaly</text>
+
+      <rect x="125" y="290" width="12" height="8" fill="rgba(91,141,238,0.7)" rx="1"/>
+      <text x="140" y="297" fill="#7b83a0" font-size="10" font-family="DM Sans">Full info</text>
+      <rect x="220" y="290" width="12" height="8" fill="none" stroke="#7b83a0" stroke-width="1.5" rx="1"/>
+      <text x="235" y="297" fill="#7b83a0" font-size="10" font-family="DM Sans">Partial info</text>
+    </svg>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Model</th><th>Full info mean</th><th>Partial info mean</th><th>Δ (partial − full)</th><th>Interpretation</th></tr></thead>
+      <tbody>
+        <tr><td>Gemini 2.5 Flash</td><td class="mono">9.562</td><td class="mono">11.584</td><td class="mono hi">+2.02</td><td>High extraction in all conditions</td></tr>
+        <tr><td>Gemini 2.5 Flash Lite</td><td class="mono">8.439</td><td class="mono">10.205</td><td class="mono hi">+1.77</td><td>State-reactive conservation</td></tr>
+        <tr><td>Claude Opus</td><td class="mono">8.032</td><td class="mono">10.381</td><td class="mono hi">+2.35</td><td>State-reactive conservation</td></tr>
+        <tr><td>Claude Sonnet</td><td class="mono">7.234</td><td class="mono">9.437</td><td class="mono hi">+2.20</td><td>State-reactive conservation</td></tr>
+        <tr><td>GPT-4o</td><td class="mono">7.452</td><td class="mono">9.008</td><td class="mono hi">+1.56</td><td>State-reactive conservation</td></tr>
+        <tr><td>GPT-4o-mini</td><td class="mono">7.812</td><td class="mono">6.770</td><td class="mono lo">−1.04</td><td class="lo">Anomaly: extracts less when pool hidden</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- OPPONENT CONDITION -->
+<section>
+  <h2>Opponent Condition Effect</h2>
+  <h3>Does knowing who you're playing against change extraction? · Kruskal-Wallis H=1.8, df=3, p=0.61 — NOT SIGNIFICANT</h3>
+  <p>Opponent identity does not reliably shift extraction. The maximum gap across conditions is ~0.5 units (Human Prior 8.84 vs. Undisclosed 9.31). For the cross-environment coherence analysis, opponent sensitivity (Δm) in the Commons Dilemma is low — structural conditions (information, risk) dominate behaviour.</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Opponent condition</th><th>Mean extraction</th><th>95% CI</th><th>n games</th><th>Significance</th></tr></thead>
+      <tbody>
+        <tr><td>AI</td><td class="mono">9.149</td><td class="mono">± 0.234</td><td class="mono">240</td><td rowspan="4" style="color:var(--muted);font-size:12px;vertical-align:middle">KW H=1.8, p=0.61<br><em>not significant</em></td></tr>
+        <tr><td>Human</td><td class="mono">9.092</td><td class="mono">± 0.243</td><td class="mono">240</td></tr>
+        <tr><td>Human Prior</td><td class="mono">8.835</td><td class="mono">± 0.312</td><td class="mono">240</td></tr>
+        <tr><td>Undisclosed</td><td class="mono">9.313</td><td class="mono">± 0.272</td><td class="mono">240</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- COLLAPSE -->
+<section>
+  <h2>Collapse Rate: Full Picture</h2>
+  <h3>% of games collapsed · by model × 2×2 cell (new batch, n=5 games per cell per model)</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Model</th><th>C1 · Full × Det</th><th>C2 · Full × Prob</th><th>C3 · Partial × Det</th><th>C4 · Partial × Prob</th></tr></thead>
+      <tbody>
+        <tr><td>Claude Opus</td><td class="mono lo">28%</td><td class="mono mid">64%</td><td class="mono hi">100%</td><td class="mono hi">92%</td></tr>
+        <tr><td>Claude Sonnet</td><td class="mono lo">0%</td><td class="mono mid">40%</td><td class="mono hi">100%</td><td class="mono hi">100%</td></tr>
+        <tr><td>GPT-4o</td><td class="mono mid">37%</td><td class="mono hi">80%</td><td class="mono mid">57%</td><td class="mono hi">80%</td></tr>
+        <tr><td>GPT-4o-mini</td><td class="mono lo">20%</td><td class="mono mid">60%</td><td class="mono mid">40%</td><td class="mono lo">20%</td></tr>
+        <tr><td>Gemini 2.5 Flash</td><td class="mono hi">85%</td><td class="mono hi">90%</td><td class="mono hi">85%</td><td class="mono hi">90%</td></tr>
+        <tr><td>Gemini 2.5 Flash Lite</td><td class="mono lo">20%</td><td class="mono hi">80%</td><td class="mono hi">100%</td><td class="mono hi">80%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="margin-top:16px">Collapse by opponent × condition follows a consistent pattern across all opponent types: low in C1, high from C2 onward, with no systematic variation by opponent identity — consistent with the non-significant KW result.</p>
+</section>
+
+<!-- FINDINGS -->
+<section>
+  <h2>Key Findings</h2>
+  <h3>Theoretical Interpretation — 160 Runs, 960 Games</h3>
+  <div class="findings">
+    <div class="finding">
+      <div class="finding-num">F1</div>
+      <div class="finding-body">
+        <strong>Information structure is the dominant driver of extraction <span class="sig-badge sig">Z=−16.08, p&lt;0.001</span></strong>
+        <span>Hiding the pool level increased average extraction by 1.76 units (+22%) across 960 games. This is the largest and most robust effect in the dataset. LLM restraint in C1 is largely <em>reactive to visible state information</em>, not a stable strategic disposition. The effect holds across all six model families and replicates exactly in both 80-run batches.</span>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-num">F2</div>
+      <div class="finding-body">
+        <strong>Risk ambiguity also increases extraction, independently <span class="sig-badge sig">Z=−4.50, p&lt;0.001</span></strong>
+        <span>Probabilistic collapse increased extraction by 0.60 units over deterministic. The effect is significant but smaller than the information effect. Even when models can see the pool, uncertainty about <em>whether</em> collapse would occur was sufficient to relax restraint. The non-linearity is visible in collapse rates: C1→C2 adds +34 percentage points in collapse probability, while C3→C4 adds only +0.4 points (ceiling effect).</span>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-num">F3</div>
+      <div class="finding-body">
+        <strong>Gemini 2.5 Flash extracts near-maximum regardless of condition <span class="sig-badge sig">KW H=191, p&lt;0.001</span></strong>
+        <span>Mean extraction of 10.57 across all 280 games — well above the 7.5 sustainable share in every condition cell. Collapse rate is 85–90% across all four conditions. The information sensitivity (Δ=+2.02) reflects some state-reactivity, but the floor remains high even in C1. This is the clearest example of a model whose strategic architecture is extraction-biased rather than conservation-responsive.</span>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-num">F4</div>
+      <div class="finding-body">
+        <strong>Claude and GPT-4o families show state-dependent conservation</strong>
+        <span>Claude Opus (Δ=+2.35), Claude Sonnet (Δ=+2.20), and GPT-4o (Δ=+1.56) all extract substantially less when the pool is visible. This responsiveness drives C1's relatively low collapse rates. However, it does not constitute a <em>stable prosocial disposition</em> — conservation disappears under information restriction. Under partial conditions, extraction by these models approaches the game maximum.</span>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-num">F5</div>
+      <div class="finding-body">
+        <strong>GPT-4o-mini is the systematic anomaly: extracts <em>less</em> when pool is hidden (Δ=−1.04)</strong>
+        <span>Every other model in the dataset increases extraction under partial information. GPT-4o-mini does the opposite — mean extraction drops from 7.81 (full) to 6.77 (partial), remaining below the sustainable threshold in both conditions. This is the only model that conserves when it cannot observe the pool state. The most consistent interpretation is a default-conservative heuristic under uncertainty, or a risk-aversion response that strengthens — rather than weakens — when state information is removed. This is the strongest marker of genuine strategic robustness in the dataset.</span>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-num">F6</div>
+      <div class="finding-body">
+        <strong>Opponent identity has no significant effect on extraction <span class="sig-badge ns-b">H=1.8, p=0.61</span></strong>
+        <span>At game level across 960 games, knowing the opponent is AI, human, undisclosed, or human prior does not significantly shift extraction. The maximum gap is ~0.5 units (Human Prior vs. Undisclosed). For the strategic coherence analysis, opponent sensitivity Δm is low in the Commons Dilemma — structural conditions are the relevant lever. Note: the prior 5-run report listed H=1.9 with p&lt;0.001, which is mathematically inconsistent and reflects pre-correction round-level inflation.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METHODS -->
+<section>
+  <h2>Statistical Methods</h2>
+  <h3>Inference Protocol</h3>
+  <div class="method-note"><strong>Unit of analysis:</strong> All tests use game-level mean extraction as the observation. Each of the 960 games contributes exactly one value. Rounds within a game are serially correlated (shared pool trajectory, same model, same collapse outcome) — treating them as independent inflates effective n and produces spurious Z-statistics. This correction was applied following Carlos's direction after the initial 5-run batch.</div>
+  <div class="method-note" style="margin-top:12px"><strong>Tests:</strong> Mann-Whitney U (two-sided) for pairwise comparisons of information condition and risk condition. Kruskal-Wallis for multi-group comparisons (model family, opponent). 95% confidence intervals use the t-distribution at n−1 degrees of freedom on game-level means.</div>
+  <div class="method-note" style="margin-top:12px"><strong>Data combination:</strong> 80 CSVs from this batch were processed from raw round-level data, aggregated to game level before any analysis. For the prior 80-run batch, game-level summary statistics (means, CIs, n) were extracted from the prior report's embedded JS data structure. Tests on the combined dataset use synthetic game-level observations reconstructed from prior batch summary statistics — a standard approach when raw data is unavailable; the direction and approximate magnitude of effects are preserved, but exact p-values for combined tests are approximate.</div>
+  <div class="method-note" style="margin-top:12px"><strong>Data quality:</strong> Rows with negative pool_after_extraction values (n=6, &lt;0.1%, artefact in Gemini partial_probabilistic runs) were excluded before aggregation.</div>
+</section>
+
+</main>
+
+<footer>
+  <span>ESADE MIBA 2026 · Capstone P264 · Strategic Coherence in LLMs</span>
+  <span>Team: Fiorentino · Méndez · Mora · Ramírez · Siddique</span>
+  <span>Supervisor: Carlos Carrasco-Farré, PhD</span>
+  <span>June 2026 · 160 runs · 960 games</span>
+</footer>
+</body>
+</html>

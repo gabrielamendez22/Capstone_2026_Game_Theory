@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strategic Profile Analysis — P264</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap');
+
+  :root {
+    --bg:       #F7F7F5;
+    --surface:  #FFFFFF;
+    --ink:      #1A1A1A;
+    --mid:      #6B6B6B;
+    --rule:     #DEDEDD;
+    --accent:   #2D5BE3;
+    --accent2:  #E3642D;
+    --good:     #1A7A4A;
+    --warn:     #B85C00;
+    --mono:     'IBM Plex Mono', monospace;
+    --sans:     'IBM Plex Sans', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.65;
+    padding: 0 0 80px;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--ink);
+    color: #fff;
+    padding: 56px 64px 48px;
+    border-bottom: 4px solid var(--accent);
+  }
+  .header-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 16px;
+  }
+  header h1 {
+    font-size: 2.4rem;
+    font-weight: 600;
+    line-height: 1.15;
+    max-width: 680px;
+  }
+  header h1 span { color: #6A9BFF; }
+  .header-meta {
+    margin-top: 24px;
+    display: flex;
+    gap: 40px;
+    font-size: 13px;
+    color: #aaa;
+    font-family: var(--mono);
+  }
+  .header-meta strong { color: #fff; }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 64px;
+  }
+
+  section {
+    padding: 56px 0 0;
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  h2 {
+    font-size: 1.45rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 12px;
+  }
+
+  h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 28px 0 10px;
+  }
+
+  p { margin-bottom: 14px; color: #2a2a2a; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── CALLOUT ── */
+  .callout {
+    background: var(--surface);
+    border-left: 3px solid var(--accent);
+    padding: 18px 22px;
+    margin: 24px 0;
+    font-size: 14px;
+  }
+  .callout.warn { border-color: var(--warn); }
+  .callout.good { border-color: var(--good); }
+
+  /* ── PARAMETER TABLE ── */
+  .param-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 24px 0;
+  }
+  .param-cell {
+    background: var(--surface);
+    padding: 16px 14px;
+  }
+  .param-cell.header-cell {
+    background: var(--ink);
+    color: #fff;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+  }
+  .param-symbol {
+    font-family: var(--mono);
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .param-name {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .param-desc {
+    font-size: 12px;
+    color: var(--mid);
+    line-height: 1.4;
+  }
+  .param-env {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent2);
+    margin-top: 6px;
+  }
+
+  /* ── DATA TABLE ── */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin: 20px 0;
+    background: var(--surface);
+  }
+  .data-table th {
+    background: #1A1A1A;
+    color: #fff;
+    text-align: left;
+    padding: 10px 14px;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+  .data-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--mono);
+    font-size: 12px;
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: #F0F4FF; }
+  .data-table td.model-name {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 13px;
+  }
+  .tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+  }
+  .tag-sig { background: #D4EDDA; color: #155724; }
+  .tag-ns  { background: #F5F5F5; color: #666; }
+  .tag-hi  { background: #FFE5D0; color: #7A3000; }
+
+  /* ── COHERENCE BAR ── */
+  .coherence-bar-wrap {
+    margin: 24px 0;
+  }
+  .cbar-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 12px;
+  }
+  .cbar-label {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 13px;
+    width: 180px;
+    flex-shrink: 0;
+  }
+  .cbar-track {
+    flex: 1;
+    height: 10px;
+    background: #E8E8E8;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .cbar-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: var(--accent);
+    transition: width 0.3s;
+  }
+  .cbar-val {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--mid);
+    width: 60px;
+    text-align: right;
+  }
+  .cbar-best .cbar-fill { background: var(--good); }
+  .cbar-worst .cbar-fill { background: var(--warn); }
+
+  /* ── STAT CHIPS ── */
+  .stat-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+  }
+  .stat-chip {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    padding: 14px 20px;
+    flex: 1;
+    min-width: 160px;
+  }
+  .stat-chip .stat-val {
+    font-family: var(--mono);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--accent);
+    display: block;
+  }
+  .stat-chip .stat-desc {
+    font-size: 12px;
+    color: var(--mid);
+    margin-top: 4px;
+  }
+
+  /* ── HIGHLIGHT MODEL ── */
+  .model-spotlight {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin: 24px 0;
+  }
+  .spotlight-card {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--accent);
+    padding: 18px;
+  }
+  .spotlight-card.warn-card { border-top-color: var(--warn); }
+  .spotlight-card.good-card { border-top-color: var(--good); }
+  .spotlight-model {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .spotlight-note {
+    font-size: 12px;
+    color: var(--mid);
+    line-height: 1.5;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    margin-top: 72px;
+    border-top: 1px solid var(--rule);
+    padding-top: 28px;
+    font-size: 12px;
+    color: var(--mid);
+    font-family: var(--mono);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-label">Capstone P264 · ESADE MIBA 2026 · Progress Report</div>
+  <h1>Strategic Profile Analysis<br><span>Cross-Environment Coherence in LLMs</span></h1>
+  <div class="header-meta">
+    <div><strong>Supervisor</strong> Carlos Carrasco-Farré, PhD</div>
+    <div><strong>Date</strong> June 14, 2026</div>
+    <div><strong>Status</strong> Full dataset · All 3 environments</div>
+  </div>
+</header>
+
+<div class="container">
+
+<!-- ── 1. OVERVIEW ── -->
+<section>
+  <div class="section-label">01 · Overview</div>
+  <h2>What We Built</h2>
+  <p>
+    This report presents the first full cross-environment strategic profile estimation for six LLM model variants across three structurally distinct game-theoretic environments: Repeated Prisoner's Dilemma (PD), Commons Dilemma (CD), and Cheap-Talk Signaling (CT). The analysis operationalises the five-parameter strategic profile vector <strong>S<sub>m</sub> = (ρ, θ, η, γ, β)</strong> defined in the project's conceptual framework and computes cross-environment coherence metrics as specified in Option 1.
+  </p>
+
+  <div class="stat-row">
+    <div class="stat-chip">
+      <span class="stat-val">80</span>
+      <span class="stat-desc">PD raw files · 9,600 rounds</span>
+    </div>
+    <div class="stat-chip">
+      <span class="stat-val">160</span>
+      <span class="stat-desc">CD raw files · 12,843 rounds</span>
+    </div>
+    <div class="stat-chip">
+      <span class="stat-val">112</span>
+      <span class="stat-desc">CT raw files · 49,348 rounds</span>
+    </div>
+    <div class="stat-chip">
+      <span class="stat-val">10,144</span>
+      <span class="stat-desc">Total game-level observations</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── 2. METHOD ── -->
+<section>
+  <div class="section-label">02 · Method</div>
+  <h2>Parameter Estimation</h2>
+
+  <p>All parameters are estimated at <strong>game level</strong> (one observation per complete game per model), then aggregated to model level. This avoids the within-game dependence inflation that round-level inference produces.</p>
+
+  <div class="param-grid">
+    <div class="param-cell header-cell">Symbol</div>
+    <div class="param-cell header-cell">Parameter</div>
+    <div class="param-cell header-cell">Operationalisation</div>
+    <div class="param-cell header-cell">Range</div>
+    <div class="param-cell header-cell">Environment</div>
+
+    <div class="param-cell"><span class="param-symbol">ρ</span></div>
+    <div class="param-cell"><span class="param-name">Conditional reciprocity</span></div>
+    <div class="param-cell param-desc">P(C | opp cooperated last round) − P(C | opp defected last round), computed from rounds 2–N</div>
+    <div class="param-cell param-desc">−1 to +1</div>
+    <div class="param-cell"><div class="param-env">PD</div></div>
+
+    <div class="param-cell"><span class="param-symbol">θ</span></div>
+    <div class="param-cell"><span class="param-name">Exploitation ratio</span></div>
+    <div class="param-cell param-desc">mean(extraction / sustainable_share) across live rounds. Values &gt;1 indicate systematic over-extraction.</div>
+    <div class="param-cell param-desc">0 to ∞ (sustainable = 1.0)</div>
+    <div class="param-cell"><div class="param-env">CD</div></div>
+
+    <div class="param-cell"><span class="param-symbol">η</span></div>
+    <div class="param-cell"><span class="param-name">Signal honesty</span></div>
+    <div class="param-cell param-desc">Fraction of rounds where message_truthful = 1 (sender role)</div>
+    <div class="param-cell param-desc">0 to 1</div>
+    <div class="param-cell"><div class="param-env">CT · Sender</div></div>
+
+    <div class="param-cell"><span class="param-symbol">γ</span></div>
+    <div class="param-cell"><span class="param-name">Receiver gullibility</span></div>
+    <div class="param-cell param-desc">Pearson r between message_truthful and action_correct across rounds of a run (receiver role)</div>
+    <div class="param-cell param-desc">−1 to +1</div>
+    <div class="param-cell"><div class="param-env">CT · Receiver</div></div>
+
+    <div class="param-cell"><span class="param-symbol">β</span></div>
+    <div class="param-cell"><span class="param-name">Belief calibration</span></div>
+    <div class="param-cell param-desc">MAE between stated probability and opponent's actual binary action. Elicited in all three environments; normalised to 0–1 scale.</div>
+    <div class="param-cell param-desc">0 to 1 (lower = better)</div>
+    <div class="param-cell"><div class="param-env">PD · CD · CT</div></div>
+  </div>
+
+  <div class="callout warn">
+    <strong>Note on θ:</strong> The original framework defines θ as the pool size at which extraction first exceeds the sustainable rate. In practice, all models over-extract from round 1, making the threshold degenerate (always = 100, the initial pool). We therefore operationalise θ as the normalised extraction ratio — a continuous measure of exploitation intensity — and recommend flagging this deviation in the Methods section.
+  </div>
+
+  <div class="callout warn">
+    <strong>Note on β (CD):</strong> Files generated under prompt v2.2 (April 2026) store beliefs in extraction units (0–20) rather than probabilities (0–1). The pipeline auto-detects this condition (max belief &gt; 1.0) and normalises by dividing by 2× sustainable_share before computing MAE, ensuring cross-environment comparability.
+  </div>
+
+  <h3>Coherence Metrics</h3>
+  <p>Following the Option 1 framework, we compute three coherence metrics at model level:</p>
+  <p><strong>C<sub>m</sub> = Var(β<sup>env</sup>)</strong> — variance of mean β across the three environments. Lower = more stable belief calibration across games.</p>
+  <p><strong>Cross-parameter correlations</strong> — Pearson r among ρ, θ, η, γ across models. High correlations would indicate a shared latent strategic disposition.</p>
+  <p><strong>Human benchmark comparisons</strong> — Mann-Whitney U tests comparing each LLM parameter distribution against the relevant human prior (Dvorak &amp; Fehrler 2024 for ρ; Abatayo &amp; Lynham 2022 for θ; Gneezy 2005 for η and γ).</p>
+</section>
+
+<!-- ── 3. STRATEGIC PROFILES ── -->
+<section>
+  <div class="section-label">03 · Results</div>
+  <h2>Strategic Profile Vectors</h2>
+  <p>Model-level estimates aggregated across all conditions and runs. Human priors are shown for reference.</p>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Model</th>
+        <th>ρ (PD)</th>
+        <th>θ (CD)</th>
+        <th>η (CT)</th>
+        <th>γ (CT)</th>
+        <th>β<sub>PD</sub></th>
+        <th>β<sub>CD</sub></th>
+        <th>β<sub>CT</sub></th>
+        <th>β̄ cross-env</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="model-name">Claude Opus</td>
+        <td>0.412</td>
+        <td>4.604</td>
+        <td>0.756</td>
+        <td>0.011</td>
+        <td>0.160</td>
+        <td>0.612</td>
+        <td>0.294</td>
+        <td>0.355</td>
+      </tr>
+      <tr>
+        <td class="model-name">Claude Sonnet</td>
+        <td>0.091</td>
+        <td>4.170</td>
+        <td>0.733</td>
+        <td>−0.050</td>
+        <td>0.218</td>
+        <td>0.598</td>
+        <td>0.301</td>
+        <td>0.372</td>
+      </tr>
+      <tr>
+        <td class="model-name">GPT-4o</td>
+        <td>0.450</td>
+        <td>4.174</td>
+        <td>0.778</td>
+        <td>−0.019</td>
+        <td>0.199</td>
+        <td>0.415</td>
+        <td>0.300</td>
+        <td>0.305</td>
+      </tr>
+      <tr>
+        <td class="model-name">GPT-4o-mini</td>
+        <td>0.153</td>
+        <td>3.935</td>
+        <td>0.998</td>
+        <td>0.014</td>
+        <td>0.235</td>
+        <td>0.492</td>
+        <td>0.311</td>
+        <td>0.346</td>
+      </tr>
+      <tr>
+        <td class="model-name">Gemini 2.5 Flash</td>
+        <td>0.009</td>
+        <td>5.230</td>
+        <td>0.781</td>
+        <td>0.004</td>
+        <td>0.244</td>
+        <td>0.572</td>
+        <td>0.283</td>
+        <td>0.366</td>
+      </tr>
+      <tr>
+        <td class="model-name">Gemini 2.5 Flash Lite</td>
+        <td>0.339</td>
+        <td>4.646</td>
+        <td>0.995</td>
+        <td>0.607</td>
+        <td>0.495</td>
+        <td>0.460</td>
+        <td>0.358</td>
+        <td>0.438</td>
+      </tr>
+      <tr style="background:#F7F7F5; color:#888;">
+        <td class="model-name" style="color:#888; font-weight:400; font-style:italic;">Human (Dvorak &amp; Fehrler 2024)</td>
+        <td>0.405</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>0.460</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+      <tr style="background:#F7F7F5; color:#888;">
+        <td class="model-name" style="color:#888; font-weight:400; font-style:italic;">Human (Abatayo &amp; Lynham 2022)</td>
+        <td>—</td>
+        <td>5.129</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>0.456</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+      <tr style="background:#F7F7F5; color:#888;">
+        <td class="model-name" style="color:#888; font-weight:400; font-style:italic;">Human (Gneezy 2005)</td>
+        <td>—</td>
+        <td>—</td>
+        <td>0.797</td>
+        <td>−0.150</td>
+        <td>—</td>
+        <td>—</td>
+        <td>0.305</td>
+        <td>—</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ── 4. COHERENCE ── -->
+<section>
+  <div class="section-label">04 · Coherence</div>
+  <h2>Cross-Environment β Variance (C<sub>m</sub>)</h2>
+  <p>Lower variance means the model's belief calibration is stable across PD, CD, and CT — the primary coherence metric.</p>
+
+  <div class="coherence-bar-wrap">
+    <div class="cbar-row cbar-best">
+      <span class="cbar-label">Gemini 2.5 Flash Lite</span>
+      <div class="cbar-track"><div class="cbar-fill" style="width:9%"></div></div>
+      <span class="cbar-val">0.0051 <span class="tag tag-sig">most coherent</span></span>
+    </div>
+    <div class="cbar-row">
+      <span class="cbar-label">GPT-4o</span>
+      <div class="cbar-track"><div class="cbar-fill" style="width:22%"></div></div>
+      <span class="cbar-val">0.0118</span>
+    </div>
+    <div class="cbar-row">
+      <span class="cbar-label">GPT-4o-mini</span>
+      <div class="cbar-track"><div class="cbar-fill" style="width:32%"></div></div>
+      <span class="cbar-val">0.0175</span>
+    </div>
+    <div class="cbar-row">
+      <span class="cbar-label">Gemini 2.5 Flash</span>
+      <div class="cbar-track"><div class="cbar-fill" style="width:59%"></div></div>
+      <span class="cbar-val">0.0321</span>
+    </div>
+    <div class="cbar-row">
+      <span class="cbar-label">Claude Sonnet</span>
+      <div class="cbar-track"><div class="cbar-fill" style="width:74%"></div></div>
+      <span class="cbar-val">0.0400</span>
+    </div>
+    <div class="cbar-row cbar-worst">
+      <span class="cbar-label">Claude Opus</span>
+      <div class="cbar-track"><div class="cbar-fill" style="width:100%"></div></div>
+      <span class="cbar-val">0.0539 <span class="tag tag-hi">least coherent</span></span>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Key finding:</strong> Claude Opus — the largest model in our sample — exhibits the highest cross-environment β variance (0.054), directly contradicting H1 (scaling increases coherence). GPT-4o and Gemini Flash Lite show the most stable belief calibration. The β variance range (0.005–0.054) is meaningful in magnitude: Claude Opus's calibration error varies by ~23 percentage points across environments, while Flash Lite varies by only ~7 points.
+  </div>
+</section>
+
+<!-- ── 5. SIGNIFICANCE ── -->
+<section>
+  <div class="section-label">05 · Significance Tests</div>
+  <h2>Statistical Results</h2>
+
+  <h3>Between-model differences (Kruskal-Wallis, game level)</h3>
+  <p>All four parameters differ significantly across models:</p>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Parameter</th>
+        <th>H statistic</th>
+        <th>p-value</th>
+        <th>Verdict</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>ρ — conditional reciprocity</td>
+        <td>84.37</td>
+        <td>&lt; 0.0001</td>
+        <td><span class="tag tag-sig">significant</span></td>
+      </tr>
+      <tr>
+        <td>θ — exploitation ratio</td>
+        <td>229.69</td>
+        <td>&lt; 0.0001</td>
+        <td><span class="tag tag-sig">significant</span></td>
+      </tr>
+      <tr>
+        <td>η — signal honesty</td>
+        <td>323.72</td>
+        <td>&lt; 0.0001</td>
+        <td><span class="tag tag-sig">significant</span></td>
+      </tr>
+      <tr>
+        <td>γ — receiver gullibility</td>
+        <td>187.25</td>
+        <td>&lt; 0.0001</td>
+        <td><span class="tag tag-sig">significant</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>LLM vs. Human benchmarks (Mann-Whitney U)</h3>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Comparison</th>
+        <th>LLM mean</th>
+        <th>Human mean</th>
+        <th>p-value</th>
+        <th>Direction</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>ρ — LLMs vs. Dvorak &amp; Fehrler 2024</td>
+        <td>0.175</td>
+        <td>0.405</td>
+        <td>&lt; 0.0001</td>
+        <td><span class="tag tag-hi">LLMs less reciprocal</span></td>
+      </tr>
+      <tr>
+        <td>θ — LLMs vs. Abatayo &amp; Lynham 2022</td>
+        <td>4.550</td>
+        <td>5.129</td>
+        <td>&lt; 0.0001</td>
+        <td><span class="tag tag-sig">LLMs extract less</span></td>
+      </tr>
+      <tr>
+        <td>η — LLMs vs. Gneezy 2005</td>
+        <td>0.793</td>
+        <td>0.797</td>
+        <td>0.448</td>
+        <td><span class="tag tag-ns">not significant</span></td>
+      </tr>
+      <tr>
+        <td>γ — LLMs vs. Gneezy 2005</td>
+        <td>0.068</td>
+        <td>−0.150</td>
+        <td>0.001</td>
+        <td><span class="tag tag-hi">LLMs more gullible</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Per-model ρ vs. human benchmark</h3>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Model</th>
+        <th>ρ mean</th>
+        <th>p-value vs. human (0.405)</th>
+        <th>Verdict</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="model-name">Claude Opus</td>
+        <td>0.412</td>
+        <td>0.998</td>
+        <td><span class="tag tag-ns">not significant — human-like</span></td>
+      </tr>
+      <tr>
+        <td class="model-name">GPT-4o</td>
+        <td>0.450</td>
+        <td>0.272</td>
+        <td><span class="tag tag-ns">not significant — human-like</span></td>
+      </tr>
+      <tr>
+        <td class="model-name">Gemini 2.5 Flash Lite</td>
+        <td>0.339</td>
+        <td>0.855</td>
+        <td><span class="tag tag-ns">not significant — human-like</span></td>
+      </tr>
+      <tr>
+        <td class="model-name">GPT-4o-mini</td>
+        <td>0.153</td>
+        <td>0.001</td>
+        <td><span class="tag tag-sig">significantly less reciprocal</span></td>
+      </tr>
+      <tr>
+        <td class="model-name">Claude Sonnet</td>
+        <td>0.091</td>
+        <td>&lt; 0.0001</td>
+        <td><span class="tag tag-sig">significantly less reciprocal</span></td>
+      </tr>
+      <tr>
+        <td class="model-name">Gemini 2.5 Flash</td>
+        <td>0.009</td>
+        <td>&lt; 0.0001</td>
+        <td><span class="tag tag-sig">significantly less reciprocal</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ── 6. CROSS-PARAM CORRELATIONS ── -->
+<section>
+  <div class="section-label">06 · Structural Coherence</div>
+  <h2>Cross-Parameter Correlations</h2>
+  <p>Pearson correlations among ρ, θ, η, γ across the six LLM models (n = 6). None reach conventional significance thresholds, consistent with the parameters capturing genuinely distinct strategic dimensions rather than a single latent factor.</p>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>ρ</th>
+        <th>θ</th>
+        <th>η</th>
+        <th>γ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="model-name">ρ</td>
+        <td>1.000</td>
+        <td>−0.248 <span class="tag tag-ns">ns</span></td>
+        <td>0.035 <span class="tag tag-ns">ns</span></td>
+        <td>0.269 <span class="tag tag-ns">ns</span></td>
+      </tr>
+      <tr>
+        <td class="model-name">θ</td>
+        <td>—</td>
+        <td>1.000</td>
+        <td>−0.221 <span class="tag tag-ns">ns</span></td>
+        <td>0.220 <span class="tag tag-ns">ns</span></td>
+      </tr>
+      <tr>
+        <td class="model-name">η</td>
+        <td>—</td>
+        <td>—</td>
+        <td>1.000</td>
+        <td>0.660 <span class="tag tag-ns">p = 0.154</span></td>
+      </tr>
+      <tr>
+        <td class="model-name">γ</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>1.000</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <strong>Interpretation:</strong> The η–γ correlation (r = 0.66, p = 0.154) is the strongest pairwise relationship. Models that send honest signals tend also to be more influenced by signals they receive — suggesting a coherent "trust orientation" that spans both CT roles. However, with n = 6 models this does not reach significance and should be interpreted cautiously. The absence of significant correlations among the other parameters supports the view that the profile vector captures structurally independent dimensions of strategic behaviour.
+  </div>
+</section>
+
+<!-- ── 7. MODEL SPOTLIGHTS ── -->
+<section>
+  <div class="section-label">07 · Notable Patterns</div>
+  <h2>Model-Level Observations</h2>
+
+  <div class="model-spotlight">
+    <div class="spotlight-card good-card">
+      <div class="spotlight-model">GPT-4o</div>
+      <div class="spotlight-note">Most coherent among frontier models (β var = 0.012). Reciprocity (ρ = 0.450) indistinguishable from human prior. Lowest exploitation in its family (θ = 4.17). Behaviorally closest to human benchmarks on ρ.</div>
+    </div>
+    <div class="spotlight-card warn-card">
+      <div class="spotlight-model">Gemini 2.5 Flash</div>
+      <div class="spotlight-note">Lowest reciprocity of all models (ρ = 0.009) — near-zero conditional cooperation, statistically indistinguishable from unconditional play. Highest exploitation (θ = 5.23). Yet belief calibration in CT is the best (β<sub>CT</sub> = 0.283).</div>
+    </div>
+    <div class="spotlight-card warn-card">
+      <div class="spotlight-model">Gemini 2.5 Flash Lite</div>
+      <div class="spotlight-note">Uniquely high γ = 0.607 — by far the most gullible receiver. Combined with η = 0.995 (near-perfect honesty), this model exhibits an extreme "trusting" profile. Most coherent by β variance but poorest β<sub>PD</sub> (0.495).</div>
+    </div>
+    <div class="spotlight-card">
+      <div class="spotlight-model">GPT-4o-mini</div>
+      <div class="spotlight-note">η = 0.998 — essentially never deceives as sender, but γ ≈ 0 — entirely unresponsive to sender messages as receiver. Strong asymmetry between sender and receiver roles.</div>
+    </div>
+    <div class="spotlight-card warn-card">
+      <div class="spotlight-model">Claude Opus</div>
+      <div class="spotlight-note">Largest model in the sample, least coherent (β var = 0.054). Human-like ρ (0.412, p = 0.998 vs. human), but β<sub>CD</sub> = 0.612 — worst belief calibration in the Commons environment by a large margin.</div>
+    </div>
+    <div class="spotlight-card">
+      <div class="spotlight-model">Claude Sonnet</div>
+      <div class="spotlight-note">Significantly less reciprocal than humans (ρ = 0.091, p &lt; 0.0001). Highest exploitation among Claude family (θ = 4.17, but also β<sub>CD</sub> = 0.598). Overall profile closest to Claude Opus despite being a smaller model.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 8. H1/H2/H3 ── -->
+<section>
+  <div class="section-label">08 · Hypotheses</div>
+  <h2>Preliminary Evidence on H1, H2, H3</h2>
+
+  <h3>H1 — Scaling increases coherence</h3>
+  <p><span class="tag tag-hi" style="font-size:12px;">Not supported</span> &nbsp; Claude Opus (largest) is the least coherent model (β var = 0.054). GPT-4o and Gemini Flash Lite show higher coherence. Within families, scaling does not monotonically improve cross-environment stability. This is one of the most striking findings and merits dedicated analysis.</p>
+
+  <h3>H2 — Instruction tuning shifts the profile</h3>
+  <p><span class="tag tag-ns" style="font-size:12px;">Partially assessable</span> &nbsp; All models in the current dataset are instruction-tuned. Direct base vs. instruction-tuned comparisons are not available in this run configuration. Recommending this as a gap to flag in the paper.</p>
+
+  <h3>H3 — Higher temperature decreases coherence</h3>
+  <p><span class="tag tag-ns" style="font-size:12px;">Pending</span> &nbsp; All runs in the current dataset use temperature 0.6. Temperature manipulation data (0.2, 0.6, 1.0) would be needed for this test. If earlier temperature-sweep runs are available in the raw data, we can add this analysis.</p>
+</section>
+
+<!-- ── 9. NEXT STEPS ── -->
+<section>
+  <div class="section-label">09 · Next Steps</div>
+  <h2>Open Questions for Discussion</h2>
+
+  <div class="callout">
+    <strong>θ operationalisation:</strong> We recommend formally redefining θ as normalised extraction ratio in the Methods section, with a note explaining why the original pool-threshold definition is degenerate given the models' behaviour (immediate over-extraction from round 1).
+  </div>
+
+  <div class="callout good">
+    <strong>Temperature sweep:</strong> If Gabriela has PD runs at multiple temperatures, and/or CD runs at different temperatures exist in the dataset, we can run H3 immediately. The pipeline already outputs by condition.
+  </div>
+
+  <div class="callout">
+    <strong>Factor analysis:</strong> With 6 models × 4 parameters, a formal latent factor analysis is underpowered (p &lt; k). We can either (a) report the correlation matrix as evidence of structural independence, or (b) run a PCA for exploratory structure — both defensible for this N.
+  </div>
+
+  <div class="callout good">
+    <strong>Opponent sensitivity (Δ<sub>m</sub>):</strong> The game-level dataset includes condition labels (ai, human, human_prior, undisclosed). Δ<sub>m</sub> = ||S<sub>m</sub><sup>AI</sup> − S<sub>m</sub><sup>Human</sup>|| can be computed immediately from the existing data. Ready to run on request.
+  </div>
+</section>
+
+<footer class="container">
+  P264 · Strategic Coherence in Large Language Models · ESADE MIBA 2026 ·
+  Pipeline: build_strategic_profiles.py · Data: data/processed/strategic_profiles_*.csv
+</footer>
+
+</div>
+</body>
+</html>

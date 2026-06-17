@@ -1,0 +1,20 @@
+---
+title: "Strategic Coherence in Large Language Models: Evidence from Game-Theoretic Environments"
+author:
+  - Giorgio Fiorentino
+  - Gabriela Méndez
+  - María Mora
+  - Andrés Ramírez
+  - Samreen Siddique
+date: "ESADE MiBA — Capstone 2026"
+abstract: |
+  To be written last (after Results and Recommendations are final).
+bibliography: references.bib
+csl: apa.csl
+link-citations: true
+reference-section-title: "References"
+geometry: margin=1in
+fontsize: 11pt
+linestretch: 1.15
+numbersections: true
+---
